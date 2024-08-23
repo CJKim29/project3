@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>ys 브랜치 만들기 성공?</p>
+<p>ys 브랜치 만들기 성공!</p>
+<p>github desktop 써보기</p>
 </body>
 </html>
