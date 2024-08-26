@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.BoardMapper">
+	
+<!-- 전체조회 -->
+	<select id="board_list" resultType="board">
+		select * from board order by board_ref desc, board_step asc
+	</select>
+	
+	<!-- paging 별 조회 
+	<select id="board_page_list" parameterType="Map" resultType="board"> 	
+		select bb.* from
+		(
+			select
+				rank() over(order by board_ref desc, board_step asc) as board_no,
+				b.*,
+				(select count(*) from comment_tb where board_idx=b.board_idx) as cmt_count
+			from	
+			(select * from board) b
+		)bb
+		where board_no between ${ start } and ${ end }
+	</select> -->
+	
+	<!-- 전체 게시물 수 
+	<select id="board_row_total" parameterType="Map" resultType="int">
+		select ifnull(count(*),0) from board
+	</select>-->
+	
+	<!-- b_idx에 해당되는 게시물 1건 얻어오기 -->
+	<select id="board_one_from_idx" parameterType="int" resultType="board">
+		select * from board where board_idx=#{ board_idx }
+	</select>
+	
+	<!-- 새글쓰기 -->
+	<insert id="board_insert" parameterType="board">
+		insert into board values(null, 
+					     #{ board_cate_idx },
+					     #{ mem_idx },
+					     #{ board_name },
+					     #{ board_content },
+					     #{ board_ip },
+					     now(),
+					     #{ board_readhit },
+					  	 'y',
+					     #{ board_ref },
+					     #{ board_step },
+					     #{ board_depth },
+							 #{ mem_nickname }
+					     )
+	</insert>
+	
+	<!-- 답글쓰기 -->
+	<insert id="board_reply" parameterType="board">
+		insert into board values(null, 
+					     #{ board_cate_idx },
+					     #{ mem_idx },
+					     #{ board_name },
+					     #{ board_content },
+					     #{ board_ip },
+					     now(),
+					     #{ board_readhit },
+					  	 #{ board_use },
+					     #{ board_ref },
+					     #{ board_step },
+					     #{ board_depth },
+							 #{ mem_nickname }
+					     )
+	</insert>
+	
+	<!-- 조회수 증가 -->
+	<update id="board_update_readhit" parameterType="int">
+		update board set board_readhit = board_readhit+1 where board_idx=#{ board_idx }
+	</update>
+	
+	<!-- 같은 baseVo에서 기준글보다 step이 큰 게시물의 step을 1씩 증가: 답글작업 -->
+	<update id="board_update_step" parameterType="board">
+		update board set board_step = board_step + 1 
+		where board_ref=#{ board_ref } and board_step > #{ board_step }
+	</update>
+	
+	<!--  -->
+	<update id="board_update_use">
+		update board set board_use = 'n' where board_idx = #{ board_idx }
+	</update>
+	
+	<update id="board_update" parameterType="board">
+		update board set board_name   = #{ b_name },
+					     board_content   = #{ board_content },					     
+					     board_regdate 	 = now()
+					     where board_idx = #{ board_idx }					     
+	</update>
+
+	
+	
+	
+	
+</mapper>
