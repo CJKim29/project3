@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.ConcertMapper">
+
+	<resultMap id="ConcertMap" type="concert">
+		<result property="hall_idx" column="hall_idx"/>
+		<association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+	</resultMap>
+
+	<select id="hall_list" resultType="hall">
+	   select * from hall where hall_idx=#{ hall_idx }
+	</select>
+
+
+	<!-- 전체조회 -->
+	<select id="selectList" resultMap="ConcertMap">
+		select * from concert order by concert_idx
+	</select>
+
+	<!-- idx조회 -->
+	<select id="selectOneFromIdx" parameterType="int" resultType="concert">
+		select * from concert where concert_idx=#{ concert_idx }
+	</select>
+</mapper>
