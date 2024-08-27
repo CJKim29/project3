@@ -8,7 +8,7 @@
 
             <head>
                 <meta charset="UTF-8">
-                <title>book_list</title>
+                <title>book_page</title>
 
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -74,7 +74,7 @@
             <body>
 
                 <div id="box">
-                    <h1 id="title">:::: 공연목록 ::::</h1>
+                    <h1 id="title">:::: 예매페이지 ::::</h1>
 
                     <div style="margin-top:50px; text-align: left; float:right;">
 
@@ -108,27 +108,31 @@
                             <th>공연시간</th>
                             <th>사진</th>
                             <th>관람연령</th>
-                            <th>예매</th>
+                            <th>좌석등급</th>
+                            <th>좌석정보</th>
                         </tr>
 
                         <!-- Data출력 -->
                         <!-- for(MemberVo vo : list) -->
-                        <c:forEach var="vo" items="${ list }">
-                            <tr>
-                                <td>${ vo.concert_idx }</td>
-                                <td>${ vo.concert_name }</td>
-                                <td>${ vo.hallVo.hall_name }</td>
-                                <td>${ vo.concert_name }</td>
-                                <td>${ vo.concert_startday }</td>
-                                <td>${ vo.concert_endday }</td>
-                                <td>${ vo.concert_runtime }</td>
-                                <td><img class="hall_img" src="../resources/images/${ vo.concert_image }"></td>
-                                <td>${ vo.concert_age }</td>
-                                <td><input class="btn btn-success" type="button" value="예매"
-                                        onclick="location.href='book_page.do?concert_idx=${ vo.concert_idx }'">
-                                </td>
-                            </tr>
-                        </c:forEach>
+
+                        <tr>
+                            <td>${ vo.concert_idx }</td>
+                            <td>${ vo.concert_name }</td>
+                            <td>${ vo.hallVo.hall_name }</td>
+                            <td>${ vo.concert_name }</td>
+                            <td>${ vo.concert_startday }</td>
+                            <td>${ vo.concert_endday }</td>
+                            <td>${ vo.concert_runtime }</td>
+                            <td><img class="hall_img" src="../resources/images/${ vo.concert_image }"></td>
+                            <td>${ vo.concert_age }</td>
+                            <td><input class="btn btn-success" type="button" value="좌석등급"
+                                    onclick="location.href='book_page.do?concert_idx=${ vo.concert_idx }'">
+                            </td>
+                            <td><input class="btn btn-success" type="button" value="좌석정보"
+                                    onclick="location.href='book_page.do?concert_idx=${ vo.concert_idx }'">
+                            </td>
+                        </tr>
+
 
                     </table>
 

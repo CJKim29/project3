@@ -10,4 +10,6 @@ import com.githrd.project3.vo.BookVo;
 public interface BookMapper {
 
     List<BookVo> selectList();
+
+    BookVo selectOneFromIdx(int concert_idx);
 }

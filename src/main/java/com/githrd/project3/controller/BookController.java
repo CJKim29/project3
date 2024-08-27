@@ -39,4 +39,14 @@ public class BookController {
 
 		return "book/book_list";
 	}
+
+	@RequestMapping("book_page.do")
+	public String modify_form(int concert_idx, Model model) {
+
+		BookVo vo = book_mapper.selectOneFromIdx(concert_idx);
+
+		model.addAttribute("vo", vo);
+
+		return "/book/book_page";
+	}
 }
