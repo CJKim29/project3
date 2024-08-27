@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.ReviewMapper">
+
+  <!-- 전체조회 -->
+  <select id="selectList" resultType="review">
+		select * from review order by review_idx
+  </select>
+
+  <!-- 리뷰 작성(insert) -->
+  <insert id="insert" parameterType="review">
+     insert into review values(null,
+                               #{mem_idx},
+                               #{concert_idx},
+                               #{review_title},
+                               #{review_content},
+                               #{mem_nickname},
+                               default,
+                               #{review_ip});
+    
+  </insert>
+
+</mapper>
