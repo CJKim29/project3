@@ -109,6 +109,7 @@
                             <th>사진</th>
                             <th>관람연령</th>
                             <th>예매</th>
+                            <th>달력</th>
                         </tr>
 
                         <!-- Data출력 -->
@@ -126,6 +127,9 @@
                                 <td>${ vo.concert_age }</td>
                                 <td><input class="btn btn-success" type="button" value="예매"
                                         onclick="location.href='concert_page.do?concert_idx=${ vo.concert_idx }'">
+                                </td>
+                                <td><input class="btn btn-success" type="button" value="달력"
+                                        onclick="location.href='concert_datepicker.do'">
                                 </td>
                             </tr>
                         </c:forEach>
