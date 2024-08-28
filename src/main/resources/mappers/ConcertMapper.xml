@@ -27,12 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 전체조회 -->
-	<select id="selectList" resultMap="ConcertMap">
+	<select id="selectList" resultMap="concertMap">
 		select * from concert order by concert_idx
 	</select>
 
 	<!-- idx조회 -->
-	<select id="selectOneFromIdx" parameterType="int" resultType="concert">
+	<select id="selectOneFromIdx" resultMap="concertMap">
 		select * from concert where concert_idx=#{ concert_idx }
 	</select>
 </mapper>

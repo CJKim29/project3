@@ -41,7 +41,7 @@ public class ConcertController {
 	}
 
 	@RequestMapping("concert_page.do")
-	public String modify_form(int concert_idx, Model model) {
+	public String concert_page(int concert_idx, Model model) {
 
 		ConcertVo vo = concert_mapper.selectOneFromIdx(concert_idx);
 
