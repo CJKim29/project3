@@ -4,13 +4,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.ConcertMapper">
 
-	<resultMap id="ConcertMap" type="concert">
+	<resultMap id="concertMap" type="concert">
 		<result property="hall_idx" column="hall_idx"/>
+		<result property="concert_cate_idx" column="concert_cate_idx"/>
+		<result property="concert_idx" column="concert_idx"/>
+		<result property="seat_idx" column="seat_idx"/>
+
+		<association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
 		<association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+		<collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
 	</resultMap>
 
+	<select id="concert_cate_list" resultType="concert_cate">
+	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+	</select>
 	<select id="hall_list" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
+	</select>
+	<select id="seat_list" resultType="seat">
+       select * from seat where concert_idx=#{ concert_idx }
 	</select>
 
 

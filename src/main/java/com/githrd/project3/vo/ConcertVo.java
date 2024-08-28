@@ -1,5 +1,7 @@
 package com.githrd.project3.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -23,5 +25,7 @@ public class ConcertVo {
     int hall_idx;
 
     HallVo hallVo;
+    ConcertDateVo concertCateVo;
+    List<SeatVo> seatVo;
 
 }

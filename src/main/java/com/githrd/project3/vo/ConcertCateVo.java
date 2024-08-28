@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Alias("seat")
-public class seat {
-    int seat_idx;
-    int concert_idx;
-    String seat_grade;
-    int seat_price;
+@Alias("concert_cate")
+public class ConcertCateVo {
+    int concert_cate_idx;
+    String concert_cate_name;
 }

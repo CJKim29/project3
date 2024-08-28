@@ -117,7 +117,7 @@
 
                         <tr>
                             <td>${ vo.concert_idx }</td>
-                            <td>${ vo.concert_name }</td>
+                            <td>${ vo.concertCateVo.concert_cate_name }</td>
                             <td>${ vo.hallVo.hall_name }</td>
                             <td>${ vo.concert_name }</td>
                             <td>${ vo.concert_startday }</td>
@@ -125,8 +125,10 @@
                             <td>${ vo.concert_runtime }</td>
                             <td><img class="hall_img" src="../resources/images/${ vo.concert_image }"></td>
                             <td>${ vo.concert_age }</td>
-                            <td><input class="btn btn-success" type="button" value="좌석등급"
-                                    onclick="location.href='concert_page.do?concert_idx=${ vo.concert_idx }'">
+                            <td>
+                                <c:forEach var="seat" items="${vo.seatList}">
+                                    ${seat.seat_grade} : ${seat.seat_price} <br>
+                                </c:forEach> 
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
                                     onclick="location.href='concert_page.do?concert_idx=${ vo.concert_idx }'">

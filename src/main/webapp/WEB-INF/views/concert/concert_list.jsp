@@ -116,7 +116,7 @@
                         <c:forEach var="vo" items="${ list }">
                             <tr>
                                 <td>${ vo.concert_idx }</td>
-                                <td>${ vo.concert_name }</td>
+                                <td>${ vo.concertCateVo.concert_cate_name }</td>
                                 <td>${ vo.hallVo.hall_name }</td>
                                 <td>${ vo.concert_name }</td>
                                 <td>${ vo.concert_startday }</td>
