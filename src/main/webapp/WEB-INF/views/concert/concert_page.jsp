@@ -128,10 +128,10 @@
                             <td>
                                 <c:forEach var="seat" items="${vo.seatList}">
                                     ${seat.seat_grade} : ${seat.seat_price} <br>
-                                </c:forEach> 
+                                </c:forEach>
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
-                                    onclick="location.href='concert_page.do?concert_idx=${ vo.concert_idx }'">
+                                    onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
                             </td>
                         </tr>
 
@@ -140,9 +140,9 @@
 
 
                     <!-- Data가 없는 경우 -->
-                    <c:if test="${ empty requestScope.list }">
+                    <!-- <c:if test="${ empty requestScope.list }">
                         <div id="empty_msg">등록된 공연정보가 없습니다</div>
-                    </c:if>
+                    </c:if> -->
                 </div>
 
             </body>

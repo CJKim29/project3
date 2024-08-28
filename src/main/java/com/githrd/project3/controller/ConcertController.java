@@ -49,4 +49,16 @@ public class ConcertController {
 
 		return "/concert/concert_page";
 	}
+
+	@RequestMapping("concert_seat.do")
+	public String concert_seat(Model model) {
+
+		// 회원목록 가져오기
+		// List<BookVo> list = book_mapper.selectList();
+
+		// request binding
+		// model.addAttribute("list", list);
+
+		return "concert/concert_seat";
+	}
 }
