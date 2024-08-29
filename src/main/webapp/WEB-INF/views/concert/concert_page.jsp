@@ -14,6 +14,10 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+                <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
                 <style type="text/css">
                     #box {
                         width: 1500px;
@@ -66,6 +70,16 @@
                     }
                 </script>
 
+                <script>
+                    $(document).ready(function () {
+                        $('#datepicker').each(function () {
+                            $(this).datepicker({
+                                showOnFocus: false // 달력을 클릭할 때만 열리게 하지 않음
+                            }).open();// 페이지 로드 시 바로 달력을 열기
+                        });
+                    });
+                </script>
+
                 <head>
                     <meta charset="UTF-8">
                     <title>hall</title>
@@ -109,6 +123,7 @@
                             <th>사진</th>
                             <th>관람연령</th>
                             <th>좌석등급</th>
+                            <th>달력</th>
                             <th>좌석정보</th>
                         </tr>
 
@@ -129,6 +144,8 @@
                                 <c:forEach var="seat" items="${vo.seatList}">
                                     ${seat.seat_grade} : ${seat.seat_price} <br>
                                 </c:forEach>
+                            </td>
+                            <td><input id="datepicker" width="276" />
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
                                     onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
