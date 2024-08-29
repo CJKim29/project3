@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/concert/")
-public class ConcertController {
+public class X_ConcertController {
 
 	// 자동연결(요청시 마다 Injection)
 	@Autowired
@@ -37,7 +37,7 @@ public class ConcertController {
 		// request binding
 		model.addAttribute("list", list);
 
-		return "concert/concert_list";
+		return "concert/X_concert_list";
 	}
 
 	@RequestMapping("concert_page.do")
@@ -47,24 +47,16 @@ public class ConcertController {
 
 		model.addAttribute("vo", vo);
 
-		return "/concert/concert_page";
+		return "/concert/X_concert_page";
 	}
 
 	@RequestMapping("concert_seat.do")
-	public String concert_seat(Model model) {
+	public String concert_seat(int concert_idx, Model model) {
 
-		// 회원목록 가져오기
-		// List<BookVo> list = book_mapper.selectList();
+		ConcertVo vo = concert_mapper.selectOneFromIdx(concert_idx);
 
-		// request binding
-		// model.addAttribute("list", list);
+		model.addAttribute("vo", vo);
 
-		return "concert/concert_seat";
-	}
-
-	@RequestMapping("concert_datepicker.do")
-	public String concert_datepicker(Model model) {
-
-		return "concert/concert_datepicker";
+		return "concert/X_concert_seat";
 	}
 }
