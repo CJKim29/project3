@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.githrd.project3.dao.ConcertMapper;
 import com.githrd.project3.vo.ConcertVo;
-import com.githrd.project3.vo.HallVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -38,14 +37,14 @@ public class SubPageController {
         // request binding
         model.addAttribute("list", list);
 
-        return "subpage/subpage_grid";
+        return "concert/concert_grid";
     }
 
     // 공연 정보 전체조회 - 리스트 형식
     @RequestMapping("list.do")
     public String subpage_list(Model model) {
 
-        return "subpage/subpage_list";
+        return "concert/concert_list";
     }
 
     // 공연 정보 하나 조회 - idx로 정보 하나 가져오기
