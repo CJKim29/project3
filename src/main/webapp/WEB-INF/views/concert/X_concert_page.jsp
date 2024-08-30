@@ -70,7 +70,8 @@
                     }
                 </script>
 
-                <script>
+                <!-- 달력 -->
+                <!-- <script>
                     $(document).ready(function () {
                         $('#datepicker').each(function () {
                             $(this).datepicker({
@@ -78,7 +79,32 @@
                             }).open();// 페이지 로드 시 바로 달력을 열기
                         });
                     });
+                </script> -->
+
+                <script>
+                    $(document).ready(function () {
+                        // datepicker 초기화
+                        $('#datepicker').datepicker({
+                            showOn: "button",
+                            buttonText: "Select date",
+                            format: "yyyy-mm-dd"
+                        });
+
+                        // 좌석정보 버튼 클릭 시 선택된 날짜를 URL에 추가
+                        $('input.btn-success').click(function () {
+                            var selectedDate = $('#datepicker').val();
+                            var concertIdx = $(this).data('concertIdx'); // 버튼에 저장된 공연 번호 가져오기
+
+                            if (selectedDate) {
+                                window.location.href = 'concert_seat.do?concert_idx=' + concertIdx + '&date=' + selectedDate;
+                            } else {
+                                alert('날짜를 선택해주세요.');
+                                window.location.href = 'concert_page.do?concert_idx=' + concertIdx;
+                            }
+                        });
+                    });
                 </script>
+
 
                 <head>
                     <meta charset="UTF-8">
@@ -148,8 +174,10 @@
                             <td><input id="datepicker" width="276" />
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
-                                    onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
+                                    data-concert-idx="${ vo.concert_idx }"
+                                    onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }&date=' + $('#datepicker').val()">
                             </td>
+
                         </tr>
 
 
