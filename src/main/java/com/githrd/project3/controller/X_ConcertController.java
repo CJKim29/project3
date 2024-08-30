@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/concert/")
+@RequestMapping("/x_concert/")
 public class X_ConcertController {
 
 	// 자동연결(요청시 마다 Injection)

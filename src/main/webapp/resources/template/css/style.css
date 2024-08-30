@@ -2577,15 +2577,16 @@ Version:1.0
 	font-weight: 700;
 	margin-bottom: 10px;
 	padding-bottom: 10px;
+	text-align: center;
 }
 .shop-home-list .shop-section-title h1::before {
 	position: absolute;
 	content: "";
 	height: 2px;
-	width: 50px;
+	width: 40px;
 	background: #F7941D;
-	left: 0;
 	bottom: -1px;
+	text-align: center;
 }
 .shop-home-list .single-list {
 	overflow: hidden;

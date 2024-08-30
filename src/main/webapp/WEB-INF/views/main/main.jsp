@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -10,51 +12,51 @@
 	<!-- Title Tag  -->
     <title>Eshop - eCommerce HTML5 Template.</title>
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link rel="icon" type="image/png" href="../resources/template/images/favicon.png">
 	<!-- Web Font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 	
 	<!-- StyleSheet -->
 	
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="src/main/webapp/resources/template/css/bootstrap.css">
+	<link rel="stylesheet" href="../resources/template/css/bootstrap.css">
 	<!-- Magnific Popup -->
-    <link rel="stylesheet" href="css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../resources/template/css/magnific-popup.min.css">
 	<!-- Font Awesome -->
-    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="../resources/template/css/font-awesome.css">
 	<!-- Fancybox -->
-	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="../resources/template/css/jquery.fancybox.min.css">
 	<!-- Themify Icons -->
-    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="../resources/template/css/themify-icons.css">
 	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="css/niceselect.css">
+    <link rel="stylesheet" href="../resources/template/css/niceselect.css">
 	<!-- Animate CSS -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="../resources/template/css/animate.css">
 	<!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="css/flex-slider.min.css">
+    <link rel="stylesheet" href="../resources/template/css/flex-slider.min.css">
 	<!-- Owl Carousel -->
-    <link rel="stylesheet" href="css/owl-carousel.css">
+    <link rel="stylesheet" href="../resources/template/css/owl-carousel.css">
 	<!-- Slicknav -->
-    <link rel="stylesheet" href="css/slicknav.min.css">
+    <link rel="stylesheet" href="../resources/template/css/slicknav.min.css">
 	
 	<!-- Eshop StyleSheet -->
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="../resources/template/css/reset.css">
+	<link rel="stylesheet" href="../resources/template/css/style.css">
+    <link rel="stylesheet" href="../resources/template/css/responsive.css">
 
 	<!-- Color CSS -->
-	<link rel="stylesheet" href="css/color/color1.css">
-	<!--<link rel="stylesheet" href="css/color/color2.css">-->
-	<!--<link rel="stylesheet" href="css/color/color3.css">-->
-	<!--<link rel="stylesheet" href="css/color/color4.css">-->
-	<!--<link rel="stylesheet" href="css/color/color5.css">-->
-	<!--<link rel="stylesheet" href="css/color/color6.css">-->
-	<!--<link rel="stylesheet" href="css/color/color7.css">-->
-	<!--<link rel="stylesheet" href="css/color/color8.css">-->
-	<!--<link rel="stylesheet" href="css/color/color9.css">-->
-	<!--<link rel="stylesheet" href="css/color/color10.css">-->
-	<!--<link rel="stylesheet" href="css/color/color11.css">-->
-	<!--<link rel="stylesheet" href="css/color/color12.css">-->
+	<link rel="stylesheet" href="../resources/template/css/color/color1.css">
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color2.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color3.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color4.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color5.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color6.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color7.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color8.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color9.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color10.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color11.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color12.css">-->
 
 	<link rel="stylesheet" href="#" id="colors">
 	
@@ -129,7 +131,7 @@
 					<div class="col-lg-2 col-md-2 col-12">
 						<!-- Logo (여기 홈페이지 이름 적거나 사진으로 대체) -->
 						<div class="logo">
-							<a href="main.html"><img src="images/logo.png" alt="logo"></a>
+							<a href="main.html"><img src="../resources/template/images/logo.png" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
 						<!--  검색창 카테고리  -->
@@ -215,7 +217,7 @@
 					<div class="home-slider-4">
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
-						<div class="big-content" style="background-image: url('/images/예시이미지1.png');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/예시이미지1.png');">
 							<div class="inner">
 								<h4 class="title">뮤지컬 시데레우스</h4>
 								<p class="des">설명</p>
@@ -224,7 +226,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="big-content" style="background-image: url('/images/예시이미지1-1.png');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/예시이미지1-1.png');">
 							<div class="inner">
 								<h4 class="title"></h4>
 								<p class="des"></p>
@@ -286,7 +288,7 @@
 													<div class="product-img">
 														<a href="product-details.html">
 															<!-- 이미지 크기는 1160x560  -->
-															<img class="default-img" src="/images/예시이미지2.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/예시이미지2.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
@@ -355,7 +357,7 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="/images/예시이미지3.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/예시이미지3.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
@@ -424,7 +426,7 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="images/연극 예시.png" alt="#">
+															<img class="default-img" src="../resources/template/images/연극 예시.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
@@ -706,7 +708,7 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="main.html"><img src="images/logo2.png" alt="#"></a>
+								<a href="main.html"><img src="../resources/template/images/logo2.png" alt="#"></a>
 							</div>
 							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
@@ -779,7 +781,7 @@
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="images/payments.png" alt="#">
+								<img src="../resources/template/images/payments.png" alt="#">
 							</div>
 						</div>
 					</div>
@@ -790,40 +792,40 @@
 	<!-- /End Footer Area -->
  
 	<!-- Jquery -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.0.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
+    <script src="../resources/template/js/jquery.min.js"></script>
+    <script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
+	<script src="../resources/template/js/jquery-ui.min.js"></script>
 	<!-- Popper JS -->
-	<script src="js/popper.min.js"></script>
+	<script src="../resources/template/js/popper.min.js"></script>
 	<!-- Bootstrap JS -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../resources/template/js/bootstrap.min.js"></script>
 	<!-- Color JS -->
-	<script src="js/colors.js"></script>
+	<script src="../resources/template/js/colors.js"></script>
 	<!-- Slicknav JS -->
-	<script src="js/slicknav.min.js"></script>
+	<script src="../resources/template/js/slicknav.min.js"></script>
 	<!-- Owl Carousel JS -->
-	<script src="js/owl-carousel.js"></script>
+	<script src="../resources/template/js/owl-carousel.js"></script>
 	<!-- Magnific Popup JS -->
-	<script src="js/magnific-popup.js"></script>
+	<script src="../resources/template/js/magnific-popup.js"></script>
 	<!-- Fancybox JS -->
-	<script src="js/facnybox.min.js"></script>
+	<script src="../resources/template/js/facnybox.min.js"></script>
 	<!-- Waypoints JS -->
-	<script src="js/waypoints.min.js"></script>
+	<script src="../resources/template/js/waypoints.min.js"></script>
 	<!-- Countdown JS -->
-	<script src="js/finalcountdown.min.js"></script>
+	<script src="../resources/template/js/finalcountdown.min.js"></script>
 	<!-- Nice Select JS -->
-	<script src="js/nicesellect.js"></script>
+	<script src="../resources/template/js/nicesellect.js"></script>
 	<!-- Ytplayer JS -->
-	<script src="js/ytplayer.min.js"></script>
+	<script src="../resources/template/js/ytplayer.min.js"></script>
 	<!-- Flex Slider JS -->
-	<script src="js/flex-slider.js"></script>
+	<script src="../resources/template/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
-	<script src="js/scrollup.js"></script>
+	<script src="../resources/template/js/scrollup.js"></script>
 	<!-- Onepage Nav JS -->
-	<script src="js/onepage-nav.min.js"></script>
+	<script src="../resources/template/js/onepage-nav.min.js"></script>
 	<!-- Easing JS -->
-	<script src="js/easing.js"></script>
+	<script src="../resources/template/js/easing.js"></script>
 	<!-- Active JS -->
-	<script src="js/active.js"></script>
+	<script src="../resources/template/js/active.js"></script>
 </body>
 </html>
