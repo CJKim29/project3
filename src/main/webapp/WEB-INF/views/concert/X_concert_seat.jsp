@@ -62,6 +62,35 @@
                 }
             </style>
 
+            <!-- 버튼 클릭 -->
+            <script>
+                $(document).ready(function () {
+                    // 좌석 버튼 클릭 이벤트 처리
+                    $('.seat').each(function () {
+                        // 원래 색상 저장
+                        var originalColor = $(this).css('background-color');
+                        $(this).data('originalColor', originalColor);
+                    });
+
+                    $('.seat').click(function () {
+                        // 저장된 원래 색상
+                        var originalColor = $(this).data('originalColor');
+
+                        // 현재 색상
+                        var currentColor = $(this).css('background-color');
+
+                        // 색상 토글
+                        if (currentColor === originalColor) {
+                            // 색상을 하얀색으로 변경
+                            $(this).css('background-color', 'white');
+                        } else {
+                            // 원래 색상으로 변경
+                            $(this).css('background-color', originalColor);
+                        }
+                    });
+                });
+            </script>
+
             <!-- 달력 -->
             <script>
                 $(document).ready(function () {
@@ -120,6 +149,7 @@
                     <th>공연장</th>
                     <th>공연날짜</th>
                     <th>좌석등급</th>
+                    <th>다른 관람일자</th>
                     <th>다른 관람일자 선택</th>
                 </tr>
 
@@ -135,6 +165,10 @@
                     </td>
                     <td>
                         <input id="datepicker" width="276" />
+                    </td>
+                    <td><input class="btn btn-success" type="button" value="날짜 바꾸기"
+                            data-concert-idx="${ vo.concert_idx }"
+                            onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }&date=' + $('#datepicker').val()">
                     </td>
                 </tr>
 
