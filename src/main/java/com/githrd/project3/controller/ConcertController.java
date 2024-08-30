@@ -28,6 +28,7 @@ public class ConcertController {
 	@Autowired
 	ConcertMapper concert_mapper;
 
+	// 공연 정보 전체 조회 - 그리드 형식
 	@RequestMapping("list.do")
 	public String list(Model model) {
 
