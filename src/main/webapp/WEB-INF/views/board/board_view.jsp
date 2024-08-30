@@ -107,7 +107,7 @@
 						 "cmt_content" : cmt_content,
 						 "board_idx"	   : "${ vo.board_idx }",
 						 "mem_idx"	   : "${ user.mem_idx }",
-						 "mem_nickame"	   : "${ user.mem_nickame }",
+						 "mem_nickname"	   : "${ user.mem_nickname }",
 						},
 			dataType:	"json",
 			

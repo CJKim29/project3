@@ -134,10 +134,10 @@
 				</tr>
 			</c:if>
 			
-			<!-- 데이터가 있는 경우 ${ vo.no }139번줄에 넣기 댓글 구현되면-->			 
+			<!-- 데이터가 있는 경우-->			 
 			<c:forEach var="vo" items="${ list }">
 				<tr>
-					<td> ${ vo.board_idx } </td>
+					<td> ${ vo.board_no }</td>
 					
 					<td>
 					<!-- 답글이면 b_depth만큼 들여쓰기 -->
@@ -180,9 +180,9 @@
 		</table>
 		
 		<!-- PageMenu -->
-		<!-- <div style="text-align: center;">
+		<div style="text-align: center;">
 			${ pageMenu }
-		</div> -->
+		</div> 
 
 	</div>
 </body>
