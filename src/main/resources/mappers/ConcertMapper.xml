@@ -10,8 +10,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="concert_idx" column="concert_idx"/>
 		<result property="seat_idx" column="seat_idx"/>
 
+		<result property="concert_detail_cate_idx" column="concert_detail_cate_idx"/>
+
 		<association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
 		<association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+
+		<association property="concertDetailCateVo" column="concert_detail_cate_idx=concert_detail_cate_idx" select="detail_cate_list_sub" />
+
 		<collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
 	</resultMap>
 
@@ -25,6 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        select * from seat where concert_idx=#{ concert_idx }
 	</select>
 
+	<select id="detail_cate_list_sub" resultType="concert_detail_cate">
+		select * from concert_detail_cate 
+				 where concert_detail_cate_idx=#{ concert_detail_cate_idx }
+	</select>
+
 
 	<!-- 전체조회 -->
 	<select id="selectList" resultMap="concertMap">
@@ -35,4 +45,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOneFromIdx" resultMap="concertMap">
 		select * from concert where concert_idx=#{ concert_idx }
 	</select>
+
 </mapper>

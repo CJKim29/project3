@@ -29,10 +29,23 @@ public class ConcertController {
 	ConcertMapper concert_mapper;
 
 	// 공연 정보 전체 조회 - 그리드 형식
-	@RequestMapping("list.do")
-	public String list(Model model) {
+	@RequestMapping("list_grid.do")
+	public String concert_grid(Model model) {
 
-		// 회원목록 가져오기
+		// 공연 정보 가져오기
+		List<ConcertVo> list = concert_mapper.selectList();
+
+		// request binding
+		model.addAttribute("list", list);
+
+		return "concert/concert_grid";
+	}
+
+	// 공연 정보 전체 조회 - 리스트 형식
+	@RequestMapping("list.do")
+	public String concert_list(Model model) {
+
+		// 공연 정보 가져오기
 		List<ConcertVo> list = concert_mapper.selectList();
 
 		// request binding

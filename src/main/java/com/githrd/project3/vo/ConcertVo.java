@@ -26,6 +26,9 @@ public class ConcertVo {
 
     HallVo hallVo;
     ConcertCateVo concertCateVo;
+    // SeatVo seatVo;
     List<SeatVo> seatList;
+
+    ConcertDetailCateVo concertDetailCateVo;
 
 }
