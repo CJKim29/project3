@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.githrd.project3.dao.ConcertMapper;
+import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.vo.ConcertVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,9 @@ public class X_ConcertController {
 	// 처음에 1회 연결
 	@Autowired
 	ConcertMapper concert_mapper;
+
+	@Autowired
+    S_HallMapper s_hall_mapper;
 
 	@RequestMapping("list.do")
 	public String list(Model model) {

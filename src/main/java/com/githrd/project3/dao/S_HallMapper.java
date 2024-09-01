@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.githrd.project3.vo.HallVo;
+import com.githrd.project3.vo.S_HallVo;
 
 @Mapper
-public interface HallMapper {
+public interface S_HallMapper {
 
-    List<HallVo> selectList();
+    List<S_HallVo> selectList();
 }

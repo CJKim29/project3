@@ -24,7 +24,7 @@ public class ConcertVo {
     int concert_cate_idx;
     int hall_idx;
 
-    HallVo hallVo;
+    S_HallVo hallVo;
     ConcertCateVo concertCateVo;
     List<SeatVo> seatList;
 
