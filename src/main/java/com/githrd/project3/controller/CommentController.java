@@ -29,8 +29,7 @@ public class CommentController {
 	HttpServletRequest request;
 
 	public CommentController() {
-		// TODO Auto-generated constructor stub
-		System.out.println("--CommentController()--");
+
 	}
 
 	// /comment/list.do?b_idx=5&page=1
@@ -69,10 +68,6 @@ public class CommentController {
 	@RequestMapping(value = "insert.do")
 	@ResponseBody
 	public Map<String, Object> insert(CommentVo vo) {
-
-		System.out.println("--------------------------------------------");
-		System.out.println(vo);
-		System.out.println("--------------------------------------------");
 
 		String cmt_ip = request.getRemoteAddr();
 		vo.setCmt_ip(cmt_ip);

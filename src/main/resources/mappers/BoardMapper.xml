@@ -11,16 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- paging 별 조회 -->
 	<select id="board_page_list" parameterType="Map" resultType="board"> 	
-		select bb.* from
-		(
-			select
-				rank() over(order by board_ref desc, board_step asc) as board_no,
+		SELECT bb.* 
+		FROM (
+			SELECT
+				rank() OVER (ORDER BY b.board_ref DESC, b.board_step ASC) AS board_no,
 				b.*,
-				(select count(*) from comment_tb where board_idx=b.board_idx) as cmt_count
-			from	
-			(select * from board) b
-		)bb
-		where board_no between ${ start } and ${ end }
+				(SELECT COUNT(*) FROM comment_tb WHERE board_idx = b.board_idx) AS cmt_count,
+				c.board_cate_name  -- 추가된 부분
+			FROM
+				board b
+			JOIN
+				board_cate c ON b.board_cate_idx = c.board_cate_idx  -- 조인 추가
+		) bb
+		WHERE board_no BETWEEN ${start} AND ${end};
 	</select>
 
 	<!-- 전체 게시물 수 -->

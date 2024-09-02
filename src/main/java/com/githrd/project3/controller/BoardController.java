@@ -25,8 +25,7 @@ import jakarta.servlet.http.HttpSession;
 public class BoardController {
 
 	public BoardController() {
-		// TODO Auto-generated constructor stub
-		System.out.println("--BoardController()--");
+
 	}
 
 	@Autowired
@@ -39,8 +38,20 @@ public class BoardController {
 	// @Qualifier("board.dao") // 식별자 -연결시킴
 	BoardMapper board_mapper;
 
+	@RequestMapping("main.do")
+	public String main() {
+
+		return "board/board-main";
+	}
+
 	@RequestMapping("list.do")
-	public String list(
+	public String list() {
+
+		return "board/board-List";
+	}
+
+	@RequestMapping("x_list.do")
+	public String x_list(
 			@RequestParam(name = "page", defaultValue = "1") int nowPage,
 			Model model) {
 
@@ -114,7 +125,7 @@ public class BoardController {
 		// DB insert
 		int res = board_mapper.board_insert(vo);
 
-		return "redirect:list.do";
+		return "redirect:x_list.do";
 	}
 
 	// 상세보기
@@ -172,6 +183,8 @@ public class BoardController {
 
 		// 기준글보다 step이 큰 게시물의 step을 1씩 증가
 		int res = board_mapper.board_update_step(baseVo);
+		// 기준글의 카테고리 받아오기
+		vo.setBoard_cate_idx(baseVo.getBoard_cate_idx());
 
 		// 답글의 b_ref,b_step,b_depth설정
 		vo.setBoard_ref(baseVo.getBoard_ref()); // 기준글의 b_ref를 넣는다.
@@ -189,7 +202,7 @@ public class BoardController {
 		// 답글 추가(DB insert)
 		res = board_mapper.board_reply(vo);
 
-		return "redirect:list.do";
+		return "redirect:x_list.do";
 	}
 
 	// /bbs/board/delete.do?b_idx=18
@@ -199,7 +212,7 @@ public class BoardController {
 		// 삭제 처리 : b_use : 'n'
 		int res = board_mapper.board_update_use(board_idx);
 
-		return "redirect:list.do";
+		return "redirect:x_list.do";
 	}
 
 	// 수정 폼

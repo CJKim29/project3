@@ -77,11 +77,6 @@
 				<h4>답글쓰기</h4>
 			</div>
 			<div class="panel-body">
-				<c:forEach var="vo" items="${ list }">
-				<div>
-					<input readonly="readonly" value="${ vo.board_cate_idx }">
-				</div>
-				</c:forEach>
 				<div>
 					<h4>제목 :</h4> <input class="form-control" name="board_name">
 				</div>

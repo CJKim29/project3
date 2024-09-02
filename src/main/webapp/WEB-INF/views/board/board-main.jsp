@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -8,53 +10,53 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
+    <title>티모아</title>
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link rel="icon" type="image/png" href="../resources/template/images/favicon.png">
 	<!-- Web Font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 	
 	<!-- StyleSheet -->
 	
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="../resources/template/css/bootstrap.css">
 	<!-- Magnific Popup -->
-    <link rel="stylesheet" href="css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../resources/template/css/magnific-popup.min.css">
 	<!-- Font Awesome -->
-    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="../resources/template/css/font-awesome.css">
 	<!-- Fancybox -->
-	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="../resources/template/css/jquery.fancybox.min.css">
 	<!-- Themify Icons -->
-    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="../resources/template/css/themify-icons.css">
 	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="css/niceselect.css">
+    <link rel="stylesheet" href="../resources/template/css/niceselect.css">
 	<!-- Animate CSS -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="../resources/template/css/animate.css">
 	<!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="css/flex-slider.min.css">
+    <link rel="stylesheet" href="../resources/template/css/flex-slider.min.css">
 	<!-- Owl Carousel -->
-    <link rel="stylesheet" href="css/owl-carousel.css">
+    <link rel="stylesheet" href="../resources/template/css/owl-carousel.css">
 	<!-- Slicknav -->
-    <link rel="stylesheet" href="css/slicknav.min.css">
+    <link rel="stylesheet" href="../resources/template/css/slicknav.min.css">
 	
 	<!-- Eshop StyleSheet -->
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="../resources/template/css/reset.css">
+	<link rel="stylesheet" href="../resources/template/css/style.css">
+    <link rel="stylesheet" href="../resources/template/css/responsive.css">
 
 	<!-- Color CSS -->
-	<link rel="stylesheet" href="css/color/color1.css">
-	<!--<link rel="stylesheet" href="css/color/color2.css">-->
-	<!--<link rel="stylesheet" href="css/color/color3.css">-->
-	<!--<link rel="stylesheet" href="css/color/color4.css">-->
-	<!--<link rel="stylesheet" href="css/color/color5.css">-->
-	<!--<link rel="stylesheet" href="css/color/color6.css">-->
-	<!--<link rel="stylesheet" href="css/color/color7.css">-->
-	<!--<link rel="stylesheet" href="css/color/color8.css">-->
-	<!--<link rel="stylesheet" href="css/color/color9.css">-->
-	<!--<link rel="stylesheet" href="css/color/color10.css">-->
-	<!--<link rel="stylesheet" href="css/color/color11.css">-->
-	<!--<link rel="stylesheet" href="css/color/color12.css">-->
+	<link rel="stylesheet" href="../resources/template/css/color/color1.css">
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color2.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color3.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color4.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color5.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color6.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color7.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color8.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color9.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color10.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color11.css">-->
+	<!--<link rel="stylesheet" href="../resources/template/css/color/color12.css">-->
 
 	<link rel="stylesheet" href="#" id="colors">
 	
@@ -75,7 +77,7 @@
 	<!-- Eshop Color Plate -->
 	<div class="color-plate ">
 		<a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
-		<h4>Eshop Colors</h4>
+		<h4>test</h4>
 		<p>Here is some awesome color's available on Eshop Template.</p>
 		<span class="color1"></span>
 		<span class="color2"></span>
@@ -127,7 +129,7 @@
 					<div class="col-lg-2 col-md-2 col-12">
 						<!-- Logo (여기 홈페이지 이름 적거나 사진으로 대체) -->
 						<div class="logo">
-							<a href="main.html"><img src="images/logo.png" alt="logo"></a>
+							<a href="main.html"><img src="../resources/template/images/logo.png" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
 						<!-- Search Form -->
@@ -218,6 +220,7 @@
 												<li class="active"><a href="#">Home<i class="ti-angle-down"></i></a>
 													<ul class="dropdown">
 														<li><a href="main.html">Main</a></li>
+														<li><a href="main.do">게시판</a></li>
 													</ul>
 												</li>
 												<li><a href="#">뮤지컬</a></li>												
@@ -233,9 +236,9 @@
 												</li>									
 												<li><a href="#">게시판<i class="ti-angle-down"></i></a>
 													<ul class="dropdown">
-														<li><a href="borad-List.html">borad-List</a></li>
+														<li><a href="list.do">borad-List</a></li>
 														<li><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a></li>
-														<li><a href="board-List.html">board-List</a></li>
+														<li><a href="x_list.do">board-List</a></li>
 														<li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
 													</ul>
 												</li>  
@@ -262,7 +265,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Blog Single</a></li>
+								<li class="active"><a href="main.do">게시판</a></li>
 							</ul>
 						</div>
 					</div>
@@ -281,17 +284,19 @@
 								<div class="col-12">
 									<div class="image">
 										<img src="https://via.placeholder.com/950x460" alt="#">
+										<!-- 이후 삭제 -->
+										<div>진행중인 공연 이미지 넣기(슬라이드 형식)</div>
 									</div>
 									<div class="blog-detail">
-										<h2 class="blog-title">What are the secrets to start- up success?</h2>
+										<h2 class="blog-title">게시글 제목</h2>
 										<div class="blog-meta">
-											<span class="author"><a href="#"><i class="fa fa-user"></i>By Admin</a><a href="#"><i class="fa fa-calendar"></i>Dec 24, 2018</a><a href="#"><i class="fa fa-comments"></i>Comment (15)</a></span>
+											<span class="author"><a href="#"><i class="fa fa-user"></i>일길동</a><a href="#"><i class="fa fa-calendar"></i>2024.09.02</a><a href="#"><i class="fa fa-comments"></i>댓글 수 (15)</a></span>
 										</div>
 										<div class="content">
-											<p>What a crazy time. I have five children in colleghigh school graduates.jpge or pursing post graduate studies  Each of my children attends college far from home, the closest of which is more than 800 miles away. While I miss being with my older children, I know that a college experience can be the source of great growth and experience can be the source of source of great growth and can provide them with even greater in future.</p>
-											<blockquote> <i class="fa fa-quote-left"></i> Do what you love to do and give it your very best. Whether it's business or baseball, or the theater, or any field. If you don't love what you're doing and you can't give it your best, get out of it. Life is too short. You'll be an old man before you know it. risus. Ut tincidunt, erat eget feugiat eleifend, eros magna dapibus diam.</blockquote>
-											<p>What a crazy time. I have five children in colleghigh school graduates.jpge or pursing post graduate studies  Each of my children attends college far from home, the closest of which is more than 800 miles away. While I miss being with my older children, I know that a college experience can be the source of great growth and experience can be the source of source of great growth and can provide them with even greater in future.</p>
-											<p>What a crazy time. I have five children in colleghigh school graduates.jpge or pursing post graduate studies  Each of my children attends college far from home, the closest of which is more than 800 miles away. While I miss being with my older children, I know that a college experience can be the source of great growth and experience can be the source of source of great growth and can provide them with even greater in future.</p>
+											<p>1등</p>
+											<blockquote> <i class="fa fa-quote-left"></i> 내용 들어감</blockquote>
+											<p>테스트</p>
+											<p>입니다.</p>
 										</div>
 									</div>
 									<div class="share-social">
@@ -300,10 +305,10 @@
 												<div class="content-tags">
 													<h4>Tags:</h4>
 													<ul class="tag-inner">
-														<li><a href="#">Glass</a></li>
-														<li><a href="#">Pant</a></li>
-														<li><a href="#">t-shirt</a></li>
-														<li><a href="#">swater</a></li>
+														<li><a href="#">1</a></li>
+														<li><a href="#">2</a></li>
+														<li><a href="#">3</a></li>
+														<li><a href="#">4</a></li>
 													</ul>
 												</div>
 											</div>
@@ -312,7 +317,7 @@
 								</div>
 								<div class="col-12">
 									<div class="comments">
-										<h3 class="comment-title">Comments (3)</h3>
+										<h3 class="comment-title">댓글 (3)</h3>
 										<!-- Single Comment -->
 										<div class="single-comment">
 											<img src="https://via.placeholder.com/80x80" alt="#">
@@ -405,7 +410,7 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="images/logo2.png" alt="#"></a>
+								<a href="index.html"><img src="../resources/template/images/logo2.png" alt="#"></a>
 							</div>
 							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
@@ -478,7 +483,7 @@
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="images/payments.png" alt="#">
+								<img src="../resources/template/images/payments.png" alt="#">
 							</div>
 						</div>
 					</div>
@@ -489,40 +494,40 @@
 	<!-- /End Footer Area -->
 	
 	<!-- Jquery -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.0.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
+    <script src="../resources/template/js/jquery.min.js"></script>
+    <script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
+	<script src="../resources/template/js/jquery-ui.min.js"></script>
 	<!-- Popper JS -->
-	<script src="js/popper.min.js"></script>
+	<script src="../resources/template/js/popper.min.js"></script>
 	<!-- Bootstrap JS -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../resources/template/js/bootstrap.min.js"></script>
 	<!-- Color JS -->
-	<script src="js/colors.js"></script>
+	<script src="../resources/template/js/colors.js"></script>
 	<!-- Slicknav JS -->
-	<script src="js/slicknav.min.js"></script>
+	<script src="../resources/template/js/slicknav.min.js"></script>
 	<!-- Owl Carousel JS -->
-	<script src="js/owl-carousel.js"></script>
+	<script src="../resources/template/js/owl-carousel.js"></script>
 	<!-- Magnific Popup JS -->
-	<script src="js/magnific-popup.js"></script>
+	<script src="../resources/template/js/magnific-popup.js"></script>
 	<!-- Fancybox JS -->
-	<script src="js/facnybox.min.js"></script>
+	<script src="../resources/template/js/facnybox.min.js"></script>
 	<!-- Waypoints JS -->
-	<script src="js/waypoints.min.js"></script>
+	<script src="../resources/template/js/waypoints.min.js"></script>
 	<!-- Countdown JS -->
-	<script src="js/finalcountdown.min.js"></script>
+	<script src="../resources/template/js/finalcountdown.min.js"></script>
 	<!-- Nice Select JS -->
-	<script src="js/nicesellect.js"></script>
+	<script src="../resources/template/js/nicesellect.js"></script>
 	<!-- Ytplayer JS -->
-	<script src="js/ytplayer.min.js"></script>
+	<script src="../resources/template/js/ytplayer.min.js"></script>
 	<!-- Flex Slider JS -->
-	<script src="js/flex-slider.js"></script>
+	<script src="../resources/template/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
-	<script src="js/scrollup.js"></script>
+	<script src="../resources/template/js/scrollup.js"></script>
 	<!-- Onepage Nav JS -->
-	<script src="js/onepage-nav.min.js"></script>
+	<script src="../resources/template/js/onepage-nav.min.js"></script>
 	<!-- Easing JS -->
-	<script src="js/easing.js"></script>
+	<script src="../resources/template/js/easing.js"></script>
 	<!-- Active JS -->
-	<script src="js/active.js"></script>
+	<script src="../resources/template/js/active.js"></script>
 </body>
 </html>

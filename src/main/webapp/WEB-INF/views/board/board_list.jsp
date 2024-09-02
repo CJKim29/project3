@@ -137,7 +137,7 @@
 			<!-- 데이터가 있는 경우-->			 
 			<c:forEach var="vo" items="${ list }">
 				<tr>
-					<td> ${ vo.board_no }</td>
+					<td> ${ vo.board_idx }</td>
 					
 					<td>
 					<!-- 답글이면 b_depth만큼 들여쓰기 -->
@@ -162,16 +162,16 @@
 						<span class="board_name">
 							<a href="view.do?board_idx=${ vo.board_idx }">
 								${ vo.board_name }
-								<%-- <c:if test="${ vo.cmt_count ne 0 }">
-									<span class="badge" style="background: #F7230E;">&nbsp;${ vo.cmt_count }0</span>
-								</c:if> --%>
+								<c:if test="${ vo.cmt_count ne 0 }">
+									<span class="badge" style="background: #F7230E;">&nbsp;${ vo.cmt_count }</span>
+								</c:if> 
 								
 							</a>
 						</span>
 					</c:if>	
 						
 					</td>
-					<td>${ vo.board_cate_idx }</td>
+					<td>${ vo.board_cate_name }</td>
 					<td>${ vo.mem_nickname }</td>
 					<td>${ vo.board_regdate }</td>
 					<td>${ vo.board_readhit }</td>
