@@ -26,13 +26,13 @@ public class HallController {
 
 	// 처음에 1회 연결
 	@Autowired
-	S_HallMapper s_hall_mapper;
+	S_HallMapper s_hallmapper;
 
 	@RequestMapping("list.do")
 	public String list(Model model) {
 
 		// 회원목록 가져오기
-		List<S_HallVo> list = s_hall_mapper.selectList();
+		List<S_HallVo> list = s_hallmapper.selectList();
 
 		// request binding
 		model.addAttribute("list", list);

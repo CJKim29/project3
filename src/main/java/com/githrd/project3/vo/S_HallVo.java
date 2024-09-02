@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 
 @Data
 @NoArgsConstructor
-@Alias("hall")
+@Alias("s_hall")
 public class S_HallVo {
 
     private int s_hall_idx;

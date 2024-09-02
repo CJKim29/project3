@@ -4,20 +4,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.S_HallMapper">
 
-	<!-- 전체조회 -->
-	<select id="selectList" resultType="hall">
-		select * from hall order by hall_idx
-	</select>
+    <!-- 전체조회 -->
+    <select id="selectList" resultType="s_hall">
+		select * from s_hall order by s_hall_idx
+    </select>
 
-	 <!-- 특정 공연에 대한 좌석 조회 -->
-    <select id="selectSeatsByConcert" parameterType="int" resultType="hall">
+    <!-- 특정 공연에 대한 좌석 조회 -->
+    <select id="selectSeatsByConcert" parameterType="int" resultType="s_hall">
         SELECT s.*
         FROM s_hall s
         JOIN concert c ON s.concert_idx = c.concert_idx
         WHERE c.concert_idx = #{concertIdx}
     </select>
 
-	<!-- VIP 좌석 수 조회 -->
+    <!-- VIP 좌석 수 조회 -->
     <select id="countAvailableSeatsBySeatIdx" parameterType="int" resultType="int">
         SELECT COUNT(*) 
         FROM s_hall 
