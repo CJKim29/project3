@@ -115,8 +115,8 @@
 							<div class="right-content">
 								<ul class="list-main">
 									<li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
-									<li><i class="ti-power-off"></i><a href="login.html#">로그인</a></li>
-									<li><i class="ti-power-off"></i><a href="register.html">회원가입</a></li>
+									<li><i class="ti-power-off"></i><a href="/login.html">로그인</a></li>
+									<li><i class="ti-power-off"></i><a href="/register.html">회원가입</a></li>
 								</ul>
 							</div>
 							<!-- End Top Right -->
@@ -129,9 +129,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-2 col-md-2 col-12">
-						<!-- Logo (여기 홈페이지 이름 적거나 사진으로 대체) -->
+						<!-- Logo  -->
 						<div class="logo">
-							<a href="main.html"><img src="../resources/template/images/logo.png" alt="logo"></a>
+							<a href=""><img src="../resources/template/images/logo.png" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
 						<!--  검색창 카테고리  -->
@@ -181,7 +181,7 @@
 									<div class="navbar-collapse">	
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
-												<li class="active"><a href="main.html">Home</a></li>
+												<li class="active"><a href="">Home</a></li>
 												<li><a href="shop-grid.html">뮤지컬</a></li>												
 												<li><a href="shop-list.html">콘서트</a></li>
 												<li><a href="shop-single.html">연극</a></li>
@@ -217,10 +217,10 @@
 					<div class="home-slider-4">
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
-						<div class="big-content" style="background-image: url('/../resources/template/images/예시이미지1.png');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/뮤지컬시카고.png');">
 							<div class="inner">
-								<h4 class="title">뮤지컬 시데레우스</h4>
-								<p class="des">설명</p>
+								<h4 class="title"></h4>
+								<p class="des"></p>
 								<div class="button">
 									<a href="#" class="btn">상세보기</a>
 								</div>
@@ -235,10 +235,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="big-content" style="background-image: url('https://via.placeholder.com/1160x560');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/킹키부츠.png');">
 							<div class="inner">
-								<h4 class="title">뮤지컬 킹키부츠</h4>
-								<p class="des">설명</p>
+								<h4 class="title"></h4>
+								<p class="des"></p>
 								<div class="button">
 									<a href="#" class="btn">상세보기</a>
 								</div>
@@ -269,18 +269,19 @@
 							<div class="nav-main">
 								<!-- Tab Nav -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">장르</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">장르</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">장르</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#" role="tab">장르</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#" role="tab">장르</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">장르1</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">장르2</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">장르3</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids2" role="tab">장르4</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids3" role="tab">장르5</a></li>
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
 							<div class="tab-content" id="myTabContent">
 								<!-- Start Single Tab -->
 								 <!-- 뮤지컬 부분 -->
-								<div class="tab-pane fade" id="man" role="tabpanel">
+								  <!-- 장르1 -->
+								<div class="tab-pane fade show active" id="man" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -349,7 +350,7 @@
 								</div>
 								<!--/ End Single Tab -->
 
-								<!-- 콘서트 부분 -->
+								<!-- 장르2 부분 -->
 								<div class="tab-pane fade" id="women" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
@@ -418,8 +419,147 @@
 								</div>
 								<!--/ End Single Tab -->
 
-								<!-- 연극 부분 -->
-								<div class="tab-pane fade show active" id="kids" role="tabpanel">
+								<!-- 장르3 부분 -->
+								<div class="tab-pane fade" id="kids" role="tabpanel">
+									<div class="tab-single">
+										<div class="row">
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="../resources/template/images/연극 예시.png" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">연극 ‘고도를 기다리며’를 기다리며</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">공연제목</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">공연제목</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">공연제목</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/ End Single Tab -->
+
+								<!-- 장르4 부분 -->
+								<div class="tab-pane fade" id="kids2" role="tabpanel">
+									<div class="tab-single">
+										<div class="row">
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="../resources/template/images/연극 예시.png" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">연극 ‘고도를 기다리며’를 기다리며</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">공연제목</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">공연제목</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">공연제목</a></h3>
+														<div class="product-price">
+															<span>날짜</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/ End Single Tab -->
+							
+
+								<!-- 장르5 부분 -->
+								<div class="tab-pane fade" id="kids3" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -555,7 +695,7 @@
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h5 class="title"><a href="#">제목</a></h5>
-                                <p class="price with-discount">날짜</p>
+                                <p>날짜</p>
                             </div>
                         </div>
                     </div>
@@ -572,7 +712,7 @@
 										<div class="col-lg-6 col-md-6 col-12 no-padding">
 											<div class="content">
 												<h5 class="title"><a href="#">제목</a></h5>
-												<p class="price with-discount">날짜</p>
+												<p>날짜</p>
 											</div>
 										</div>
 									</div>
@@ -586,6 +726,7 @@
                 </div>
             </div>
             <div class="d-flex overflow-auto">
+				<!-- 가로형 -->
                 <!-- Start Single List -->
                 <div class="single-list me-3">
                     <div class="row">
@@ -632,7 +773,7 @@
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h5 class="title"><a href="#">3등 제목</a></h5>
-                                <p class="price with-discount">날짜</p>
+                                <p>날짜</p>
                             </div>
                         </div>
                     </div>
