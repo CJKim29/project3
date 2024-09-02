@@ -2623,8 +2623,8 @@ Version:1.0
 	visibility:visible;
 }
 .shop-home-list .single-list .list-image .buy{
-	height:40px;
-	width:40px;
+	height:20px;
+	width:20px;
 	line-height:40px;
 	font-size:14px;
 	color:#fff;
@@ -3822,7 +3822,7 @@ Version:1.0
    Start Shop Blog CSS
 ========================================*/
 .shop-blog.grid .shop-single-blog{
-	margin-top:30px;
+	margin-top:20px;
 }
 .shop-blog .shop-single-blog{
 	text-align:center;
@@ -3855,10 +3855,10 @@ Version:1.0
 	color: #B7B7B7;
 }
 .shop-blog .shop-single-blog .content .more-btn {
-	font-size: 14px;
+	font-size: 30px;
 	font-weight: 400;
 	color: #3c3c3c;
-	margin-top: 10px;
+	margin-top: 20px;
 	display: block;
 }
 .shop-blog .shop-single-blog .content .more-btn:hover{

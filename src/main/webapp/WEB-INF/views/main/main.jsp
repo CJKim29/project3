@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="../resources/template/css/responsive.css">
 
 	<!-- Color CSS -->
-	<link rel="stylesheet" href="../resources/template/css/color/color1.css">
+	<!-- <link rel="stylesheet" href="../resources/template/css/color/color1.css"> -->
 	<!--<link rel="stylesheet" href="../resources/template/css/color/color2.css">-->
 	<!--<link rel="stylesheet" href="../resources/template/css/color/color3.css">-->
 	<!--<link rel="stylesheet" href="../resources/template/css/color/color4.css">-->
@@ -56,7 +56,7 @@
 	<!--<link rel="stylesheet" href="../resources/template/css/color/color9.css">-->
 	<!--<link rel="stylesheet" href="../resources/template/css/color/color10.css">-->
 	<!--<link rel="stylesheet" href="../resources/template/css/color/color11.css">-->
-	<!--<link rel="stylesheet" href="../resources/template/css/color/color12.css">-->
+	<link rel="stylesheet" href="../resources/template/css/color/color12.css">
 
 	<link rel="stylesheet" href="#" id="colors">
 	
@@ -654,7 +654,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
+                                <img src="" alt="#">
 								<a href="#" class="buy"></a>
                             </div>
                         </div>
@@ -788,12 +788,13 @@
 	
 	<!-- Start Shop Blog  -->
 	<!-- 게시판부분 -->
+	 <!-- 경로 재지정 필요 -->
 	<section class="shop-blog section">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>게시판</h2>
+						<h2>고객센터</h2>
 					</div>
 				</div>
 			</div>
@@ -802,9 +803,8 @@
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
 						<div class="content">
-
-							<a href="#" class="title">공지사항</a>
-							<a href="#" class="more-btn">Continue Reading</a>
+							<p class="title">공지사항</p>
+							<a href="#" class="more-btn"><i class="fa fa-bullhorn"></i></a>
 						</div>
 					</div>
 					<!-- End Single Blog  -->
@@ -813,9 +813,8 @@
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
 						<div class="content">
-
-							<a href="#" class="title">FAQ</a>
-							<a href="#" class="more-btn">Continue Reading</a>
+							<a href="#" class="title">FAQ(자주 묻는 질문)</a>
+							<a href="#" class="more-btn"><i class="fa fa-comments-o"></i></a>
 						</div>
 					</div>
 					<!-- End Single Blog  -->
@@ -824,9 +823,8 @@
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
 						<div class="content">
-
 							<a href="#" class="title">공연 게시판</a>
-							<a href="#" class="more-btn">Continue Reading</a>
+							<a href="#" class="more-btn"><i class="fa fa-calendar"></i></a>
 						</div>
 					</div>
 					<!-- End Single Blog  -->
@@ -851,7 +849,7 @@
 							<div class="logo">
 								<a href="main.html"><img src="../resources/template/images/logo2.png" alt="#"></a>
 							</div>
-							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+							<p class="text">뮤지컬 티켓 사이트</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
 						</div>
 						<!-- End Single Widget -->
