@@ -23,6 +23,32 @@
 						margin: 50px;
 
 					}
+
+					.concert_list {
+						display: inline-block !important;
+						/* float: left !important; */
+					}
+
+					.d_cate_list li a {
+						color: gray !important;
+						/* font-size: 17px !important; */
+
+						margin-left: 25px !important;
+					}
+
+					.d_cate_list li a:hover {
+						color: red !important;
+					}
+
+					.d_cate_list li a:active,
+					.d_cate_list li a:focus {
+						color: red !important;
+					}
+
+					/* 방문 후 링크 상태*/
+					/* .d_cate_list li a:visited {
+						color: yellowgreen !important;
+					} */
 				</style>
 
 
@@ -154,16 +180,18 @@
 						</div>
 					</div>
 					<!-- End Topbar -->
+
 					<div class="middle-inner">
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-2 col-md-2 col-12">
-									<!-- Logo (여기 홈페이지 이름 적거나 사진으로 대체) -->
+									<!-- 사이트 로고 영역(이미지 넣어둠) -->
 									<div class="logo" id="mylogo">
 										<a href="main.html"><img src="../resources/images/logo_TIMOA2.PNG"
 												alt="logo"></a>
 									</div>
 									<!--/ End Logo -->
+
 									<!-- Search Form -->
 									<!-- 검색창 부분 -->
 									<div class="search-top">
@@ -255,13 +283,12 @@
 												<div class="navbar-collapse">
 													<div class="nav-inner">
 														<ul class="nav main-menu menu navbar-nav">
-															<li class="active"><a href="#">Home<i
-																		class="ti-angle-down"></i></a>
+															<li><a href="#">Home<i class="ti-angle-down"></i></a>
 																<ul class="dropdown">
 																	<li><a href="main.html">Main</a></li>
 																</ul>
 															</li>
-															<li><a href="#">뮤지컬</a></li>
+															<li class="active"><a href="list_grid.do">뮤지컬</a></li>
 															<li><a href="#">콘서트</a></li>
 															<li><a href="#">연극<i class="ti-angle-down"></i><span
 																		class="new">New</span></a>
@@ -300,7 +327,7 @@
 				<!--/ End Header -->
 
 				<!-- Breadcrumbs -->
-				<div class="breadcrumbs">
+				<!-- <div class="breadcrumbs">
 					<div class="container">
 						<div class="row">
 							<div class="col-12">
@@ -308,6 +335,50 @@
 									<ul class="bread-list">
 										<li><a href="main.html">Home<i class="ti-arrow-right"></i></a></li>
 										<li class="active"><a href="blog-single.html">Shop Grid</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- End Breadcrumbs -->
+
+				<!-- Breadcrumbs -->
+				<div class="breadcrumbs">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="bread-inner">
+									<ul class="d_cate_list">
+										<li style="margin-left: 20px; font-weight: bold !important;"><a href="#">장르</a>
+										</li>
+										<!-- <hr style="border: 1px solid #808080; width: '1'; height: 40%;" /> -->
+										<!-- <hr style="width: 2px; height: 10px;"> -->
+										<li>
+											<a
+												onclick="location.href='category.do?concert_category=${vo.concert_detail_cate_idx}'">
+												로맨틱코미디
+											</a>
+										</li>
+										<li><a href="#">드라마</a></li>
+										<li><a href="#">코믹</a></li>
+										<li><a href="#">공포/스릴러</a></li>
+										<li><a href="#">퍼포먼스</a></li>
+										<li><a href="#">어린이</a></li>
+										<li><a href="#">기타</a></li>
+									</ul>
+								</div>
+								<br>
+								<div class="bread-inner">
+									<ul class="d_cate_list">
+										<li style="margin-left: 20px;"><a href="#">지역</a></li>
+										<li><a href="#">서울</a></li>
+										<li><a href="#">경기/인천</a></li>
+										<li><a href="#">충청/대전</a></li>
+										<li><a href="#">경상/대구/부산</a></li>
+										<li><a href="#">전라/광주</a></li>
+										<li><a href="#">강원</a></li>
+										<li><a href="#">제주</a></li>
 									</ul>
 								</div>
 							</div>
@@ -321,48 +392,17 @@
 				<section class="product-area shop-sidebar shop section">
 					<div class="container">
 						<div class="row">
-							<div class="col-lg-3 col-md-4 col-12">
-								<div class="shop-sidebar">
-									<!-- Single Widget -->
-									<div class="single-widget category">
-										<h3 class="title mytitle">장르</h3>
-										<ul class="categor-list">
-											<li><a href="#">로맨틱 코미디</a></li>
-											<li><a href="#">드라마</a></li>
-											<li><a href="#">코믹</a></li>
-											<li><a href="#">공포/스릴러</a></li>
-											<li><a href="#">퍼포먼스</a></li>
-											<li><a href="#">어린이</a></li>
-											<li><a href="#">기타</a></li>
-										</ul>
-									</div>
-									<!--/ End Single Widget -->
-
-									<!-- Single Widget -->
-									<div class="single-widget category">
-										<h3 class="title mytitle">지역별</h3>
-										<ul class="categor-list">
-											<li><a href="#">서울</a></li>
-											<li><a href="#">경기/인천</a></li>
-											<li><a href="#">충청/대전</a></li>
-											<li><a href="#">경상/대구/부산</a></li>
-											<li><a href="#">전라/광주</a></li>
-											<li><a href="#">강원</a></li>
-											<li><a href="#">제주</a></li>
-										</ul>
-									</div>
-									<!--/ End Single Widget -->
-								</div>
-							</div>
-
-
 							<!-- 정렬바 -->
-							<div class="col-lg-9 col-md-8 col-12">
+							<!-- <div class="col-lg-9 col-md-8 col-12"> -->
+							<div class="col-xl-12">
 								<div class="row">
 									<div class="col-12">
+
 										<!-- Shop Top -->
 										<div class="shop-top">
 											<div class="shop-shorter">
+
+												<!-- 이미지 몇개씩 볼건지
 												<div class="single-shorter">
 													<label>Show :</label>
 													<select>
@@ -371,16 +411,19 @@
 														<option>25</option>
 														<option>30</option>
 													</select>
-												</div>
+												</div> -->
+
+												<!-- 정렬 -->
 												<div class="single-shorter">
 													<label>Sort By :</label>
 													<select>
-														<option selected="selected">Name</option>
-														<option>Price</option>
-														<option>Size</option>
+														<option selected="selected">인기순</option>
+														<option>가나다순</option>
+														<option>등록순</option>
 													</select>
 												</div>
 											</div>
+											<!-- 이미지 정렬 방식 : 그리드 형식 or 리스트 형식 선택-->
 											<ul class="view-mode">
 												<li class="active"><a href="list_grid.do"><i
 															class="fa fa-th-large"></i></a>
@@ -394,28 +437,29 @@
 
 								<!-- 공연 목록 출력 -->
 								<div class="concert_list">
-
 									<c:forEach var="vo" items="${ list }">
 										<img class="concert_img" src="../resources/images/${ vo.concert_image }"
 											onclick="location.href='detailpage.do?concert_idx=${vo.concert_idx}'">
 										<div class="concert_content">
-											<div>장르별 : ${vo.concertDetailCateVo.concert_detail_cate_name}</div>
-											<div>공연이름 : ${ vo.concert_name }</div>
-
+											<div>${ vo.concertCateVo.concert_cate_name }
+												> ${ vo.concertDetailCateVo.concert_detail_cate_name }</div>
+											<div>${ vo.concert_name }</div>
+											<span>가격 : </span>
+											<span>
+												<c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
+													${seat.seat_price}원
+												</c:forEach>
+											</span>
 										</div>
-
 									</c:forEach>
-									<div>
-										<c:forEach var="seat" items="${vo.seatList}">
-											${seat.seat_grade} : ${seat.seat_price} <br>
-										</c:forEach>
-									</div>
 								</div>
+
 
 								<!-- Data가 없는 경우 화면에 출력 될 정보 -->
 								<c:if test="${ empty requestScope.list }">
 									<div id="empty_msg">등록된 공연장 정보가 없습니다</div>
 								</c:if>
+
 
 
 

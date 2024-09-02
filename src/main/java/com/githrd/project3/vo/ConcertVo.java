@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 public class ConcertVo {
 
     int concert_idx;
+    int concert_cate_idx;
+    int concert_detail_cate_idx;
+    int hall_idx;
 
     String concert_name;
     String concert_startday;
@@ -20,9 +23,6 @@ public class ConcertVo {
     String concert_runtime;
     String concert_image;
     int concert_age;
-
-    int concert_cate_idx;
-    int hall_idx;
 
     HallVo hallVo;
     ConcertCateVo concertCateVo;

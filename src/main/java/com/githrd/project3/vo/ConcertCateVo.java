@@ -11,4 +11,7 @@ import lombok.NoArgsConstructor;
 public class ConcertCateVo {
     int concert_cate_idx;
     String concert_cate_name;
+
+    // 세부 카테고리
+    ConcertDetailCateVo concertDetailCateVo;
 }

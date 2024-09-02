@@ -20,20 +20,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
 	</resultMap>
 
-	<select id="concert_cate_list" resultType="concert_cate">
-	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
-	</select>
-	<select id="hall_list" resultType="hall">
-	   select * from hall where hall_idx=#{ hall_idx }
-	</select>
-	<select id="seat_list" resultType="seat">
-       select * from seat where concert_idx=#{ concert_idx }
-	</select>
+	<!-- 공연 카테고리 map으로 포장 -> 공연 세부카테고리 사용 위해 -->
+	<!-- <resultMap type="concert_cate" id="concertCateMap">
+		<result property="concert_cate_idx" column="concert_cate_idx"/>
+		<association property="concertDetailCateVo" column="concert_cate_idx=concert_cate_idx" select="detail_cate_list_sub" />
+	</resultMap> -->
 
+	<!-- id명 =  association의 select명            vo alias-->
 	<select id="detail_cate_list_sub" resultType="concert_detail_cate">
 		select * from concert_detail_cate 
 				 where concert_detail_cate_idx=#{ concert_detail_cate_idx }
 	</select>
+
+	<select id="concert_cate_list" resultType="concert_cate">
+	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+	</select>
+
+	<select id="hall_list" resultType="hall">
+	   select * from hall where hall_idx=#{ hall_idx }
+	</select>
+	<select id="seat_list" resultType="seat">
+       select * from seat where concert_idx=#{ concert_idx } order by seat_price
+	</select>
+
 
 
 	<!-- 전체조회 -->
@@ -45,5 +54,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOneFromIdx" resultMap="concertMap">
 		select * from concert where concert_idx=#{ concert_idx }
 	</select>
+
+	<!-- 장르별 공연 리스트 조회 -->
+	<select id="selectOneFromCategory" resultMap="concertMap">
+		select * from concert where concert_detail_cate_idx = #{ concert_detail_cate_idx }
+	</select>
+
+
 
 </mapper>
