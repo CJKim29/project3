@@ -95,8 +95,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	
 	* {
 		font-family: 'ONE-Mobile-POP';
-		text-shadow: red;
-		color: #F7230E;
+		text-shadow: #f7941d;
+		color: #f7941d;
 	}
 	
 	textarea{
@@ -172,6 +172,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 						return;
 					}
 					alert("댓글이 등록되었습니다.");
+          window.location.href = window.location.href;
 					comment_list(1);
 				},
 				error	:	function(err){
@@ -447,7 +448,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                   >Blog Grid Sidebar</a
                                 >
                               </li>
-                              <li><a href="x_list.do">board-List</a></li>
+                              <li><a href="list.do">board-List</a></li>
                               <li>
                                 <a href="blog-single-sidebar.html"
                                   >Blog Single Sidebar</a
@@ -526,7 +527,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 						   
 					<!-- 로그인된 상태에서만 등록가능 -->	
 					<c:if test="${ (not empty user) and (vo.board_depth le 1) }">  
-						<input class="btn" style="background: #F7230E;" type="button" value="답글쓰기"
+						<input class="btn" style="background: #f7941d;" type="button" value="답글쓰기"
 							   onclick="location.href='reply_form.do?board_idx=${ vo.board_idx }'">
 					</c:if> 
 					

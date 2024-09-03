@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.QnaMapper">
+
+    <select id="qna_page_list" parameterType="Map" resultType="qna">
+        SELECT qa.* 
+		FROM (
+			SELECT
+				rank() OVER (ORDER BY q.qna_idx desc) AS qna_no,
+				q.*,
+				(SELECT COUNT(*) FROM qna_comment WHERE qna_idx = q.qna_idx) AS qna_cmt_count
+			FROM
+				qna q
+		) qa
+		WHERE qna_no BETWEEN ${start} AND ${end};
+    </select>
+
+    <select id="qna_row_total" parameterType="Map" resultType="int">
+        select ifnull(count(*),0) from qna
+    </select>
+
+    <insert id="qna_insert" parameterType="qna">
+        insert into board values(null,
+                                 #{ mem_idx },
+                                 #{ qna_title },
+                                 #{ qna_content },
+                                 #{ mem_nickname },
+                                 now(),
+                                 'n'                                
+                                )
+    </insert>
+
+    <select id="qna_one_from_idx" parameterType="int" resultType="qna">
+        SELECT q.*, 
+			(SELECT COUNT(*) FROM qna_comment c WHERE c.qna_idx = q.qna_idx) AS qna_cmt_count
+		FROM qna q
+		WHERE q.qna_idx = #{qna_idx}
+    </select>
+
+    <update id="qna_update" parameterType="qna">
+        update board set qna_title   = #{ qna_title },
+					     qna_content   = #{ qna_content },					     
+					     qna_regdate 	 = now()
+					     where qna_idx = #{ qna_idx }	   
+    </update>
+
+    <delete id="qna_delete" parameterType="int">
+        delete from qna where qna_idx=#{ qna_idx }
+    </delete>
+
+</mapper>

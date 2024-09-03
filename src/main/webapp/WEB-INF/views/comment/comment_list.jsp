@@ -23,6 +23,7 @@
 					alert("삭제 실패");
 					return;
 				}
+				window.location.href = window.location.href;
 				comment_list(g_page);
 			},
 			error	:	function(err){
@@ -48,7 +49,7 @@
 		<!-- 자신의 글만 삭제메뉴 활성화 -->
 		<c:if test="${ user.mem_idx eq vo.mem_idx }">
 			<div style="text-align: right;">
-				<input type="button" value="x" style="background: #F7230E; color: white;" onclick="comment_delete('${ vo.cmt_idx}');">
+				<input type="button" value="x" style="background: #f7941d; color: white;" onclick="comment_delete('${ vo.cmt_idx}');">
 			</div>
 		</c:if>
 		<div>${ vo.mem_nickname }</div>

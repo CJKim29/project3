@@ -98,7 +98,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
       * {
         font-family: "ONE-Mobile-POP";
-        color: #f7230e;
+        color: #f7941d;
       }
 
       th {
@@ -106,12 +106,12 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       }
 
       a {
-        color: #f7230e;
+        color: #f7941d;
         text-decoration: none;
       }
 
       a:hover {
-        color: #f7230e;
+        color: #f7941d;
         text-decoration: none;
       }
 
@@ -431,7 +431,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             <div style="text-align: right">
               <input
                 class="btn"
-                style="background: #f7230e; color: white"
+                style="background: #f7941d; color: white"
                 type="button"
                 value="글쓰기"
                 onclick="insert_form();"
@@ -439,7 +439,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             </div>
             <!-- 게시판 테이블 구성하기  -->
             <table class="table" style="margin-bottom: 0">
-              <tr style="background: #f7230e">
+              <tr style="background: #f7941d">
                 <th>번호</th>
                 <th style="width: 50%">제목</th>
                 <th>카테고리</th>
@@ -486,7 +486,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                           <a href="view.do?board_idx=${ vo.board_idx }">
                             ${ vo.board_name }
                             <c:if test="${ vo.cmt_count ne 0 }">
-                              <span class="badge" style="background: #f7230e"
+                              <span class="badge" style="background: #f7941d"
                                 >&nbsp;${ vo.cmt_count }</span
                               >
                             </c:if>

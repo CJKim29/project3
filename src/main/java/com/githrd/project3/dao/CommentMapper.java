@@ -16,13 +16,13 @@ public interface CommentMapper {
 	// Paging조회
 	List<CommentVo> comment_page_list(Map<String, Object> map);
 
-	// 총 댓글 개수
+	// 추가
 	int comment_insert(CommentVo vo);
 
-	// 추가
+	// 삭제
 	int comment_delete(int cmt_idx);
 
-	// 삭제
+	// 총 댓글 개수
 	int comment_row_total(int board_idx);
 
 }
