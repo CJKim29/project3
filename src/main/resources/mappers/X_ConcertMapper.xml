@@ -69,7 +69,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         s_hall
     WHERE
         seat_idx = #{ seat_idx }
-		AND concert_date = #{ concert_date };
+		AND concert_date_idx = 6;
 	</select>
+
+
+	<!-- concert_date_idx 조회 -->
+	<select id="selectConcertDateIdx" resultType="int">
+        SELECT concert_date_idx 
+        FROM concert_date 
+        WHERE SUBSTRING(concert_date_date, 1, 10) = #{concert_date} 
+        AND concert_idx = #{concert_idx};
+	</select>
+
+	<!-- 남은 좌석 수 조회 -->
+	<select id="selectRemainSeat1" resultType="int">
+        SELECT 
+            COALESCE(
+                (SUM(s_hall_a = 0) +
+                SUM(s_hall_b = 0) +
+                SUM(s_hall_c = 0) +
+                SUM(s_hall_d = 0) +
+                SUM(s_hall_e = 0) +
+                SUM(s_hall_f = 0) +
+                SUM(s_hall_g = 0) +
+                SUM(s_hall_h = 0) +
+                SUM(s_hall_i = 0) +
+                SUM(s_hall_j = 0)), 0) AS zero_count
+        FROM s_hall
+        WHERE concert_date_idx = #{concert_date_idx}
+        AND seat_idx = #{seat_idx};
+	</select>
+
 
 </mapper>

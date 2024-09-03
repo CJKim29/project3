@@ -23,4 +23,7 @@ public class S_HallVo {
     private int s_hall_h;
     private int s_hall_i;
     private int s_hall_j;
+
+    SeatVo seatVo;
+    ConcertDateVo concertDateVo;
 }

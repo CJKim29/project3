@@ -69,19 +69,33 @@ public class X_ConcertController {
 
 		model.addAttribute("vo", vo);
 
-		int zeroCount1 = concert_mapper.selectRemainSeat(concert_date, 1); // 변경: 반환 값을 int로 받음
+		// 전달받은 date와 concert_date 테이블을 비교하여 concert_date_idx 추출
+		System.out.println("concert_date: " + concert_date);
+		System.out.println("concert_idx: " + concert_idx);
+
+		Integer concert_date_idx = concert_mapper.selectConcertDateIdx(concert_date, concert_idx);
+
+		System.out.println("concert_date_idx: " + concert_date_idx);
+
+		if (concert_date_idx == null) {
+			// concert_date_idx가 null일 경우 처리
+			model.addAttribute("error", "Invalid concert date or concert ID.");
+			return "concert/X_concert_seat";
+		}
+
+		int zeroCount1 = concert_mapper.selectRemainSeat1(concert_date_idx, 1); // 변경: 반환 값을 int로 받음
 		model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
 
-		int zeroCount2 = concert_mapper.selectRemainSeat(concert_date, 2);
+		int zeroCount2 = concert_mapper.selectRemainSeat1(concert_date_idx, 2);
 		model.addAttribute("zeroCount2", zeroCount2);
 
-		int zeroCount3 = concert_mapper.selectRemainSeat(concert_date, 3);
+		int zeroCount3 = concert_mapper.selectRemainSeat1(concert_date_idx, 3);
 		model.addAttribute("zeroCount3", zeroCount3);
 
-		int zeroCount4 = concert_mapper.selectRemainSeat(concert_date, 4);
+		int zeroCount4 = concert_mapper.selectRemainSeat1(concert_date_idx, 4);
 		model.addAttribute("zeroCount4", zeroCount4);
 
-		int zeroCount5 = concert_mapper.selectRemainSeat(concert_date, 5);
+		int zeroCount5 = concert_mapper.selectRemainSeat1(concert_date_idx, 5);
 		model.addAttribute("zeroCount5", zeroCount5);
 
 		return "concert/X_concert_seat";
