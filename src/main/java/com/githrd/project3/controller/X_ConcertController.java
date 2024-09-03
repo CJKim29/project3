@@ -69,13 +69,7 @@ public class X_ConcertController {
 
 		model.addAttribute("vo", vo);
 
-		// 전달받은 date와 concert_date 테이블을 비교하여 concert_date_idx 추출
-		System.out.println("concert_date: " + concert_date);
-		System.out.println("concert_idx: " + concert_idx);
-
 		Integer concert_date_idx = concert_mapper.selectConcertDateIdx(concert_date, concert_idx);
-
-		System.out.println("concert_date_idx: " + concert_date_idx);
 
 		if (concert_date_idx == null) {
 			// concert_date_idx가 null일 경우 처리
