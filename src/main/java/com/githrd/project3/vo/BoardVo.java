@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class BoardVo {
 
-  int board_idx;
+  Integer board_idx;
   Integer board_cate_idx;
   int mem_idx;
   String board_name;
@@ -29,5 +29,7 @@ public class BoardVo {
   // 댓글 구현되고 만들기
   int board_no;
   int cmt_count;
+
+  // 조인용 변수
   String board_cate_name;
 }

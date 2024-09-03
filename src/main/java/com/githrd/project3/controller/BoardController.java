@@ -38,20 +38,8 @@ public class BoardController {
 	// @Qualifier("board.dao") // 식별자 -연결시킴
 	BoardMapper board_mapper;
 
-	@RequestMapping("main.do")
-	public String main() {
-
-		return "board/board-main";
-	}
-
 	@RequestMapping("list.do")
-	public String list() {
-
-		return "board/board-List";
-	}
-
-	@RequestMapping("x_list.do")
-	public String x_list(
+	public String list(
 			@RequestParam(name = "page", defaultValue = "1") int nowPage,
 			Model model) {
 
@@ -125,7 +113,7 @@ public class BoardController {
 		// DB insert
 		int res = board_mapper.board_insert(vo);
 
-		return "redirect:x_list.do";
+		return "redirect:list.do";
 	}
 
 	// 상세보기
@@ -202,7 +190,7 @@ public class BoardController {
 		// 답글 추가(DB insert)
 		res = board_mapper.board_reply(vo);
 
-		return "redirect:x_list.do";
+		return "redirect:list.do";
 	}
 
 	// /bbs/board/delete.do?b_idx=18
@@ -212,7 +200,7 @@ public class BoardController {
 		// 삭제 처리 : b_use : 'n'
 		int res = board_mapper.board_update_use(board_idx);
 
-		return "redirect:x_list.do";
+		return "redirect:list.do";
 	}
 
 	// 수정 폼

@@ -34,7 +34,7 @@ public class CommentController {
 
 	// /comment/list.do?b_idx=5&page=1
 	@RequestMapping("list.do")
-	public String list(int board_idx,
+	public String list(Integer board_idx,
 			@RequestParam(name = "page", defaultValue = "1") int nowPage,
 			Model model) {
 

@@ -14,7 +14,7 @@ public class CommentVo {
 	String cmt_content;
 	String cmt_ip;
 	String cmt_regdate;
-	int board_idx;
+	Integer board_idx;
 	int mem_idx;
 	String mem_nickname;
 

@@ -33,7 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- b_idx에 해당되는 게시물 1건 얻어오기 -->
 	<select id="board_one_from_idx" parameterType="int" resultType="board">
-		select * from board where board_idx=#{ board_idx }
+		SELECT b.*, 
+			(SELECT COUNT(*) FROM comment_tb c WHERE c.board_idx = b.board_idx) AS cmt_count
+		FROM board b
+		WHERE b.board_idx = #{board_idx}
 	</select>
 
 	<select id="getMaxBoard_idx" resultType="int">
