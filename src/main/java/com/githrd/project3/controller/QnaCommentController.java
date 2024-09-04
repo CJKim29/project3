@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.githrd.project3.dao.QnaCommentMapper;
+import com.githrd.project3.dao.QnaMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.QnaCommentVo;
@@ -24,6 +25,9 @@ public class QnaCommentController {
 
     @Autowired
     QnaCommentMapper qna_cmt_mapper;
+
+    @Autowired
+    QnaMapper qna_mapper;
 
     @Autowired
     HttpServletRequest request;
@@ -73,6 +77,9 @@ public class QnaCommentController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("result", res == 1);
+
+        // 성공하면 해당 게시물을 답변완료('y')로 변경하기;
+        qna_mapper.qna_update_use(vo.getQna_idx());
 
         return map;
     }

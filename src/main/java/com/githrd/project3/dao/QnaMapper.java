@@ -26,4 +26,7 @@ public interface QnaMapper {
 
     // 삭제
     int qna_delete(int qna_idx);
+
+    // 답변완료시, 답변 여부를 'y'로 수정
+    int qna_update_use(int qna_idx);
 }

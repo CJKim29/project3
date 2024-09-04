@@ -142,7 +142,7 @@
                             <font color="red">답변 미완료</font>
                         </c:if>	
                         <c:if test="${ vo.qna_use eq 'y' }">
-                            <c:if test="${ vo.cmt_count ne 0 }">
+                            <c:if test="${ vo.qna_cmt_count ne 0 }">
                                 <span class="badge" style="background: #F7230E;">&nbsp; 답변 완료</span>
                             </c:if>								
                         </c:if>	

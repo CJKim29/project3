@@ -46,6 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					     where qna_idx = #{ qna_idx }	   
     </update>
 
+    <!-- 답변완료시, 답변 여부를 'y'로 수정 -->
+    <update id="qna_update_use">
+		update qna set qna_use = 'y' where qna_idx = #{ qna_idx }
+    </update>
+
     <delete id="qna_delete" parameterType="int">
         delete from qna where qna_idx=#{ qna_idx }
     </delete>
