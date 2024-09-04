@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.FaqMapper">
+
+    <select id="faq_page_list" parameterType="Map" resultType="faq">
+        SELECT f.* 
+		FROM (
+			SELECT
+            *,
+				rank() OVER (ORDER BY faq_idx desc) AS faq_no		
+			FROM
+				faq 
+		) f
+		WHERE faq_no BETWEEN ${start} AND ${end};
+    </select>
+
+    <select id="faq_row_total" parameterType="Map" resultType="int">
+        select ifnull(count(*),0) from faq
+    </select>
+
+    <insert id="faq_insert" parameterType="faq">
+        insert into faq values(null,
+                                 #{ faq_title },
+                                 #{ faq_content },
+                                 now()                             
+                              )
+    </insert>
+
+    <select id="faq_one_from_idx" parameterType="int" resultType="faq">
+        SELECT * FROM faq WHERE faq_idx = #{faq_idx}
+    </select>
+
+    <update id="faq_update" parameterType="faq">
+        update faq set faq_title   = #{ faq_title },
+					     faq_content   = #{ faq_content },					     
+					     faq_regdate 	 = now()
+					     where faq_idx = #{ faq_idx }	   
+    </update>
+
+    <delete id="faq_delete" parameterType="int">
+        delete from faq where faq_idx=#{ faq_idx }
+    </delete>
+
+</mapper>
