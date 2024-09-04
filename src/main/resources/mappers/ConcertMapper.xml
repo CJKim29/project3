@@ -9,12 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="concert_cate_idx" column="concert_cate_idx"/>
 		<result property="concert_idx" column="concert_idx"/>
 		<result property="seat_idx" column="seat_idx"/>
-
 		<result property="concert_detail_cate_idx" column="concert_detail_cate_idx"/>
 
 		<association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
 		<association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
-
 		<association property="concertDetailCateVo" column="concert_detail_cate_idx=concert_detail_cate_idx" select="detail_cate_list_sub" />
 
 		<collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
@@ -55,11 +53,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from concert where concert_idx=#{ concert_idx }
 	</select>
 
-	<!-- 장르별 공연 리스트 조회 -->
-	<select id="selectOneFromCategory" resultMap="concertMap">
-		select * from concert where concert_detail_cate_idx = #{ concert_detail_cate_idx }
+
+	<!-- 장르 select one - concert_detail_cate_idx 이용해서 -->
+	<!-- <select id="selectOneFromCategory" parameterType="int" resultMap="concertMap">
+		select * from concert 
+				 where concert_detail_cate_idx = #{ concert_detail_cate_idx }
+	</select> -->
+
+	<!-- 장르별 공연 리스트 조회(특정 한 장르의 공연 리스트) - concert_detail_cate_name 이용-->
+	<select id="concert_detail_cate_list" parameterType="int" resultMap="concertMap">
+		select * from concert 
+				 where concert_detail_cate_idx = #{ concert_detail_cate_idx }
+				 	   and hall_idx = #{hall_idx}
 	</select>
 
+	<select id="selectCategoryList" parameterType="Map" resultMap="concertMap">
+		select * from concert 
+		<trim prefix="where" prefixOverrides="and">
+			<if test="concert_detail_cate_idx!=0">
+                 concert_detail_cate_idx = #{ concert_detail_cate_idx }
+			</if>
+			<if test="hall_area!='all'">
+                 and (hall_idx in (select hall_idx from hall where  hall_area = #{hall_area}) )
+			</if>
+		</trim>
+		order by  concert_idx
+	</select>
 
+	<!-- 지역별 공연 리스트 조회 -->
+	<!-- <select id="concert_area_list" parameterType="int" resultMap="concertMap">
+		select * from concert 
+				 where concert_detail_cate_idx = #{concert_detail_cate_idx}
+				 	   and hall_idx = #{hall_idx};
+	</select> -->
+
+
+	<!--parameterType = 전달인자타입
+		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
 
 </mapper>

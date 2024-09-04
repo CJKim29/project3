@@ -1,14 +1,12 @@
 package com.githrd.project3.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.githrd.project3.dao.ConcertMapper;
@@ -76,21 +74,69 @@ public class ConcertController {
 		return "concert/concert_seat";
 	}
 
-	// 장르별 조회(concert_detail_cate_idx)
-	// @GetMapping("/category/{category}")
-	// public ResponseEntity<List<Item>> getItemsByCategory(@PathVariable String
-	// category) {
-	// List<Item> items = itemService.getItemsByCategory(category);
-	// return new ResponseEntity<>(items, HttpStatus.OK);
-	// }
-	@GetMapping("/category/{concert_detail_cate_idx}")
-	public String category(int concert_detail_cate_idx, Model model) {
+	@RequestMapping("category.do")
+	public String category(int genre, String area, Model model) {
 
-		ConcertVo vo = concert_mapper.selectOneFromCategory(concert_detail_cate_idx);
+		// if (concert_detail_cate_idx == 0 || concert_detail_cate_idx.isEmpty()) {
+		// // sajob.isEmpty() <==>
+		// // sajob.equals("")
+		// concert_detail_cate_idx = 0;
+		// }
 
-		model.addAttribute("vo", vo);
+		System.out.println(area);
 
-		return "";
+		// 콘서트 목록 가져오기
+		List<ConcertVo> list = null;
+
+		// System.out.println(area);
+		// System.out.println("genre : " + genre);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("concert_detail_cate_idx", genre);
+		map.put("hall_area", area);
+
+		list = concert_mapper.selectCategoryList(map);
+		// concert_detail_cate_name : jsp 함수 안에 선언 되어 있는 변수
+		// if (genre == 0 && area == 0) { // 장르전체 + 지역전체
+		// // 공연 목록 전체 조회
+		// list = concert_mapper.selectList();
+		// } else if (genre == 0) {
+		// // 공연 장르별, 지역별 조회 필터링
+		// list = concert_mapper.concert_detail_cate_list(genre, area);
+		// } else if (area == 0) {
+		// // 공연 장르별, 지역별 조회 필터링
+		// list = concert_mapper.concert_detail_cate_list(genre, area);
+		// } else {
+		// // 공연 장르별, 지역별 조회 필터링
+		// list = concert_mapper.concert_detail_cate_list(genre, area);
+		// }
+
+		// request binding
+		model.addAttribute("list", list);
+
+		return "concert/concert_grid_bottom";
+	}
+
+	@RequestMapping("category_area.do")
+	public String category_area(int hall_idx, int concert_detail_cate_idx, Model model) {
+
+		// 콘서트 목록 가져오기
+		List<ConcertVo> list = null;
+
+		// System.out.println(concert_detail_cate_idx);
+
+		// hall_idx : jsp 함수 안에 선언 되어 있는 변수
+		if (hall_idx == 0 && concert_detail_cate_idx == 0) { // '지역전체' + '장르전체'
+			// 공연 목록 전체 조회
+			list = concert_mapper.selectList();
+		} else {
+			list = concert_mapper.concert_area_list(hall_idx, concert_detail_cate_idx);
+		}
+
+		// request binding
+		model.addAttribute("list", list);
+
+		return "concert/concert_grid_bottom";
 	}
 
 }

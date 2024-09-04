@@ -1,6 +1,7 @@
 package com.githrd.project3.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,6 +17,18 @@ public interface ConcertMapper {
     ConcertVo selectOneFromIdx(int concert_idx);
 
     // 장르별 조회(concert_detail_cate_idx)
+    // List<ConcertVo> list_category(int concert_detail_cate_idx);
+    // ConcertVo list_category(int concert_detail_cate_idx);
+
+    // 장르별 조회
     ConcertVo selectOneFromCategory(int concert_detail_cate_idx);
+
+    // 장르별 조회
+    List<ConcertVo> concert_detail_cate_list(int genre, int area);
+
+    // 지역별 조회
+    List<ConcertVo> concert_area_list(int hall_idx, int concert_detail_cate_idx);
+
+    List<ConcertVo> selectCategoryList(Map<String, Object> map);
 
 }

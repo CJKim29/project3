@@ -29,6 +29,8 @@ public class ConcertVo {
     // SeatVo seatVo;
     List<SeatVo> seatList;
 
+    // 공연 상세 카테고리
     ConcertDetailCateVo concertDetailCateVo;
+    List<ConcertDetailCateVo> concertDetailCateList;
 
 }
