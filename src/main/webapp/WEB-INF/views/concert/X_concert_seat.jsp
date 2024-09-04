@@ -38,6 +38,14 @@
                         margin-left: 20px;
                     }
 
+                    .seat.available {
+                        background-color: black;
+                    }
+
+                    .seat.unavailable {
+                        background-color: white !important;
+                    }
+
                     /* 색상 스타일 */
                     .seat-purple {
                         background-color: rgb(187, 73, 187);
@@ -62,6 +70,34 @@
                         vertical-align: top;
                         margin-right: 20px;
                     }
+
+                    .seat.seat-row-1,
+                    .seat.seat-row-2 {
+                        background-color: rgb(187, 73, 187);
+                        /* Purple */
+                    }
+
+                    .seat.seat-row-3,
+                    .seat.seat-row-4 {
+                        background-color: rgb(52, 199, 52);
+                        /* Green */
+                    }
+
+                    .seat.seat-row-5,
+                    .seat.seat-row-6 {
+                        background-color: rgb(40, 204, 216);
+                        /* Blue */
+                    }
+
+                    .seat.seat-row-7,
+                    .seat.seat-row-8,
+                    .seat.seat-row-9,
+                    .seat.seat-row-10 {
+                        background-color: rgb(233, 174, 66);
+                        /* Orange */
+                    }
+
+                    /* ... 각 row별로 색상을 추가로 정의 */
                 </style>
 
                 <!-- 버튼 클릭 -->
@@ -84,7 +120,7 @@
                             // 색상 토글
                             if (currentColor === originalColor) {
                                 // 색상을 하얀색으로 변경
-                                $(this).css('background-color', 'white');
+                                $(this).css('background-color', 'gray');
                             } else {
                                 // 원래 색상으로 변경
                                 $(this).css('background-color', originalColor);
@@ -110,28 +146,42 @@
             <body>
                 <h1 style="text-align: left; margin-left: 100px;">좌석 예약</h1>
                 <div class="seat-container">
-                    <%-- 100개의 좌석 버튼 생성 --%>
-                        <c:forEach var="i" begin="1" end="100">
-                            <c:choose>
-                                <c:when test="${i <= 20}">
-                                    <div class="seat seat-purple" data-color="purple" id="seat${i}"></div>
-                                </c:when>
-                                <c:when test="${i <= 40}">
-                                    <div class="seat seat-green" data-color="green" id="seat${i}"></div>
-                                </c:when>
-                                <c:when test="${i <= 60}">
-                                    <div class="seat seat-blue" data-color="blue" id="seat${i}"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="seat seat-orange" data-color="orange" id="seat${i}"></div>
-                                </c:otherwise>
-                            </c:choose>
-                            <%-- 10개의 버튼마다 줄 바꿈 --%>
-                                <c:if test="${i % 10 == 0}">
-                                    <br />
-                                </c:if>
-                        </c:forEach>
-
+                    <c:forEach var="seat" items="${seats}">
+                        <div>
+                            <!-- Row별로 동적으로 클래스 할당 -->
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <div
+                                class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}">
+                            </div>
+                            <strong>&nbsp;&nbsp;Row ${seat.s_hall_row_no}</strong>
+                        </div>
+                    </c:forEach>
                 </div>
                 <div class="seat-container">
                     <c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
@@ -162,6 +212,7 @@
                         onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
                 </div>
 
+                <br /><br />
                 <table class="table">
                     <tr class="info">
                         <th>카테고리</th>
@@ -205,6 +256,29 @@
 
 
                 </table>
+                <div class="seat-container">
+                    <%-- 100개의 좌석 버튼 생성 --%>
+                        <c:forEach var="i" begin="1" end="100">
+                            <c:choose>
+                                <c:when test="${i <= 20}">
+                                    <div class="seat seat-purple" data-color="purple" id="seat${i}"></div>
+                                </c:when>
+                                <c:when test="${i <= 40}">
+                                    <div class="seat seat-green" data-color="green" id="seat${i}"></div>
+                                </c:when>
+                                <c:when test="${i <= 60}">
+                                    <div class="seat seat-blue" data-color="blue" id="seat${i}"></div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="seat seat-orange" data-color="orange" id="seat${i}"></div>
+                                </c:otherwise>
+                            </c:choose>
+                            <%-- 10개의 버튼마다 줄 바꿈 --%>
+                                <c:if test="${i % 10 == 0}">
+                                    <br />
+                                </c:if>
+                        </c:forEach>
+                </div>
             </body>
 
             </html>

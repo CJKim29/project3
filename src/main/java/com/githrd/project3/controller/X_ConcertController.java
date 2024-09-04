@@ -65,6 +65,10 @@ public class X_ConcertController {
 
 		// model.addAttribute("list", list);
 
+		List<S_HallVo> seats = s_hall_mapper.selectSeatsByConcertAndDate(concert_idx, concert_date);
+
+		model.addAttribute("seats", seats);
+
 		ConcertVo vo = concert_mapper.selectOneFromIdx(concert_idx);
 
 		model.addAttribute("vo", vo);

@@ -12,4 +12,10 @@ public interface S_HallMapper {
 
     List<S_HallVo> selectList();
 
+    List<S_HallVo> selectSeatsByConcert(int concertIdx);
+
+    List<S_HallVo> selectSeatsByConcertAndDate(@Param("concert_idx") int concert_idx,
+            @Param("concert_date") String concert_date);
+
+    int countAvailableSeatsBySeatIdx(int seatIdx);
 }
