@@ -36,11 +36,11 @@
 		font-weight: bold;
 		font-size: 26px;
 		text-shadow: 1px 1px 1px black;
-		color: #F7230E;
+		color: #f7941d;
 	}
 	
 	* {
-		color: #F7230E;
+		color: #f7941d;
 	}
 	
 	th {
@@ -48,12 +48,12 @@
 	}
 	
 	a {
-		color: #F7230E;
+		color: #f7941d;
 		text-decoration: none;
 	}
 	
 	a:hover {
-		color: #F7230E;
+		color: #f7941d;
 		text-decoration: none;
 	}
 	
@@ -76,8 +76,7 @@
 	
 	.toggle-btn {
 		cursor: pointer;
-		color: #F7230E;
-		text-decoration: underline;
+		color: #f7941d;
 	}
 
 </style>
@@ -113,35 +112,40 @@
 </head>
 <body>
 	<div id="box">
-		<h3 id="title">::::Q&A페이지::::		
+		<h3 id="title">::::FAQ페이지::::		
 		<img src="../resources/images/김치쿵야.png">
 		</h3>
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
             <c:if test="${ user.mem_grade eq '관리자' }">
 			<div class="col-sm-4">                
-				<input class="btn" style="background: #F7230E; color: white;" type="button" value="글쓰기"
+				<input class="btn" style="background: #f7941d; color: white;" type="button" value="글쓰기"
 					   onclick="insert_form();">                     
+			</div>
+            </c:if>
+            <c:if test="${ user.mem_grade ne '관리자' }">
+			<div class="col-sm-4">                
+				                  
 			</div>
             </c:if>
 			<div class="col-sm-8" style="text-align: right;">
 				<!-- 로그인이 안된 경우 -->
 				<c:if test="${ empty user }">
-					<input class="btn" style="background: #F7230E; color: white;" type="button" value="로그인" 
+					<input class="btn" style="background: #f7941d; color: white;" type="button" value="로그인" 
 						   onclick="location.href='../member/login_form.do'">
 				</c:if>
 				
 				<!-- 로그인이 안된 경우 -->
 				<c:if test="${ not empty sessionScope.user }">
 					<b>${ user.mem_nickname }</b>님 환영해요.
-					<input class="btn" style="background: #F7230E; color: white;" type="button" value="로그아웃"
+					<input class="btn" style="background: #f7941d; color: white;" type="button" value="로그아웃"
 						   onclick="location.href='../member/logout.do'">
 				</c:if>
 			</div>
 		</div>
 		
 		<table class="table">
-			<tr style="background: #F7230E;">
+			<tr style="background: #f7941d;">
 				<th>번호</th>
 				<th style="width: 50%;">제목</th>
 				<th>작성일자</th>
@@ -162,7 +166,7 @@
 					<td>${ vo.faq_no }</td>
 					<td>
 						<font color="red">
-                            <span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')">${ vo.faq_title }</span>
+                            <span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')">${ vo.faq_title }&nbsp;&nbsp;&nbsp; V</span>
                             <div id="content-${vo.faq_no}" class="faq_content">
 							    ${ vo.faq_content }
 						    </div>

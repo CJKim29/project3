@@ -380,7 +380,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                                   >Blog Grid Sidebar</a
                                 >
                               </li>
-                              <li><a href="x_list.do">board-List</a></li>
+                              <li><a href="list.do">board-List</a></li>
                               <li>
                                 <a href="blog-single-sidebar.html"
                                   >Blog Single Sidebar</a

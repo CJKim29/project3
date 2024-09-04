@@ -36,11 +36,11 @@
 		font-weight: bold;
 		font-size: 26px;
 		text-shadow: 1px 1px 1px black;
-		color: #F7230E;
+		color: #f7941d;
 	}
 	
 	* {
-		color: #F7230E;
+		color: #f7941d;
 	}
 	
 	th {
@@ -48,12 +48,12 @@
 	}
 	
 	a {
-		color: #F7230E;
+		color: #f7941d;
 		text-decoration: none;
 	}
 	
 	a:hover {
-		color: #F7230E;
+		color: #f7941d;
 		text-decoration: none;
 	}
 	
@@ -72,8 +72,21 @@
 <script type="text/javascript">
 	
 	function insert_form() {
+
+		// 로그인 여부 체크
+		if ("${ empty user }" == "true") {
+          if (
+            confirm("글쓰기는 로그인 후 가능합니다 \n 로그인 하시겠습니까?") ==
+            false
+          )
+            return;
+
+          location.href = "../member/login_form.do";
+
+          return;
+        }
 		
-			location.href = "insert_form.do";
+		location.href = "insert_form.do";
 	}
 	
 </script>
@@ -87,27 +100,27 @@
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
 			<div class="col-sm-4">                
-				<input class="btn" style="background: #F7230E; color: white;" type="button" value="글쓰기"
+				<input class="btn" style="background: #f7941d; color: white;" type="button" value="글쓰기"
 					   onclick="insert_form();">                     
 			</div>
 			<div class="col-sm-8" style="text-align: right;">
 				<!-- 로그인이 안된 경우 -->
 				<c:if test="${ empty user }">
-					<input class="btn" style="background: #F7230E; color: white;" type="button" value="로그인" 
+					<input class="btn" style="background: #f7941d; color: white;" type="button" value="로그인" 
 						   onclick="location.href='../member/login_form.do'">
 				</c:if>
 				
 				<!-- 로그인이 안된 경우 -->
 				<c:if test="${ not empty sessionScope.user }">
 					<b>${ user.mem_nickname }</b>님 환영해요.
-					<input class="btn" style="background: #F7230E; color: white;" type="button" value="로그아웃"
+					<input class="btn" style="background: #f7941d; color: white;" type="button" value="로그아웃"
 						   onclick="location.href='../member/logout.do'">
 				</c:if>
 			</div>
 		</div>
 		
 		<table class="table">
-			<tr style="background: #F7230E;">
+			<tr style="background: #f7941d;">
 				<th>번호</th>
 				<th style="width: 50%;">제목</th>
 				<th>작성자</th>
@@ -143,7 +156,7 @@
                         </c:if>	
                         <c:if test="${ vo.qna_use eq 'y' }">
                             <c:if test="${ vo.qna_cmt_count ne 0 }">
-                                <span class="badge" style="background: #F7230E;">&nbsp; 답변 완료</span>
+                                <span class="badge" style="background: #f7941d;">&nbsp; 답변 완료</span>
                             </c:if>								
                         </c:if>	
                     </td>

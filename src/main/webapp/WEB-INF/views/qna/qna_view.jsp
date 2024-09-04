@@ -25,8 +25,8 @@
 	
 	* {
 		font-family: 'ONE-Mobile-POP';
-		text-shadow: red;
-		color: #F7230E;
+		text-shadow: orange;
+		color: #f7941d;
 	}
 	
 	textarea{
@@ -155,7 +155,7 @@
 <body>
 	<div id="box">
 		<div class="panel panel-primary">
-			<div class="panel-heading" style="background: #F7230E;"><b style="color: white;">${ vo.mem_nickname }</b>님의 글</div>
+			<div class="panel-heading" style="background: #f7941d;"><b style="color: white;">${ vo.mem_nickname }</b>님의 글</div>
 			<div class="panel-body">
 				<div class="common subject">${ vo.qna_title}</div>
 				<div class="common content">${ vo.qna_content }</div>
@@ -198,7 +198,7 @@
 				<c:if test="${ user.mem_idx eq vo.mem_idx }">
 					<div style="text-align: right;">
 						<input type="button" value="x"
-							style="background: #F7230E; color: white;"
+							style="background: #f7941d; color: white;"
 							onclick="comment_delete('${ vo.qna_cmt_idx}');">
 					</div>
 				</c:if>

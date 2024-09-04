@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.githrd.project3.dao.QnaMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
-import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.QnaVo;
 

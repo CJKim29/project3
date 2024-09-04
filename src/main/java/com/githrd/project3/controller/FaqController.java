@@ -16,7 +16,6 @@ import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.FaqVo;
 import com.githrd.project3.vo.MemberVo;
-import com.githrd.project3.vo.QnaVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
