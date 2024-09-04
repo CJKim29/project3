@@ -73,15 +73,6 @@
 	
 	function insert_form() {
 		
-		// 로그인 여부 체크
-		if("${ empty user }" == "true") {
-		
-			if(confirm("글쓰기는 로그인 후 가능합니다 \n 로그인 하시겠습니까?")==false) return;
-			
-			location.href = "../member/login_form.do";
-			
-			return;
-		}
 			location.href = "insert_form.do";
 	}
 	
@@ -95,9 +86,9 @@
 		</h3>
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
-			<div class="col-sm-4">
+			<div class="col-sm-4">                
 				<input class="btn" style="background: #F7230E; color: white;" type="button" value="글쓰기"
-					   onclick="insert_form();">
+					   onclick="insert_form();">                     
 			</div>
 			<div class="col-sm-8" style="text-align: right;">
 				<!-- 로그인이 안된 경우 -->
@@ -108,7 +99,7 @@
 				
 				<!-- 로그인이 안된 경우 -->
 				<c:if test="${ not empty sessionScope.user }">
-					<b>${ user.mem_name }</b>님 환영해요.
+					<b>${ user.mem_nickname }</b>님 환영해요.
 					<input class="btn" style="background: #F7230E; color: white;" type="button" value="로그아웃"
 						   onclick="location.href='../member/logout.do'">
 				</c:if>
@@ -136,28 +127,13 @@
 			<!-- 데이터가 있는 경우 -->
 			<c:forEach var="vo" items="${ list }">
 				<tr>
-					<td>${ vo.qna_idx }</td>
-					
+					<td>${ vo.qna_idx }</td>					
 					<td>
-
-					
-					<!-- 삭제된 게시물 -->
-					<c:if test="${ vo.qna_use eq 'n' }">
+                        <a href="view.do?qna_idx=${ vo.qna_idx }">				
 						<font color="red">
 							<span class="qna_title">${ vo.qna_title }</span>	
-						</font>
-					</c:if>	
-					
-					<!-- 삭제안된 게시물 -->
-					<c:if test="${ vo.qna_use eq 'y' }">
-						<span class="qna_title">
-								${ vo.qna_title }
-								<c:if test="${ vo.cmt_count ne 0 }">
-									<span class="badge" style="background: #F7230E;">&nbsp;</span>
-								</c:if>								
-						</span>
-					</c:if>	
-						
+						</font>	
+                        </a>												
 					</td>
 					<td>${ vo.mem_nickname }</td>
 					<td>${ vo.qna_regdate }</td>
@@ -179,6 +155,7 @@
 		<div style="text-align: center;">
 			${ pageMenu }
 		</div>
+
 
 	</div>
 </body>

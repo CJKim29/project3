@@ -98,6 +98,5 @@ public class CommentController {
 		map.put("result", res == 1);
 
 		return map;
-
 	}
 }

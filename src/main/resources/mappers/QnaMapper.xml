@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <insert id="qna_insert" parameterType="qna">
-        insert into board values(null,
+        insert into qna values(null,
                                  #{ mem_idx },
                                  #{ qna_title },
                                  #{ qna_content },
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <update id="qna_update" parameterType="qna">
-        update board set qna_title   = #{ qna_title },
+        update qna set qna_title   = #{ qna_title },
 					     qna_content   = #{ qna_content },					     
 					     qna_regdate 	 = now()
 					     where qna_idx = #{ qna_idx }	   

@@ -14,4 +14,5 @@ public class QnaCommentVo {
     Integer qna_idx;
     String qna_cmt_content;
     String qna_cmt_regdate;
+    String mem_nickname;
 }

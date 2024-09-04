@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.QnaMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.BoardVo;
+import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.QnaVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -72,6 +74,99 @@ public class QnaController {
         model.addAttribute("pageMenu", pageMenu);
 
         return "qna/qna_list";
+    }
+
+    // 상세보기
+    // /board/view.do?b_idx=5
+    @RequestMapping("view.do")
+    public String view(int qna_idx, Model model) {
+
+        // b_idx에 해당되는 게시물 1건
+        QnaVo vo = qna_mapper.qna_one_from_idx(qna_idx);
+
+        // 결과적으로 request binding
+        model.addAttribute("vo", vo);
+
+        return "qna/qna_view";
+    }
+
+    @RequestMapping("insert_form.do")
+    public String insert_form() {
+
+        return "qna/qna_insert_form";
+    }
+
+    @RequestMapping("insert.do")
+    public String insert(QnaVo vo, RedirectAttributes ra) {
+
+        MemberVo user = (MemberVo) session.getAttribute("user");
+
+        if (user == null) {
+
+            ra.addAttribute("reason", "session_timeout");
+
+            return "redirect:../member/login_form.do";
+        }
+
+        vo.setMem_idx(user.getMem_idx());
+        vo.setMem_nickname(user.getMem_nickname());
+
+        String qna_content = vo.getQna_content().replaceAll("\n", "<br>");
+        vo.setQna_content(qna_content);
+
+        // DB insert
+        int res = qna_mapper.qna_insert(vo);
+
+        return "redirect:list.do";
+    }
+
+    // 삭제
+    @RequestMapping("delete.do")
+    public String delete(int qna_idx) {
+
+        int res = qna_mapper.qna_delete(qna_idx);
+
+        return "redirect:list.do";
+    }
+
+    // 수정 폼
+    @RequestMapping("modify_form.do")
+    public String modify_form(int qna_idx, Model model) {
+
+        QnaVo vo = qna_mapper.qna_one_from_idx(qna_idx);
+
+        String qna_content = vo.getQna_content().replaceAll("\n", "<br>");
+        vo.setQna_content(qna_content);
+
+        model.addAttribute("vo", vo);
+
+        return "qna/qna_modify_form";
+    }
+
+    // 수정
+    @RequestMapping("modify.do")
+    public String modify(QnaVo vo, RedirectAttributes ra) {
+
+        MemberVo user = (MemberVo) session.getAttribute("user");
+
+        if (user == null) {
+
+            ra.addAttribute("reason", "session_timeout");
+
+            return "redirect:../member/login_form.do";
+        }
+
+        // vo.setMem_idx(user.getMem_idx());
+        // vo.setMem_name(user.getMem_name());
+
+        String qna_content = vo.getQna_content().replaceAll("\n", "<br>");
+        vo.setQna_content(qna_content);
+
+        int res = qna_mapper.qna_update(vo);
+
+        ra.addAttribute("qna_idx", vo.getQna_idx());
+
+        return "redirect:view.do";
     }
 
 }
