@@ -11,34 +11,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- paging 별 조회 -->
 	<select id="board_page_list" parameterType="Map" resultType="board">
+		<!-- 외부 쿼리 결과를 내부 서브쿼리에서 선택 -->
     SELECT bb.* 
     FROM (
+        		<!-- 내부 서브쿼리 시작 -->
         SELECT
+            		<!-- 각 게시물에 대해 고유 순위(board_no)를 부여합니다. -->
             rank() OVER (ORDER BY b.board_ref DESC, b.board_step ASC) AS board_no,
-            b.*,
+            b.*,  		<!-- board 테이블의 모든 열을 선택합니다. -->
+		<!-- 댓글 수를 계산하여 cmt_count로 반환합니다. -->
             (SELECT COUNT(*) FROM comment_tb WHERE board_idx = b.board_idx) AS cmt_count,
-            c.board_cate_name
+            c.board_cate_name  		<!-- 게시물의 카테고리 이름을 선택합니다. -->
         FROM
-            board b
+            board b  		<!-- 게시물 테이블을 선택합니다. -->
         JOIN
-            board_cate c ON b.board_cate_idx = c.board_cate_idx
+            board_cate c ON b.board_cate_idx = c.board_cate_idx  		<!-- 게시물 테이블과 카테고리 테이블을 조인합니다. -->
+
+		<!-- 동적 쿼리: WHERE 절을 동적으로 생성합니다. -->
+		<!-- <trim> 태그를 사용하여 WHERE 절의 불필요한 'AND' 또는 'OR'을 제거합니다. -->
 		<trim prefix="where" prefixOverrides="or">
+			<!-- board_name이 null이 아닐 경우 조건을 추가합니다. -->
 			<if test="board_name != null">
                 b.board_name LIKE CONCAT('%', #{board_name}, '%')
 			</if>
+			<!-- mem_nickname이 null이 아닐 경우 조건을 추가합니다. -->
 			<if test="mem_nickname != null">
                 or b.mem_nickname LIKE CONCAT('%', #{mem_nickname}, '%')
 			</if>
 		</trim>
-    ) bb
+    ) bb  		<!-- 서브쿼리의 결과를 bb라는 별칭으로 선택합니다. -->
+
+		<!-- 페이징 처리와 정렬을 위한 WHERE 및 ORDER BY 절 -->
     WHERE board_no BETWEEN #{start} AND #{end}
+    		<!-- 정렬 기준에 따라 ORDER BY 절을 동적으로 설정합니다. -->
 		<choose>
+			<!-- sort가 'board_readhit'인 경우 조회 수를 기준으로 내림차순 정렬합니다. -->
 			<when test="sort == 'board_readhit'">
             ORDER BY bb.board_readhit DESC
 			</when>
-			<when test="sort == 'board_regdate'">
-            ORDER BY bb.board_regdate DESC
+			<!-- sort가 'board_idx'인 경우 게시물 ID를 기준으로 내림차순 정렬합니다. -->
+			<when test="sort == 'board_idx'">
+            ORDER BY bb.board_idx DESC
 			</when>
+			<!-- 위 조건이 모두 아닐 경우 기본적으로 board_no를 기준으로 내림차순 정렬합니다. -->
 			<otherwise>
             ORDER BY bb.board_no DESC
 			</otherwise>
@@ -47,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 전체 게시물 수 -->
 	<select id="board_row_total" parameterType="Map" resultType="int">
-		select ifnull(count(*),0) from board																												<!-- Dynamic Query: 조건별 query -->
+		select ifnull(count(*),0) from board																																				<!-- Dynamic Query: 조건별 query -->
 		<trim prefix="where" prefixOverrides="or">			<!-- prefixOverrides 지정한 문자열을 제거하여 재정의 => content만을 수행할 때 where or ... 가 나오는 상황 방지 -->
 			<if test="board_name != null">				<!-- DB에서 문자열 결합 연산 || -->
 					board_name LIKE CONCAT('%', #{board_name}, '%')

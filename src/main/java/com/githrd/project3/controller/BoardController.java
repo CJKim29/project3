@@ -39,12 +39,9 @@ public class BoardController {
 	BoardMapper board_mapper;
 
 	@RequestMapping("list.do")
-	public String list(
-			@RequestParam(name = "page", defaultValue = "1") int nowPage,
+	public String list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
 			@RequestParam(defaultValue = "all") String search,
-			@RequestParam(defaultValue = "board_idx") String sort,
-			String search_text,
-			Model model) {
+			@RequestParam(defaultValue = "board_idx") String sort, String search_text, Model model) {
 
 		// 세션에 기록되어 있는 show삭제 (조회수 증가시 refresh인한 증가 방지)
 		session.removeAttribute("show");
@@ -60,12 +57,10 @@ public class BoardController {
 
 		// 제목 + 작성자
 		if (search.equals("name_content")) {
-
 			map.put("board_name", search_text);
 			map.put("mem_nickname", search_text);
-
 		} else if (search.equals("board_name")) {
-			// 이름
+			// 제목
 			map.put("board_name", search_text);
 		} else if (search.equals("mem_nickname")) {
 			// 작성자
