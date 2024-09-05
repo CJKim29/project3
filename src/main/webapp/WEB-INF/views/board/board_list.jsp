@@ -149,8 +149,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         let search = $("#search").val();
         let search_text = $("#search_text").val().trim();
 
+        // 전체보기일 때 검색어를 비우기
+        if (search === "all") {
+          search_text = "";
+        }
+
         // 전체검색이 아닌데 검색어가 비어있으면
-        if (search != "all" && search_text == "") {
+        if (search !== "all" && search_text === "") {
           alert("검색어를 입력하세요.");
           $("#search_text").val("");
           $("#search_text").focus();
@@ -557,7 +562,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <!--/ End Blog Grid -->
 
     <!-- Start Footer Area -->
-    <footer class="footer">
+    <footer class="footer" style="margin-top: 100px">
       <!-- Footer Top -->
       <div class="footer-top section">
         <div class="container">
