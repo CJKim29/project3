@@ -10,25 +10,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- paging 별 조회 -->
-	<select id="board_page_list" parameterType="Map" resultType="board"> 	
-		SELECT bb.* 
-		FROM (
-			SELECT
-				rank() OVER (ORDER BY b.board_ref DESC, b.board_step ASC) AS board_no,
-				b.*,
-				(SELECT COUNT(*) FROM comment_tb WHERE board_idx = b.board_idx) AS cmt_count,
-				c.board_cate_name  -- 추가된 부분
-			FROM
-				board b
-			JOIN
-				board_cate c ON b.board_cate_idx = c.board_cate_idx  -- 조인 추가
-		) bb
-		WHERE board_no BETWEEN ${start} AND ${end};
+	<select id="board_page_list" parameterType="Map" resultType="board">
+    SELECT bb.* 
+    FROM (
+        SELECT
+            rank() OVER (ORDER BY b.board_ref DESC, b.board_step ASC) AS board_no,
+            b.*,
+            (SELECT COUNT(*) FROM comment_tb WHERE board_idx = b.board_idx) AS cmt_count,
+            c.board_cate_name  -- 추가된 부분
+        FROM
+            board b
+        JOIN
+            board_cate c ON b.board_cate_idx = c.board_cate_idx  -- 조인 추가
+														<!--<where> 태그를 사용하여 기본적인 WHERE 조건을 추가합니다. 이 태그는 자동으로 WHERE 키워드를 추가하고, 추가된 조건들이 올바르게 연결되도록 합니다.-->
+
+		<!-- Dynamic Query: 조건별 query / <trim> 태그를 사용하여 불필요한 AND 또는 OR 문자열을 제거하고, 조건이 없는 경우 WHERE 절의 AND가 포함되지 않도록 합니다.-->
+		<trim prefix="where" prefixOverrides="or">
+			<!-- prefixOverrides 지정한 문자열을 제거하여 재정의 => content만을 수행할 때 where or ... 가 나오는 상황 방지 -->
+			<if test="board_name != null">
+                    b.board_name LIKE CONCAT('%', #{board_name}, '%')
+			</if>
+			<if test="mem_nickname != null">
+                    or b.mem_nickname LIKE CONCAT('%', #{mem_nickname}, '%')
+			</if>
+		</trim>
+
+    ) bb
+    WHERE board_no BETWEEN #{start} AND #{end};
 	</select>
 
 	<!-- 전체 게시물 수 -->
 	<select id="board_row_total" parameterType="Map" resultType="int">
-		select ifnull(count(*),0) from board
+		select ifnull(count(*),0) from board															<!-- Dynamic Query: 조건별 query -->
+		<trim prefix="where" prefixOverrides="or">			<!-- prefixOverrides 지정한 문자열을 제거하여 재정의 => content만을 수행할 때 where or ... 가 나오는 상황 방지 -->
+			<if test="board_name != null">				<!-- DB에서 문자열 결합 연산 || -->
+					board_name LIKE CONCAT('%', #{board_name}, '%')
+			</if>
+			<if test="mem_nickname != null">
+					or mem_nickname LIKE CONCAT('%', #{mem_nickname}, '%')
+			</if>
+		</trim>
+
 	</select>
 
 	<!-- b_idx에 해당되는 게시물 1건 얻어오기 -->

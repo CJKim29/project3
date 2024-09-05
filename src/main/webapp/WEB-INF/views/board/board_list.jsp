@@ -143,6 +143,27 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         }
         location.href = "insert_form.do";
       }
+
+      // 검색
+      function find() {
+        let search = $("#search").val();
+        let search_text = $("#search_text").val().trim();
+
+        // 전체검색이 아닌데 검색어가 비어있으면
+        if (search != "all" && search_text == "") {
+          alert("검색어를 입력하세요.");
+          $("#search_text").val("");
+          $("#search_text").focus();
+          return;
+        }
+
+        //자바스크립트 이용해서 호출
+        location.href =
+          "list.do?search=" +
+          search +
+          "&search_text=" +
+          encodeURIComponent(search_text, "utf-8"); // 자바스크립트에서 인코딩
+      }
     </script>
   </head>
   <body class="js">
@@ -436,6 +457,29 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 value="글쓰기"
                 onclick="insert_form();"
               />
+            </div>
+            <!-- 검색메뉴 -->
+            <div style="text-align: right; margin-bottom: 5px">
+              <form class="form-inline">
+                <select id="search" class="form-control">
+                  <option value="all">전체보기</option>
+                  <option value="board_name">제목</option>
+                  <option value="mem_nickname">작성자</option>
+                  <option value="name_content">제목+작성자</option>
+                </select>
+
+                <input
+                  id="search_text"
+                  class="form-control"
+                  value="${ param.search_text }"
+                />
+                <input
+                  type="button"
+                  class="btn btn-primary"
+                  value="검색"
+                  onclick="find();"
+                />
+              </form>
             </div>
             <!-- 게시판 테이블 구성하기  -->
             <table class="table" style="margin-bottom: 0">
