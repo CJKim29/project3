@@ -43,6 +43,7 @@
                     } */
 
                     .seat.unavailable {
+                        pointer-events: none;
                         background-color: white !important;
                     }
 
@@ -338,7 +339,8 @@
                     <div class="seat-info-container">
                         <!-- 예약 현황 출력 -->
                     </div>
-                    <br /><br />
+                </div>
+                <div class="seat-container3">
                     <input class="btn btn-success" type="button" value="예약"
                         onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
                 </div>
