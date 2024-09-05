@@ -203,9 +203,13 @@
                         });
                     });
                 </script>
-
-
-
+                <!-- 좌석 다시 선택 -->
+                <script>
+                    function redirectToCurrentPage() {
+                        // 현재 페이지의 URL로 리디렉션
+                        window.location.href = window.location.href;
+                    }
+                </script>
 
             </head>
 
@@ -247,7 +251,7 @@
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
                                         data-row="${seat.s_hall_row_no}" data-col="J" data-seat="${seat.s_hall_j}">
                                     </div>
-                                    <strong>&nbsp;&nbsp;Row ${seat.s_hall_row_no}</strong>
+                                    <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
                                 </c:when>
                                 <c:otherwise>
                                     <c:choose>
@@ -302,7 +306,7 @@
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
                                         data-row="${seat.s_hall_row_no}" data-col="J" data-seat="${seat.s_hall_j}">
                                     </div>
-                                    <strong>&nbsp;&nbsp;Row ${seat.s_hall_row_no}</strong>
+                                    <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -336,11 +340,13 @@
                 </div>
                 <div class="seat-container3">
                     <p>예약 현황</p>
-                    <div class="seat-info-container">
-                        <!-- 예약 현황 출력 -->
-                    </div>
+                    <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
+                    <!-- 예약 현황 출력 -->
+                </div>
                 </div>
                 <div class="seat-container3">
+                    <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
+                    <br /><br /><br />
                     <input class="btn btn-success" type="button" value="예약"
                         onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
                 </div>
