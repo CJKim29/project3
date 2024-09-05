@@ -135,7 +135,7 @@
 						  <a href="../member/logout.do">로그아웃</a>
 						</li>
 					  </c:if>
-					  <li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
+					  <li><i class="ti-user"></i> <a href="../main/sample.jsp">마이페이지</a></li>
 					</ul>
 				  </div>
 				  <!-- End Top Right -->
