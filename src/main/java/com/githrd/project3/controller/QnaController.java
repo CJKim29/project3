@@ -40,6 +40,9 @@ public class QnaController {
     @RequestMapping("list.do")
     public String list(
             @RequestParam(name = "page", defaultValue = "1") int nowPage,
+            @RequestParam(defaultValue = "all") String search,
+            String search_text,
+            @RequestParam(defaultValue = "") String qna_use,
             Model model) {
 
         // 세션에 기록되어 있는 show삭제 (조회수 증가시 refresh인한 증가 방지)
@@ -53,19 +56,40 @@ public class QnaController {
         map.put("start", start);
         map.put("end", end);
 
-        // 게시판 목록가져오기
-        List<QnaVo> list = qna_mapper.qna_page_list(map);
-        // System.out.println(list.size());
+        // 제목 + 작성자
+        if (search.equals("name_content")) {
+
+            map.put("qna_title", search_text);
+            map.put("mem_nickname", search_text);
+
+        } else if (search.equals("qna_title")) {
+            // 이름
+            map.put("qna_title", search_text);
+        } else if (search.equals("mem_nickname")) {
+            // 작성자
+            map.put("mem_nickname", search_text);
+        }
+
+        // 답변 완료 필터링
+        if ("use_y".equals(search)) {
+            map.put("qna_use", "y");
+        }
 
         // 전체 게시물 수
         int rowTotal = qna_mapper.qna_row_total(map);
 
+        String search_filter = String.format("search=%s&search_text=%s", search, search_text);
+
         // pageMenu생성하기
         String pageMenu = Paging.getPaging("list.do",
+                search_filter,
                 nowPage,
                 rowTotal,
                 MyCommon.Board.BLOCK_LIST,
                 MyCommon.Board.BLOCK_PAGE);
+
+        // 게시판 목록가져오기
+        List<QnaVo> list = qna_mapper.qna_page_list(map);
 
         // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
         // DS는 model에 저장된 데이터를 request binding시킨다

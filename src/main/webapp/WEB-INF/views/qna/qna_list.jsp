@@ -88,6 +88,32 @@
 		
 		location.href = "insert_form.do";
 	}
+
+// 검색
+function find() {
+    let search = $("#search").val();
+    let search_text = $("#search_text").val().trim();
+
+    // 전체보기 또는 답변 완료된 게시물만 보기일 때 검색어를 비우기
+    if (search === "all" || search === "use_y") {
+        search_text = ""; // 검색어는 비워도 됩니다
+    }
+
+    // 전체검색이 아닌데 검색어가 비어있으면 경고
+    if (search !== "all" && search !== "use_y" && search_text === "") {
+        alert("검색어를 입력하세요.");
+        $("#search_text").val("");
+        $("#search_text").focus();
+        return;
+    }
+
+    // 자바스크립트 이용해서 호출
+    location.href =
+        "list.do?search=" +
+        search +
+        "&search_text=" +
+        encodeURIComponent(search_text, "utf-8");
+}
 	
 </script>
 
@@ -118,14 +144,37 @@
 				</c:if>
 			</div>
 		</div>
-		
+		<div style="text-align: right; margin-bottom: 5px">
+			<form class="form-inline">
+			  <select id="search" class="form-control">
+				<option value="all">전체보기</option>
+				<option value="qna_title">제목</option>
+				<option value="mem_nickname">작성자</option>
+				<option value="name_content">제목+작성자</option>
+				<option value="use_y">답변 완료된 게시물만 보기</option>
+			  </select>
+
+			  <input
+				id="search_text"
+				class="form-control"
+				value="${ param.search_text }"
+			  />
+
+			  <input
+				type="button"
+				class="btn btn-primary"
+				value="검색"
+				onclick="find();"
+			  />
+			</form>
+		  </div>
 		<table class="table">
 			<tr style="background: #f7941d;">
 				<th>번호</th>
 				<th style="width: 50%;">제목</th>
 				<th>작성자</th>
 				<th>작성일자</th>
-				<th>답변</th>
+				<th>답변 유무</th>
 			<tr>
 			
 			<!-- 데이터가 없는 경우 -->
