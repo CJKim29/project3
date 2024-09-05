@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -98,40 +99,58 @@
 	<!-- Header -->
 	<!-- 맨 위의 로그인, 마이페이지 버튼 부분 -->
 	<header class="header shop v3">
-		<!-- Topbar -->
-		<div class="topbar">
+		 <!-- Topbar -->
+		 <div class="topbar">
 			<div class="container">
-				<div class="inner-content">
-					<div class="row">
-						<div class="col-lg-8 col-md-12 col-12">
-						<!-- Top Left -->
-								<div class="top-left">
-									<ul class="list-main">
-									</ul>
-								</div>
-						<!--/ End Top Left -->	
-						</div>
-							<!-- Top Right -->
-							<div class="right-content">
-								<ul class="list-main">
-									<li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
-									<li><i class="ti-power-off"></i><a href="/login.html">로그인</a></li>
-									<li><i class="ti-power-off"></i><a href="/register.html">회원가입</a></li>
-								</ul>
-							</div>
-							<!-- End Top Right -->
-						</div>
+			  <div class="inner-content">
+				<div class="row">
+				  <div class="col-lg-8 col-md-12 col-12">
+					<!-- Top Left -->
+					<div class="top-left">
+					  <ul class="list-main"></ul>
 					</div>
+					<!--/ End Top Left -->
+				  </div>
+				  <!-- Top Right -->
+				  <div class="right-content">
+					<ul class="list-main">
+					  <!-- 로그인이 안된 경우 -->
+					  <c:if test="${ empty user }">
+						<li>
+						  <i class="ti-power-off"></i
+						  ><a href="../member/insert_form.do">회원가입</a>
+						</li>
+						<li>
+						  <i class="ti-power-off"></i
+						  ><a href="../member/login_form.do">로그인</a>
+						</li>
+					  </c:if>
+					  <!-- 로그인이 된 경우 -->
+					  <c:if test="${ not empty sessionScope.user }">
+						<li>
+						  <i class="ti-power-off"></i><a href="#">회원정보</a>
+						</li>
+						<li>
+						  <b>${ user.mem_nickname }님</b>
+						  <a href="../member/logout.do">로그아웃</a>
+						</li>
+					  </c:if>
+					  <li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
+					</ul>
+				  </div>
+				  <!-- End Top Right -->
 				</div>
+			  </div>
 			</div>
-		<!-- End Topbar -->
+		  </div>
+		  <!-- End Topbar -->
 		<div class="middle-inner">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-2 col-md-2 col-12">
 						<!-- Logo  -->
 						<div class="logo">
-							<a href=""><img src="../resources/template/images/logo.png" alt="logo"></a>
+							<a href=""><img src="../resources/template/images/logo_TIMOA1.png" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
 						<!--  검색창 카테고리  -->
@@ -146,7 +165,7 @@
 									<option>콘서트</option>
 									<option>연극</option>
 								</select>
-								<!-- serah 검색 -->
+								<!-- search 검색 -->
 								<form>
 									<input name="search" placeholder="찾으실 공연을 입력해주세요" type="search">
 									<button class="btnn"><i class="ti-search"></i></button>
@@ -182,10 +201,10 @@
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 												<li class="active"><a href="">Home</a></li>
-												<li><a href="shop-grid.html">뮤지컬</a></li>												
-												<li><a href="shop-list.html">콘서트</a></li>
-												<li><a href="shop-single.html">연극</a></li>
-												<li><a href="board-List.html">고객센터<i class="ti-angle-down"></i></a>
+												<li><a href="">뮤지컬</a></li>												
+												<li><a href="">콘서트(보류)</a></li>
+												<li><a href="">연극(보류)</a></li>
+												<li><a href="">고객센터<i class="ti-angle-down"></i></a>
 													<ul class="dropdown">
 														<li><a href="board-List.html">공지사항</a></li>
 														<li><a href="board-List.html">FAQ</a></li>
@@ -217,7 +236,7 @@
 					<div class="home-slider-4">
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
-						<div class="big-content" style="background-image: url('/../resources/template/images/뮤지컬시카고.png');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바시카고.png');">
 							<div class="inner">
 								<h4 class="title"></h4>
 								<p class="des"></p>
@@ -226,7 +245,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="big-content" style="background-image: url('/../resources/template/images/예시이미지1-1.png');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니.png');">
 							<div class="inner">
 								<h4 class="title"></h4>
 								<p class="des"></p>
@@ -235,7 +254,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="big-content" style="background-image: url('/../resources/template/images/킹키부츠.png');">
+						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바킹키부츠.png');">
 							<div class="inner">
 								<h4 class="title"></h4>
 								<p class="des"></p>
@@ -268,12 +287,13 @@
 						<div class="product-info">
 							<div class="nav-main">
 								<!-- Tab Nav -->
+								 <!-- nav와 data-toggle을 이용한 부트스트랩 -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">장르1</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">장르2</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">장르3</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids2" role="tab">장르4</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids3" role="tab">장르5</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">로맨틱코미디</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">드라마</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">코믹</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids2" role="tab">공포&스릴러</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids3" role="tab">어린이</a></li>
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
@@ -288,14 +308,14 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<!-- 이미지 크기는 1160x560  -->
-															<img class="default-img" src="/../resources/template/images/예시이미지2.png" alt="#">
+															<!-- 이미지 크기는 550x750  -->
+															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 〈시데레우스〉</a></h3>
+														<h3><a href="product-details.html">뮤지컬 시카고</a></h3>
 														<div class="product-price">
-															<span>2024.07.24 ~ 2024.10.13</span>
+															<span>2024.06.07 ~ 2024.09.29</span>
 														</div>
 													</div>
 												</div>
@@ -358,13 +378,28 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="/../resources/template/images/예시이미지3.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 스파이.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">NMIXX 2ND FAN CONCERT NMIXX CHANGE UP : MIXX LAB</a></h3>
+														<h3><a href="product-details.html">뮤지컬 스파이</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.08.06 ~ 2024.10.27</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a href="product-details.html">
+															<img class="default-img" src="/../resources/template/images/장르용 부치하난.png" alt="#">
+														</a>
+													</div>
+													<div class="product-content">
+														<h3><a href="product-details.html">뮤지컬 부치하난</a></h3>
+														<div class="product-price">
+															<span>2024.09.17 ~2024.11.17</span>
 														</div>
 													</div>
 												</div>
@@ -388,26 +423,11 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 베르사유.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
-														<div class="product-price">
-															<span>날짜</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">뮤지컬 베르사유의 장미</a></h3>
 														<div class="product-price">
 															<span>날짜</span>
 														</div>
@@ -427,11 +447,11 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../resources/template/images/연극 예시.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 젠틀맨.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 ‘고도를 기다리며’를 기다리며</a></h3>
+														<h3><a href="product-details.html">뮤지컬 젠틀맨스 가이드 : 사랑과 살인편</a></h3>
 														<div class="product-price">
 															<span>날짜</span>
 														</div>
@@ -496,11 +516,11 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../resources/template/images/연극 예시.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 하데스.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 ‘고도를 기다리며’를 기다리며</a></h3>
+														<h3><a href="product-details.html">뮤지컬 하데스</a></h3>
 														<div class="product-price">
 															<span>날짜</span>
 														</div>
@@ -566,13 +586,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../resources/template/images/연극 예시.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 애니.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 ‘고도를 기다리며’를 기다리며</a></h3>
+														<h3><a href="product-details.html">뮤지컬 애니</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.10.01 ~2024.10.27</span>
 														</div>
 													</div>
 												</div>
@@ -650,18 +670,19 @@
             </div>
             <div class="d-flex overflow-auto">
                 <!-- Start Single List -->
+				 <!-- 115x140 -->
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
-                                <img src="" alt="#">
+                                <img src="https://via.placeholder.com/210x320" alt="#">
 								<a href="#" class="buy"></a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h4 class="title"><a href="#">제목</a></h4>
-                                <p>날짜</p>
+                                <p>new</p>
                             </div>
                         </div>
                     </div>
@@ -672,13 +693,13 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
+                                <img src="https://via.placeholder.com/210x320" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h5 class="title"><a href="#">제목</a></h5>
-                                <p>날짜</p>
+                                <p>new</p>
                             </div>
                         </div>
                     </div>
@@ -689,35 +710,18 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
+                                <img src="https://via.placeholder.com/210x320" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h5 class="title"><a href="#">제목</a></h5>
-                                <p>날짜</p>
+                                <p>new</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Single List -->
-				                 <!-- Start Single List -->
-								 <div class="single-list me-3">
-									<div class="row">
-										<div class="col-lg-6 col-md-6 col-12">
-											<div class="list-image overlay">
-												<img src="https://via.placeholder.com/115x140" alt="#">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-12 no-padding">
-											<div class="content">
-												<h5 class="title"><a href="#">제목</a></h5>
-												<p>날짜</p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Single List -->
             </div>
             <!-- 랭킹 섹션 -->
             <div class="col-lg-12 mt-4">
@@ -733,13 +737,13 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
 								<!-- 이미지 크기는 115x140 -->
-                                <img src="https://via.placeholder.com/115x140" alt="#">
+                                <img src="https://via.placeholder.com/210x320" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">1등 제목</a></h5>
-                                <p>날짜</p>
+                                <h5 class="title"><a href="#">제목</a></h5>
+                                <p>1st</p>
                             </div>
                         </div>
                     </div>
@@ -750,13 +754,13 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
+                                <img src="https://via.placeholder.com/210x320" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">2등 제목</a></h5>
-                                <p>날짜</p>
+                                <h5 class="title"><a href="#">제목</a></h5>
+                                <p>2st</p>
                             </div>
                         </div>
                     </div>
@@ -767,13 +771,13 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
+                                <img src="https://via.placeholder.com/210x320" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">3등 제목</a></h5>
-                                <p>날짜</p>
+                                <h5 class="title"><a href="#">제목</a></h5>
+                                <p>3st</p>
                             </div>
                         </div>
                     </div>
@@ -847,7 +851,7 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="main.html"><img src="../resources/template/images/logo2.png" alt="#"></a>
+								<a href=""><img src="../resources/template/images/logo_TIMOA1.png" alt="#"></a>
 							</div>
 							<p class="text">뮤지컬 티켓 사이트</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
