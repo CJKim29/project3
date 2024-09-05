@@ -75,41 +75,24 @@ public class ConcertController {
 	}
 
 	@RequestMapping("category.do")
-	public String category(int genre, String area, Model model) {
-
-		// if (concert_detail_cate_idx == 0 || concert_detail_cate_idx.isEmpty()) {
-		// // sajob.isEmpty() <==>
-		// // sajob.equals("")
-		// concert_detail_cate_idx = 0;
-		// }
-
-		System.out.println(area);
+	public String category(int concert_detail_cate_idx, String hall_area, String sort_options, int sort_options_number,
+			Model model) {
 
 		// 콘서트 목록 가져오기
 		List<ConcertVo> list = null;
 
+		// 파라미터 값 잘 받아와지나 확인
 		// System.out.println(area);
 		// System.out.println("genre : " + genre);
+		// System.out.println("sort_options : " + sort_options);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("concert_detail_cate_idx", genre);
-		map.put("hall_area", area);
+		map.put("concert_detail_cate_idx", concert_detail_cate_idx);
+		map.put("hall_area", hall_area);
+		map.put("sort_options", sort_options);
+		map.put("sort_options_number", sort_options_number);
 
 		list = concert_mapper.selectCategoryList(map);
-		// concert_detail_cate_name : jsp 함수 안에 선언 되어 있는 변수
-		// if (genre == 0 && area == 0) { // 장르전체 + 지역전체
-		// // 공연 목록 전체 조회
-		// list = concert_mapper.selectList();
-		// } else if (genre == 0) {
-		// // 공연 장르별, 지역별 조회 필터링
-		// list = concert_mapper.concert_detail_cate_list(genre, area);
-		// } else if (area == 0) {
-		// // 공연 장르별, 지역별 조회 필터링
-		// list = concert_mapper.concert_detail_cate_list(genre, area);
-		// } else {
-		// // 공연 장르별, 지역별 조회 필터링
-		// list = concert_mapper.concert_detail_cate_list(genre, area);
-		// }
 
 		// request binding
 		model.addAttribute("list", list);

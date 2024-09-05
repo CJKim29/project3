@@ -43,9 +43,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-	<!-- 전체조회 -->
+	<!-- 전체조회 (최신순 정렬)-->
 	<select id="selectList" resultMap="concertMap">
-		select * from concert order by concert_idx
+		select * from concert order by concert_startday desc
 	</select>
 
 	<!-- idx조회 -->
@@ -54,12 +54,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<!-- 장르 select one - concert_detail_cate_idx 이용해서 -->
-	<!-- <select id="selectOneFromCategory" parameterType="int" resultMap="concertMap">
-		select * from concert 
-				 where concert_detail_cate_idx = #{ concert_detail_cate_idx }
-	</select> -->
-
 	<!-- 장르별 공연 리스트 조회(특정 한 장르의 공연 리스트) - concert_detail_cate_name 이용-->
 	<select id="concert_detail_cate_list" parameterType="int" resultMap="concertMap">
 		select * from concert 
@@ -67,9 +61,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 	   and hall_idx = #{hall_idx}
 	</select>
 
+	<!-- 장르별+지역별 조회 / 최신순 정렬 -->
+	<!-- concert_detail_cate_idx=0 일 경우에 대한 처리를 어떻게 할지 -->
 	<select id="selectCategoryList" parameterType="Map" resultMap="concertMap">
 		select * from concert 
 		<trim prefix="where" prefixOverrides="and">
+			<if test="concert_detail_cate_idx=0">
+			</if>
 			<if test="concert_detail_cate_idx!=0">
                  concert_detail_cate_idx = #{ concert_detail_cate_idx }
 			</if>
@@ -77,7 +75,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  and (hall_idx in (select hall_idx from hall where  hall_area = #{hall_area}) )
 			</if>
 		</trim>
-		order by  concert_idx
+
+		<!-- 정렬 -->
+		<choose>
+			<when test='sort_options == "s_abc"'>
+            order by concert_name asc 
+			</when>
+			<when test='sort_options == "s_new"'>
+             order by concert_startday desc
+			</when>
+			<otherwise>
+            order by concert_idx asc
+			</otherwise>
+		</choose>
+
+		<!-- 몇개씩 볼건지 -->
+		<choose>
+			<when test= 'sort_options_number == "3"'>
+            limit 3
+			</when>
+			<when test= 'sort_options_number == "6"'>
+            limit 6
+			</when>
+			<otherwise>
+            limit 9
+			</otherwise>
+		</choose>
+
 	</select>
 
 	<!-- 지역별 공연 리스트 조회 -->
@@ -85,7 +109,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from concert 
 				 where concert_detail_cate_idx = #{concert_detail_cate_idx}
 				 	   and hall_idx = #{hall_idx};
-	</select> -->
+				</select> -->
 
 
 	<!--parameterType = 전달인자타입

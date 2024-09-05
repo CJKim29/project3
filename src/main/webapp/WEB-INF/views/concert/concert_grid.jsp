@@ -45,6 +45,11 @@
 						color: yellowgreen !important;
 					} */
 
+						.my_top_bar {
+							padding: 0px !important;
+							padding-top: 50px !important;
+						}
+
 						/* 컨텐츠 영역 start*/
 						.concert_list {
 							/* display: inline-block !important; */
@@ -96,75 +101,55 @@
 					<script>
 
 						$(document).ready(function () {
-							// 페이지가 로드될 때 concert_detail_cate_idx를 0으로 설정하고 filtering() 함수 호출
-							//$("#concert_detail_cate_idx").val(0);
-
-							//filtering(0);
-
+							// 페이지가 로드될 때 바로 화면 출력되도록 search() 호출
 							search();
 
-
-							$("input[name='genre'],input[name='area']").click(function () {
+							// 이름이 genre, hall_area인 input 태그가 클릭되면 search() 호출
+							$("input[name='concert_detail_cate_idx'],input[name='hall_area']").click(function () {
 								search();
 							});
 
+							// sort_options_number 선택이 변경되면 search() 호출 => 정렬(몇개씩 볼건지 )
+							$("#sort_options_number").change(function () {
+								search();
+							});
+
+							// sort_options 선택이 변경되면 search() 호출 => 정렬(최신순, ㄱㄴㄷ순..)
+							$("#sort_options").change(function () {
+								search();
+							});
 						});
 
 						function search() {
 
-							const genre = $("input[name='genre']:checked").val();
-							const area = $("input[name='area']:checked").val();
+							// 체크된 value 값을 변수에 저장
+							const concert_detail_cate_idx = $("input[name='concert_detail_cate_idx']:checked").val();
+							const hall_area = $("input[name='hall_area']:checked").val();
 
-							//alert(genre + "/" + area);
+							const sort_options = $("#sort_options").val();  // sort_options 값 가져오기
+							const sort_options_number = $("#sort_options_number").val();  // sort_options 값 가져오기
+
+							//alert(genre + "/" + hall_area);
+							// 전송 데이터 확인
+							console.log({
+								concert_detail_cate_idx,
+								hall_area,
+								sort_options,
+								sort_options_number
+							});
 
 							$.ajax({
 								url: "category.do",		// controller
-								data: { "genre": genre, "area": area },	//paramter 전달  category.do?concert_detail_cate_idx="all"
-								// dataType: "json",
-								success: function (res_data) {
-
-									$("#disp").html(res_data);
-
-								},
-								error: function (err) {
-									alert(err.responseText);
-								}
-							});
-
-						}
-
-						function filtering(concert_detail_cate_idx) {
-							// let concert_detail_cate_idx = $('#concert_detail_cate_idx').val() // concert_detail_cate_idx : <ul> id
-
-							//"location.href='category.do?concert_detail_cate_idx=${vo.concert_detail_cate_idx}'"
-							$.ajax({
-								url: "category.do",		// controller
-								data: { "concert_detail_cate_idx": concert_detail_cate_idx },	//paramter 전달  category.do?concert_detail_cate_idx="all"
-								// dataType: "json",
-								success: function (res_data) {
-
-									$("#disp").html(res_data);
-
-								},
-								error: function (err) {
-									alert(err.responseText);
-								}
-							});
-						}// end : filtering()
-
-						// hall_idx를 통해 공연장 장소(hall_area) 사용
-						function filtering_area(hall_idx) {
-
-							let concert_detail_cate_idx = $('#concert_detail_cate_idx').val()
-
-							$.ajax({
-								url: "category_area.do",	// controller
 								data: {
-									"hall_idx": hall_idx,
-									"concert_detail_cate_idx": concert_detail_cate_idx
-								},				// 전달 할 parameter category_area.do?hall_idx=1
+									"concert_detail_cate_idx": concert_detail_cate_idx,
+									"hall_area": hall_area,
+									"sort_options": sort_options,
+									"sort_options_number": sort_options_number
+								},								  //paramter 전달  category.do?concert_detail_cate_idx="all"
 								success: function (res_data) {
+
 									$("#disp").html(res_data);
+
 								},
 								error: function (err) {
 									alert(err.responseText);
@@ -174,6 +159,48 @@
 						}
 					</script>
 
+					<script>
+						// function filtering(concert_detail_cate_idx) {
+						// 	// let concert_detail_cate_idx = $('#concert_detail_cate_idx').val() // concert_detail_cate_idx : <ul> id
+
+						// 	//"location.href='category.do?concert_detail_cate_idx=${vo.concert_detail_cate_idx}'"
+						// 	$.ajax({
+						// 		url: "category.do",		// controller
+						// 		data: { "concert_detail_cate_idx": concert_detail_cate_idx },	//paramter 전달  category.do?concert_detail_cate_idx="all"
+						// 		// dataType: "json",
+						// 		success: function (res_data) {
+
+						// 			$("#disp").html(res_data);
+
+						// 		},
+						// 		error: function (err) {
+						// 			alert(err.responseText);
+						// 		}
+						// 	});
+						// }// end : filtering()
+
+						// hall_idx를 통해 공연장 장소(hall_area) 사용
+						// function filtering_area(hall_idx) {
+
+						// 	let concert_detail_cate_idx = $('#concert_detail_cate_idx').val()
+
+						// 	$.ajax({
+						// 		url: "category_area.do",	// controller
+						// 		data: {
+						// 			"hall_idx": hall_idx,
+						// 			"concert_detail_cate_idx": concert_detail_cate_idx
+						// 		},				// 전달 할 parameter category_area.do?hall_idx=1
+						// 		success: function (res_data) {
+						// 			$("#disp").html(res_data);
+						// 		},
+						// 		error: function (err) {
+						// 			alert(err.responseText);
+						// 		}
+						// 	});
+
+						// }
+					</script>
+
 					<!-- Meta Tag -->
 					<meta charset="utf-8">
 					<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -181,7 +208,7 @@
 					<meta http-equiv="X-UA-Compatible" content="IE=edge">
 					<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 					<!-- Title Tag  -->
-					<title>Eshop - eCommerce HTML5 Template.</title>
+					<title>TIMOA - 티켓팅 사이트</title>
 					<!-- Favicon -->
 					<!-- <link rel="icon" type="image/png" href="../resources/template/images/favicon.png"> -->
 					<link rel="icon" type="image/png" href="../resources/images/TIMOA_icon.png">
@@ -498,24 +525,23 @@
 								<div class="col-12">
 									<div class="bread-inner">
 
-
-										<input type="radio" name="genre" value="0" checked>전체
-										<input type="radio" name="genre" value="1">로맨틱코미디
-										<input type="radio" name="genre" value="2">드라마
-										<input type="radio" name="genre" value="3">코믹
-										<input type="radio" name="genre" value="4">공포/스릴러
-										<input type="radio" name="genre" value="5">퍼포먼스
-										<input type="radio" name="genre" value="6">어린이
-										<input type="radio" name="genre" value="7">기타
+										<input type="radio" name="concert_detail_cate_idx" value="0" checked>전체
+										<input type="radio" name="concert_detail_cate_idx" value="1">로맨틱코미디
+										<input type="radio" name="concert_detail_cate_idx" value="2">드라마
+										<input type="radio" name="concert_detail_cate_idx" value="3">코믹
+										<input type="radio" name="concert_detail_cate_idx" value="4">공포/스릴러
+										<input type="radio" name="concert_detail_cate_idx" value="5">퍼포먼스
+										<input type="radio" name="concert_detail_cate_idx" value="6">어린이
+										<input type="radio" name="concert_detail_cate_idx" value="7">기타
 										<br>
-										<input type="radio" name="area" value="all" checked>전체
-										<input type="radio" name="area" value="서울">서울
-										<input type="radio" name="area" value="경기/인천">경기/인천
-										<input type="radio" name="area" value="충청/대전">충청/대전
-										<input type="radio" name="area" value="경상/대구/부산">경상/대구/부산
-										<input type="radio" name="area" value="전라/광주">전라/광주
-										<input type="radio" name="area" value="강원">강원
-										<input type="radio" name="area" value="제주">제주
+										<input type="radio" name="hall_area" value="all" checked>전체
+										<input type="radio" name="hall_area" value="서울">서울
+										<input type="radio" name="hall_area" value="경기/인천">경기/인천
+										<input type="radio" name="hall_area" value="충청/대전">충청/대전
+										<input type="radio" name="hall_area" value="경상/대구/부산">경상/대구/부산
+										<input type="radio" name="hall_area" value="전라/광주">전라/광주
+										<input type="radio" name="hall_area" value="강원">강원
+										<input type="radio" name="hall_area" value="제주">제주
 
 
 										<ul id="concert_detail_cate_idx">
@@ -559,9 +585,58 @@
 					</div>
 					<!-- End Breadcrumbs -->
 
-					<div id="disp"></div>
+					<!-- 정렬 상단바 -->
+					<section class="product-area shop-sidebar shop section my_top_bar">
+						<div class="container">
+							<div class="row">
+								<div class="col-xl-12">
+									<div class="row">
+										<div class="col-12">
 
-					<!-- 상단바 + 컨텐츠 영역 삭제 -->
+											<!-- Shop Top -->
+											<div class="shop-top">
+												<div class="shop-shorter">
+
+													<!-- 이미지 몇개씩 볼건지 -->
+													<div class="single-shorter">
+														<label>Show :</label>
+														<select id="sort_options_number">
+															<option value="3" selected="selected">3</option>
+															<option value="6">6</option>
+															<option value="9">9</option>
+														</select>
+													</div>
+
+													<!-- 정렬 -->
+													<div class="single-shorter">
+														<label>Sort By :</label>
+														<select id="sort_options">
+															<option selected="selected" value="s_abc">가나다순</option>
+															<option value="s_new">최신순</option>
+															<option value="s_best">인기순</option>
+														</select>
+													</div>
+												</div>
+
+												<!-- 이미지 정렬 방식 : 그리드 형식 or 리스트 형식 선택-->
+												<ul class="view-mode">
+													<li class="active"><a href="list_grid.do"><i
+																class="fa fa-th-large"></i></a>
+													</li>
+													<li><a href="list.do"><i class="fa fa-th-list"></i></a></li>
+												</ul>
+											</div>
+											<!--/ End Shop Top -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+
+					<!-- 컨텐츠 영역 -->
+					<div id="disp"></div>
 
 					<!-- modal 삭제 -->
 

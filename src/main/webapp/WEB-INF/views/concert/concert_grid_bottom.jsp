@@ -12,22 +12,23 @@
 					<style>
 						/* 컨텐츠 영역 start*/
 						.concert_list {
-							/* display: inline-block !important; */
+
 							display: flex;
 							flex-wrap: wrap;
 							justify-content: space-between;
+							margin-bottom: 100px !important;
 						}
 
 						.content_wrap {
 							width: 30%;
 							/* 각 요소의 너비 설정 */
-							margin-bottom: 30px;
+							margin-bottom: 30px !important;
 							/* 아래쪽 여백 설정 */
 						}
 
 						.concert_img {
 
-							margin: 50px 20px 20px 0px;
+							margin: 0px 20px 20px 20px;
 
 						}
 
@@ -48,6 +49,7 @@
 							padding-right: 20px;
 							font-size: 20px;
 							font-weight: bold;
+							margin-bottom: 50px;
 						}
 
 						/* 컨텐츠 영역 end */
@@ -180,7 +182,7 @@
 
 					<!-- 상단바 -->
 					<!-- Product Style -->
-					<section class="product-area shop-sidebar shop section">
+					<section class="product-area shop-sidebar shop section my_top_bar">
 						<div class="container">
 							<div class="row">
 								<!-- 정렬바 -->
@@ -189,40 +191,6 @@
 									<div class="row">
 										<div class="col-12">
 
-											<!-- Shop Top -->
-											<div class="shop-top">
-												<div class="shop-shorter">
-
-													<!-- 이미지 몇개씩 볼건지
-												<div class="single-shorter">
-													<label>Show :</label>
-													<select>
-														<option selected="selected">09</option>
-														<option>15</option>
-														<option>25</option>
-														<option>30</option>
-													</select>
-												</div> -->
-
-													<!-- 정렬 -->
-													<div class="single-shorter">
-														<label>Sort By :</label>
-														<select>
-															<option selected="selected">인기순</option>
-															<option>가나다순</option>
-															<option>등록순</option>
-														</select>
-													</div>
-												</div>
-												<!-- 이미지 정렬 방식 : 그리드 형식 or 리스트 형식 선택-->
-												<ul class="view-mode">
-													<li class="active"><a href="list_grid.do"><i
-																class="fa fa-th-large"></i></a>
-													</li>
-													<li><a href="list.do"><i class="fa fa-th-list"></i></a></li>
-												</ul>
-											</div>
-											<!--/ End Shop Top -->
 										</div>
 									</div>
 
