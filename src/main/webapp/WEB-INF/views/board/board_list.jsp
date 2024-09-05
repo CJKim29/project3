@@ -128,6 +128,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     </style>
 
     <script type="text/javascript">
+      // 페이지가 준비되면 검색창을 비우기(기존 null이 받아졌음)
+      $(document).ready(function () {
+        $("#search_text").val("");
+      });
+
       function insert_form() {
         // 로그인 여부 체크
         if ("${ empty user }" == "true") {
@@ -142,6 +147,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           return;
         }
         location.href = "insert_form.do";
+      }
+
+      let currentSort = "board_idx"; // 기본 정렬 기준
+
+      function setSort(sortBy) {
+        currentSort = sortBy; // 정렬 기준을 설정
+        find(); // 정렬 기준을 포함한 검색 수행
       }
 
       // 검색
@@ -167,7 +179,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           "list.do?search=" +
           search +
           "&search_text=" +
-          encodeURIComponent(search_text, "utf-8"); // 자바스크립트에서 인코딩
+          encodeURIComponent(search_text, "utf-8") +
+          "&sort=" +
+          encodeURIComponent(currentSort, "utf-8"); // 자바스크립트에서 인코딩/정렬 기준 추가
       }
     </script>
   </head>
@@ -476,13 +490,30 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 <input
                   id="search_text"
                   class="form-control"
-                  value="${ param.search_text }"
+                  value="${param.search_text}"
                 />
+
                 <input
+                  id="search_btn"
                   type="button"
                   class="btn btn-primary"
                   value="검색"
                   onclick="find();"
+                />
+
+                <input
+                  id="board_readhit"
+                  type="button"
+                  class="btn btn-primary"
+                  value="조회순"
+                  onclick="setSort('board_readhit');"
+                />
+                <input
+                  id="board_regdate"
+                  type="button"
+                  class="btn btn-warning"
+                  value="등록일순"
+                  onclick="setSort('board_idx');"
                 />
               </form>
             </div>
