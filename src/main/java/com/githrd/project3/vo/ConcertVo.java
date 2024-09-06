@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Alias("concert")
 public class ConcertVo {
-
     int concert_idx;
     int concert_cate_idx;
     int concert_detail_cate_idx;
