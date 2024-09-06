@@ -30,8 +30,8 @@ public class ConcertController {
 	@Autowired
 	ConcertMapper concert_mapper;
 
-	// 공연 정보 전체 조회 - 그리드 형식
-	@RequestMapping("list_grid.do")
+	// 공연 정보 전체 조회
+	@RequestMapping("list.do")
 	public String concert_grid(Model model) {
 
 		// 공연 정보 가져오기
@@ -40,20 +40,33 @@ public class ConcertController {
 		// request binding
 		model.addAttribute("list", list);
 
-		return "concert/concert_grid";
+		return "concert/concert_list";
 	}
 
-	// 공연 정보 전체 조회 - 리스트 형식
-	@RequestMapping("list.do")
-	public String concert_list(Model model) {
+	// 카테고리 별 조회 및 정렬 기능
+	@RequestMapping("category.do")
+	public String category(int concert_detail_cate_idx, String hall_area, String sort_options, int sort_options_number,
+			Model model) {
 
-		// 공연 정보 가져오기
-		List<ConcertVo> list = concert_mapper.selectList();
+		// 콘서트 목록 가져오기
+		List<ConcertVo> list = null;
+
+		// 파라미터 값 잘 받아와지나 확인
+		// System.out.println("sort_options : " + sort_options);
+		// System.out.println("sort_options_number : " + sort_options_number);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("concert_detail_cate_idx", concert_detail_cate_idx);
+		map.put("hall_area", hall_area);
+		map.put("sort_options", sort_options);
+		map.put("sort_options_number", sort_options_number);
+
+		list = concert_mapper.selectCategoryList(map);
 
 		// request binding
 		model.addAttribute("list", list);
 
-		return "concert/concert_list";
+		return "concert/concert_list_bottom";
 	}
 
 	// 상세페이지 띄우기
@@ -72,54 +85,6 @@ public class ConcertController {
 	public String concert_seat(Model model) {
 
 		return "concert/concert_seat";
-	}
-
-	@RequestMapping("category.do")
-	public String category(int concert_detail_cate_idx, String hall_area, String sort_options, int sort_options_number,
-			Model model) {
-
-		// 콘서트 목록 가져오기
-		List<ConcertVo> list = null;
-
-		// 파라미터 값 잘 받아와지나 확인
-		// System.out.println(area);
-		// System.out.println("genre : " + genre);
-		// System.out.println("sort_options : " + sort_options);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("concert_detail_cate_idx", concert_detail_cate_idx);
-		map.put("hall_area", hall_area);
-		map.put("sort_options", sort_options);
-		map.put("sort_options_number", sort_options_number);
-
-		list = concert_mapper.selectCategoryList(map);
-
-		// request binding
-		model.addAttribute("list", list);
-
-		return "concert/concert_grid_bottom";
-	}
-
-	@RequestMapping("category_area.do")
-	public String category_area(int hall_idx, int concert_detail_cate_idx, Model model) {
-
-		// 콘서트 목록 가져오기
-		List<ConcertVo> list = null;
-
-		// System.out.println(concert_detail_cate_idx);
-
-		// hall_idx : jsp 함수 안에 선언 되어 있는 변수
-		if (hall_idx == 0 && concert_detail_cate_idx == 0) { // '지역전체' + '장르전체'
-			// 공연 목록 전체 조회
-			list = concert_mapper.selectList();
-		} else {
-			list = concert_mapper.concert_area_list(hall_idx, concert_detail_cate_idx);
-		}
-
-		// request binding
-		model.addAttribute("list", list);
-
-		return "concert/concert_grid_bottom";
 	}
 
 }

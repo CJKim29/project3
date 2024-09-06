@@ -66,8 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectCategoryList" parameterType="Map" resultMap="concertMap">
 		select * from concert 
 		<trim prefix="where" prefixOverrides="and">
-			<if test="concert_detail_cate_idx=0">
-			</if>
+
 			<if test="concert_detail_cate_idx!=0">
                  concert_detail_cate_idx = #{ concert_detail_cate_idx }
 			</if>

@@ -5,7 +5,7 @@
 			<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 				<!DOCTYPE html>
-				<html lang="zxx">
+				<html lang="ko">
 
 				<head>
 
@@ -93,15 +93,15 @@
 					<!-- <a href="main.html"><img src="../resources/images/logo_TIMOA2.PNG" alt="logo"></a> -->
 
 					<!-- Web Font -->
-					<link
+					<!-- <link
 						href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-						rel="stylesheet">
+						rel="stylesheet"> -->
 
 					<!-- StyleSheet -->
 
 					<!-- Bootstrap -->
-					<link rel="stylesheet" href="../resources/template/css/bootstrap.css">
-					<!-- Magnific Popup -->
+					<!-- <link rel="stylesheet" href="../resources/template/css/bootstrap.css">
+					<%-- Magnific Popup -->
 					<link rel="stylesheet" href="../resources/template/css/magnific-popup.min.css">
 					<!-- Font Awesome -->
 					<link rel="stylesheet" href="../resources/template/css/font-awesome.css">
@@ -125,7 +125,7 @@
 					<!-- Eshop StyleSheet -->
 					<link rel="stylesheet" href="../resources/template/css/reset.css">
 					<link rel="stylesheet" href="../resources/template/css/style.css">
-					<link rel="stylesheet" href="../resources/template/css/responsive.css">
+					<link rel="stylesheet" href="../resources/template/css/responsive.css"> --%>
 
 					<!-- Color CSS -->
 					<!-- <link rel="stylesheet" href="../resources/template/css/color/color1.css"> -->
@@ -148,34 +148,11 @@
 				<body class="js">
 
 					<!-- Preloader -->
-					<div class="preloader">
-						<div class="preloader-inner">
-							<div class="preloader-icon">
-								<span></span>
-								<span></span>
-							</div>
-						</div>
-					</div>
+
 					<!-- End Preloader -->
 
 					<!-- Eshop Color Plate -->
-					<div class="color-plate ">
-						<a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
-						<h4>Eshop Colors</h4>
-						<p>Here is some awesome color's available on Eshop Template.</p>
-						<span class="color1"></span>
-						<span class="color2"></span>
-						<span class="color3"></span>
-						<span class="color4"></span>
-						<span class="color5"></span>
-						<span class="color6"></span>
-						<span class="color7"></span>
-						<span class="color8"></span>
-						<span class="color9"></span>
-						<span class="color10"></span>
-						<span class="color11"></span>
-						<span class="color12"></span>
-					</div>
+
 					<!-- /End Color Plate -->
 
 					<!-- 헤더 삭제 -->
@@ -759,8 +736,8 @@
 
 
 					<!-- Jquery -->
-					<script src="../resources/template/js/jquery.min.js"></script>
-					<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
+					<!-- <script src="../resources/template/js/jquery.min.js"></script>
+					<%-- <script src="../resources/template/js/jquery-migrate-3.0.0.js"></script> -->
 					<script src="../resources/template/js/jquery-ui.min.js"></script>
 					<!-- Popper JS -->
 					<script src="../resources/template/js/popper.min.js"></script>
@@ -793,7 +770,7 @@
 					<!-- Easing JS -->
 					<script src="../resources/template/js/easing.js"></script>
 					<!-- Active JS -->
-					<script src="../resources/template/js/active.js"></script>
+					<script src="../resources/template/js/active.js"></script> --%>
 				</body>
 
 				</html>
