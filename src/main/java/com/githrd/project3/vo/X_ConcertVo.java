@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Alias("concert")
-public class ConcertVo {
+@Alias("x_concert")
+public class X_ConcertVo {
 
     int concert_idx;
 
@@ -27,5 +27,6 @@ public class ConcertVo {
     HallVo hallVo;
     ConcertCateVo concertCateVo;
     List<SeatVo> seatList;
-
+    S_HallVo s_HallVo;
+    List<S_HallVo> s_HallList;
 }
