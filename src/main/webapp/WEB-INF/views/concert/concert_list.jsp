@@ -38,7 +38,7 @@
 							color: red !important;
 						}
 
-
+						/* a */
 
 						/* 방문 후 링크 상태*/
 						/* .d_cate_list li a:visited {
