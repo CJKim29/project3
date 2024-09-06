@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.BookMapper">
+
+    <resultMap id="concertListMap" type="x_concert">
+        <result property="hall_idx" column="hall_idx"/>
+        <result property="concert_cate_idx" column="concert_cate_idx"/>
+
+        <association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list_listmap" />
+        <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_listmap" />
+    </resultMap>
+
+    <select id="concert_cate_list_listmap" resultType="concert_cate">
+	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+    </select>
+    <select id="hall_list_listmap" resultType="hall">
+	   select * from hall where hall_idx=#{ hall_idx }
+    </select>
+
+    <!-- 전체조회 -->
+    <select id="selectList" resultMap="concertListMap">
+		select * from concert order by concert_idx
+    </select>
+
+
+    <resultMap id="concertOneMap" type="x_concert">
+        <result property="hall_idx" column="hall_idx"/>
+        <result property="concert_cate_idx" column="concert_cate_idx"/>
+        <result property="concert_idx" column="concert_idx"/>
+        <result property="seat_idx" column="seat_idx"/>
+
+        <association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list_onemap" />
+        <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_onemap" />
+        <collection property="seatList" column="concert_idx=concert_idx" select="seat_list_onemap" />
+    </resultMap>
+
+    <select id="concert_cate_list_onemap" resultType="concert_cate">
+	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+    </select>
+    <select id="hall_list_onemap" resultType="hall">
+	   select * from hall where hall_idx=#{ hall_idx }
+    </select>
+    <select id="seat_list_onemap" resultType="seat">
+       select * from seat where concert_idx=#{ concert_idx }
+    </select>
+
+    <!-- idx조회 -->
+    <select id="selectOneFromIdx" resultMap="concertOneMap">
+		select * from concert where concert_idx=#{ concert_idx }
+    </select>
+
+    <!-- 잔여좌석 조회 -->
+    <select id="selectRemainSeat" resultType="int" parameterType="map">
+    SELECT
+        COALESCE(
+            (SUM(s_hall_a = 0) +
+            SUM(s_hall_b = 0) +
+            SUM(s_hall_c = 0) +
+            SUM(s_hall_d = 0) +
+            SUM(s_hall_e = 0) +
+            SUM(s_hall_f = 0) +
+            SUM(s_hall_g = 0) +
+            SUM(s_hall_h = 0) +
+            SUM(s_hall_i = 0) +
+            SUM(s_hall_j = 0)), 0) AS zero_count
+    FROM
+        s_hall
+    WHERE
+        seat_idx = #{ seat_idx }
+		AND concert_date_idx = 6;
+    </select>
+
+
+    <!-- concert_date_idx 조회 -->
+    <select id="selectConcertDateIdx" resultType="int">
+        SELECT concert_date_idx 
+        FROM concert_date 
+        WHERE SUBSTRING(concert_date_date, 1, 10) = #{concert_date} 
+        AND concert_idx = #{concert_idx};
+    </select>
+
+    <!-- 남은 좌석 수 조회 -->
+    <select id="selectRemainSeat1" resultType="int">
+        SELECT 
+            COALESCE(
+                (SUM(s_hall_a = 0) +
+                SUM(s_hall_b = 0) +
+                SUM(s_hall_c = 0) +
+                SUM(s_hall_d = 0) +
+                SUM(s_hall_e = 0) +
+                SUM(s_hall_f = 0) +
+                SUM(s_hall_g = 0) +
+                SUM(s_hall_h = 0) +
+                SUM(s_hall_i = 0) +
+                SUM(s_hall_j = 0)), 0) AS zero_count
+        FROM s_hall
+        WHERE concert_date_idx = #{concert_date_idx}
+        AND seat_idx = #{seat_idx};
+    </select>
+
+
+</mapper>

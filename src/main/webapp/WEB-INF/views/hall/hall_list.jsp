@@ -126,14 +126,14 @@
                         <!-- for(MemberVo vo : list) -->
                         <c:forEach var="vo" items="${ list }">
                             <tr>
-                                <td>${ vo.hall_idx }</td>
-                                <td>${ vo.hall_name }</td>
-                                <td>${ vo.hall_area }</td>
-                                <td>${ vo.hall_addr }</td>
-                                <td>${ vo.hall_tel }</td>
-                                <td>${ vo.hall_site }</td>
-                                <td>${ vo.hall_seat }</td>
-                                <td><img class="hall_img" src="../resources/images/${ vo.hall_image }"></td>
+                                <td>${ vo.s_hall_idx }</td>
+                                <td>${ vo.s_hall_name }</td>
+                                <td>${ vo.s_hall_area }</td>
+                                <td>${ vo.s_hall_addr }</td>
+                                <td>${ vo.s_hall_tel }</td>
+                                <td>${ vo.s_hall_site }</td>
+                                <td>${ vo.s_hall_seat }</td>
+                                <td><img class="hall_img" src="../resources/images/${ vo.s_hall_image }"></td>
                             </tr>
                         </c:forEach>
 

@@ -1225,7 +1225,7 @@ Version:1.0
 	background-position: center;
 	background-repeat: no-repeat;
     height: 510px;
-	margin-top:30px;
+	margin-top:0px;
 	position:relative;
 }
 .hero-area4 .big-content .inner {
@@ -2566,7 +2566,9 @@ Version:1.0
 	padding-bottom:100px;
 }
 .shop-home-list .shop-section-title{
-	margin-bottom:20px;
+	margin-top: 20px;
+	margin-bottom:30px;
+	text-align: center;
 }
 .shop-home-list .shop-section-title h1 {
 	font-size: 22px;
@@ -2577,22 +2579,30 @@ Version:1.0
 	font-weight: 700;
 	margin-bottom: 10px;
 	padding-bottom: 10px;
+	text-align: center;
 }
 .shop-home-list .shop-section-title h1::before {
 	position: absolute;
 	content: "";
 	height: 2px;
-	width: 50px;
+	width: 40px;
 	background: #F7941D;
-	left: 0;
 	bottom: -1px;
+	text-align: center;
+}
+/* Flexbox를 사용하여 가운데 정렬 */
+.shop-home-list .d-flex {
+    display: flex;
+    flex-wrap: wrap; /* 여러 줄로 감싸도록 설정 */
+    justify-content: center; /* 가로 방향 가운데 정렬 */
 }
 .shop-home-list .single-list {
 	overflow: hidden;
 	position: relative;
-	margin-top: 30px;
+	margin: 30px;
+	margin-top: 22px;
 	border: 1px solid #eee;
-	padding: 10px;
+	padding: 15px;
 }
 .shop-home-list .single-list .list-image{
 	position:relative;
@@ -2610,10 +2620,10 @@ Version:1.0
 	visibility:visible;
 }
 .shop-home-list .single-list .list-image .buy{
-	height:40px;
-	width:40px;
+	height:20px;
+	width:20px;
 	line-height:40px;
-	font-size:14px;
+	font-size:12px;
 	color:#fff;
 	background:#F7941D;
 	border-radius:100%;
@@ -2648,14 +2658,14 @@ Version:1.0
 	height:100%;
 }
 .shop-home-list .single-list .content {
-	padding-top: 45px;
-	padding-right: 12px;
+	padding-top: 54px;
+	padding-right: 15px;
 }
 .shop-home-list .single-list .content .title {
 	line-height: 18px;
 }
 .shop-home-list .single-list .content .title a{
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: 600;
 }
 .shop-home-list .single-list .content .titlea {
@@ -2665,12 +2675,12 @@ Version:1.0
 	color: #F7941D;
 }
 .shop-home-list .single-list .content .price {
-	margin-top: 15px;
+	margin-top: 16px;
 	font-weight: 500;
 	background: #f7941d;
 	display: inline-block;
 	color: #fff;
-	padding: 2px 18px;
+	padding: 4px 24px;
 	border-radius: 30px;
 	font-size: 14px;
 	font-weight: 500;
@@ -3809,7 +3819,7 @@ Version:1.0
    Start Shop Blog CSS
 ========================================*/
 .shop-blog.grid .shop-single-blog{
-	margin-top:30px;
+	margin-top:20px;
 }
 .shop-blog .shop-single-blog{
 	text-align:center;
@@ -3842,10 +3852,10 @@ Version:1.0
 	color: #B7B7B7;
 }
 .shop-blog .shop-single-blog .content .more-btn {
-	font-size: 14px;
+	font-size: 30px;
 	font-weight: 400;
 	color: #3c3c3c;
-	margin-top: 10px;
+	margin-top: 20px;
 	display: block;
 }
 .shop-blog .shop-single-blog .content .more-btn:hover{

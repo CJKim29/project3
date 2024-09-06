@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.QnaCommentMapper">
+
+    <!-- 조회 -->
+    <select id="qna_cmt_list" parameterType="int" resultType="qna_cmt">
+		select * from qna_comment where qna_idx = #{ qna_idx } order by qna_cmt_idx desc
+    </select>
+
+    <!-- Paging조회 -->
+    <select id="qna_cmt_page_list" parameterType="Map" resultType="qna_cmt">
+		select cc.* from
+		(
+			select
+				rank() over(order by qna_cmt_idx desc) as qna_cmt_no,
+				c.*
+			from
+			(
+				select * from qna_comment where qna_idx=#{ qna_idx }
+			) c
+		)cc
+		where qna_cmt_no between #{ start } and #{ end }
+    </select>
+
+    <!-- b_idx의 총 댓글 개수 -->
+    <select id="qna_cmt_row_total" parameterType="int" resultType="int">
+		select ifnull(count(*),0) from qna_comment where qna_idx=#{ qna_idx }
+    </select>
+
+    <!-- 추가 -->
+    <insert id="qna_cmt_insert" parameterType="qna_cmt">
+		insert into qna_comment values(
+									  null,
+									  #{ mem_idx },
+									  #{ qna_idx },
+									  #{ qna_cmt_content },
+									   now(),
+									  #{ mem_nickname }
+									  )
+    </insert>
+
+    <!-- 삭제 -->
+    <delete id="qna_cmt_delete" parameterType="int">
+		delete from qna_comment where qna_cmt_idx=#{ qna_cmt_idx }
+    </delete>
+
+</mapper>
