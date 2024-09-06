@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
+    <title>TIMOA</title>
     <!-- Favicon -->
     <link
       rel="icon"
@@ -246,19 +246,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li class="active"><a href="">Home</a></li>
-                          <li><a href="../main/sample.jsp">뮤지컬</a></li>
+                          <li class="active"><a href="list.do">Home</a></li>
+                          <li><a href="../concert/list.do">뮤지컬</a></li>
                           <li><a href="">콘서트(보류)</a></li>
                           <li><a href="">연극(보류)</a></li>
                           <li>
                             <a href="">고객센터<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
-                              <li><a href="board-List.html">공지사항</a></li>
-                              <li><a href="board-List.html">FAQ</a></li>
+                              <li><a href="../qna/list.do">Q&A</a></li>
+                              <li><a href="../faq/list.do">FAQ</a></li>
                               <li>
-                                <a href="board-List.html">게시판 리스트</a>
-                              </li>
-                              <li><a href="board-main.html">게시판 상세</a></li>
+                                <a href="../board/list.do">게시판 리스트</a>
+                              </li>                              
                             </ul>
                           </li>
                         </ul>

@@ -20,33 +20,18 @@
 					<div class="home-slider-4">
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
-						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바시카고.png');">
-							<div class="inner">
-								<h4 class="title"></h4>
-								<p class="des"></p>
-								<div class="button">
-									<a href="#" class="btn">상세보기</a>
-								</div>
+						 <a href="">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바시카고.png');">
 							</div>
-						</div>
-						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니.png');">
-							<div class="inner">
-								<h4 class="title"></h4>
-								<p class="des"></p>
-								<div class="button">
-									<a href="#" class="btn">상세보기</a>
-								</div>
+						</a>
+						<a href="">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니.png');">
 							</div>
-						</div>
-						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바킹키부츠.png');">
-							<div class="inner">
-								<h4 class="title"></h4>
-								<p class="des"></p>
-								<div class="button">
-									<a href="#" class="btn">상세보기</a>
-								</div>
+						</a>
+						<a href="">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바킹키부츠.png');">
 							</div>
-						</div>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -91,7 +76,7 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="">
 															<!-- 이미지 크기는 550x750  -->
 															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
 														</a>
@@ -107,7 +92,7 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="">
 															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
 														</a>
 													</div>
