@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href=""><img src="../resources/template/images/logo_TIMOA1.png" alt="#"></a>
+								<a href="../main/list.do"><img src="../resources/template/images/logo_TIMOA1.png" alt="#"></a>
 							</div>
 							<p class="text">뮤지컬 티켓 사이트</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>

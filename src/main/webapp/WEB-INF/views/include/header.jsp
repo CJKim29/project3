@@ -95,8 +95,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Eshop Color Plate -->
     <div class="color-plate">
       <a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
-      <h4>Eshop Colors</h4>
-      <p>Here is some awesome color's available on Eshop Template.</p>
+      <h4>TIMOA Colors</h4>
+      <p>쓸지 안쓸지 보류</p>
       <span class="color1"></span>
       <span class="color2"></span>
       <span class="color3"></span>
@@ -167,7 +167,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="col-lg-2 col-md-2 col-12">
               <!-- Logo  -->
               <div class="logo">
-                <a href=""
+                <a href="../main/list.do"
                   ><img
                     src="../resources/template/images/logo_TIMOA1.png"
                     alt="logo"
@@ -246,7 +246,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li class="active"><a href="list.do">Home</a></li>
+                          <li class="active"><a href="../main/list.do">Home</a></li>
                           <li><a href="../concert/list.do">뮤지컬</a></li>
                           <li><a href="">콘서트(보류)</a></li>
                           <li><a href="">연극(보류)</a></li>
