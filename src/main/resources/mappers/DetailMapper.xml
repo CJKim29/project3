@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.DetailMapper">
+
+	<resultMap id="concertMap" type="concert">
+		<result property="hall_idx" column="hall_idx"/>
+		<result property="concert_cate_idx" column="concert_cate_idx"/>
+		<result property="concert_idx" column="concert_idx"/>
+		<result property="seat_idx" column="seat_idx"/>
+
+		<association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
+		<association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+		<collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
+	</resultMap>
+
+	<select id="concert_cate_list" resultType="concert_cate">
+	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+	</select>
+	<select id="hall_list" resultType="hall">
+	   select * from hall where hall_idx=#{ hall_idx }
+	</select>
+	<select id="seat_list" resultType="seat">
+       select * from seat where concert_idx=#{ concert_idx }
+	</select>
+
+
+	<!-- 전체조회 -->
+	<select id="selectList" resultMap="concertMap">
+		select * from concert order by concert_idx
+	</select>
+
+	<!-- idx조회 -->
+	<select id="selectOneFromIdx" resultMap="concertMap">
+		select * from concert where concert_idx=#{ concert_idx }
+	</select>
+
+	<!-- 좋아요 클릭 유무 -->
+	<select id="findLike" resultType="int">
+		select count(*) from concert_ex_like where concert_idx=#{concert_idx} and mem_idx=#{mem_idx}
+	</select>
+
+	<!-- 좋아요 수 -->
+	<insert id="likeUp">
+		insert into concert_ex_like values(null,
+											#{concert_idx}, 
+											#{mem_idx},
+											#{like_number}
+											)
+	</insert>
+
+	<!-- 좋아요 취소 -->
+	<delete id="likeDown">
+		delete from concert_ex_like 
+			where concert_idx = #{concert_idx} and 
+					mem_idx = #{mem_idx}
+	</delete>
+</mapper>
