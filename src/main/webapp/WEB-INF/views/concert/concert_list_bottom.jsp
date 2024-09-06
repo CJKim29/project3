@@ -52,6 +52,23 @@
 							margin-bottom: 50px;
 						}
 
+						/* 조회 데이터 없음 메세지 */
+						#empty_msg {
+							height: 100px;
+							margin-bottom: 100px;
+							text-align: center;
+						}
+
+						.empty_msg1 {
+							margin-bottom: 20px;
+							font-size: 25px;
+							font-weight: bold;
+						}
+
+						.empty_msg2 {
+							font-size: 17px;
+						}
+
 						/* 컨텐츠 영역 end */
 					</style>
 
@@ -79,24 +96,9 @@
 						}
 					</script> -->
 
-					<!-- Title Tag  -->
-					<title>티모아</title>
-					
-					
-
 				</head>
 
 				<body class="js">
-
-					<!-- Preloader -->
-
-					<!-- End Preloader -->
-
-					<!-- Eshop Color Plate -->
-
-					<!-- /End Color Plate -->
-
-					<!-- 헤더 삭제 -->
 
 					<!-- 상단바 -->
 					<!-- Product Style -->
@@ -145,7 +147,12 @@
 
 									<!-- Data가 없는 경우 화면에 출력 될 정보 -->
 									<c:if test="${ empty requestScope.list }">
-										<div id="empty_msg">등록된 공연장 정보가 없습니다</div>
+										<div id="empty_msg">
+											<div class="empty_msg1">이용 가능한 티켓이 없습니다</div>
+											<div class="empty_msg2">다른 검색 조건으로 조회해보세요!</div>
+										</div>
+
+
 									</c:if>
 
 
