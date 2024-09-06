@@ -49,7 +49,7 @@
 				<link rel="stylesheet" href="../resources/template/css/responsive.css">
 
 				<!-- Color CSS -->
-				<link rel="stylesheet" href="../resources/template/css/color/color1.css">
+				<!-- <link rel="stylesheet" href="../resources/template/css/color/color1.css"> -->
 				<!--<link rel="stylesheet" href="../resources/template/css/color/color2.css">-->
 				<!--<link rel="stylesheet" href="../resources/template/css/color/color3.css">-->
 				<!--<link rel="stylesheet" href="../resources/template/css/color/color4.css">-->
@@ -60,7 +60,7 @@
 				<!--<link rel="stylesheet" href="../resources/template/css/color/color9.css">-->
 				<!--<link rel="stylesheet" href="../resources/template/css/color/color10.css">-->
 				<!--<link rel="stylesheet" href="../resources/template/css/color/color11.css">-->
-				<!--<link rel="stylesheet" href="../resources/template/css/color/color12.css">-->
+				<link rel="stylesheet" href="../resources/template/css/color/color12.css">
 
 				<link rel="stylesheet" href="#" id="colors">
 
@@ -116,19 +116,19 @@
 
 			<body class="js">
 
-				<!-- Preloader -->
-				<div class="preloader">
+				 <!-- Preloader -->
+				 <div class="preloader">
 					<div class="preloader-inner">
-						<div class="preloader-icon">
-							<span></span>
-							<span></span>
-						</div>
+					  <div class="preloader-icon">
+						<span></span>
+						<span></span>
+					  </div>
 					</div>
-				</div>
-				<!-- End Preloader -->
-
-				<!-- Eshop Color Plate -->
-				<div class="color-plate ">
+				  </div>
+				  <!-- End Preloader -->
+			  
+				  <!-- Eshop Color Plate -->
+				  <div class="color-plate">
 					<a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
 					<h4>Eshop Colors</h4>
 					<p>Here is some awesome color's available on Eshop Template.</p>
@@ -144,200 +144,172 @@
 					<span class="color10"></span>
 					<span class="color11"></span>
 					<span class="color12"></span>
-				</div>
-				<!-- /End Color Plate -->
-
-				<!-- Header -->
-				<header class="header shop">
+				  </div>
+				  <!-- /End Color Plate -->
+			  
+				  <!-- Header -->
+			  
+				  <!-- 맨 위의 로그인, 마이페이지 버튼 부분  -->
+				  <header class="header shop">
 					<!-- Topbar -->
 					<div class="topbar">
-						<div class="container">
-							<div class="inner-content">
-								<div class="row">
-									<div class="col-lg-8 col-md-12 col-12">
-										<!-- Top Left -->
-										<div class="top-left">
-											<ul class="list-main">
-											</ul>
-										</div>
-										<!--/ End Top Left -->
-									</div>
-									<!-- Top Right -->
-									<div class="right-content">
-										<ul class="list-main">
-											<li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
-											<li><i class="ti-power-off"></i><a href="login.html#">로그인</a></li>
-											<li><i class="ti-power-off"></i><a href="register.html">회원가입</a></li>
-										</ul>
-									</div>
-									<!-- End Top Right -->
-								</div>
+					  <div class="container">
+						<div class="inner-content">
+						  <div class="row">
+							<div class="col-lg-8 col-md-12 col-12">
+							  <!-- Top Left -->
+							  <div class="top-left">
+								<ul class="list-main"></ul>
+							  </div>
+							  <!--/ End Top Left -->
 							</div>
+							<!-- Top Right -->
+							<div class="right-content">
+							  <ul class="list-main">
+								<!-- 로그인이 안된 경우 -->
+								<c:if test="${ empty user }">
+								  <li>
+									<i class="ti-power-off"></i
+									><a href="../member/insert_form.do">회원가입</a>
+								  </li>
+								  <li>
+									<i class="ti-power-off"></i
+									><a href="../member/login_form.do">로그인</a>
+								  </li>
+								</c:if>
+								<!-- 로그인이 된 경우 -->
+								<c:if test="${ not empty sessionScope.user }">
+								  <li>
+									<i class="ti-power-off"></i><a href="#">회원정보</a>
+								  </li>
+								  <li>
+									<b>${ user.mem_nickname }님</b>
+									<a href="../member/logout.do">로그아웃</a>
+								  </li>
+								</c:if>
+								<li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
+							  </ul>
+							</div>
+							<!-- End Top Right -->
+						  </div>
 						</div>
+					  </div>
 					</div>
 					<!-- End Topbar -->
 					<div class="middle-inner">
-						<div class="container">
-							<div class="row">
-								<div class="col-lg-2 col-md-2 col-12">
-									<!-- Logo (여기 홈페이지 이름 적거나 사진으로 대체) -->
-									<div class="logo">
-										<a href="main.html"><img src="../resources/template/images/logo.png"
-												alt="logo"></a>
-									</div>
-									<!--/ End Logo -->
-									<!-- Search Form -->
-									<!-- 검색창 부분 -->
-									<div class="search-top">
-										<div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-										<!-- Search Form -->
-										<div class="search-top">
-											<form class="search-form">
-												<input type="text" placeholder="Search here..." name="search">
-												<button value="search" type="submit"><i class="ti-search"></i></button>
-											</form>
-										</div>
-										<!--/ End Search Form -->
-									</div>
-									<!--/ End Search Form -->
-									<div class="mobile-nav"></div>
-								</div>
-								<div class="col-lg-8 col-md-7 col-12">
-									<div class="search-bar-top">
-										<div class="search-bar">
-											<select>
-												<option selected="selected">All Category</option>
-												<option>뮤지컬</option>
-												<option>콘서트</option>
-												<option>연극</option>
-											</select>
-											<form>
-												<input name="search" placeholder="Search Products Here....."
-													type="search">
-												<button class="btnn"><i class="ti-search"></i></button>
-											</form>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-3 col-12">
-									<div class="right-bar">
-										<!-- Search Form -->
-										<div class="sinlge-bar shopping">
-											<a href="#" class="single-icon"><i class="ti-bag"></i> <span
-													class="total-count">2</span></a>
-											<!-- Shopping Item -->
-											<!-- 장바구니 부분 -->
-											<div class="shopping-item">
-												<div class="dropdown-cart-header">
-													<span>2 Items</span>
-													<a href="#">장바구니</a>
-												</div>
-												<ul class="shopping-list">
-													<li>
-														<a href="#" class="remove" title="Remove this item"><i
-																class="fa fa-remove"></i></a>
-														<a class="cart-img" href="#"><img
-																src="https://via.placeholder.com/70x70" alt="#"></a>
-														<h4><a href="#">Woman Ring</a></h4>
-														<p class="quantity">1x - <span class="amount">$99.00</span></p>
-													</li>
-													<li>
-														<a href="#" class="remove" title="Remove this item"><i
-																class="fa fa-remove"></i></a>
-														<a class="cart-img" href="#"><img
-																src="https://via.placeholder.com/70x70" alt="#"></a>
-														<h4><a href="#">Woman Necklace</a></h4>
-														<p class="quantity">1x - <span class="amount">$35.00</span></p>
-													</li>
-												</ul>
-												<div class="bottom">
-													<div class="total">
-														<span>Total</span>
-														<span class="total-amount">$134.00</span>
-													</div>
-													<a href="checkout.html" class="btn animate">Checkout</a>
-												</div>
-											</div>
-											<!--/ End Shopping Item -->
-										</div>
-									</div>
-								</div>
+					  <div class="container">
+						<div class="row">
+						  <div class="col-lg-2 col-md-2 col-12">
+							<!-- Logo  -->
+							<div class="logo">
+							  <a href=""
+								><img
+								  src="../resources/template/images/logo_TIMOA1.png"
+								  alt="logo"
+							  /></a>
 							</div>
+							<!--/ End Logo -->
+							<div class="search-top">
+							  <div class="top-search">
+								<a href="#0"><i class="ti-search"></i></a>
+							  </div>
+							  <!-- Search Form -->
+							  <div class="search-top">
+								<form class="search-form">
+								  <input
+									type="text"
+									placeholder="Search here..."
+									name="search"
+								  />
+								  <button value="search" type="submit">
+									<i class="ti-search"></i>
+								  </button>
+								</form>
+							  </div>
+							  <!--/ End Search Form -->
+							</div>
+							<!--  검색창 카테고리  -->
+							<div class="mobile-nav"></div>
+						  </div>
+						  <div class="col-lg-8 col-md-7 col-12">
+							<div class="search-bar-top">
+							  <div class="search-bar">
+								<select>
+								  <option selected="selected">카테고리</option>
+								  <option>뮤지컬</option>
+								  <option>콘서트</option>
+								  <option>연극</option>
+								</select>
+								<!-- search 검색 -->
+								<form>
+								  <input
+									name="search"
+									placeholder="찾으실 공연을 입력해주세요"
+									type="search"
+								  />
+								  <button class="btnn"><i class="ti-search"></i></button>
+								</form>
+							  </div>
+							</div>
+						  </div>
+						  <div class="col-lg-2 col-md-3 col-12">
+							<div class="right-bar">
+							  <!-- Search Form -->
+							  <!-- 장바구니 버튼 부분 -->
+							  <div class="sinlge-bar shopping">
+								<a href="cart.html" class="single-icon"
+								  ><i class="ti-bag"></i
+								></a>
+								<!-- Shopping Item -->
+								<!-- 장바구니 부분 상세 삭제함 -->
+							  </div>
+							</div>
+						  </div>
 						</div>
+					  </div>
 					</div>
 					<!-- Header2 부분 검색창 바로 밑 -->
+					<!-- 메인 카테고리 부분 -->
 					<div class="header-inner">
-						<div class="container">
-							<div class="cat-nav-head">
-								<div class="row">
-									<div class="col-12">
-										<div class="menu-area">
-											<!-- Main Menu -->
-											<nav class="navbar navbar-expand-lg">
-												<div class="navbar-collapse">
-													<div class="nav-inner">
-														<ul class="nav main-menu menu navbar-nav">
-															<li class="active"><a href="#">Home<i
-																		class="ti-angle-down"></i></a>
-																<ul class="dropdown">
-																	<li><a href="main.html">Main</a></li>
-																</ul>
-															</li>
-															<li><a href="#">뮤지컬</a></li>
-															<li><a href="#">콘서트</a></li>
-															<li><a href="#">연극<i class="ti-angle-down"></i><span
-																		class="new">New</span></a>
-																<ul class="dropdown">
-																	<li><a href="shop-grid.html">Shop Grid</a></li>
-																	<li><a href="shop-list.html">Shop List</a></li>
-																	<li><a href="shop-single.html">shop Single</a></li>
-																	<li><a href="cart.html">Cart</a></li>
-																	<li><a href="checkout.html">Checkout</a></li>
-																</ul>
-															</li>
-															<li><a href="#">게시판<i class="ti-angle-down"></i></a>
-																<ul class="dropdown">
-																	<li><a href="borad-List.html">borad-List</a></li>
-																	<li><a href="blog-grid-sidebar.html">Blog Grid
-																			Sidebar</a>
-																	</li>
-																	<li><a href="board-List.html">board-List</a></li>
-																	<li><a href="blog-single-sidebar.html">Blog Single
-																			Sidebar</a>
-																	</li>
-																</ul>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</nav>
-											<!--/ End Main Menu -->
-										</div>
+					  <div class="container">
+						<div class="cat-nav-head">
+						  <div class="row">
+							<div class="col-12">
+							  <div class="menu-area">
+								<!-- Main Menu -->
+								<nav class="navbar navbar-expand-lg">
+								  <div class="navbar-collapse">
+									<div class="nav-inner">
+									  <ul class="nav main-menu menu navbar-nav">
+										<li class="active"><a href="">Home</a></li>
+										<li><a href="../main/sample.jsp">뮤지컬</a></li>
+										<li><a href="">콘서트(보류)</a></li>
+										<li><a href="">연극(보류)</a></li>
+										<li>
+										  <a href="">고객센터<i class="ti-angle-down"></i></a>
+										  <ul class="dropdown">
+											<li><a href="board-List.html">공지사항</a></li>
+											<li><a href="board-List.html">FAQ</a></li>
+											<li>
+											  <a href="board-List.html">게시판 리스트</a>
+											</li>
+											<li><a href="board-main.html">게시판 상세</a></li>
+										  </ul>
+										</li>
+									  </ul>
 									</div>
-								</div>
+								  </div>
+								</nav>
+								<!--/ End Main Menu -->
+							  </div>
 							</div>
+						  </div>
 						</div>
+					  </div>
 					</div>
 					<!--/ End Header Inner -->
-				</header>
-				<!--/ End Header -->
-
-				<!-- Breadcrumbs -->
-				<div class="breadcrumbs">
-					<div class="container">
-						<div class="row">
-							<div class="col-12">
-								<div class="bread-inner">
-									<ul class="bread-list">
-										<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-										<li class="active"><a href="blog-single.html">Shop Details</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- End Breadcrumbs -->
+				  </header>
+				  <!--/ End Header -->
 
 				<!-- Shop Single -->
 				<section class="shop single section">
@@ -1003,107 +975,7 @@
 					</div>
 				</div>
 
-				<!-- Start Footer Area -->
-				<footer class="footer">
-					<!-- Footer Top -->
-					<div class="footer-top section">
-						<div class="container">
-							<div class="row">
-								<div class="col-lg-5 col-md-6 col-12">
-									<!-- Single Widget -->
-									<div class="single-footer about">
-										<div class="logo">
-											<a href="index.html"><img src="../resources/template/images/logo2.png"
-													alt="#"></a>
-										</div>
-										<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas
-											augue,
-											magna
-											eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
-											porttitor,
-											facilisis luctus, metus.</p>
-										<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123
-													456
-													789</a></span></p>
-									</div>
-									<!-- End Single Widget -->
-								</div>
-								<div class="col-lg-2 col-md-6 col-12">
-									<!-- Single Widget -->
-									<div class="single-footer links">
-										<h4>Information</h4>
-										<ul>
-											<li><a href="#">About Us</a></li>
-											<li><a href="#">Faq</a></li>
-											<li><a href="#">Terms & Conditions</a></li>
-											<li><a href="#">Contact Us</a></li>
-											<li><a href="#">Help</a></li>
-										</ul>
-									</div>
-									<!-- End Single Widget -->
-								</div>
-								<div class="col-lg-2 col-md-6 col-12">
-									<!-- Single Widget -->
-									<div class="single-footer links">
-										<h4>Customer Service</h4>
-										<ul>
-											<li><a href="#">Payment Methods</a></li>
-											<li><a href="#">Money-back</a></li>
-											<li><a href="#">Returns</a></li>
-											<li><a href="#">Shipping</a></li>
-											<li><a href="#">Privacy Policy</a></li>
-										</ul>
-									</div>
-									<!-- End Single Widget -->
-								</div>
-								<div class="col-lg-3 col-md-6 col-12">
-									<!-- Single Widget -->
-									<div class="single-footer social">
-										<h4>Get In Tuch</h4>
-										<!-- Single Widget -->
-										<div class="contact">
-											<ul>
-												<li>NO. 342 - London Oxford Street.</li>
-												<li>012 United Kingdom.</li>
-												<li>info@eshop.com</li>
-												<li>+032 3456 7890</li>
-											</ul>
-										</div>
-										<!-- End Single Widget -->
-										<ul>
-											<li><a href="#"><i class="ti-facebook"></i></a></li>
-											<li><a href="#"><i class="ti-twitter"></i></a></li>
-											<li><a href="#"><i class="ti-flickr"></i></a></li>
-											<li><a href="#"><i class="ti-instagram"></i></a></li>
-										</ul>
-									</div>
-									<!-- End Single Widget -->
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- End Footer Top -->
-					<div class="copyright">
-						<div class="container">
-							<div class="inner">
-								<div class="row">
-									<div class="col-lg-6 col-12">
-										<div class="left">
-											<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com"
-													target="_blank">Wpthemesgrid</a> - All Rights Reserved.</p>
-										</div>
-									</div>
-									<div class="col-lg-6 col-12">
-										<div class="right">
-											<img src="../resources/template/images/payments.png" alt="#">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</footer>
-				<!-- /End Footer Area -->
+				<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 
 				<!-- Jquery -->
 				<script src="../resources/template/js/jquery.min.js"></script>
