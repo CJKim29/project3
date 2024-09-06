@@ -5,14 +5,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.githrd.project3.vo.ConcertVo;
+import com.githrd.project3.vo.X_ConcertVo;
 
 @Mapper
-public interface ConcertMapper {
+public interface BookMapper {
 
-    List<ConcertVo> selectList();
+    List<X_ConcertVo> selectList();
 
-    ConcertVo selectOneFromIdx(int concert_idx);
+    X_ConcertVo selectOneFromIdx(int concert_idx);
 
     Integer selectRemainSeat(@Param("concert_date") String concert_date, @Param("seat_idx") int seat_idx);
 

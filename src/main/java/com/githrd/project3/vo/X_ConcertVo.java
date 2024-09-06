@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Alias("concert")
-public class ConcertVo {
+@Alias("x_concert")
+public class X_ConcertVo {
 
     int concert_idx;
 

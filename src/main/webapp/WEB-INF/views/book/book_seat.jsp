@@ -149,20 +149,6 @@
                 </script>
 
                 <!-- 버튼 클릭시 예약 현황 띄우기 -->
-                <!-- <script>
-                    $(document).ready(function () {
-                        // 좌석 버튼 클릭 이벤트 처리
-                        $('.seat').click(function () {
-                            // 클릭된 좌석의 데이터 속성 가져오기
-                            var row = $(this).data('row');
-                            var col = $(this).data('col');
-                            var seat = $(this).data('seat');
-
-                            // 좌석 정보를 seat-container3에 업데이트
-                            $('.seat-container3').html(row + '열 ' + col + '석');
-                        });
-                    });
-                </script> -->
                 <script>
                     $(document).ready(function () {
                         // 클릭된 좌석 정보를 저장할 객체
@@ -173,7 +159,6 @@
                             // 클릭된 버튼의 행(row)과 열(column) 정보 추출
                             var rowNo = $(this).data('row');
                             var colNo = $(this).data('col');
-                            var seatStatus = $(this).data('seat');
 
                             // 좌석 정보 문자열 생성
                             var seatInfo = rowNo + '열 ' + colNo + '석';
@@ -206,7 +191,7 @@
                 <!-- 좌석 다시 선택 -->
                 <script>
                     function redirectToCurrentPage() {
-                        // 현재 페이지의 URL로 리디렉션
+                        // 현재 페이지의 URL로 redirect
                         window.location.href = window.location.href;
                     }
                 </script>
@@ -341,9 +326,9 @@
                 <div class="seat-container3">
                     <p>예약 현황</p>
                     <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
-                    <!-- 예약 현황 출력 -->
                 </div>
                 </div>
+                <!-- 예약 현황 출력 -->
                 <div class="seat-container3">
                     <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
                     <br /><br /><br />
