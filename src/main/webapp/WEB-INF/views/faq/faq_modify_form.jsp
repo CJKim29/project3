@@ -47,30 +47,30 @@ pageEncoding="UTF-8"%>
 
     <script type="text/javascript">
       function send(f) {
-        let board_name = f.board_name.value.trim();
-        let board_content = f.board_content.value.trim();
+        let faq_title = f.faq_title.value.trim();
+        let faq_content = f.faq_content.value.trim();
 
-        if (board_name == "") {
+        if (faq_title == "") {
           alert("제목을 입력하세요.");
-          f.board_name.value = "";
-          f.board_name.focus();
+          f.faq_title.value = "";
+          f.faq_title.focus();
           return;
         }
-        if (board_content == "") {
+        if (faq_content == "") {
           alert("내용을 입력하세요.");
-          f.board_content.value = "";
-          f.board_content.focus();
+          f.faq_content.value = "";
+          f.faq_content.focus();
           return;
         }
 
-        f.action = "modify.do?board_idx=${ vo.board_idx }";
+        f.action = "modify.do?faq_idx=${ vo.faq_idx }";
         f.submit();
       }
     </script>
   </head>
   <body>
     <form>
-      <input type="hidden" name="board_idx" value="${ param.board_idx }" />
+      <input type="hidden" name="faq_idx" value="${ param.faq_idx }" />
       <div id="box">
         <div class="panel panel-primary">
           <div class="panel-heading" style="background: #f7941d !important">
@@ -81,8 +81,8 @@ pageEncoding="UTF-8"%>
               <h4>제목 :</h4>
               <input
                 class="form-control"
-                name="board_name"
-                value="${ vo.board_name }"
+                name="faq_title"
+                value="${ vo.faq_title }"
               />
             </div>
             <div>
@@ -90,8 +90,8 @@ pageEncoding="UTF-8"%>
               <textarea
                 class="form-control"
                 rows="10"
-                name="board_content"
-                value="${ vo.board_content }"
+                name="faq_content"
+                value="${ vo.faq_content }"
               ></textarea>
             </div>
 

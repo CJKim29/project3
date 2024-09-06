@@ -47,51 +47,45 @@ pageEncoding="UTF-8"%>
 
     <script type="text/javascript">
       function send(f) {
-        let board_name = f.board_name.value.trim();
-        let board_content = f.board_content.value.trim();
+        let faq_title = f.faq_title.value.trim();
+        let faq_content = f.faq_content.value.trim();
 
-        if (board_name == "") {
+        if (faq_title == "") {
           alert("제목을 입력하세요.");
-          f.board_name.value = "";
-          f.board_name.focus();
+          f.faq_title.value = "";
+          f.faq_title.focus();
           return;
         }
-        if (board_content == "") {
+        if (faq_content == "") {
           alert("내용을 입력하세요.");
-          f.board_content.value = "";
-          f.board_content.focus();
+          f.faq_content.value = "";
+          f.faq_content.focus();
           return;
         }
 
-        f.action = "modify.do?board_idx=${ vo.board_idx }";
+        f.action = "insert.do";
         f.submit();
       }
     </script>
   </head>
   <body>
     <form>
-      <input type="hidden" name="board_idx" value="${ param.board_idx }" />
       <div id="box">
         <div class="panel panel-primary">
           <div class="panel-heading" style="background: #f7941d !important">
-            <h4>수정하기</h4>
+            <h4>질문하기</h4>
           </div>
           <div class="panel-body">
             <div>
               <h4>제목 :</h4>
-              <input
-                class="form-control"
-                name="board_name"
-                value="${ vo.board_name }"
-              />
+              <input class="form-control" name="faq_title" />
             </div>
             <div>
               <h4>내용 :</h4>
               <textarea
                 class="form-control"
                 rows="10"
-                name="board_content"
-                value="${ vo.board_content }"
+                name="faq_content"
               ></textarea>
             </div>
 
@@ -106,7 +100,7 @@ pageEncoding="UTF-8"%>
               <input
                 class="btn btn-danger"
                 type="button"
-                value="글올리기"
+                value="질문하기"
                 onclick="send(this.form)"
               />
             </div>

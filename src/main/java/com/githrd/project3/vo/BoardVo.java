@@ -12,25 +12,24 @@ import lombok.Setter;
 @Setter
 public class BoardVo {
 
-  int     board_idx;
-  int     board_cate_idx;
-  int     mem_idx;
-  String  board_name;
-  String  board_content;
-  String  board_ip;
-  String  board_regdate;
-  int     board_readhit;
-  String  board_use;
-  int     board_ref;
-  int     board_step;
-  int     board_depth;
-  String  mem_nickname;
+  Integer board_idx;
+  Integer board_cate_idx;
+  int mem_idx;
+  String board_name;
+  String board_content;
+  String board_ip;
+  String board_regdate;
+  int board_readhit;
+  String board_use;
+  int board_ref;
+  int board_step;
+  int board_depth;
+  String mem_nickname;
 
   // 댓글 구현되고 만들기
-  // int  board_no;
-  // int  cmt_count;
+  int board_no;
+  int cmt_count;
+
+  // 조인용 변수
+  String board_cate_name;
 }
-
-
-
-

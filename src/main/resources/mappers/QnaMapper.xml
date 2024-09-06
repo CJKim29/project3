@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.QnaMapper">
+
+    <select id="qna_page_list" parameterType="Map" resultType="qna">
+        SELECT qa.* 
+		FROM (
+			SELECT
+				rank() OVER (ORDER BY q.qna_idx desc) AS qna_no,
+				q.*,
+				(SELECT COUNT(*) FROM qna_comment WHERE qna_idx = q.qna_idx) AS qna_cmt_count
+			FROM
+				qna q
+                                                                                                <!--<where> 태그를 사용하여 기본적인 WHERE 조건을 추가합니다. 이 태그는 자동으로 WHERE 키워드를 추가하고, 추가된 조건들이 올바르게 연결되도록 합니다.-->
+        <!-- Dynamic Query: 조건별 query / <trim> 태그를 사용하여 불필요한 AND 또는 OR 문자열을 제거하고, 조건이 없는 경우 WHERE 절의 AND가 포함되지 않도록 합니다.-->
+        <trim prefix="where" prefixOverrides="or">
+            <!-- prefixOverrides 지정한 문자열을 제거하여 재정의 => content만을 수행할 때 where or ... 가 나오는 상황 방지 -->
+            <if test="qna_title != null">
+                    q.qna_title LIKE CONCAT('%', #{qna_title}, '%')
+            </if>
+            <if test="mem_nickname != null">
+                    or q.mem_nickname LIKE CONCAT('%', #{mem_nickname}, '%')
+            </if>
+            <if test="qna_use != null">
+                or q.qna_use = #{qna_use}
+
+            </if>
+        </trim>   
+		) qa
+		WHERE qna_no BETWEEN ${start} AND ${end};
+    </select>
+
+    <select id="qna_row_total" parameterType="Map" resultType="int">
+        select ifnull(count(*),0) from qna
+    </select>
+
+    <insert id="qna_insert" parameterType="qna">
+        insert into qna values(null,
+                                 #{ mem_idx },
+                                 #{ qna_title },
+                                 #{ qna_content },
+                                 #{ mem_nickname },
+                                 now(),
+                                 'n'                                
+                                )
+    </insert>
+
+    <select id="qna_one_from_idx" parameterType="int" resultType="qna">
+        SELECT q.*, 
+			(SELECT COUNT(*) FROM qna_comment c WHERE c.qna_idx = q.qna_idx) AS qna_cmt_count
+		FROM qna q
+		WHERE q.qna_idx = #{qna_idx}
+    </select>
+
+    <update id="qna_update" parameterType="qna">
+        update qna set qna_title   = #{ qna_title },
+					     qna_content   = #{ qna_content },					     
+					     qna_regdate 	 = now()
+					     where qna_idx = #{ qna_idx }	   
+    </update>
+
+    <!-- 답변완료시, 답변 여부를 'y'로 수정 -->
+    <update id="qna_update_use">
+		update qna set qna_use = 'y' where qna_idx = #{ qna_idx }
+    </update>
+
+    <delete id="qna_delete" parameterType="int">
+        delete from qna where qna_idx=#{ qna_idx }
+    </delete>
+
+</mapper>

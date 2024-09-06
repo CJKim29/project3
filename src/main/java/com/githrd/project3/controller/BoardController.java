@@ -1,14 +1,19 @@
 package com.githrd.project3.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.BoardMapper;
+import com.githrd.project3.util.MyCommon;
+import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.MemberVo;
 
@@ -20,8 +25,7 @@ import jakarta.servlet.http.HttpSession;
 public class BoardController {
 
 	public BoardController() {
-		// TODO Auto-generated constructor stub
-		System.out.println("--BoardController()--");
+
 	}
 
 	@Autowired
@@ -35,18 +39,54 @@ public class BoardController {
 	BoardMapper board_mapper;
 
 	@RequestMapping("list.do")
-	public String list(Model model) {
+	public String list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+			@RequestParam(defaultValue = "all") String search,
+			@RequestParam(defaultValue = "board_idx") String sort, String search_text, Model model) {
 
 		// 세션에 기록되어 있는 show삭제 (조회수 증가시 refresh인한 증가 방지)
 		session.removeAttribute("show");
 
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int start = (nowPage - 1) * MyCommon.Board.BLOCK_LIST + 1;
+		int end = start + MyCommon.Board.BLOCK_LIST - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+		map.put("sort", sort); // sort 파라미터를 map에 추가
+
+		// 제목 + 작성자
+		if (search.equals("name_content")) {
+			map.put("board_name", search_text);
+			map.put("mem_nickname", search_text);
+		} else if (search.equals("board_name")) {
+			// 제목
+			map.put("board_name", search_text);
+		} else if (search.equals("mem_nickname")) {
+			// 작성자
+			map.put("mem_nickname", search_text);
+		}
+
+		// 전체 게시물 수
+		int rowTotal = board_mapper.board_row_total(map);
+
+		String search_filter = String.format("search=%s&search_text=%s", search, search_text);
+
+		// pageMenu생성하기
+		String pageMenu = Paging.getPaging("list.do",
+				search_filter,
+				nowPage,
+				rowTotal,
+				MyCommon.Board.BLOCK_LIST,
+				MyCommon.Board.BLOCK_PAGE);
+
 		// 게시판 목록가져오기
-		List<BoardVo> list = board_mapper.board_list();
-		// System.out.println(list.size());
+		List<BoardVo> list = board_mapper.board_page_list(map);
 
 		// DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
 		// DS는 model에 저장된 데이터를 request binding시킨다
 		model.addAttribute("list", list);
+		model.addAttribute("pageMenu", pageMenu);
 
 		return "board/board_list";
 	}
@@ -79,6 +119,11 @@ public class BoardController {
 
 		String board_content = vo.getBoard_content().replaceAll("\n", "<br>");
 		vo.setBoard_content(board_content);
+
+		// 등록될 b_ref 구하기
+		int board_ref = board_mapper.getMaxBoard_idx();
+
+		vo.setBoard_ref(board_ref + 1);
 
 		// DB insert
 		int res = board_mapper.board_insert(vo);
@@ -141,6 +186,8 @@ public class BoardController {
 
 		// 기준글보다 step이 큰 게시물의 step을 1씩 증가
 		int res = board_mapper.board_update_step(baseVo);
+		// 기준글의 카테고리 받아오기
+		vo.setBoard_cate_idx(baseVo.getBoard_cate_idx());
 
 		// 답글의 b_ref,b_step,b_depth설정
 		vo.setBoard_ref(baseVo.getBoard_ref()); // 기준글의 b_ref를 넣는다.
@@ -211,7 +258,7 @@ public class BoardController {
 
 		int res = board_mapper.board_update(vo);
 
-		ra.addAttribute("b_idx", vo.getBoard_idx());
+		ra.addAttribute("board_idx", vo.getBoard_idx());
 
 		return "redirect:view.do";
 	}
