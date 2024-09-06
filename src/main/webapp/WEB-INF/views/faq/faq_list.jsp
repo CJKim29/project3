@@ -3,44 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <!DOCTYPE html>
-<html>
+<html lang="zxx">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-
-	@font-face {
-	    font-family: 'ONE-Mobile-POP';
-	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
-	}
-	
-	* {
-		font-family: 'ONE-Mobile-POP';
-		text-shadow: red;
-	}
-	
-	#box {
-		width: 1000px;
-		margin: auto;
-		margin-top: 50px;
-	}
-	
+		
 	#title {
 		text-align: center;
 		font-weight: bold;
 		font-size: 26px;
 		text-shadow: 1px 1px 1px black;
-		color: #f7941d;
-	}
-	
-	* {
-		color: #f7941d;
 	}
 	
 	th {
@@ -110,41 +85,21 @@
 </script>
 
 </head>
-<body>
-	<div id="box">
-		<h3 id="title">::::FAQ페이지::::		
-		<img src="../resources/images/김치쿵야.png">
-		</h3>
+<body class="js">
+	<jsp:include page="/WEB-INF/views/include/header.jsp" />
+	<div class="blog-single shop-blog grid section" style="padding-top: 50px">
+		<div class="container">
+			<h3 id="title">::::FAQ페이지::::		
+				<img src="../resources/images/김치쿵야.png">
+				</h3>
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
-            <c:if test="${ user.mem_grade eq '관리자' }">
-			<div class="col-sm-4">                
+            <c:if test="${ user.mem_grade eq '관리자' }">     
 				<input class="btn" style="background: #f7941d; color: white;" type="button" value="글쓰기"
 					   onclick="insert_form();">                     
-			</div>
             </c:if>
-            <c:if test="${ user.mem_grade ne '관리자' }">
-			<div class="col-sm-4">                
-				                  
-			</div>
-            </c:if>
-			<div class="col-sm-8" style="text-align: right;">
-				<!-- 로그인이 안된 경우 -->
-				<c:if test="${ empty user }">
-					<input class="btn" style="background: #f7941d; color: white;" type="button" value="로그인" 
-						   onclick="location.href='../member/login_form.do'">
-				</c:if>
-				
-				<!-- 로그인이 안된 경우 -->
-				<c:if test="${ not empty sessionScope.user }">
-					<b>${ user.mem_nickname }</b>님 환영해요.
-					<input class="btn" style="background: #f7941d; color: white;" type="button" value="로그아웃"
-						   onclick="location.href='../member/logout.do'">
-				</c:if>
-			</div>
-		</div>
-		
-		<table class="table">
+	
+		<table class="table" style="margin-bottom: 0">
 			<tr style="background: #f7941d;">
 				<th>번호</th>
 				<th style="width: 50%;">제목</th>
@@ -152,6 +107,7 @@
 			<tr>
 			
 			<!-- 데이터가 없는 경우 -->
+			 <tr>
 			<c:if test="${ empty list }">
 				<tr>
 					<td colspan="4" align="center">
@@ -165,12 +121,10 @@
 				<tr>
 					<td>${ vo.faq_no }</td>
 					<td>
-						<font color="red">
                             <span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')">${ vo.faq_title }&nbsp;&nbsp;&nbsp; V</span>
                             <div id="content-${vo.faq_no}" class="faq_content">
 							    ${ vo.faq_content }
 						    </div>
-						</font>	
 					</td>
 					<td>
                         ${ vo.faq_regdate }
@@ -184,12 +138,19 @@
                     </td>
 				</tr>
 			</c:forEach>
+		</tr>
 		</table>
 		
 		<!-- PageMenu -->
-		<div style="text-align: center;">
+		
+		<div style="text-align: center; margin: auto;">
 			${ pageMenu }
 		</div>
 	</div>
+</div>
+</div>
+	<div style="height: 100px"></div>
+
+	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

@@ -148,7 +148,7 @@ public class BoardController {
 			session.setAttribute("show", true);
 		}
 
-		int res = board_mapper.board_update_readhit(board_idx);
+		// int res = board_mapper.board_update_readhit(board_idx);
 
 		// 결과적으로 request binding
 		model.addAttribute("vo", vo);
