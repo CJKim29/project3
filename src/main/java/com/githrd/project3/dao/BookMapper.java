@@ -22,5 +22,13 @@ public interface BookMapper {
     // 남은 좌석 수를 concert_date_idx와 seat_idx를 이용해 조회
     Integer selectRemainSeat1(@Param("concert_date_idx") int concert_date_idx, @Param("seat_idx") int seat_idx);
 
-    // List<S_HallVo> selectS_HallList(int concert_idx);
+    // concert_date 문자열을 concert_date_idx로 변환하는 메서드
+    int getConcertDateIdxByDate(@Param("concertDate") String concertDate);
+
+    // 좌석 상태를 업데이트하는 메서드
+    void updateSeatStatus(@Param("concertDate") String concertDate,
+            @Param("seatIdx") int seatIdx,
+            @Param("row") int row,
+            @Param("col") String col);
+
 }
