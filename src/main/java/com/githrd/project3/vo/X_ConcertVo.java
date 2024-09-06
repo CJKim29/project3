@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 public class X_ConcertVo {
 
     int concert_idx;
+    int concert_cate_idx;
+    int concert_detail_cate_idx;
+    int hall_idx;
 
     String concert_name;
     String concert_startday;
@@ -21,12 +24,15 @@ public class X_ConcertVo {
     String concert_image;
     int concert_age;
 
-    int concert_cate_idx;
-    int hall_idx;
-
     HallVo hallVo;
     ConcertCateVo concertCateVo;
+    // SeatVo seatVo;
     List<SeatVo> seatList;
     S_HallVo s_HallVo;
     List<S_HallVo> s_HallList;
+
+    // 공연 상세 카테고리
+    ConcertDetailCateVo concertDetailCateVo;
+    List<ConcertDetailCateVo> concertDetailCateList;
+
 }
