@@ -42,9 +42,10 @@ public class MainController {
         return "main/main";
     }
 
-
-
-
+    @RequestMapping("sample.do")
+    public String sample(Model model) {
+        return "main/sample"; // `WEB-INF/views/main/sample.jsp`로 매핑
+    }
 
 
 }

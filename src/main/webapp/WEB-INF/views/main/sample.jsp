@@ -4,10 +4,15 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>깡통</title>
-    <jsp:include file="header.jsp"/>
+    <title>샘플(include) 방식</title>
   </head>
   <body>
-    테스트
+    <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+
+    
+    <p>본문</p>
+
+
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
   </body>
 </html>

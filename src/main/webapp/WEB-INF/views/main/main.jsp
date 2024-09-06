@@ -135,7 +135,7 @@
 						  <a href="../member/logout.do">로그아웃</a>
 						</li>
 					  </c:if>
-					  <li><i class="ti-user"></i> <a href="../main/sample.jsp">마이페이지</a></li>
+					  <li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
 					</ul>
 				  </div>
 				  <!-- End Top Right -->
@@ -201,7 +201,7 @@
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 												<li class="active"><a href="">Home</a></li>
-												<li><a href="">뮤지컬</a></li>												
+												<li><a href="src\main\webapp\WEB-INF\views\main\sample.jsp">뮤지컬</a></li>												
 												<li><a href="">콘서트(보류)</a></li>
 												<li><a href="">연극(보류)</a></li>
 												<li><a href="">고객센터<i class="ti-angle-down"></i></a>
@@ -674,9 +674,11 @@
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/210x320" alt="#">
-								<a href="#" class="buy"></a>
+                            <div class="product-content">
+								<a href="#">
+									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+								</a>
+								<!-- <a href="#" class="buy"></a> -->
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
@@ -692,8 +694,10 @@
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/210x320" alt="#">
+                            <div class="product-content">
+								<a href="#">
+									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
@@ -709,8 +713,10 @@
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/210x320" alt="#">
+                            <div class="product-content">
+								<a href="#">
+									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
@@ -735,9 +741,10 @@
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-								<!-- 이미지 크기는 115x140 -->
-                                <img src="https://via.placeholder.com/210x320" alt="#">
+                            <div class="product-content">
+								<a href="#">
+									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
@@ -753,8 +760,10 @@
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/210x320" alt="#">
+                            <div class="product-content">
+								<a href="#">
+									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
@@ -770,8 +779,10 @@
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/210x320" alt="#">
+                            <div class="product-content">
+								<a href="#">
+									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
@@ -951,7 +962,7 @@
 	<!-- Magnific Popup JS -->
 	<script src="../resources/template/js/magnific-popup.js"></script>
 	<!-- Fancybox JS -->
-	<script src="../resources/template/js/facnybox.min.js"></script>
+	<!-- <script src="../resources/template/js/facnybox.min.js"></script> -->
 	<!-- Waypoints JS -->
 	<script src="../resources/template/js/waypoints.min.js"></script>
 	<!-- Countdown JS -->
@@ -959,7 +970,7 @@
 	<!-- Nice Select JS -->
 	<script src="../resources/template/js/nicesellect.js"></script>
 	<!-- Ytplayer JS -->
-	<script src="../resources/template/js/ytplayer.min.js"></script>
+	<!-- <script src="../resources/template/js/ytplayer.min.js"></script> -->
 	<!-- Flex Slider JS -->
 	<script src="../resources/template/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
