@@ -93,6 +93,14 @@
 						$("#myModal").modal({ backdrop: "static" });
 						loadMap();
 					}
+
+					// function showLove(){
+					// 	var love = {
+					// 		concert_idx : concert_idx,
+					// 		mem_idx 	: mem_idx
+					// 	};
+					//}
+
 				</script>
 				<script type="text/javascript"
 					src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nd1wf0zz1p"></script>
