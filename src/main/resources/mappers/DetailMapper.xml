@@ -4,135 +4,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.DetailMapper">
 
-	<resultMap id="concertMap" type="concert">
-		<result property="hall_idx" column="hall_idx"/>
-		<result property="concert_cate_idx" column="concert_cate_idx"/>
-		<result property="concert_idx" column="concert_idx"/>
-		<result property="seat_idx" column="seat_idx"/>
-		<result property="concert_detail_cate_idx" column="concert_detail_cate_idx"/>
+    <resultMap id="concertMap" type="concert">
+        <result property="hall_idx" column="hall_idx"/>
+        <result property="concert_cate_idx" column="concert_cate_idx"/>
+        <result property="concert_idx" column="concert_idx"/>
+        <result property="seat_idx" column="seat_idx"/>
 
-		<association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
-		<association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
-		<association property="concertDetailCateVo" column="concert_detail_cate_idx=concert_detail_cate_idx" select="detail_cate_list_sub" />
+        <association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
+        <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+        <collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
+    </resultMap>
 
-		<collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
-	</resultMap>
-
-	<!-- 공연 카테고리 map으로 포장 -> 공연 세부카테고리 사용 위해 -->
-	<!-- <resultMap type="concert_cate" id="concertCateMap">
-		<result property="concert_cate_idx" column="concert_cate_idx"/>
-		<association property="concertDetailCateVo" column="concert_cate_idx=concert_cate_idx" select="detail_cate_list_sub" />
-	</resultMap> -->
-
-	<!-- id명 =  association의 select명            vo alias-->
-	<select id="detail_cate_list_sub" resultType="concert_detail_cate">
-		select * from concert_detail_cate 
-				 where concert_detail_cate_idx=#{ concert_detail_cate_idx }
-	</select>
-
-	<select id="concert_cate_list" resultType="concert_cate">
+    <select id="concert_cate_list" resultType="concert_cate">
 	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
-	</select>
-
-	<select id="hall_list" resultType="hall">
+    </select>
+    <select id="hall_list" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-	</select>
-	<select id="seat_list" resultType="seat">
-       select * from seat where concert_idx=#{ concert_idx } order by seat_price
-	</select>
+    </select>
+    <select id="seat_list" resultType="seat">
+       select * from seat where concert_idx=#{ concert_idx }
+    </select>
 
 
+    <!-- 전체조회 -->
+    <select id="selectList" resultMap="concertMap">
+		select * from concert order by concert_idx
+    </select>
 
-	<!-- 전체조회 (최신순 정렬)-->
-	<select id="selectList" resultMap="concertMap">
-		select * from concert order by concert_startday desc
-	</select>
-
-	<!-- idx조회 -->
-	<select id="selectOneFromIdx" resultMap="concertMap">
+    <!-- idx조회 -->
+    <select id="selectOneFromIdx" resultMap="concertMap">
 		select * from concert where concert_idx=#{ concert_idx }
-	</select>
+    </select>
 
-	<!-- 좋아요 클릭 유무 -->
-	<select id="findLike" resultType="int">
+    <!-- 좋아요 클릭 유무 -->
+    <select id="findLike" resultType="int">
 		select count(*) from concert_ex_like where concert_idx=#{concert_idx} and mem_idx=#{mem_idx}
-	</select>
+    </select>
 
-	<!-- 좋아요 수 -->
-	<insert id="likeUp">
+    <!-- 좋아요 수 -->
+    <insert id="likeUp">
 		insert into concert_ex_like values(null,
 											#{concert_idx}, 
 											#{mem_idx},
 											#{like_number}
 											)
-	</insert>
+    </insert>
 
-	<!-- 좋아요 취소 -->
-	<delete id="likeDown">
+    <!-- 좋아요 취소 -->
+    <delete id="likeDown">
 		delete from concert_ex_like 
 			where concert_idx = #{concert_idx} and 
 					mem_idx = #{mem_idx}
-	</delete>
-</mapper>
-
-<!-- 장르별 공연 리스트 조회(특정 한 장르의 공연 리스트) - concert_detail_cate_name 이용-->
-<select id="concert_detail_cate_list" parameterType="int" resultMap="concertMap">
-		select * from concert 
-				 where concert_detail_cate_idx = #{ concert_detail_cate_idx }
-				 	   and hall_idx = #{hall_idx}
-</select>
-
-<!-- 장르별+지역별 조회 / 최신순 정렬 -->
-<!-- concert_detail_cate_idx=0 일 경우에 대한 처리를 어떻게 할지 -->
-<select id="selectCategoryList" parameterType="Map" resultMap="concertMap">
-		select * from concert 
-	<trim prefix="where" prefixOverrides="and">
-
-		<if test="concert_detail_cate_idx!=0">
-                 concert_detail_cate_idx = #{ concert_detail_cate_idx }
-		</if>
-		<if test="hall_area!='all'">
-                 and (hall_idx in (select hall_idx from hall where  hall_area = #{hall_area}) )
-		</if>
-	</trim>
-
-	<!-- 정렬 -->
-	<choose>
-		<when test='sort_options == "s_abc"'>
-            order by concert_name asc 
-		</when>
-		<when test='sort_options == "s_new"'>
-             order by concert_startday desc
-		</when>
-		<otherwise>
-            order by concert_idx asc
-		</otherwise>
-	</choose>
-
-	<!-- 몇개씩 볼건지 -->
-	<choose>
-		<when test= 'sort_options_number == "3"'>
-            limit 3
-		</when>
-		<when test= 'sort_options_number == "6"'>
-            limit 6
-		</when>
-		<otherwise>
-            limit 9
-		</otherwise>
-	</choose>
-
-</select>
-
-<!-- 지역별 공연 리스트 조회 -->
-<!-- <select id="concert_area_list" parameterType="int" resultMap="concertMap">
-		select * from concert 
-				 where concert_detail_cate_idx = #{concert_detail_cate_idx}
-				 	   and hall_idx = #{hall_idx};
-				</select> -->
-
-
-<!--parameterType = 전달인자타입
-		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
-
+    </delete>
 </mapper>

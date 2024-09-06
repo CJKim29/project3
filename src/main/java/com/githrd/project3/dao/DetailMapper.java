@@ -22,14 +22,4 @@ public interface DetailMapper {
     int likeUp(ConcertExLikeVo vo);
 
     int likeDown(ConcertExLikeVo vo);
-
-    // 장르별 조회
-    List<ConcertVo> concert_detail_cate_list(int genre, int area);
-
-    // 지역별 조회
-    List<ConcertVo> concert_area_list(int hall_idx, int concert_detail_cate_idx);
-
-    // 장르별+지역별 조회
-    List<ConcertVo> selectCategoryList(Map<String, Object> map);
-
 }

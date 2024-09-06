@@ -3,11 +3,9 @@ package com.githrd.project3.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.githrd.project3.dao.DetailMapper;
-import com.githrd.project3.vo.ConcertExLikeVo;
 import com.githrd.project3.vo.ConcertVo;
 
 import jakarta.servlet.http.HttpServletRequest;
