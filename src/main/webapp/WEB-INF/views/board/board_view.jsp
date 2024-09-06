@@ -142,11 +142,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="blog-single-main">
               <div class="row">
                 <div class="col-12">
-                  <!-- <div class="image">
-                    <img src="https://via.placeholder.com/950x460" alt="#" />
-                    이후 삭제 
-                    <div>진행중인 공연 이미지 넣기</div>
-                  </div> -->
                   <div class="blog-detail">
                     <h2 class="blog-title">${ vo.board_name }</h2>
                     <div class="blog-meta">
@@ -159,10 +154,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       >
                     </div>
                     <div class="content">
-                      <p>${ vo.board_content }</p>
-                      <blockquote>
-                        <i class="fa fa-quote-left"></i> ${ vo.board_content }
-                      </blockquote>
+                      <p>${ vo.board_content }</p>                     
                     </div>
                   </div>
 				  <div>
