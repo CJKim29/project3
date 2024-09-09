@@ -81,36 +81,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="#" id="colors" />
   </head>
   <body class="js">
-    <!-- Preloader -->
-    <div class="preloader">
-      <div class="preloader-inner">
-        <div class="preloader-icon">
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
-    <!-- End Preloader -->
 
-    <!-- Eshop Color Plate -->
-    <div class="color-plate">
-      <a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
-      <h4>TIMOA Colors</h4>
-      <p>쓸지 안쓸지 보류</p>
-      <span class="color1"></span>
-      <span class="color2"></span>
-      <span class="color3"></span>
-      <span class="color4"></span>
-      <span class="color5"></span>
-      <span class="color6"></span>
-      <span class="color7"></span>
-      <span class="color8"></span>
-      <span class="color9"></span>
-      <span class="color10"></span>
-      <span class="color11"></span>
-      <span class="color12"></span>
-    </div>
-    <!-- /End Color Plate -->
 
     <!-- Header -->
 
@@ -232,7 +203,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </div>
           </div>
         </div>
-      </div>
+      </di v>
       <!-- Header2 부분 검색창 바로 밑 -->
       <!-- 메인 카테고리 부분 -->
       <div class="header-inner">
