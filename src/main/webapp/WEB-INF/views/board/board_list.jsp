@@ -5,12 +5,17 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
+    <!-- 부트스트랩 4.0 CSS -->
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <!-- 부트스트랩 4.0 JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     <style type="text/css">
       #title {
         text-align: center;
@@ -38,7 +43,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
         overflow: hidden;
         white-space: nowrap;
-        text-overflow: ellipsi;
+        text-overflow: ellipsis;
         word-break: break-all;
 
         /* ellipsi 속성 */
@@ -196,7 +201,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     </c:forEach>
 
                     <!-- 답글이면 -->
-                    <c:if test="${ vo.board_depth ne 0 }"> ㄴ </c:if>
+                    <c:if test="${ vo.board_depth ne 0 }"> 답글:ㄴ> </c:if>
 
                     <!-- 삭제된 게시물 -->
                     <c:if test="${ vo.board_use eq 'n' }">
