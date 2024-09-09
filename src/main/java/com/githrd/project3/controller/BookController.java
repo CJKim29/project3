@@ -1,6 +1,10 @@
 package com.githrd.project3.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.vo.S_HallVo;
@@ -105,18 +110,37 @@ public class BookController {
     }
 
     @PostMapping("/reserveSeats.do")
-    public String reserveSeats(@RequestParam("concert_idx") int concert_idx, 
-                               @RequestParam("date") String concert_date, 
-                               @RequestParam("row") int row, 
-                               @RequestParam("col") String col) {
-        // concert_date_idx를 구합니다.
-        Integer concert_date_idx = book_mapper.getConcertDateIdx(concert_idx, concert_date);
+public String reserveSeats(@RequestParam("concert_idx") int concert_idx, 
+                           @RequestParam("date") String concert_date, 
+                           @RequestParam("selectedSeats") String selectedSeatsJson) {
+    // concert_date_idx를 구합니다.
+    Integer concert_date_idx = book_mapper.getConcertDateIdx(concert_idx, concert_date);
 
-        // 선택된 좌석을 업데이트
-        s_hall_mapper.updateSeatStatus(concert_date_idx, row, col);
-
-        // 좌석 예약 페이지로 리다이렉트
-        return "redirect:/book/concert_seat.do?concert_idx=" + concert_idx + "&date=" + concert_date;
+    if (concert_date_idx == null) {
+        // concert_date_idx가 null일 경우 처리
+        return "errorPage";
     }
+
+    // 선택된 좌석 정보 파싱
+    ObjectMapper mapper = new ObjectMapper();
+    List<Map<String, Object>> selectedSeats;
+    try {
+        selectedSeats = mapper.readValue(selectedSeatsJson, new TypeReference<List<Map<String, Object>>>() {});
+    } catch (IOException e) {
+        e.printStackTrace();
+        return "errorPage";
+    }
+
+    // 선택된 좌석을 업데이트
+    for (Map<String, Object> seat : selectedSeats) {
+        int row = ((Number) seat.get("row")).intValue();
+        String col = (String) seat.get("col");
+        s_hall_mapper.updateSeatStatus(concert_date_idx, row, col);
+    }
+
+    // 좌석 예약 페이지로 리다이렉트
+    return "redirect:/book/concert_seat.do?concert_idx=" + concert_idx + "&date=" + concert_date;
+}
+
 
 }

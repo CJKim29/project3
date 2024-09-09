@@ -135,6 +135,8 @@
                         });
                     });
                 </script>
+                
+                
 
                 <!-- 달력 -->
                 <script>
@@ -196,28 +198,6 @@
                     }
                 </script>
                 <!-- 좌석 예약 반영 -->
-                <!-- <script>
-                    // 선택된 좌석들을 저장할 배열
-                    let selectedSeats = [];
-
-                    // 좌석을 선택할 때마다 배열에 추가/제거하는 로직 (간단한 예시)
-                    function toggleSeat(row, col) {
-                        const seatId = row + '-' + col;
-                        const index = selectedSeats.indexOf(seatId);
-                        if (index === -1) {
-                            selectedSeats.push(seatId);
-                        } else {
-                            selectedSeats.splice(index, 1); // 중복 선택된 경우 제거
-                        }
-                        console.log(selectedSeats); // 선택된 좌석 확인용 로그
-                    }
-
-                    // 폼을 제출할 때 선택한 좌석 정보를 hidden input에 넣어준다.
-                    function submitSeats() {
-                        document.getElementById('selectedSeats').value = selectedSeats.join(',');
-                        document.getElementById('seatForm').submit();
-                    }
-                </script> -->
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         let selectedSeats = [];
@@ -242,9 +222,14 @@
                                 alert('좌석을 선택해 주세요.');
                                 return;
                             }
-                            document.getElementById('selectedSeats').value = selectedSeats.join(',');
+                            // Serialize selectedSeats as JSON
+                            document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats.map(seat => {
+                                const [row, col] = seat.split('-');
+                                return { row: parseInt(row), col: col };
+                            }));
                             document.getElementById('seatForm').submit();
                         }
+
 
                         function updateSeatInfo() {
                             const seatInfoContainer = document.querySelector('.seat-info-container');
