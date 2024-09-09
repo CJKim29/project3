@@ -107,6 +107,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE concert_date_date = #{concertDate}
     </select>
 
+    <select id="getConcertDateIdx" parameterType="map" resultType="int">
+        SELECT concert_date_idx
+        FROM concert_date
+        WHERE concert_idx = #{concert_idx}
+        AND SUBSTRING(concert_date_date, 1, 10) = #{concert_date}
+    </select>
+
     <!-- 좌석 상태 업데이트 -->
     <update id="updateSeatStatus">
         <choose>

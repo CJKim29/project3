@@ -25,10 +25,12 @@ public interface BookMapper {
     // concert_date 문자열을 concert_date_idx로 변환하는 메서드
     int getConcertDateIdxByDate(@Param("concertDate") String concertDate);
 
+    Integer getConcertDateIdx(@Param("concert_idx") int concert_idx, 
+                          @Param("concert_date") String concert_date);
+                          
     // 좌석 상태를 업데이트하는 메서드
-    void updateSeatStatus(@Param("concertDate") String concertDate,
-            @Param("seatIdx") int seatIdx,
+    void updateSeatStatus(@Param("date") String concert_date,
+            @Param("seat_idx") int seat_idx,
             @Param("row") int row,
             @Param("col") String col);
-
 }

@@ -18,4 +18,8 @@ public interface S_HallMapper {
             @Param("concert_date") String concert_date);
 
     int countAvailableSeatsBySeatIdx(int seatIdx);
+
+    void updateSeatStatus(@Param("concert_date_idx") int concert_date_idx, 
+                          @Param("row") int row, 
+                          @Param("col") String col);
 }

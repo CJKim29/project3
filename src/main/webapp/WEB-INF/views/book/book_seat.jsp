@@ -231,6 +231,10 @@
                                 selectedSeats.splice(index, 1);
                             }
                             console.log('Selected Seats Updated:', selectedSeats);
+
+                            // 선택된 좌석의 row와 col 값을 숨겨진 입력 필드에 설정
+                            document.getElementById('seat_row').value = row;
+                            document.getElementById('seat_col').value = col;
                         }
 
                         function submitSeats() {
@@ -426,7 +430,10 @@
                     <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
                     <br /><br /><br />
                     <form id="seatForm" action="reserveSeats.do" method="post">
-                        <input type="hidden" name="concert_date" value="${concert_date}">
+                        <input type="hidden" name="concert_idx" value="${param.concert_idx}">
+                        <input type="hidden" name="date" value="${param.date}">
+                        <input type="hidden" id="seat_row" name="row">
+                        <input type="hidden" id="seat_col" name="col">
                         <input type="hidden" name="seat_idx" value="${seat_idx}">
                         <input type="hidden" id="selectedSeats" name="selectedSeats" />
                         <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">

@@ -31,4 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM s_hall 
         WHERE seat_idx = #{seatIdx} AND seat_status = 0
     </select>
+
+    <update id="updateSeatStatus" parameterType="map">
+        UPDATE s_hall
+        SET ${col} = 1
+        WHERE concert_date_idx = #{concert_date_idx}
+          AND s_hall_row_no = #{row}
+    </update>
 </mapper>
