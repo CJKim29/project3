@@ -25,14 +25,14 @@ public class X_PerformanceVo {
     int performance_age;
 
     HallVo hallVo;
-    ConcertCateVo performanceCateVo;
+    PerformanceCateVo performanceCateVo;
     // SeatVo seatVo;
     List<SeatVo> seatList;
     S_HallVo s_HallVo;
     List<S_HallVo> s_HallList;
 
     // 공연 상세 카테고리
-    ConcertDetailCateVo performanceDetailCateVo;
-    List<ConcertDetailCateVo> performanceDetailCateList;
+    PerformanceDetailCateVo performanceDetailCateVo;
+    List<PerformanceDetailCateVo> performanceDetailCateList;
 
 }
