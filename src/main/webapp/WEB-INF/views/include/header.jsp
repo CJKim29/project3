@@ -147,11 +147,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <!--/ End Logo -->
               <div class="search-top">
                 <div class="top-search">
-                  <a href="#0"><i class="ti-search"></i></a>
+                  <a href=""><i class="ti-search"></i></a>
                 </div>
                 <!-- Search Form -->
                 <div class="search-top">
-                  <form class="search-form">
+                  <form class="search-form" action="concert_list.jsp" method="get">
                     <input
                       type="text"
                       placeholder="Search here..."
@@ -193,7 +193,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- Search Form -->
                 <!-- 장바구니 버튼 부분 -->
                 <div class="sinlge-bar shopping">
-                  <a href="../main/cart.do" class="single-icon"
+                  <a href="../main/concert_like.do" class="single-icon"
                     ><i class="ti-bag"></i
                   ></a>
                   <!-- Shopping Item -->
@@ -203,7 +203,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </div>
           </div>
         </div>
-      </di v>
+      </div>
       <!-- Header2 부분 검색창 바로 밑 -->
       <!-- 메인 카테고리 부분 -->
       <div class="header-inner">
