@@ -25,5 +25,5 @@ public class S_HallVo {
     private int s_hall_j;
 
     SeatVo seatVo;
-    ConcertDateVo performanceDateVo;
+    PerformanceDateVo performanceDateVo;
 }
