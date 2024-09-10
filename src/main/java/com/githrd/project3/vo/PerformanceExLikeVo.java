@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Alias("concertExLike")
-public class ConcertExLikeVo {
+@Alias("performanceExLike")
+public class PerformanceExLikeVo {
 
-    int concert_ex_like_idx;
-    int concert_idx;
+    int performance_ex_like_idx;
+    int performance_idx;
     int mem_idx;
     int like_number;
 
-    ConcertVo concertVo;
+    PerformanceVo performanceVo;
     MemberVo memberVo;
 }
