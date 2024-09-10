@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.githrd.project3.dao.ConcertMapper;
-import com.githrd.project3.vo.ConcertVo;
+import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.vo.PerformanceVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,16 +25,14 @@ public class MainController {
     HttpSession session;
 
     @Autowired
-    ConcertMapper concert_mapper;
-
-
+    PerformanceMapper performance_mapper;
 
     // 공연 정보 전체 조회 - 그리드 형식
     @RequestMapping("list.do")
     public String main(Model model) {
 
         // 공연 정보 가져오기
-        List<ConcertVo> list = concert_mapper.selectList();
+        List<PerformanceVo> list = performance_mapper.selectList();
 
         // request binding
         model.addAttribute("list", list);
@@ -42,10 +40,9 @@ public class MainController {
         return "main/main";
     }
 
-    @RequestMapping("concert_like.do")
+    @RequestMapping("performance_like.do")
     public String cart(Model model) {
-        return "main/concert_like"; // `WEB-INF/views/main/cart.jsp`로 매핑
+        return "main/performance_like"; // `WEB-INF/views/main/cart.jsp`로 매핑
     }
-
 
 }
