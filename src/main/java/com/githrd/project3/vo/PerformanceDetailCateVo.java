@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Alias("concert_detail_cate")
-public class ConcertDetailCateVo {
+@Alias("performance_detail_cate")
+public class PerformanceDetailCateVo {
 
-    int concert_detail_cate_idx;
-    String concert_detail_cate_name;
+    int performance_detail_cate_idx;
+    String performance_detail_cate_name;
 
 }

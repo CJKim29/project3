@@ -48,8 +48,13 @@
               padding-top: 50px !important;
             }
 
+            .admin_btn {
+              float: right;
+              margin-right: 10px;
+            }
+
             /* 컨텐츠 영역 start*/
-            .concert_list {
+            .performance_list {
               /* display: inline-block !important; */
               display: flex;
               flex-wrap: wrap;
@@ -63,23 +68,23 @@
               /* 아래쪽 여백 설정 */
             }
 
-            .concert_img {
+            .performance_img {
               margin: 50px 20px 20px 0px;
             }
 
-            .concert_cate {
+            .performance_cate {
               font-size: 15px !important;
               color: gray;
             }
 
-            .concert_name {
+            .performance_name {
               font-size: 25px;
               font-weight: bold;
               margin-top: 20px;
               margin-bottom: 5px !important;
             }
 
-            .concert_price {
+            .performance_price {
               float: right !important;
               padding-right: 20px;
               font-size: 20px;
@@ -99,7 +104,7 @@
 
               // 이름이 genre, hall_area인 input 태그가 클릭되면 search() 호출
               $(
-                "input[name='concert_detail_cate_idx'],input[name='hall_area']"
+                "input[name='performance_detail_cate_idx'],input[name='hall_area']"
               ).click(function () {
                 search();
               });
@@ -117,8 +122,8 @@
 
             function search() {
               // 체크된 value 값을 변수에 저장
-              const concert_detail_cate_idx = $(
-                "input[name='concert_detail_cate_idx']:checked"
+              const performance_detail_cate_idx = $(
+                "input[name='performance_detail_cate_idx']:checked"
               ).val();
               const hall_area = $("input[name='hall_area']:checked").val();
 
@@ -128,7 +133,7 @@
               //alert(genre + "/" + hall_area);
               // 전송 데이터 확인
               console.log({
-                concert_detail_cate_idx,
+                performance_detail_cate_idx,
                 hall_area,
                 sort_options,
                 sort_options_number,
@@ -137,11 +142,11 @@
               $.ajax({
                 url: "category.do", // controller
                 data: {
-                  concert_detail_cate_idx: concert_detail_cate_idx,
+                  performance_detail_cate_idx: performance_detail_cate_idx,
                   hall_area: hall_area,
                   sort_options: sort_options,
                   sort_options_number: sort_options_number,
-                }, //paramter 전달  category.do?concert_detail_cate_idx="all"
+                }, //paramter 전달  category.do?performance_detail_cate_idx="all"
                 success: function (res_data) {
                   $("#disp").html(res_data);
                 },
@@ -153,13 +158,13 @@
           </script>
 
           <script>
-            // function filtering(concert_detail_cate_idx) {
-            // 	// let concert_detail_cate_idx = $('#concert_detail_cate_idx').val() // concert_detail_cate_idx : <ul> id
+            // function filtering(performance_detail_cate_idx) {
+            // 	// let performance_detail_cate_idx = $('#performance_detail_cate_idx').val() // performance_detail_cate_idx : <ul> id
 
-            // 	//"location.href='category.do?concert_detail_cate_idx=${vo.concert_detail_cate_idx}'"
+            // 	//"location.href='category.do?performance_detail_cate_idx=${vo.performance_detail_cate_idx}'"
             // 	$.ajax({
             // 		url: "category.do",		// controller
-            // 		data: { "concert_detail_cate_idx": concert_detail_cate_idx },	//paramter 전달  category.do?concert_detail_cate_idx="all"
+            // 		data: { "performance_detail_cate_idx": performance_detail_cate_idx },	//paramter 전달  category.do?performance_detail_cate_idx="all"
             // 		// dataType: "json",
             // 		success: function (res_data) {
 
@@ -175,13 +180,13 @@
             // hall_idx를 통해 공연장 장소(hall_area) 사용
             // function filtering_area(hall_idx) {
 
-            // 	let concert_detail_cate_idx = $('#concert_detail_cate_idx').val()
+            // 	let performance_detail_cate_idx = $('#performance_detail_cate_idx').val()
 
             // 	$.ajax({
             // 		url: "category_area.do",	// controller
             // 		data: {
             // 			"hall_idx": hall_idx,
-            // 			"concert_detail_cate_idx": concert_detail_cate_idx
+            // 			"performance_detail_cate_idx": performance_detail_cate_idx
             // 		},				// 전달 할 parameter category_area.do?hall_idx=1
             // 		success: function (res_data) {
             // 			$("#disp").html(res_data);
@@ -193,6 +198,15 @@
 
             // }
           </script>
+
+          <!-- 공연 추가 버튼 -->
+          <script>
+            function insert_form() {
+
+              location.href = "insert_form.do"; // 공연 추가 폼으로 이동
+
+            }
+          </script>
         </head>
 
         <body class="js">
@@ -203,14 +217,14 @@
               <div class="row">
                 <div class="col-12">
                   <div class="bread-inner">
-                    <input type="radio" name="concert_detail_cate_idx" value="0" checked />전체
-                    <input type="radio" name="concert_detail_cate_idx" value="1" />로맨틱코미디
-                    <input type="radio" name="concert_detail_cate_idx" value="2" />드라마
-                    <input type="radio" name="concert_detail_cate_idx" value="3" />코믹
-                    <input type="radio" name="concert_detail_cate_idx" value="4" />공포/스릴러
-                    <input type="radio" name="concert_detail_cate_idx" value="5" />퍼포먼스
-                    <input type="radio" name="concert_detail_cate_idx" value="6" />어린이
-                    <input type="radio" name="concert_detail_cate_idx" value="7" />기타
+                    <input type="radio" name="performance_detail_cate_idx" value="0" checked />전체
+                    <input type="radio" name="performance_detail_cate_idx" value="1" />로맨틱코미디
+                    <input type="radio" name="performance_detail_cate_idx" value="2" />드라마
+                    <input type="radio" name="performance_detail_cate_idx" value="3" />코믹
+                    <input type="radio" name="performance_detail_cate_idx" value="4" />공포/스릴러
+                    <input type="radio" name="performance_detail_cate_idx" value="5" />퍼포먼스
+                    <input type="radio" name="performance_detail_cate_idx" value="6" />어린이
+                    <input type="radio" name="performance_detail_cate_idx" value="7" />기타
                     <br />
                     <input type="radio" name="hall_area" value="all" checked />전체
                     <input type="radio" name="hall_area" value="서울" />서울
@@ -221,7 +235,7 @@
                     <input type="radio" name="hall_area" value="강원" />강원
                     <input type="radio" name="hall_area" value="제주" />제주
 
-                    <!-- <ul id="concert_detail_cate_idx">
+                    <!-- <ul id="performance_detail_cate_idx">
 											<li style="margin-left: 20px; font-weight: bold !important;" value=0>
 												<a onclick="filtering(0);">장르 전체</a>
 											</li>
@@ -270,6 +284,7 @@
                       <!-- Shop Top -->
                       <div class="shop-top">
                         <div class="shop-shorter">
+
                           <!-- 이미지 몇개씩 볼건지 -->
                           <div class="single-shorter">
                             <label>Show :</label>
@@ -300,6 +315,17 @@
 													</li>
 													<li><a href="list.do"><i class="fa fa-th-list"></i></a></li>
 												</ul> -->
+
+                        <!-- 관리자 권한 버튼 -->
+                        <!-- <input type="button" class="btn admin_btn" value="공연 삭제" onclick="location.href='list.do'" /> -->
+                        <!-- <input type="button" class="btn admin_btn" value="공연 수정" onclick="location.href='list.do'" /> -->
+                        <c:if test="${ user.mem_grade eq '관리자' }">
+                          <input type="button" class="btn admin_btn" value="공연 추가" onclick="insert_form();" />
+                        </c:if>
+
+
+
+
                       </div>
                       <!--/ End Shop Top -->
                     </div>
