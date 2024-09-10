@@ -15,6 +15,7 @@
 			<div class="row">
 				<div class="col-12">
 					<!-- Shopping Summery -->
+					 <h4>장바구니</h4>
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
@@ -22,7 +23,8 @@
 								<th>제목</th>
 								<th class="text-center">가격</th>
 								<th class="text-center">수량</th>
-								<th class="text-center">총합</th> 
+								<th class="text-center">금액</th> 
+								<th class="text-center">예매</th> 
 								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
 							</tr>
 						</thead>
@@ -34,52 +36,15 @@
 									<p class="product-des"></p>
 								</td>
 								<td class="price" data-title="Price"><span>가격 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="1">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-									<!--/ End Input Order -->
-								</td>
+								<!-- 금액 -->
 								<td class="total-amount" data-title="Total"><span>0</span></td>
+								<!-- 예매버튼 -->
+								<td class="action" data-title="checkout"><a href="#">예매하기</a></td>
 								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
 					<!--/ End Shopping Summery -->
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<!-- Total Amount -->
-					<div class="total-amount">
-						<div class="row">
-							<div class="col-lg-8 col-md-5 col-12">
-								<!-- 빈칸() -->
-							</div>
-							<div class="col-lg-4 col-md-7 col-12">
-								<div class="right">
-									<ul>
-										<li>총 가격<span>0</span></li>
-										<li class="last">결제금액<span>0</span></li>
-									</ul>
-									<div class="button5">
-										<a href="#" class="btn">결제하기</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--/ End Total Amount -->
 				</div>
 			</div>
 		</div>
