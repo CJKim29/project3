@@ -102,6 +102,7 @@
                                 window.location.href = 'concert_page.do?concert_idx=' + concertIdx;
                             }
                         });
+
                     });
                 </script>
 
@@ -175,7 +176,8 @@
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
                                     data-concert-idx="${ vo.concert_idx }"
-                                    onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }&concert_date=' + $('#datepicker').val()">
+                                    onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }&date=' + $('#datepicker').val()">
+
                             </td>
 
                         </tr>

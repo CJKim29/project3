@@ -100,5 +100,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND seat_idx = #{seat_idx};
     </select>
 
+    <!-- concert_date를 concert_date_idx로 변환 -->
+    <select id="getConcertDateIdxByDate" resultType="int">
+    SELECT concert_date_idx
+    FROM concert_date
+    WHERE concert_date_date = #{concertDate}
+    </select>
+
+    <select id="getConcertDateIdx" parameterType="map" resultType="int">
+        SELECT concert_date_idx
+        FROM concert_date
+        WHERE concert_idx = #{concert_idx}
+        AND SUBSTRING(concert_date_date, 1, 10) = #{concert_date}
+    </select>
 
 </mapper>

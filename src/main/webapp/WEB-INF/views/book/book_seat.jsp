@@ -98,13 +98,6 @@
                     .seat.seat-row-6 {
                         background-color: rgb(40, 204, 216);
                     }
-
-                    /* .seat.seat-row-7,
-                    .seat.seat-row-8,
-                    .seat.seat-row-9,
-                    .seat.seat-row-10 {
-                        background-color: rgb(233, 174, 66);
-                    } */
                 </style>
 
                 <!-- 버튼 클릭 -->
@@ -135,6 +128,8 @@
                         });
                     });
                 </script>
+
+
 
                 <!-- 달력 -->
                 <script>
@@ -186,6 +181,18 @@
                             }
                             $('.seat-info-container').html(resultHtml);
                         });
+                        window.submitBookForm = function () {
+                            var form = $('#bookForm');
+                            form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
+                            for (var key in clickedSeats) {
+                                $('<input>').attr({
+                                    type: 'hidden',
+                                    name: 'seatInfo',
+                                    value: clickedSeats[key]
+                                }).appendTo(form);
+                            }
+                            form.submit(); // 폼 제출
+                        };
                     });
                 </script>
                 <!-- 좌석 다시 선택 -->
@@ -195,6 +202,63 @@
                         window.location.href = window.location.href;
                     }
                 </script>
+                <!-- 좌석 예약 반영 -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        let selectedSeats = [];
+
+                        function toggleSeat(row, col) {
+                            const seatId = row + '-' + col;
+                            const index = selectedSeats.indexOf(seatId);
+                            if (index === -1) {
+                                selectedSeats.push(seatId);
+                            } else {
+                                selectedSeats.splice(index, 1);
+                            }
+                            console.log('Selected Seats Updated:', selectedSeats);
+                            updateSeatInfo();
+                        }
+
+                        function submitSeats() {
+                            if (selectedSeats.length === 0) {
+                                alert('좌석을 선택해 주세요.');
+                                return;
+                            }
+                            // Serialize selectedSeats as JSON
+                            document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats.map(seat => {
+                                const [row, col] = seat.split('-');
+                                return { row: parseInt(row), col: col };
+                            }));
+                            document.getElementById('seatForm').submit();
+                        }
+
+
+                        function updateSeatInfo() {
+                            const seatInfoContainer = document.querySelector('.seat-info-container');
+                            seatInfoContainer.innerHTML = '';
+                            selectedSeats.forEach(seatId => {
+                                const [row, col] = seatId.split('-');
+                                const div = document.createElement('div');
+                                div.textContent = `Row: ${row}, Col: ${col}`;
+                                seatInfoContainer.appendChild(div);
+                            });
+                        }
+
+                        document.querySelectorAll('.seat').forEach(seat => {
+                            seat.addEventListener('click', (event) => {
+                                const row = event.target.getAttribute('data-row');
+                                const col = event.target.getAttribute('data-col');
+                                toggleSeat(row, col);
+                                updateSeatInfo();
+                            });
+                        });
+
+                        document.querySelector('.btn-success').addEventListener('click', submitSeats);
+                    });
+
+                </script>
+
+
 
             </head>
 
@@ -207,34 +271,44 @@
                                 <c:when test="${seat.s_hall_row_no <= 6}">
                                     <!-- 기본 색상 클래스 유지 -->
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="A" data-seat="${seat.s_hall_a}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
+                                        data-seat="${seat.s_hall_a}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="B" data-seat="${seat.s_hall_b}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
+                                        data-seat="${seat.s_hall_b}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="C" data-seat="${seat.s_hall_c}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
+                                        data-seat="${seat.s_hall_c}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="D" data-seat="${seat.s_hall_d}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
+                                        data-seat="${seat.s_hall_d}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="E" data-seat="${seat.s_hall_e}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
+                                        data-seat="${seat.s_hall_e}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="F" data-seat="${seat.s_hall_f}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
+                                        data-seat="${seat.s_hall_f}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="G" data-seat="${seat.s_hall_g}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
+                                        data-seat="${seat.s_hall_g}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="H" data-seat="${seat.s_hall_h}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
+                                        data-seat="${seat.s_hall_h}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="I" data-seat="${seat.s_hall_i}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
+                                        data-seat="${seat.s_hall_i}">
                                     </div>
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="J" data-seat="${seat.s_hall_j}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
+                                        data-seat="${seat.s_hall_j}">
                                     </div>
                                     <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
                                 </c:when>
@@ -262,34 +336,44 @@
                                         </c:otherwise>
                                     </c:choose>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="A" data-seat="${seat.s_hall_a}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
+                                        data-seat="${seat.s_hall_a}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="B" data-seat="${seat.s_hall_b}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
+                                        data-seat="${seat.s_hall_b}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="C" data-seat="${seat.s_hall_c}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
+                                        data-seat="${seat.s_hall_c}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="D" data-seat="${seat.s_hall_d}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
+                                        data-seat="${seat.s_hall_d}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="E" data-seat="${seat.s_hall_e}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
+                                        data-seat="${seat.s_hall_e}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="F" data-seat="${seat.s_hall_f}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
+                                        data-seat="${seat.s_hall_f}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="G" data-seat="${seat.s_hall_g}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
+                                        data-seat="${seat.s_hall_g}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="H" data-seat="${seat.s_hall_h}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
+                                        data-seat="${seat.s_hall_h}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="I" data-seat="${seat.s_hall_i}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
+                                        data-seat="${seat.s_hall_i}">
                                     </div>
                                     <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="J" data-seat="${seat.s_hall_j}">
+                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
+                                        data-seat="${seat.s_hall_j}">
                                     </div>
                                     <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
                                 </c:otherwise>
@@ -325,15 +409,27 @@
                 </div>
                 <div class="seat-container3">
                     <p>예약 현황</p>
-                    <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
+                    <form id="bookForm" action="book_result.do" method="post">
+                        <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
+                        <input type="hidden" name="concert_idx" value="${param.concert_idx}">
+                        <input type="hidden" name="date" value="${param.date}">
+                        <input type="button" class="btn btn-danger" value="테스트" onclick="submitBookForm()">
+                    </form>
                 </div>
                 </div>
                 <!-- 예약 현황 출력 -->
                 <div class="seat-container3">
                     <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
                     <br /><br /><br />
-                    <input class="btn btn-success" type="button" value="예약"
-                        onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }'">
+                    <form id="seatForm" action="reserve_seats.do" method="post">
+                        <input type="hidden" name="concert_idx" value="${param.concert_idx}">
+                        <input type="hidden" name="date" value="${param.date}">
+                        <input type="hidden" id="seat_row" name="row">
+                        <input type="hidden" id="seat_col" name="col">
+                        <input type="hidden" name="seat_idx" value="${seat_idx}">
+                        <input type="hidden" id="selectedSeats" name="selectedSeats" />
+                        <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">
+                    </form>
                 </div>
 
                 <br /><br />
@@ -379,7 +475,13 @@
                     </tr>
 
 
+
                 </table>
+
+                <input class="btn btn-success" type="button" value="장바구니" data-concert-idx="${ vo.concert_idx }"
+                    onclick="location.href='book_result.do?concert_idx=${ param.concert_idx }&date=${ param.date }'">
+
+
                 <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
                 <!-- <div class="seat-container">
                     <%-- 100개의 좌석 버튼 생성 --%>
