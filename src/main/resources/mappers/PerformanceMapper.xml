@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.PerformanceMapper">
+
+  <resultMap id="performanceMap" type="performance">
+    <result property="hall_idx" column="hall_idx"/>
+    <result property="performance_cate_idx" column="performance_cate_idx"/>
+    <result property="performance_idx" column="performance_idx"/>
+    <result property="seat_idx" column="seat_idx"/>
+    <result property="performance_detail_cate_idx" column="performance_detail_cate_idx"/>
+
+    <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
+    <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+    <association property="performanceDetailCateVo" column="performance_detail_cate_idx=performance_detail_cate_idx" select="detail_cate_list_sub" />
+
+    <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
+  </resultMap>
+
+  <!-- 공연 카테고리 map으로 포장 -> 공연 세부카테고리 사용 위해 -->
+  <!-- <resultMap type="performance_cate" id="performanceCateMap">
+		<result property="performance_cate_idx" column="performance_cate_idx"/>
+		<association property="performanceDetailCateVo" column="performance_cate_idx=performance_cate_idx" select="detail_cate_list_sub" />
+	</resultMap> -->
+
+  <!-- id명 =  association의 select명            vo alias-->
+  <select id="detail_cate_list_sub" resultType="performance_detail_cate">
+		select * from performance_detail_cate 
+				 where performance_detail_cate_idx=#{ performance_detail_cate_idx }
+  </select>
+
+  <select id="performance_cate_list" resultType="performance_cate">
+	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
+  </select>
+
+  <select id="hall_list" resultType="hall">
+	   select * from hall where hall_idx=#{ hall_idx }
+  </select>
+  <select id="seat_list" resultType="seat">
+       select * from seat where performance_idx=#{ performance_idx } order by seat_price
+  </select>
+
+
+
+  <!-- 전체조회 (최신순 정렬)-->
+  <select id="selectList" resultMap="performanceMap">
+		select * from performance order by performance_startday desc
+  </select>
+
+  <!-- idx조회 -->
+  <select id="selectOneFromIdx" resultMap="performanceMap">
+		select * from performance where performance_idx=#{ performance_idx }
+  </select>
+
+
+  <!-- 장르별 공연 리스트 조회(특정 한 장르의 공연 리스트) - performance_detail_cate_name 이용-->
+  <select id="performance_detail_cate_list" parameterType="int" resultMap="performanceMap">
+		select * from performance 
+				 where performance_detail_cate_idx = #{ performance_detail_cate_idx }
+				 	   and hall_idx = #{hall_idx}
+  </select>
+
+  <!-- 장르별+지역별 조회 / 최신순 정렬 -->
+  <!-- performance_detail_cate_idx=0 일 경우에 대한 처리를 어떻게 할지 -->
+  <select id="selectCategoryList" parameterType="Map" resultMap="performanceMap">
+		select * from performance 
+    <trim prefix="where" prefixOverrides="and">
+
+      <if test="performance_detail_cate_idx!=0">
+                 performance_detail_cate_idx = #{ performance_detail_cate_idx }
+      </if>
+      <if test="hall_area!='all'">
+                 and (hall_idx in (select hall_idx from hall where  hall_area = #{hall_area}) )
+      </if>
+    </trim>
+
+    <!-- 정렬 -->
+    <choose>
+      <when test='sort_options == "s_abc"'>
+            order by performance_name asc 
+      </when>
+      <when test='sort_options == "s_new"'>
+             order by performance_startday desc
+      </when>
+      <otherwise>
+            order by performance_idx asc
+      </otherwise>
+    </choose>
+
+    <!-- 몇개씩 볼건지 -->
+    <choose>
+      <when test= 'sort_options_number == "9"'>
+            limit 9
+      </when>
+      <when test= 'sort_options_number == "15"'>
+            limit 15
+      </when>
+      <otherwise>
+            limit 21
+      </otherwise>
+    </choose>
+
+  </select>
+
+  <!-- 지역별 공연 리스트 조회 -->
+  <!-- <select id="performance_area_list" parameterType="int" resultMap="performanceMap">
+		select * from performance 
+				 where performance_detail_cate_idx = #{performance_detail_cate_idx}
+				 	   and hall_idx = #{hall_idx};
+				</select> -->
+
+
+  <!--parameterType = 전달인자타입
+		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
+
+</mapper>

@@ -11,7 +11,7 @@
 
 					<style>
 						/* 컨텐츠 영역 start*/
-						.concert_list {
+						.performance_list {
 
 							display: flex;
 							flex-wrap: wrap;
@@ -26,30 +26,47 @@
 							/* 아래쪽 여백 설정 */
 						}
 
-						.concert_img {
+						.performance_img {
 
 							margin: 0px 20px 20px 20px;
 
 						}
 
-						.concert_cate {
+						.performance_cate {
 							font-size: 15px !important;
 							color: gray;
 						}
 
-						.concert_name {
+						.performance_name {
 							font-size: 25px;
 							font-weight: bold;
 							margin-top: 20px;
 							margin-bottom: 5px !important;
 						}
 
-						.concert_price {
+						.performance_price {
 							float: right !important;
 							padding-right: 20px;
 							font-size: 20px;
 							font-weight: bold;
 							margin-bottom: 50px;
+						}
+
+						/* 조회 데이터 없음 메세지 */
+						#empty_msg {
+							height: 100px;
+							margin-bottom: 100px;
+							text-align: center;
+						}
+
+						.empty_msg1 {
+							margin-bottom: 20px;
+							font-size: 25px;
+							font-weight: bold;
+						}
+
+						.empty_msg2 {
+							font-size: 17px;
 						}
 
 						/* 컨텐츠 영역 end */
@@ -59,13 +76,13 @@
 					<script>
 						function filtering(f) {
 
-							let concert_detail_cate_idx = f.concert_detail_cate_idx.value;
+							let performance_detail_cate_idx = f.performance_detail_cate_idx.value;
 
-							//"location.href='category.do?concert_category=${vo.concert_detail_cate_idx}'"
+							//"location.href='category.do?performance_category=${vo.performance_detail_cate_idx}'"
 							$.ajax({
 
 								url: "category.do",		// controller
-								data: { "concert_detail_cate_idx": concert_detail_cate_idx },	//paramter 전달  category.do?comtent_detail_cate_idx=1
+								data: { "performance_detail_cate_idx": performance_detail_cate_idx },	//paramter 전달  category.do?comtent_detail_cate_idx=1
 								dataType: "json",
 								success: function (res_data) {
 
@@ -79,24 +96,9 @@
 						}
 					</script> -->
 
-					<!-- Title Tag  -->
-					<title>티모아</title>
-					
-					
-
 				</head>
 
 				<body class="js">
-
-					<!-- Preloader -->
-
-					<!-- End Preloader -->
-
-					<!-- Eshop Color Plate -->
-
-					<!-- /End Color Plate -->
-
-					<!-- 헤더 삭제 -->
 
 					<!-- 상단바 -->
 					<!-- Product Style -->
@@ -113,15 +115,18 @@
 									</div>
 
 									<!-- 공연 목록 출력 -->
-									<div class="concert_list">
+									<div class="performance_list">
 										<c:forEach var="vo" items="${ list }">
 											<div content_wrap>
-												<img class="concert_img" src="../resources/images/${ vo.concert_image }"
-													onclick="location.href='detailpage.do?concert_idx=${vo.concert_idx}'">
-												<div class="concert_content">
-													<div class="concert_cate">${ vo.concertCateVo.concert_cate_name }
-														> ${ vo.concertDetailCateVo.concert_detail_cate_name }</div>
-													<div class="concert_name">${ vo.concert_name }</div>
+												<img class="performance_img"
+													src="../resources/images/${ vo.performance_image }"
+													onclick="location.href='detailpage.do?performance_idx=${vo.performance_idx}'">
+												<div class="performance_content">
+													<div class="performance_cate">${
+														vo.performanceCateVo.performance_cate_name }
+														> ${ vo.performanceDetailCateVo.performance_detail_cate_name }
+													</div>
+													<div class="performance_name">${ vo.performance_name }</div>
 
 													<!-- 지역 정보 -->
 													<div>
@@ -130,7 +135,7 @@
 													</div>
 
 													<!-- 가격 정보 -->
-													<div class="concert_price">
+													<div class="performance_price">
 														<c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
 															<!-- 가격 표시 : 숫자 3자리마다 , 찍기 -->
 															<!-- <fmt:setLocale value="ko_KR" /> -->
@@ -145,7 +150,10 @@
 
 									<!-- Data가 없는 경우 화면에 출력 될 정보 -->
 									<c:if test="${ empty requestScope.list }">
-										<div id="empty_msg">등록된 공연장 정보가 없습니다</div>
+										<div id="empty_msg">
+											<div class="empty_msg1">이용 가능한 티켓이 없습니다</div>
+											<div class="empty_msg2">다른 검색 조건으로 조회해보세요!</div>
+										</div>
 									</c:if>
 
 
