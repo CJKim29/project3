@@ -11,25 +11,36 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <style type="text/css">
+      #search_btn:hover {
+        color: black;
+        background-color: #e6e6e6;
+      }
       #title {
         text-align: center;
         font-weight: bold;
         font-size: 26px;
         text-shadow: 1px 1px 1px black;
-        color: #f7941d;
+        color: #ff1d38;
+      }
+      #board_idx:hover {
+        color: black;
+      }
+      #board_readhit:hover {
+        color: black;
       }
       th {
         color: black;
       }
 
       a {
-        color: #f7941d;
+        color: #ff1d38;
         text-decoration: none;
       }
 
       a:hover {
-        color: #f7941d;
+        color: #ff1d38;
         text-decoration: none;
       }
 
@@ -38,7 +49,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
         overflow: hidden;
         white-space: nowrap;
-        text-overflow: ellipsi;
+        text-overflow: ellipsis;
         word-break: break-all;
 
         /* ellipsi 속성 */
@@ -107,26 +118,39 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
     <!-- Start Blog Grid -->
-    <div class="blog-single shop-blog grid section" style="padding-top: 50px">
+    <div class="blog-single shop-blog grid section" style="padding-top: 30px">
       <div class="container">
-        <h3 id="title">
-          ::::게시판::::
-          <img src="../resources/images/김치쿵야.png" />
-        </h3>
+        <h3 id="title" style="margin-bottom: 20px">::::게시판::::</h3>
         <div class="row">
-          <div style="text-align: right">
-            <input
-              class="btn"
-              style="background: #f7941d; color: white"
-              type="button"
-              value="글쓰기"
-              onclick="insert_form();"
-            />
-          </div>
           <!-- 검색메뉴 -->
           <div style="text-align: right; margin-bottom: 5px">
             <form class="form-inline">
-              <select id="search" class="form-control">
+              <input
+                id="board_readhit"
+                type="button"
+                class="btn"
+                value="조회순"
+                onclick="setSort('board_readhit');"
+                style="
+                  height: 40px;
+                  margin-left: 378px;
+                  margin-right: 5px;
+                  background: #337ab7;
+                "
+              />
+              <input
+                id="board_idx"
+                type="button"
+                class="btn"
+                value="등록일순"
+                onclick="setSort('board_idx');"
+                style="height: 40px; margin-right: 5px; background: #f0ad4e"
+              />
+              <select
+                id="search"
+                class="form-control"
+                style="height: 40px; font-size: 16px; margin-right: 5px"
+              >
                 <option value="all">전체보기</option>
                 <option value="board_name">제목</option>
                 <option value="mem_nickname">작성자</option>
@@ -137,35 +161,35 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 id="search_text"
                 class="form-control"
                 value="${param.search_text}"
+                style="
+                  height: 40px;
+                  margin-right: 5px;
+                  font-size: 16px;
+                  width: 200px;
+                "
               />
 
               <input
                 id="search_btn"
                 type="button"
-                class="btn btn-primary"
+                class="btn"
                 value="검색"
                 onclick="find();"
+                style="height: 40px; margin-right: 5px"
               />
 
               <input
-                id="board_readhit"
+                class="btn"
+                style="background: #ff1d38; height: 40px; color: white"
                 type="button"
-                class="btn btn-primary"
-                value="조회순"
-                onclick="setSort('board_readhit');"
-              />
-              <input
-                id="board_idx"
-                type="button"
-                class="btn btn-warning"
-                value="등록일순"
-                onclick="setSort('board_idx');"
+                value="글쓰기"
+                onclick="insert_form();"
               />
             </form>
           </div>
           <!-- 게시판 테이블 구성하기  -->
           <table class="table" style="margin-bottom: 0">
-            <tr style="background: #f7941d">
+            <tr style="background: #ff1d38">
               <th>번호</th>
               <th style="width: 50%">제목</th>
               <th>카테고리</th>
@@ -187,17 +211,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <!-- 데이터가 있는 경우-->
               <c:forEach var="vo" items="${ list }">
                 <tr>
-                  <td>${ vo.board_idx }</td>
+                  <td>${ vo.board_no }</td>
 
                   <td>
-                    <!-- 답글이면 b_depth만큼 들여쓰기 -->
-                    <c:forEach begin="1" end="${ vo.board_depth }">
-                      &nbsp;&nbsp;&nbsp;
-                    </c:forEach>
-
-                    <!-- 답글이면 -->
-                    <c:if test="${ vo.board_depth ne 0 }"> ㄴ </c:if>
-
                     <!-- 삭제된 게시물 -->
                     <c:if test="${ vo.board_use eq 'n' }">
                       <font color="red"
@@ -212,8 +228,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                         <a href="view.do?board_idx=${ vo.board_idx }">
                           ${ vo.board_name }
                           <c:if test="${ vo.cmt_count ne 0 }">
-                            <span class="badge" style="background: #f7941d"
-                              >&nbsp;${ vo.cmt_count }</span
+                            <span style="color: #ff1d38; font-size: 10px"
+                              >&nbsp;(${ vo.cmt_count })</span
                             >
                           </c:if>
                         </a>

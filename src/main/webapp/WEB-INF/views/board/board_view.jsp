@@ -149,7 +149,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         ><a href="#"><i class="fa fa-user"></i><b>${ vo.mem_nickname }</b>님의 글</a
                         ><a href="#"><i class="fa fa-calendar"></i>${ vo.board_regdate }</a
                         ><a href="#"
-                          ><i class="fa fa-comments"></i>조회수 (${ vo.board_readhit })</a
+                          ><i class="fa fa-comments"></i>조회수 (${ vo.board_readhit+1 })</a
                         ></span
                       >
                     </div>
@@ -159,13 +159,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
 				  <div>
 					<input class="btn" style="background: brown;" type="button" value="목록보기"
-						   onclick="location.href='list.do'">
-						   
-					<!-- 로그인된 상태에서만 등록가능 -->	
-					<c:if test="${ (not empty user) and (vo.board_depth le 1) }">  
-						<input class="btn" style="background: #f7941d;" type="button" value="답글쓰기"
-							   onclick="location.href='reply_form.do?board_idx=${ vo.board_idx }'">
-					</c:if> 
+						   onclick="location.href='list.do'"> 
 					
 					<!-- 글의 주인만 수정/삭제 -->
 					<c:if test="${ vo.mem_idx eq user.mem_idx }">
@@ -183,8 +177,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					  <!-- Single Comment -->
 					  <div id="comment_display">	
 					  </div>	
-                    <!-- End Single Comment -->
-                   
+                    <!-- End Single Comment -->                   
                   </div>
                 </div>
                 <div class="col-12">
@@ -202,7 +195,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           </div>
                           <div class="col-12">
                             <div class="form-group button">
-                              <input class="btn" type="button" onclick="comment_insert();" value="댓글쓰기">                                                              
+                              <input class="btn" type="button" onclick="comment_insert();" value="댓글쓰기">
                             </div>
                           </div>
                         </div>

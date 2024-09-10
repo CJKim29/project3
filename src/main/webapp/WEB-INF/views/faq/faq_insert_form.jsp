@@ -18,19 +18,6 @@ pageEncoding="UTF-8"%>
         margin: auto;
         margin-top: 10%;
       }
-      @font-face {
-        font-family: "ONE-Mobile-POP";
-        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff")
-          format("woff");
-        font-weight: normal;
-        font-style: normal;
-      }
-
-      * {
-        font-family: "ONE-Mobile-POP";
-        text-shadow: #f7941d;
-        color: #f7941d;
-      }
 
       textarea {
         resize: none;
@@ -72,16 +59,16 @@ pageEncoding="UTF-8"%>
     <form>
       <div id="box">
         <div class="panel panel-primary">
-          <div class="panel-heading" style="background: #f7941d !important">
-            <h4>질문하기</h4>
+          <div class="panel-heading" style="background: #ff1d38 !important">
+            <h4>FAQ 등록</h4>
           </div>
           <div class="panel-body">
             <div>
-              <h4>제목 :</h4>
+              <h4>질문</h4>
               <input class="form-control" name="faq_title" />
             </div>
             <div>
-              <h4>내용 :</h4>
+              <h4>답변</h4>
               <textarea
                 class="form-control"
                 rows="10"
@@ -100,7 +87,7 @@ pageEncoding="UTF-8"%>
               <input
                 class="btn btn-danger"
                 type="button"
-                value="질문하기"
+                value="등록"
                 onclick="send(this.form)"
               />
             </div>

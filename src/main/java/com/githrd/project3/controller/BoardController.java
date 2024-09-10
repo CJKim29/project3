@@ -120,11 +120,6 @@ public class BoardController {
 		String board_content = vo.getBoard_content().replaceAll("\n", "<br>");
 		vo.setBoard_content(board_content);
 
-		// 등록될 b_ref 구하기
-		int board_ref = board_mapper.getMaxBoard_idx();
-
-		vo.setBoard_ref(board_ref + 1);
-
 		// DB insert
 		int res = board_mapper.board_insert(vo);
 
@@ -161,51 +156,6 @@ public class BoardController {
 	public String reply_form() {
 
 		return "board/board_reply_form";
-	}
-
-	// 답글쓰기
-	// /bbs/board/reply.do?b_idx=12&b_subject=답글&b_content=내용
-
-	@RequestMapping("reply.do")
-	public String reply(BoardVo vo, RedirectAttributes ra) {
-
-		MemberVo user = (MemberVo) session.getAttribute("user");
-
-		if (user == null) {
-
-			ra.addAttribute("reason", "session_timeout");
-
-			return "redirect:../member/login_form.do";
-		}
-
-		vo.setMem_idx(user.getMem_idx());
-		vo.setMem_nickname(user.getMem_nickname());
-
-		// 기준글정보 얻어온다
-		BoardVo baseVo = board_mapper.board_one_from_idx(vo.getBoard_idx());
-
-		// 기준글보다 step이 큰 게시물의 step을 1씩 증가
-		int res = board_mapper.board_update_step(baseVo);
-		// 기준글의 카테고리 받아오기
-		vo.setBoard_cate_idx(baseVo.getBoard_cate_idx());
-
-		// 답글의 b_ref,b_step,b_depth설정
-		vo.setBoard_ref(baseVo.getBoard_ref()); // 기준글의 b_ref를 넣는다.
-		vo.setBoard_step(baseVo.getBoard_step() + 1); // 답글step = 기준글 step+1
-		vo.setBoard_depth(baseVo.getBoard_depth() + 1);// 답글depth = 기준글depth + 1
-
-		// IP넣기
-		String board_ip = request.getRemoteAddr();
-		vo.setBoard_ip(board_ip);
-
-		// \n, <br>
-		String board_content = vo.getBoard_content().replaceAll("\n", "<br>");
-		vo.setBoard_content(board_content);
-
-		// 답글 추가(DB insert)
-		res = board_mapper.board_reply(vo);
-
-		return "redirect:list.do";
 	}
 
 	// /bbs/board/delete.do?b_idx=18

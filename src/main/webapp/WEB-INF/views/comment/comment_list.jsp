@@ -49,7 +49,7 @@
 		<!-- 자신의 글만 삭제메뉴 활성화 -->
 		<c:if test="${ user.mem_idx eq vo.mem_idx }">
 			<div style="text-align: right;">
-				<input type="button" value="x" style="background: #f7941d; color: white;" onclick="comment_delete('${ vo.cmt_idx}');">
+				<input type="button" value="x" style="background: #F7230E;color: white;" onclick="comment_delete('${ vo.cmt_idx}');">
 			</div>
 		</c:if>
 		<div>${ vo.mem_nickname }</div>
@@ -58,9 +58,11 @@
 		<hr>
 	</c:forEach>
 	
-	<!-- Page Menu (Paging 클래스에서 처리) -->
 	<c:if test="${ not empty list}">
-		${ pageMenu }
+		<!-- 페이지 메뉴를 중앙에 정렬하기 위해 div로 감싸기 -->
+		<div style="display: flex; justify-content: center;">
+			${ pageMenu }
+		</div>
 	</c:if>
 </body>
 </html>

@@ -27,12 +27,6 @@ public interface BoardMapper {
 	// 조회수 증가
 	int board_update_readhit(int board_idx);
 
-	// 같은 baseVo에서 기준글보다 step이 큰 게시물의 step을 1씩 증가: 답글작업
-	int board_update_step(BoardVo baseVo);
-
-	// 답글쓰기
-	int board_reply(BoardVo vo);
-
 	// 게시글 삭제처리
 	int board_update_use(int board_idx);
 

@@ -21,9 +21,6 @@ public class BoardVo {
   String board_regdate;
   int board_readhit;
   String board_use;
-  int board_ref;
-  int board_step;
-  int board_depth;
   String mem_nickname;
 
   // 댓글 구현되고 만들기
