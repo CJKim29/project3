@@ -34,7 +34,7 @@
                         <td>${param.date}</td>
                         <td>
                             <c:forEach var="info" items="${seatInfo}">
-                                <li>${info}</li>
+                                ${info}<br />
                             </c:forEach>
                         </td>
                         <td>
