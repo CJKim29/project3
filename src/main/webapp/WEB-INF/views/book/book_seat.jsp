@@ -98,13 +98,6 @@
                     .seat.seat-row-6 {
                         background-color: rgb(40, 204, 216);
                     }
-
-                    /* .seat.seat-row-7,
-                    .seat.seat-row-8,
-                    .seat.seat-row-9,
-                    .seat.seat-row-10 {
-                        background-color: rgb(233, 174, 66);
-                    } */
                 </style>
 
                 <!-- 버튼 클릭 -->
@@ -135,8 +128,8 @@
                         });
                     });
                 </script>
-                
-                
+
+
 
                 <!-- 달력 -->
                 <script>
@@ -188,6 +181,18 @@
                             }
                             $('.seat-info-container').html(resultHtml);
                         });
+                        window.submitBookForm = function () {
+                            var form = $('#bookForm');
+                            form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
+                            for (var key in clickedSeats) {
+                                $('<input>').attr({
+                                    type: 'hidden',
+                                    name: 'seatInfo',
+                                    value: clickedSeats[key]
+                                }).appendTo(form);
+                            }
+                            form.submit(); // 폼 제출
+                        };
                     });
                 </script>
                 <!-- 좌석 다시 선택 -->
@@ -211,10 +216,7 @@
                                 selectedSeats.splice(index, 1);
                             }
                             console.log('Selected Seats Updated:', selectedSeats);
-
-                            // 선택된 좌석의 row와 col 값을 숨겨진 입력 필드에 설정
-                            document.getElementById('seat_row').value = row;
-                            document.getElementById('seat_col').value = col;
+                            updateSeatInfo();
                         }
 
                         function submitSeats() {
@@ -407,14 +409,19 @@
                 </div>
                 <div class="seat-container3">
                     <p>예약 현황</p>
-                    <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
+                    <form id="bookForm" action="book_result.do" method="post">
+                        <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
+                        <input type="hidden" name="concert_idx" value="${param.concert_idx}">
+                        <input type="hidden" name="date" value="${param.date}">
+                        <input type="button" class="btn btn-danger" value="테스트" onclick="submitBookForm()">
+                    </form>
                 </div>
                 </div>
                 <!-- 예약 현황 출력 -->
                 <div class="seat-container3">
                     <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
                     <br /><br /><br />
-                    <form id="seatForm" action="reserveSeats.do" method="post">
+                    <form id="seatForm" action="reserve_seats.do" method="post">
                         <input type="hidden" name="concert_idx" value="${param.concert_idx}">
                         <input type="hidden" name="date" value="${param.date}">
                         <input type="hidden" id="seat_row" name="row">
@@ -468,7 +475,13 @@
                     </tr>
 
 
+
                 </table>
+
+                <input class="btn btn-success" type="button" value="장바구니" data-concert-idx="${ vo.concert_idx }"
+                    onclick="location.href='book_result.do?concert_idx=${ param.concert_idx }&date=${ param.date }'">
+
+
                 <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
                 <!-- <div class="seat-container">
                     <%-- 100개의 좌석 버튼 생성 --%>
