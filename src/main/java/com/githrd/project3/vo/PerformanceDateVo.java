@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Alias("concert_date")
-public class ConcertDateVo {
-    int concert_date_idx;
-    int concert_idx;
-    String concert_date_date;
+@Alias("performance_date")
+public class PerformanceDateVo {
+    int performance_date_idx;
+    int performance_idx;
+    String performance_date_date;
 }
