@@ -20,33 +20,18 @@
 					<div class="home-slider-4">
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
-						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바시카고.png');">
-							<div class="inner">
-								<h4 class="title"></h4>
-								<p class="des"></p>
-								<div class="button">
-									<a href="#" class="btn">상세보기</a>
-								</div>
+						 <a href="">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드용시카고2.png');">
 							</div>
-						</div>
-						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니.png');">
-							<div class="inner">
-								<h4 class="title"></h4>
-								<p class="des"></p>
-								<div class="button">
-									<a href="#" class="btn">상세보기</a>
-								</div>
+						</a>
+						<a href="">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드용킹키부츠2.png');">
 							</div>
-						</div>
-						<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바킹키부츠.png');">
-							<div class="inner">
-								<h4 class="title"></h4>
-								<p class="des"></p>
-								<div class="button">
-									<a href="#" class="btn">상세보기</a>
-								</div>
+						</a>
+						<a href="">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니2.png');">
 							</div>
-						</div>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -73,11 +58,11 @@
 								<!-- Tab Nav -->
 								 <!-- nav와 data-toggle을 이용한 부트스트랩 -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">로맨틱코미디</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">드라마</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">코믹</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids2" role="tab">공포&스릴러</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids3" role="tab">어린이</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#concert1" role="tab">로맨틱코미디</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert2" role="tab">드라마</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert3" role="tab">코믹</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert4" role="tab">공포&스릴러</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert5" role="tab">어린이</a></li>
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
@@ -85,13 +70,13 @@
 								<!-- Start Single Tab -->
 								 <!-- 뮤지컬 부분 -->
 								  <!-- 장르1 -->
-								<div class="tab-pane fade show active" id="man" role="tabpanel">
+								<div class="tab-pane fade show active" id="concert1" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="">
 															<!-- 이미지 크기는 550x750  -->
 															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
 														</a>
@@ -107,7 +92,7 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="">
 															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
 														</a>
 													</div>
@@ -155,7 +140,7 @@
 								<!--/ End Single Tab -->
 
 								<!-- 장르2 부분 -->
-								<div class="tab-pane fade" id="women" role="tabpanel">
+								<div class="tab-pane fade" id="concert2" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -224,7 +209,7 @@
 								<!--/ End Single Tab -->
 
 								<!-- 장르3 부분 -->
-								<div class="tab-pane fade" id="kids" role="tabpanel">
+								<div class="tab-pane fade" id="concert3" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -293,7 +278,7 @@
 								<!--/ End Single Tab -->
 
 								<!-- 장르4 부분 -->
-								<div class="tab-pane fade" id="kids2" role="tabpanel">
+								<div class="tab-pane fade" id="concert4" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -363,7 +348,7 @@
 							
 
 								<!-- 장르5 부분 -->
-								<div class="tab-pane fade" id="kids3" role="tabpanel">
+								<div class="tab-pane fade" id="concert5" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -414,12 +399,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="">
 															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="">공연제목</a></h3>
 														<div class="product-price">
 															<span>날짜</span>
 														</div>
@@ -467,8 +452,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h4 class="title"><a href="#">제목</a></h4>
-                                <p>new</p>
+                                <h4 class="title"><a href="#">NEW</a></h4>
+                                <p>제목</p>
                             </div>
                         </div>
                     </div>
@@ -486,8 +471,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">제목</a></h5>
-                                <p>new</p>
+                                <h5 class="title"><a href="#">NEW</a></h5>
+                                <p>제목</p>
                             </div>
                         </div>
                     </div>
@@ -505,8 +490,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">제목</a></h5>
-                                <p>new</p>
+                                <h5 class="title"><a href="#">NEW</a></h5>
+                                <p>제목</p>
                             </div>
                         </div>
                     </div>
@@ -533,8 +518,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">제목</a></h5>
-                                <p>1st</p>
+                                <h5 class="title"><a href="#">1st</a></h5>
+                                <p>제목</p>
                             </div>
                         </div>
                     </div>
@@ -552,8 +537,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">제목</a></h5>
-                                <p>2st</p>
+                                <h5 class="title"><a href="#">2st</a></h5>
+                                <p>제목</p>
                             </div>
                         </div>
                     </div>
@@ -571,8 +556,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">제목</a></h5>
-                                <p>3st</p>
+                                <h5 class="title"><a href="#">3st</a></h5>
+                                <p>제목</p>
                             </div>
                         </div>
                     </div>
@@ -602,8 +587,8 @@
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
 						<div class="content">
-							<p class="title">공지사항</p>
-							<a href="#" class="more-btn"><i class="fa fa-bullhorn"></i></a>
+							<p class="title">Q & A</p>
+							<a href="../qna/list.do" class="more-btn"><i class="fa fa-bullhorn"></i></a>
 						</div>
 					</div>
 					<!-- End Single Blog  -->
@@ -612,8 +597,8 @@
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
 						<div class="content">
-							<a href="#" class="title">FAQ(자주 묻는 질문)</a>
-							<a href="#" class="more-btn"><i class="fa fa-comments-o"></i></a>
+							<p class="title">FAQ</p>
+							<a href="../faq/list.do" class="more-btn"><i class="fa fa-comments-o"></i></a>
 						</div>
 					</div>
 					<!-- End Single Blog  -->
@@ -622,8 +607,8 @@
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
 						<div class="content">
-							<a href="#" class="title">공연 게시판</a>
-							<a href="#" class="more-btn"><i class="fa fa-calendar"></i></a>
+							<p class="title">게시판</p>
+							<a href="../board/list.do" class="more-btn"><i class="fa fa-calendar"></i></a>
 						</div>
 					</div>
 					<!-- End Single Blog  -->

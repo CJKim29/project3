@@ -4,13 +4,13 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>샘플(include) 방식</title>
+    <title>MyPage</title>
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
     
-    <p>본문</p>
+    
 
 
     <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

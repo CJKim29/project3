@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
+    <title>TIMOA</title>
     <!-- Favicon -->
     <link
       rel="icon"
@@ -81,36 +81,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="#" id="colors" />
   </head>
   <body class="js">
-    <!-- Preloader -->
-    <div class="preloader">
-      <div class="preloader-inner">
-        <div class="preloader-icon">
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
-    <!-- End Preloader -->
 
-    <!-- Eshop Color Plate -->
-    <div class="color-plate">
-      <a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
-      <h4>Eshop Colors</h4>
-      <p>Here is some awesome color's available on Eshop Template.</p>
-      <span class="color1"></span>
-      <span class="color2"></span>
-      <span class="color3"></span>
-      <span class="color4"></span>
-      <span class="color5"></span>
-      <span class="color6"></span>
-      <span class="color7"></span>
-      <span class="color8"></span>
-      <span class="color9"></span>
-      <span class="color10"></span>
-      <span class="color11"></span>
-      <span class="color12"></span>
-    </div>
-    <!-- /End Color Plate -->
 
     <!-- Header -->
 
@@ -167,7 +138,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="col-lg-2 col-md-2 col-12">
               <!-- Logo  -->
               <div class="logo">
-                <a href=""
+                <a href="../main/list.do"
                   ><img
                     src="../resources/template/images/logo_TIMOA1.png"
                     alt="logo"
@@ -176,11 +147,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <!--/ End Logo -->
               <div class="search-top">
                 <div class="top-search">
-                  <a href="#0"><i class="ti-search"></i></a>
+                  <a href=""><i class="ti-search"></i></a>
                 </div>
                 <!-- Search Form -->
                 <div class="search-top">
-                  <form class="search-form">
+                  <form class="search-form" action="concert_list.jsp" method="get">
                     <input
                       type="text"
                       placeholder="Search here..."
@@ -222,7 +193,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- Search Form -->
                 <!-- 장바구니 버튼 부분 -->
                 <div class="sinlge-bar shopping">
-                  <a href="cart.html" class="single-icon"
+                  <a href="../main/concert_like.do" class="single-icon"
                     ><i class="ti-bag"></i
                   ></a>
                   <!-- Shopping Item -->
@@ -246,19 +217,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li class="active"><a href="">Home</a></li>
-                          <li><a href="../main/sample.jsp">뮤지컬</a></li>
+                          <li class="active"><a href="../main/list.do">Home</a></li>
+                          <li><a href="../concert/list.do">뮤지컬</a></li>
                           <li><a href="">콘서트(보류)</a></li>
                           <li><a href="">연극(보류)</a></li>
                           <li>
                             <a href="">고객센터<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
-                              <li><a href="board-List.html">공지사항</a></li>
-                              <li><a href="board-List.html">FAQ</a></li>
+                              <li><a href="../qna/list.do">Q&A</a></li>
+                              <li><a href="../faq/list.do">FAQ</a></li>
                               <li>
-                                <a href="board-List.html">게시판 리스트</a>
-                              </li>
-                              <li><a href="board-main.html">게시판 상세</a></li>
+                                <a href="../board/list.do">게시판 리스트</a>
+                              </li>                              
                             </ul>
                           </li>
                         </ul>
