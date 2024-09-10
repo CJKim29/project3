@@ -29,12 +29,12 @@
                     </tr>
 
                     <tr>
-                        <td>${ vo.concert_name }</td>
+                        <td>${ vo.performance_name }</td>
                         <td>${ vo.hallVo.hall_name }</td>
                         <td>${param.date}</td>
                         <td>
                             <c:forEach var="info" items="${seatInfo}">
-                                <li>${info}</li>
+                                ${info}<br />
                             </c:forEach>
                         </td>
                         <td>

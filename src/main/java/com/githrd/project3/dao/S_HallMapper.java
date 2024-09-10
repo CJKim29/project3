@@ -12,16 +12,16 @@ public interface S_HallMapper {
 
         List<S_HallVo> selectList();
 
-        List<S_HallVo> selectSeatsByConcert(int concertIdx);
+        List<S_HallVo> selectSeatsByPerformance(int performanceIdx);
 
-        List<S_HallVo> selectSeatsByConcertAndDate(@Param("concert_idx") int concert_idx,
-                        @Param("concert_date") String concert_date);
+        List<S_HallVo> selectSeatsByPerformanceAndDate(@Param("performance_idx") int performance_idx,
+                        @Param("performance_date") String performance_date);
 
         int countAvailableSeatsBySeatIdx(int seatIdx);
 
-        void updateSeatStatus(@Param("concert_date_idx") int concert_date_idx,
+        void updateSeatStatus(@Param("performance_date_idx") int performance_date_idx,
                         @Param("row") int row,
                         @Param("col") String col);
 
-        List<S_HallVo> BookedSeatList(Integer concert_idx);
+        List<S_HallVo> BookedSeatList(Integer cperformance_idx);
 }

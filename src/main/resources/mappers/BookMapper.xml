@@ -4,51 +4,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.BookMapper">
 
-    <resultMap id="concertListMap" type="x_concert">
+    <resultMap id="performanceListMap" type="x_performance">
         <result property="hall_idx" column="hall_idx"/>
-        <result property="concert_cate_idx" column="concert_cate_idx"/>
+        <result property="performance_cate_idx" column="performance_cate_idx"/>
 
-        <association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list_listmap" />
+        <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list_listmap" />
         <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_listmap" />
     </resultMap>
 
-    <select id="concert_cate_list_listmap" resultType="concert_cate">
-	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+    <select id="performance_cate_list_listmap" resultType="performance_cate">
+	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
     </select>
     <select id="hall_list_listmap" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
     </select>
 
     <!-- 전체조회 -->
-    <select id="selectList" resultMap="concertListMap">
-		select * from concert order by concert_idx
+    <select id="selectList" resultMap="performanceListMap">
+		select * from performance order by performance_idx
     </select>
 
 
-    <resultMap id="concertOneMap" type="x_concert">
+    <resultMap id="performanceOneMap" type="x_performance">
         <result property="hall_idx" column="hall_idx"/>
-        <result property="concert_cate_idx" column="concert_cate_idx"/>
-        <result property="concert_idx" column="concert_idx"/>
+        <result property="performance_cate_idx" column="performance_cate_idx"/>
+        <result property="performance_idx" column="performance_idx"/>
         <result property="seat_idx" column="seat_idx"/>
 
-        <association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list_onemap" />
+        <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list_onemap" />
         <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_onemap" />
-        <collection property="seatList" column="concert_idx=concert_idx" select="seat_list_onemap" />
+        <collection property="seatList" column="performance_idx=performance_idx" select="seat_list_onemap" />
     </resultMap>
 
-    <select id="concert_cate_list_onemap" resultType="concert_cate">
-	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
+    <select id="performance_cate_list_onemap" resultType="performance_cate">
+	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
     </select>
     <select id="hall_list_onemap" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
     </select>
     <select id="seat_list_onemap" resultType="seat">
-       select * from seat where concert_idx=#{ concert_idx }
+       select * from seat where performance_idx=#{ performance_idx }
     </select>
 
     <!-- idx조회 -->
-    <select id="selectOneFromIdx" resultMap="concertOneMap">
-		select * from concert where concert_idx=#{ concert_idx }
+    <select id="selectOneFromIdx" resultMap="performanceOneMap">
+		select * from performance where performance_idx=#{ performance_idx }
     </select>
 
     <!-- 잔여좌석 조회 -->
@@ -69,16 +69,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         s_hall
     WHERE
         seat_idx = #{ seat_idx }
-		AND concert_date_idx = 6;
+		AND performance_date_idx = 6;
     </select>
 
 
-    <!-- concert_date_idx 조회 -->
-    <select id="selectConcertDateIdx" resultType="int">
-        SELECT concert_date_idx 
-        FROM concert_date 
-        WHERE SUBSTRING(concert_date_date, 1, 10) = #{concert_date} 
-        AND concert_idx = #{concert_idx};
+    <!-- performance_date_idx 조회 -->
+    <select id="selectPerformanceDateIdx" resultType="int">
+        SELECT performance_date_idx 
+        FROM performance_date 
+        WHERE SUBSTRING(performance_date_date, 1, 10) = #{performance_date} 
+        AND performance_idx = #{performance_idx};
     </select>
 
     <!-- 남은 좌석 수 조회 -->
@@ -96,22 +96,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 SUM(s_hall_i = 0) +
                 SUM(s_hall_j = 0)), 0) AS zero_count
         FROM s_hall
-        WHERE concert_date_idx = #{concert_date_idx}
+        WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};
     </select>
 
-    <!-- concert_date를 concert_date_idx로 변환 -->
-    <select id="getConcertDateIdxByDate" resultType="int">
-    SELECT concert_date_idx
-    FROM concert_date
-    WHERE concert_date_date = #{concertDate}
+    <!-- performance_date를 performance_date_idx로 변환 -->
+    <select id="getPerformanceDateIdxByDate" resultType="int">
+    SELECT performance_date_idx
+    FROM performance_date
+    WHERE performance_date_date = #{performanceDate}
     </select>
 
-    <select id="getConcertDateIdx" parameterType="map" resultType="int">
-        SELECT concert_date_idx
-        FROM concert_date
-        WHERE concert_idx = #{concert_idx}
-        AND SUBSTRING(concert_date_date, 1, 10) = #{concert_date}
+    <select id="getPerformanceDateIdx" parameterType="map" resultType="int">
+        SELECT performance_date_idx
+        FROM performance_date
+        WHERE performance_idx = #{performance_idx}
+        AND SUBSTRING(performance_date_date, 1, 10) = #{performance_date}
     </select>
 
 </mapper>

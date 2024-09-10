@@ -116,20 +116,20 @@
                         <!-- for(MemberVo vo : list) -->
                         <c:forEach var="vo" items="${ list }">
                             <tr>
-                                <td>${ vo.concert_idx }</td>
-                                <td>${ vo.concertCateVo.concert_cate_name }</td>
+                                <td>${ vo.performance_idx }</td>
+                                <td>${ vo.performanceCateVo.performance_cate_name }</td>
                                 <td>${ vo.hallVo.hall_name }</td>
-                                <td>${ vo.concert_name }</td>
-                                <td>${ vo.concert_startday }</td>
-                                <td>${ vo.concert_endday }</td>
-                                <td>${ vo.concert_runtime }</td>
-                                <td><img class="hall_img" src="../resources/images/${ vo.concert_image }"></td>
-                                <td>${ vo.concert_age }</td>
+                                <td>${ vo.performance_name }</td>
+                                <td>${ vo.performance_startday }</td>
+                                <td>${ vo.performance_endday }</td>
+                                <td>${ vo.performance_runtime }</td>
+                                <td><img class="hall_img" src="../resources/images/${ vo.performance_image }"></td>
+                                <td>${ vo.performance_age }</td>
                                 <td><input class="btn btn-success" type="button" value="예매"
-                                        onclick="location.href='concert_page.do?concert_idx=${ vo.concert_idx }'">
+                                        onclick="location.href='performance_page.do?performance_idx=${ vo.performance_idx }'">
                                 </td>
                                 <td><input class="btn btn-success" type="button" value="달력"
-                                        onclick="location.href='concert_datepicker.do'">
+                                        onclick="location.href='performance_datepicker.do'">
                                 </td>
                             </tr>
                         </c:forEach>

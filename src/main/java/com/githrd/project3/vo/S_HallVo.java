@@ -10,7 +10,7 @@ import org.apache.ibatis.type.Alias;
 public class S_HallVo {
 
     private int s_hall_idx;
-    private int concert_date_idx;
+    private int performance_date_idx;
     private int seat_idx;
     private int s_hall_row_no;
     private int s_hall_a;
@@ -25,5 +25,5 @@ public class S_HallVo {
     private int s_hall_j;
 
     SeatVo seatVo;
-    ConcertDateVo concertDateVo;
+    ConcertDateVo performanceDateVo;
 }

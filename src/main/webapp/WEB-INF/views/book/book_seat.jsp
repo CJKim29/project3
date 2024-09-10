@@ -411,7 +411,7 @@
                     <p>예약 현황</p>
                     <form id="bookForm" action="book_result.do" method="post">
                         <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
-                        <input type="hidden" name="concert_idx" value="${param.concert_idx}">
+                        <input type="hidden" name="performance_idx" value="${param.performance_idx}">
                         <input type="hidden" name="date" value="${param.date}">
                         <input type="button" class="btn btn-danger" value="테스트" onclick="submitBookForm()">
                     </form>
@@ -422,7 +422,7 @@
                     <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
                     <br /><br /><br />
                     <form id="seatForm" action="reserve_seats.do" method="post">
-                        <input type="hidden" name="concert_idx" value="${param.concert_idx}">
+                        <input type="hidden" name="performance_idx" value="${param.performance_idx}">
                         <input type="hidden" name="date" value="${param.date}">
                         <input type="hidden" id="seat_row" name="row">
                         <input type="hidden" id="seat_col" name="col">
@@ -446,8 +446,8 @@
                     </tr>
 
                     <tr>
-                        <td>${ vo.concertCateVo.concert_cate_name }</td>
-                        <td>${ vo.concert_name }</td>
+                        <td>${ vo.performanceCateVo.performance_cate_name }</td>
+                        <td>${ vo.performance_name }</td>
                         <td>${ vo.hallVo.hall_name }</td>
                         <td>${param.date}</td>
                         <td>
@@ -459,8 +459,8 @@
                             <input id="datepicker" width="276" />
                         </td>
                         <td><input class="btn btn-success" type="button" value="날짜 바꾸기"
-                                data-concert-idx="${ vo.concert_idx }"
-                                onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }&date=' + $('#datepicker').val()">
+                                data-performance-idx="${ vo.performance_idx }"
+                                onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
                         </td>
                         <td>
                             <c:forEach var="seat" items="${vo.seatList}" varStatus="status">
@@ -478,8 +478,8 @@
 
                 </table>
 
-                <input class="btn btn-success" type="button" value="장바구니" data-concert-idx="${ vo.concert_idx }"
-                    onclick="location.href='book_result.do?concert_idx=${ param.concert_idx }&date=${ param.date }'">
+                <input class="btn btn-success" type="button" value="장바구니" data-performance-idx="${ vo.performance_idx }"
+                    onclick="location.href='book_result.do?performance_idx=${ param.performance_idx }&date=${ param.date }'">
 
 
                 <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
