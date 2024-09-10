@@ -1,4 +1,4 @@
-final project!!
+final project!! <p>$\huge{\rm{\color{#5ad7b7}대박}}$</p>
 
 <a href="https://www.instagram.com/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=Instagram&logoColor=white"/></a>
 
