@@ -93,13 +93,13 @@
                         // 좌석정보 버튼 클릭 시 선택된 날짜를 URL에 추가
                         $('input.btn-success').click(function () {
                             var selectedDate = $('#datepicker').val();
-                            var concertIdx = $(this).data('concertIdx'); // 버튼에 저장된 공연 번호 가져오기
+                            var performanceIdx = $(this).data('performanceIdx'); // 버튼에 저장된 공연 번호 가져오기
 
                             if (selectedDate) {
-                                window.location.href = 'concert_seat.do?concert_idx=' + concertIdx + '&date=' + selectedDate;
+                                window.location.href = 'performance_seat.do?performance_idx=' + performanceIdx + '&date=' + selectedDate;
                             } else {
                                 alert('날짜를 선택해주세요.');
-                                window.location.href = 'concert_page.do?concert_idx=' + concertIdx;
+                                window.location.href = 'performance_page.do?performance_idx=' + performanceIdx;
                             }
                         });
 
@@ -158,15 +158,15 @@
                         <!-- for(MemberVo vo : list) -->
 
                         <tr>
-                            <td>${ vo.concert_idx }</td>
-                            <td>${ vo.concertCateVo.concert_cate_name }</td>
+                            <td>${ vo.performance_idx }</td>
+                            <td>${ vo.performanceCateVo.performance_cate_name }</td>
                             <td>${ vo.hallVo.hall_name }</td>
-                            <td>${ vo.concert_name }</td>
-                            <td>${ vo.concert_startday }</td>
-                            <td>${ vo.concert_endday }</td>
-                            <td>${ vo.concert_runtime }</td>
-                            <td><img class="hall_img" src="../resources/images/${ vo.concert_image }"></td>
-                            <td>${ vo.concert_age }</td>
+                            <td>${ vo.performance_name }</td>
+                            <td>${ vo.performance_startday }</td>
+                            <td>${ vo.performance_endday }</td>
+                            <td>${ vo.performance_runtime }</td>
+                            <td><img class="hall_img" src="../resources/images/${ vo.performance_image }"></td>
+                            <td>${ vo.performance_age }</td>
                             <td>
                                 <c:forEach var="seat" items="${vo.seatList}">
                                     ${seat.seat_grade} : ${seat.seat_price} <br>
@@ -175,8 +175,8 @@
                             <td><input id="datepicker" width="276" />
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
-                                    data-concert-idx="${ vo.concert_idx }"
-                                    onclick="location.href='concert_seat.do?concert_idx=${ vo.concert_idx }&date=' + $('#datepicker').val()">
+                                    data-performance-idx="${ vo.performance_idx }"
+                                    onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
 
                             </td>
 

@@ -29,7 +29,7 @@
                     </tr>
 
                     <tr>
-                        <td>${ vo.concert_name }</td>
+                        <td>${ vo.performance_name }</td>
                         <td>${ vo.hallVo.hall_name }</td>
                         <td>${param.date}</td>
                         <td>

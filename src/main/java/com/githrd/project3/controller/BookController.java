@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.vo.S_HallVo;
-import com.githrd.project3.vo.X_ConcertVo;
+import com.githrd.project3.vo.X_PerformanceVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -44,7 +44,7 @@ public class BookController {
     public String list(Model model) {
 
         // 회원목록 가져오기
-        List<X_ConcertVo> list = book_mapper.selectList();
+        List<X_PerformanceVo> list = book_mapper.selectList();
 
         // request binding
         model.addAttribute("list", list);
@@ -52,73 +52,73 @@ public class BookController {
         return "book/book_list";
     }
 
-    @RequestMapping("concert_page.do")
-    public String concert_page(int concert_idx, Model model) {
+    @RequestMapping("performance_page.do")
+    public String performance_page(int performance_idx, Model model) {
 
-        X_ConcertVo vo = book_mapper.selectOneFromIdx(concert_idx);
+        X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
 
         return "/book/book_page";
     }
 
-    @RequestMapping("concert_seat.do")
-    public String concert_seat(
-            @RequestParam("concert_idx") int concert_idx,
-            @RequestParam("date") String concert_date,
+    @RequestMapping("performance_seat.do")
+    public String performance_seat(
+            @RequestParam("performance_idx") int performance_idx,
+            @RequestParam("date") String performance_date,
             Model model) {
 
-        // concert_idx와 date 값 사용 가능
-        model.addAttribute("concert_idx", concert_idx);
-        model.addAttribute("concert_date", concert_date);
+        // performance_idx와 date 값 사용 가능
+        model.addAttribute("performance_idx", performance_idx);
+        model.addAttribute("performance_date", performance_date);
 
-        // List<S_HallVo> list = concert_mapper.selectS_HallList(concert_idx);
+        // List<S_HallVo> list = performance_mapper.selectS_HallList(performance_idx);
 
         // model.addAttribute("list", list);
 
-        List<S_HallVo> seats = s_hall_mapper.selectSeatsByConcertAndDate(concert_idx, concert_date);
+        List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
 
         model.addAttribute("seats", seats);
 
-        X_ConcertVo vo = book_mapper.selectOneFromIdx(concert_idx);
+        X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
 
-        Integer concert_date_idx = book_mapper.selectConcertDateIdx(concert_date, concert_idx);
+        Integer performance_date_idx = book_mapper.selectPerformanceDateIdx(performance_date, performance_idx);
 
-        if (concert_date_idx == null) {
-            // concert_date_idx가 null일 경우 처리
-            model.addAttribute("error", "Invalid concert date or concert ID.");
+        if (performance_date_idx == null) {
+            // performance_date_idx가 null일 경우 처리
+            model.addAttribute("error", "Invalid performance date or performance ID.");
             return "book/book_seat";
         }
 
-        int zeroCount1 = book_mapper.selectRemainSeat1(concert_date_idx, 1); // 변경: 반환 값을 int로 받음
+        int zeroCount1 = book_mapper.selectRemainSeat1(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
         model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
 
-        int zeroCount2 = book_mapper.selectRemainSeat1(concert_date_idx, 2);
+        int zeroCount2 = book_mapper.selectRemainSeat1(performance_date_idx, 2);
         model.addAttribute("zeroCount2", zeroCount2);
 
-        int zeroCount3 = book_mapper.selectRemainSeat1(concert_date_idx, 3);
+        int zeroCount3 = book_mapper.selectRemainSeat1(performance_date_idx, 3);
         model.addAttribute("zeroCount3", zeroCount3);
 
-        int zeroCount4 = book_mapper.selectRemainSeat1(concert_date_idx, 4);
+        int zeroCount4 = book_mapper.selectRemainSeat1(performance_date_idx, 4);
         model.addAttribute("zeroCount4", zeroCount4);
 
-        int zeroCount5 = book_mapper.selectRemainSeat1(concert_date_idx, 5);
+        int zeroCount5 = book_mapper.selectRemainSeat1(performance_date_idx, 5);
         model.addAttribute("zeroCount5", zeroCount5);
 
         return "book/book_seat";
     }
 
     @PostMapping("/reserve_seats.do")
-    public String reserveSeats(@RequestParam("concert_idx") int concert_idx,
-            @RequestParam("date") String concert_date,
+    public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
+            @RequestParam("date") String performance_date,
             @RequestParam("selectedSeats") String selectedSeatsJson) {
-        // concert_date_idx를 구합니다.
-        Integer concert_date_idx = book_mapper.getConcertDateIdx(concert_idx, concert_date);
+        // performance_date_idx를 구합니다.
+        Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
 
-        if (concert_date_idx == null) {
-            // concert_date_idx가 null일 경우 처리
+        if (performance_date_idx == null) {
+            // performance_date_idx가 null일 경우 처리
             return "errorPage";
         }
 
@@ -137,27 +137,28 @@ public class BookController {
         for (Map<String, Object> seat : selectedSeats) {
             int row = ((Number) seat.get("row")).intValue();
             String col = (String) seat.get("col");
-            s_hall_mapper.updateSeatStatus(concert_date_idx, row, col);
+            s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
         }
 
         // 좌석 예약 페이지로 리다이렉트
-        return "redirect:/book/concert_seat.do?concert_idx=" + concert_idx + "&date=" + concert_date;
+        return "redirect:/book/performance_seat.do?performance_idx=" + performance_idx + "&date=" + performance_date;
     }
 
     // @RequestMapping("book_result.do")
     // public String book_result(
-    // @RequestParam("concert_idx") int concert_idx,
-    // @RequestParam("date") String concert_date,
+    // @RequestParam("performance_idx") int performance_idx,
+    // @RequestParam("date") String performance_date,
     // @RequestParam(value = "selectedSeats", required = false, defaultValue = "[]")
     // String selectedSeatsJson,
     // Model model) {
 
-    // List<S_HallVo> seats = s_hall_mapper.selectSeatsByConcertAndDate(concert_idx,
-    // concert_date);
+    // List<S_HallVo> seats =
+    // s_hall_mapper.selectSeatsByperformanceAndDate(performance_idx,
+    // performance_date);
 
     // model.addAttribute("seats", seats);
 
-    // X_ConcertVo vo = book_mapper.selectOneFromIdx(concert_idx);
+    // X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
     // model.addAttribute("vo", vo);
 
@@ -175,7 +176,7 @@ public class BookController {
     // return "error"; // 파싱 실패 시 에러 페이지로 이동
     // }
 
-    // List<S_HallVo> list = s_hall_mapper.BookedSeatList(concert_idx);
+    // List<S_HallVo> list = s_hall_mapper.BookedSeatList(performance_idx);
     // model.addAttribute("list", list);
 
     // // 선택된 좌석 정보를 Model에 추가하여 JSP로 전달
@@ -185,15 +186,15 @@ public class BookController {
     // }
     @PostMapping("/book_result.do")
     public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
-            @RequestParam("concert_idx") int concert_idx,
-            @RequestParam("date") String concert_date, Model model) {
+            @RequestParam("performance_idx") int performance_idx,
+            @RequestParam("date") String performance_date, Model model) {
 
-        List<S_HallVo> seats = s_hall_mapper.selectSeatsByConcertAndDate(concert_idx,
-                concert_date);
+        List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+                performance_date);
 
         model.addAttribute("seats", seats);
 
-        X_ConcertVo vo = book_mapper.selectOneFromIdx(concert_idx);
+        X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Alias("seat")
 public class SeatVo {
     int seat_idx;
-    int concert_idx;
+    int performance_idx;
     String seat_grade;
     int seat_price;
 }

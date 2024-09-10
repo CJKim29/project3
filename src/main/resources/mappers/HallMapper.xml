@@ -10,19 +10,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 특정 공연에 대한 좌석 조회 -->
-    <select id="selectSeatsByConcert" parameterType="int" resultType="s_hall">
+    <select id="selectSeatsByPerformance" parameterType="int" resultType="s_hall">
         SELECT s.*
         FROM s_hall s
-        JOIN concert_date cd ON s.concert_date_idx = cd.concert_date_idx
-        WHERE cd.concert_idx = #{concertIdx}
+        JOIN performance_date cd ON s.performance_date_idx = cd.performance_date_idx
+        WHERE cd.performance_idx = #{performanceIdx}
     </select>
 
     <!-- 특정 공연 날짜에 대한 좌석 조회 -->
-    <select id="selectSeatsByConcertAndDate" parameterType="map" resultType="s_hall">
+    <select id="selectSeatsByPerformanceAndDate" parameterType="map" resultType="s_hall">
         SELECT s.*
         FROM s_hall s
-        JOIN concert_date cd ON s.concert_date_idx = cd.concert_date_idx
-        WHERE cd.concert_idx = #{concert_idx} AND SUBSTRING(cd.concert_date_date, 1, 10) = #{concert_date}
+        JOIN performance_date cd ON s.performance_date_idx = cd.performance_date_idx
+        WHERE cd.performance_idx = #{performance_idx} AND SUBSTRING(cd.performance_date_date, 1, 10) = #{performance_date}
     </select>
 
     <!-- VIP 좌석 수 조회 -->
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateSeatStatus" parameterType="map">
         UPDATE s_hall
         SET ${col} = 1
-        WHERE concert_date_idx = #{concert_date_idx}
+        WHERE performance_date_idx = #{performance_date_idx}
           AND s_hall_row_no = #{row}
     </update>
 </mapper>
