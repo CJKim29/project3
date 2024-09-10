@@ -18,7 +18,12 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         font-weight: bold;
         font-size: 26px;
         text-shadow: 1px 1px 1px black;
-        color: #f7941d;
+        color: #ff1d38;
+      }
+
+      #search_btn:hover {
+        background-color: #e6e6e6;
+        color: black;
       }
 
       th {
@@ -26,12 +31,12 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       }
 
       a {
-        color: #f7941d;
+        color: #ff1d38;
         text-decoration: none;
       }
 
       a:hover {
-        color: #f7941d;
+        color: #ff1d38;
         text-decoration: none;
       }
 
@@ -93,27 +98,23 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   </head>
   <body class="js">
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
-    <div class="blog-single shop-blog grid section" style="padding-top: 50px">
+    <div class="blog-single shop-blog grid section" style="padding-top: 30px">
       <div class="container">
-        <h3 id="title">
-          ::::Q&A페이지::::
-          <img src="../resources/images/김치쿵야.png" />
-        </h3>
+        <h3 id="title" style="margin-bottom: 5px">::::Q&A페이지::::</h3>
 
         <div class="row">
-          <!-- 양쪽 끝에 배치 -->
-          <div style="text-align: right">
-            <input
-              class="btn"
-              style="background: #f7941d; color: white"
-              type="button"
-              value="글쓰기"
-              onclick="insert_form();"
-            />
-          </div>
-          <div style="text-align: right; margin-bottom: 5px">
+          <div style="text-align: right; margin-bottom: 10px">
             <form class="form-inline">
-              <select id="search" class="form-control">
+              <select
+                id="search"
+                class="form-control"
+                style="
+                  height: 40px;
+                  font-size: 16px;
+                  margin-right: 5px;
+                  margin-left: 510px;
+                "
+              >
                 <option value="all">전체보기</option>
                 <option value="qna_title">제목</option>
                 <option value="mem_nickname">작성자</option>
@@ -125,19 +126,35 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 id="search_text"
                 class="form-control"
                 value="${ param.search_text }"
+                style="
+                  height: 40px;
+                  margin-right: 5px;
+                  font-size: 16px;
+                  width: 200px;
+                "
               />
 
               <input
+                id="search_btn"
                 type="button"
-                class="btn btn-primary"
+                class="btn"
                 value="검색"
                 onclick="find();"
+                style="height: 40px; margin-right: 5px"
+              />
+
+              <input
+                class="btn"
+                style="background: #ff1d38; color: white"
+                type="button"
+                value="질문하기"
+                onclick="insert_form();"
               />
             </form>
           </div>
 
           <table class="table" style="margin-bottom: 0">
-            <tr style="background: #f7941d">
+            <tr style="background: #ff1d38">
               <th>번호</th>
               <th style="width: 50%">제목</th>
               <th>작성자</th>
@@ -170,8 +187,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     <c:if test="${ vo.qna_use eq 'n' }"> 답변 미완료 </c:if>
                     <c:if test="${ vo.qna_use eq 'y' }">
                       <c:if test="${ vo.qna_cmt_count ne 0 }">
-                        <span class="badge" style="background: #f7941d"
-                          >&nbsp; 답변 완료</span
+                        <span
+                          class="badge"
+                          style="background: #ff1d38; font-size: 16px"
+                          >답변 완료</span
                         >
                       </c:if>
                     </c:if>

@@ -12,6 +12,7 @@
 <style type="text/css">
 		
 	#title {
+		color: #ff1d38;
 		text-align: center;
 		font-weight: bold;
 		font-size: 26px;
@@ -23,12 +24,12 @@
 	}
 	
 	a {
-		color: #f7941d;
+		color: #ff1d38;
 		text-decoration: none;
 	}
 	
 	a:hover {
-		color: #f7941d;
+		color: #ff1d38;
 		text-decoration: none;
 	}
 	
@@ -51,7 +52,7 @@
 	
 	.toggle-btn {
 		cursor: pointer;
-		color: #f7941d;
+		color: #ff1d38;
 	}
 
 </style>
@@ -89,18 +90,16 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 	<div class="blog-single shop-blog grid section" style="padding-top: 50px">
 		<div class="container">
-			<h3 id="title">::::FAQ페이지::::		
-				<img src="../resources/images/김치쿵야.png">
-				</h3>
+			<h3 id="title" >::::FAQ페이지::::</h3>
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
             <c:if test="${ user.mem_grade eq '관리자' }">     
-				<input class="btn" style="background: #f7941d; color: white;" type="button" value="글쓰기"
+				<input class="btn" style="background: #ff1d38; color: white;" type="button" value="등록"
 					   onclick="insert_form();">                     
             </c:if>
 	
 		<table class="table" style="margin-bottom: 0">
-			<tr style="background: #f7941d;">
+			<tr style="background: #ff1d38;">
 				<th>번호</th>
 				<th style="width: 50%;">제목</th>
 				<th>작성일자</th>
@@ -122,7 +121,7 @@
 					<td>${ vo.faq_no }</td>
 					<td>
                             <span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')">${ vo.faq_title }&nbsp;&nbsp;&nbsp; V</span>
-                            <div id="content-${vo.faq_no}" class="faq_content">
+                            <div id="content-${vo.faq_no}" class="faq_content" style="background: #f3f3f3;">
 							    ${ vo.faq_content }
 						    </div>
 					</td>
@@ -130,9 +129,9 @@
                         ${ vo.faq_regdate }
                       <!-- 관리자 계정만 수정/삭제 -->
 					<c:if test="${ user.mem_grade eq '관리자' }">
-						<input class="btn btn-success" type="button" value="수정하기"
+						<input class="btn" type="button" value="수정" style="background: #5cb85c; color: white;"
 							   onclick="location.href='modify_form.do?faq_idx=${ vo.faq_idx }'">
-						<input class="btn btn-danger" type="button" value="삭제하기"
+						<input class="btn btn-danger" type="button" value="삭제" style="background: #d9534f; color: white;"
 							   onclick="del('${ vo.faq_idx }');">
 					</c:if>
                     </td>

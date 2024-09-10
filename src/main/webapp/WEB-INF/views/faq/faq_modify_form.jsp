@@ -18,19 +18,6 @@ pageEncoding="UTF-8"%>
         margin: auto;
         margin-top: 10%;
       }
-      @font-face {
-        font-family: "ONE-Mobile-POP";
-        src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff")
-          format("woff");
-        font-weight: normal;
-        font-style: normal;
-      }
-
-      * {
-        font-family: "ONE-Mobile-POP";
-        text-shadow: #f7941d;
-        color: #f7941d;
-      }
 
       textarea {
         resize: none;
@@ -73,7 +60,7 @@ pageEncoding="UTF-8"%>
       <input type="hidden" name="faq_idx" value="${ param.faq_idx }" />
       <div id="box">
         <div class="panel panel-primary">
-          <div class="panel-heading" style="background: #f7941d !important">
+          <div class="panel-heading" style="background: #ff1d38 !important">
             <h4>수정하기</h4>
           </div>
           <div class="panel-body">

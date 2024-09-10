@@ -37,15 +37,6 @@
 </head>
 <body>
 
-	<!-- Page Menu (Paging 클래스에서 처리) -->
-	<c:if test="${ not empty list}">
-		${ pageMenu }
-	</c:if>
-<!-- 	<ul class="pagination">
-		<li><a href="#" onclick="comment_list(1);">1</a></li>
-		<li><a href="#" onclick="comment_list(2);">2</a></li>
-	</ul> -->
-
 	<!-- for(CommentVo vo : list) -->
 	<c:forEach var="vo" items="${ list }">
 		<!-- 자신의 글만 삭제메뉴 활성화 -->
@@ -59,5 +50,11 @@
 		<div>${ vo.qna_cmt_content }</div>
 		<hr>
 	</c:forEach>
+
+	<c:if test="${ not empty list}">
+		<div style="text-align: center;">
+			${ pageMenu }
+		</div>
+	</c:if>
 </body>
 </html>

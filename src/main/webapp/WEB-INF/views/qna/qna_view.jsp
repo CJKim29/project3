@@ -16,18 +16,6 @@
 		margin: auto;
 		margin-top: 1%;
 	}
-		@font-face {
-	    font-family: 'ONE-Mobile-POP';
-	    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
-	}
-	
-	* {
-		font-family: 'ONE-Mobile-POP';
-		text-shadow: orange;
-		color: #f7941d;
-	}
 	
 	textarea{
 		resize: none;
@@ -155,7 +143,7 @@
 <body>
 	<div id="box">
 		<div class="panel panel-primary">
-			<div class="panel-heading" style="background: #f7941d;"><b style="color: white;">${ vo.mem_nickname }</b>님의 글</div>
+			<div class="panel-heading" style="background: #ff1d38;"><b style="color: white;">${ vo.mem_nickname }</b>님의 글</div>
 			<div class="panel-body">
 				<div class="common subject">${ vo.qna_title}</div>
 				<div class="common content">${ vo.qna_content }</div>
@@ -184,7 +172,7 @@
 				<textarea rows="3" id="qna_cmt_content" placeholder="답변을 남겨주세요."></textarea>
 			</div>
 			<div class="col-sm-2">
-				<input id="btn_cmt_register" type="button" value="댓글쓰기" 
+				<input id="btn_cmt_register" type="button" value="답변하기" 
 					   onclick="comment_insert();">
 			</div>
 		</div>
@@ -198,7 +186,7 @@
 				<c:if test="${ user.mem_idx eq vo.mem_idx }">
 					<div style="text-align: right;">
 						<input type="button" value="x"
-							style="background: #f7941d; color: white;"
+							style="background: #ff1d38; color: white;"
 							onclick="comment_delete('${ vo.qna_cmt_idx}');">
 					</div>
 				</c:if>
