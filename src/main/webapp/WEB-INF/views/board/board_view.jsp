@@ -159,13 +159,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
 				  <div>
 					<input class="btn" style="background: brown;" type="button" value="목록보기"
-						   onclick="location.href='list.do'">
-						   
-					<!-- 로그인된 상태에서만 등록가능 -->	
-					<c:if test="${ (not empty user) and (vo.board_depth le 1) }">  
-						<input class="btn" style="background: #ff1d38;" type="button" value="답글쓰기"
-							   onclick="location.href='reply_form.do?board_idx=${ vo.board_idx }'">
-					</c:if> 
+						   onclick="location.href='list.do'"> 
 					
 					<!-- 글의 주인만 수정/삭제 -->
 					<c:if test="${ vo.mem_idx eq user.mem_idx }">

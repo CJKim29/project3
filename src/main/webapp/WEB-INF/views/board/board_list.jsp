@@ -211,17 +211,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <!-- 데이터가 있는 경우-->
               <c:forEach var="vo" items="${ list }">
                 <tr>
-                  <td>${ vo.board_idx }</td>
+                  <td>${ vo.board_no }</td>
 
                   <td>
-                    <!-- 답글이면 b_depth만큼 들여쓰기 -->
-                    <c:forEach begin="1" end="${ vo.board_depth }">
-                      &nbsp;&nbsp;&nbsp;
-                    </c:forEach>
-
-                    <!-- 답글이면 -->
-                    <c:if test="${ vo.board_depth ne 0 }"> 답글:ㄴ> </c:if>
-
                     <!-- 삭제된 게시물 -->
                     <c:if test="${ vo.board_use eq 'n' }">
                       <font color="red"
@@ -236,8 +228,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                         <a href="view.do?board_idx=${ vo.board_idx }">
                           ${ vo.board_name }
                           <c:if test="${ vo.cmt_count ne 0 }">
-                            <span class="badge" style="background: #ff1d38"
-                              >&nbsp;${ vo.cmt_count }</span
+                            <span style="color: #ff1d38; font-size: 10px"
+                              >&nbsp;(${ vo.cmt_count })</span
                             >
                           </c:if>
                         </a>

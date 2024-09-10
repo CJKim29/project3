@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
           </div>
           <div class="panel-body">
             <div>
-              <h4>카테고리 :</h4>
+              <h4>카테고리</h4>
               <select class="form-control" name="board_cate_idx">
                 <option value="1">뮤지컬</option>
                 <option value="2">콘서트</option>
@@ -81,11 +81,11 @@ pageEncoding="UTF-8"%>
               </select>
             </div>
             <div>
-              <h4>제목 :</h4>
+              <h4>제목</h4>
               <input class="form-control" name="board_name" />
             </div>
             <div>
-              <h4>내용 :</h4>
+              <h4>내용</h4>
               <textarea
                 class="form-control"
                 rows="10"
