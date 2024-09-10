@@ -42,9 +42,9 @@ public class MainController {
         return "main/main";
     }
 
-    @RequestMapping("sample.do")
-    public String sample(Model model) {
-        return "main/sample"; // `WEB-INF/views/main/sample.jsp`로 매핑
+    @RequestMapping("cart.do")
+    public String cart(Model model) {
+        return "main/cart"; // `WEB-INF/views/main/cart.jsp`로 매핑
     }
 
 

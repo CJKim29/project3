@@ -193,7 +193,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- Search Form -->
                 <!-- 장바구니 버튼 부분 -->
                 <div class="sinlge-bar shopping">
-                  <a href="cart.html" class="single-icon"
+                  <a href="../main/cart.do" class="single-icon"
                     ><i class="ti-bag"></i
                   ></a>
                   <!-- Shopping Item -->
