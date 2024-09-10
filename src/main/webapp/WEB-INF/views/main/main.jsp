@@ -21,15 +21,15 @@
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
 						 <a href="">
-							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바시카고.png');">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드용시카고2.png');">
 							</div>
 						</a>
 						<a href="">
-							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니.png');">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드용킹키부츠2.png');">
 							</div>
 						</a>
 						<a href="">
-							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바킹키부츠.png');">
+							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니2.png');">
 							</div>
 						</a>
 					</div>

@@ -1224,7 +1224,7 @@ Version:1.0
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-    height: 510px;
+    height: 500px;
 	margin-top:0px;
 	position:relative;
 }
@@ -4538,11 +4538,15 @@ Version:1.0
 .footer{
 	background:#222;
 }
+.footer .footer-top{
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
 .footer .about {
 	padding-right: 50px;
 }
 .footer .single-footer h4 {
-	font-size: 17px;
+	font-size: 14px;
 	font-weight: 600;
 	color: #fff;
 	text-transform: capitalize;
@@ -4566,7 +4570,7 @@ Version:1.0
 }
 .footer .about .call a {
 	color: #f7941d;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: 600;
 }
 .footer .links ul{}
