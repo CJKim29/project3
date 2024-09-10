@@ -4,56 +4,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.DetailMapper">
 
-    <resultMap id="concertMap" type="concert">
-        <result property="hall_idx" column="hall_idx"/>
-        <result property="concert_cate_idx" column="concert_cate_idx"/>
-        <result property="concert_idx" column="concert_idx"/>
-        <result property="seat_idx" column="seat_idx"/>
+      <resultMap id="performanceMap" type="performance">
+            <result property="hall_idx" column="hall_idx"/>
+            <result property="performance_cate_idx" column="performance_cate_idx"/>
+            <result property="performance_idx" column="performance_idx"/>
+            <result property="seat_idx" column="seat_idx"/>
 
-        <association property="concertCateVo" column="concert_cate_idx=concert_cate_idx" select="concert_cate_list" />
-        <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
-        <collection property="seatList" column="concert_idx=concert_idx" select="seat_list" />
-    </resultMap>
+            <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
+            <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+            <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
+      </resultMap>
 
-    <select id="concert_cate_list" resultType="concert_cate">
-	   select * from concert_cate where concert_cate_idx=#{ concert_cate_idx }
-    </select>
-    <select id="hall_list" resultType="hall">
+      <select id="performance_cate_list" resultType="performance_cate">
+	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
+      </select>
+      <select id="hall_list" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-    </select>
-    <select id="seat_list" resultType="seat">
-       select * from seat where concert_idx=#{ concert_idx }
-    </select>
+      </select>
+      <select id="seat_list" resultType="seat">
+       select * from seat where performance_idx=#{ performance_idx }
+      </select>
 
 
-    <!-- 전체조회 -->
-    <select id="selectList" resultMap="concertMap">
-		select * from concert order by concert_idx
-    </select>
+      <!-- 전체조회 -->
+      <select id="selectList" resultMap="performanceMap">
+		select * from performance order by performance_idx
+      </select>
 
-    <!-- idx조회 -->
-    <select id="selectOneFromIdx" resultMap="concertMap">
-		select * from concert where concert_idx=#{ concert_idx }
-    </select>
+      <!-- idx조회 -->
+      <select id="selectOneFromIdx" resultMap="performanceMap">
+		select * from performance where performance_idx=#{ performance_idx }
+      </select>
 
-    <!-- 좋아요 클릭 유무 -->
-    <select id="findLike" resultType="int">
-		select count(*) from concert_ex_like where concert_idx=#{concert_idx} and mem_idx=#{mem_idx}
-    </select>
+      <!-- 좋아요 유무 -->
+      <select id="findLike" resultType="Boolean">
+		select count(*) from performance_ex_like where performance_idx=#{performance_idx} and mem_idx=#{mem_idx}
+      </select>
 
-    <!-- 좋아요 수 -->
-    <insert id="likeUp">
-		insert into concert_ex_like values(null,
-											#{concert_idx}, 
-											#{mem_idx},
-											#{like_number}
-											)
-    </insert>
+      <!-- 좋아요 추가 -->
+      <insert id="likeUp">
+		INSERT INTO performance_ex_like (performance_idx, mem_idx, like_number)
+        VALUES (#{performance_idx}, #{mem_idx}, 1)
+      </insert>
 
-    <!-- 좋아요 취소 -->
-    <delete id="likeDown">
-		delete from concert_ex_like 
-			where concert_idx = #{concert_idx} and 
+      <!-- 좋아요 취소 -->
+      <delete id="likeDown">
+		delete from performance_ex_like 
+			where performance_idx = #{performance_idx} and 
 					mem_idx = #{mem_idx}
-    </delete>
+      </delete>
+
+      <update id="updateLikeNumber">
+        UPDATE performance_ex_like
+        SET like_number = like_number + 1
+        WHERE performance_idx = #{performance_idx} AND mem_idx = #{mem_idx}
+      </update>
+
+      <!-- 좋아요 수 -->
+      <select id="selectLikeNumber" resultType="int">
+        SELECT like_number
+        FROM performance_ex_like
+        WHERE performance_idx = #{performance_idx} AND mem_idx = #{mem_idx}
+      </select>
+
 </mapper>

@@ -86,22 +86,51 @@
 							'GRAD' 0,
 							'opsz' 24
 					}
+
+					/* #love:hover {
+						background-color: blue;
+					} */
+					isLiked {
+						background-color: #ff1d38;
+					}
 				</style>
 
 				<script>
-					function showLoc(concert_idx) {
+					function showLoc(performance_idx) {
 						$("#myModal").modal({ backdrop: "static" });
 						loadMap();
 					}
+				</script>
 
-					// function showLove(){
-					// 	var love = {
-					// 		concert_idx : concert_idx,
-					// 		mem_idx 	: mem_idx
-					// 	};
-					//}
+				<script type="text/javascript">
+
+					function handleLikeClick() {
+						var isLoggedIn = 'session.getAttribute("mem_idx") != null';
+
+						if (isLoggedIn === 'false') {
+
+							// 로그인 여부 체크
+							if ("${empty user}" == "true") {
+
+								if (confirm("글쓰기는 로그인 후 가능합니다\n로그인 하시겠습니까?") == false) return;
+
+								// 로그인폼으로 이동
+								location.href = "../member/login_form.do";
+
+								return;
+							}
+
+							// 새글 쓰기 폼 띄우기
+							location.href = "insert_form.do";
+							alert("로그인이 필요합니다.");
+							window.location.href = "<c:url value='../member/member_login_form' />";
+						} else {
+							window.location.href = "<c:url value='/detail/toggleLike.do?performance_idx='/>" + '<%= request.getParameter("performance_idx") %>';
+						}
+					}
 
 				</script>
+
 				<script type="text/javascript"
 					src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nd1wf0zz1p"></script>
 				<script type="text/javascript"
@@ -116,19 +145,19 @@
 
 			<body class="js">
 
-				 <!-- Preloader -->
-				 <div class="preloader">
+				<!-- Preloader -->
+				<div class="preloader">
 					<div class="preloader-inner">
-					  <div class="preloader-icon">
-						<span></span>
-						<span></span>
-					  </div>
+						<div class="preloader-icon">
+							<span></span>
+							<span></span>
+						</div>
 					</div>
-				  </div>
-				  <!-- End Preloader -->
-			  
-				  <!-- Eshop Color Plate -->
-				  <div class="color-plate">
+				</div>
+				<!-- End Preloader -->
+
+				<!-- Eshop Color Plate -->
+				<div class="color-plate">
 					<a class="color-plate-icon"><i class="ti-paint-bucket"></i></a>
 					<h4>Eshop Colors</h4>
 					<p>Here is some awesome color's available on Eshop Template.</p>
@@ -144,176 +173,163 @@
 					<span class="color10"></span>
 					<span class="color11"></span>
 					<span class="color12"></span>
-				  </div>
-				  <!-- /End Color Plate -->
-			  
-				  <!-- Header -->
-			  
-				  <!-- 맨 위의 로그인, 마이페이지 버튼 부분  -->
-				  <header class="header shop">
+				</div>
+				<!-- /End Color Plate -->
+
+				<!-- Header -->
+
+				<!-- 맨 위의 로그인, 마이페이지 버튼 부분  -->
+				<header class="header shop">
 					<!-- Topbar -->
 					<div class="topbar">
-					  <div class="container">
-						<div class="inner-content">
-						  <div class="row">
-							<div class="col-lg-8 col-md-12 col-12">
-							  <!-- Top Left -->
-							  <div class="top-left">
-								<ul class="list-main"></ul>
-							  </div>
-							  <!--/ End Top Left -->
+						<div class="container">
+							<div class="inner-content">
+								<div class="row">
+									<div class="col-lg-8 col-md-12 col-12">
+										<!-- Top Left -->
+										<div class="top-left">
+											<ul class="list-main"></ul>
+										</div>
+										<!--/ End Top Left -->
+									</div>
+									<!-- Top Right -->
+									<div class="right-content">
+										<ul class="list-main">
+											<!-- 로그인이 안된 경우 -->
+											<c:if test="${ empty user }">
+												<li>
+													<i class="ti-power-off"></i><a
+														href="../member/insert_form.do">회원가입</a>
+												</li>
+												<li>
+													<i class="ti-power-off"></i><a
+														href="../member/login_form.do">로그인</a>
+												</li>
+											</c:if>
+											<!-- 로그인이 된 경우 -->
+											<c:if test="${ not empty sessionScope.user }">
+												<li>
+													<i class="ti-power-off"></i><a href="#">회원정보</a>
+												</li>
+												<li>
+													<b>${ user.mem_nickname }님</b>
+													<a href="../member/logout.do">로그아웃</a>
+												</li>
+											</c:if>
+											<li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
+										</ul>
+									</div>
+									<!-- End Top Right -->
+								</div>
 							</div>
-							<!-- Top Right -->
-							<div class="right-content">
-							  <ul class="list-main">
-								<!-- 로그인이 안된 경우 -->
-								<c:if test="${ empty user }">
-								  <li>
-									<i class="ti-power-off"></i
-									><a href="../member/insert_form.do">회원가입</a>
-								  </li>
-								  <li>
-									<i class="ti-power-off"></i
-									><a href="../member/login_form.do">로그인</a>
-								  </li>
-								</c:if>
-								<!-- 로그인이 된 경우 -->
-								<c:if test="${ not empty sessionScope.user }">
-								  <li>
-									<i class="ti-power-off"></i><a href="#">회원정보</a>
-								  </li>
-								  <li>
-									<b>${ user.mem_nickname }님</b>
-									<a href="../member/logout.do">로그아웃</a>
-								  </li>
-								</c:if>
-								<li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
-							  </ul>
-							</div>
-							<!-- End Top Right -->
-						  </div>
 						</div>
-					  </div>
 					</div>
 					<!-- End Topbar -->
 					<div class="middle-inner">
-					  <div class="container">
-						<div class="row">
-						  <div class="col-lg-2 col-md-2 col-12">
-							<!-- Logo  -->
-							<div class="logo">
-							  <a href=""
-								><img
-								  src="../resources/template/images/logo_TIMOA1.png"
-								  alt="logo"
-							  /></a>
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-2 col-md-2 col-12">
+									<!-- Logo  -->
+									<div class="logo">
+										<a href=""><img src="../resources/template/images/logo_TIMOA1.png"
+												alt="logo" /></a>
+									</div>
+									<!--/ End Logo -->
+									<div class="search-top">
+										<div class="top-search">
+											<a href="#0"><i class="ti-search"></i></a>
+										</div>
+										<!-- Search Form -->
+										<div class="search-top">
+											<form class="search-form">
+												<input type="text" placeholder="Search here..." name="search" />
+												<button value="search" type="submit">
+													<i class="ti-search"></i>
+												</button>
+											</form>
+										</div>
+										<!--/ End Search Form -->
+									</div>
+									<!--  검색창 카테고리  -->
+									<div class="mobile-nav"></div>
+								</div>
+								<div class="col-lg-8 col-md-7 col-12">
+									<div class="search-bar-top">
+										<div class="search-bar">
+											<select>
+												<option selected="selected">카테고리</option>
+												<option>뮤지컬</option>
+												<option>콘서트</option>
+												<option>연극</option>
+											</select>
+											<!-- search 검색 -->
+											<form>
+												<input name="search" placeholder="찾으실 공연을 입력해주세요" type="search" />
+												<button class="btnn"><i class="ti-search"></i></button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-3 col-12">
+									<div class="right-bar">
+										<!-- Search Form -->
+										<!-- 장바구니 버튼 부분 -->
+										<div class="sinlge-bar shopping">
+											<a href="cart.html" class="single-icon"><i class="ti-bag"></i></a>
+											<!-- Shopping Item -->
+											<!-- 장바구니 부분 상세 삭제함 -->
+										</div>
+									</div>
+								</div>
 							</div>
-							<!--/ End Logo -->
-							<div class="search-top">
-							  <div class="top-search">
-								<a href="#0"><i class="ti-search"></i></a>
-							  </div>
-							  <!-- Search Form -->
-							  <div class="search-top">
-								<form class="search-form">
-								  <input
-									type="text"
-									placeholder="Search here..."
-									name="search"
-								  />
-								  <button value="search" type="submit">
-									<i class="ti-search"></i>
-								  </button>
-								</form>
-							  </div>
-							  <!--/ End Search Form -->
-							</div>
-							<!--  검색창 카테고리  -->
-							<div class="mobile-nav"></div>
-						  </div>
-						  <div class="col-lg-8 col-md-7 col-12">
-							<div class="search-bar-top">
-							  <div class="search-bar">
-								<select>
-								  <option selected="selected">카테고리</option>
-								  <option>뮤지컬</option>
-								  <option>콘서트</option>
-								  <option>연극</option>
-								</select>
-								<!-- search 검색 -->
-								<form>
-								  <input
-									name="search"
-									placeholder="찾으실 공연을 입력해주세요"
-									type="search"
-								  />
-								  <button class="btnn"><i class="ti-search"></i></button>
-								</form>
-							  </div>
-							</div>
-						  </div>
-						  <div class="col-lg-2 col-md-3 col-12">
-							<div class="right-bar">
-							  <!-- Search Form -->
-							  <!-- 장바구니 버튼 부분 -->
-							  <div class="sinlge-bar shopping">
-								<a href="cart.html" class="single-icon"
-								  ><i class="ti-bag"></i
-								></a>
-								<!-- Shopping Item -->
-								<!-- 장바구니 부분 상세 삭제함 -->
-							  </div>
-							</div>
-						  </div>
 						</div>
-					  </div>
 					</div>
 					<!-- Header2 부분 검색창 바로 밑 -->
 					<!-- 메인 카테고리 부분 -->
 					<div class="header-inner">
-					  <div class="container">
-						<div class="cat-nav-head">
-						  <div class="row">
-							<div class="col-12">
-							  <div class="menu-area">
-								<!-- Main Menu -->
-								<nav class="navbar navbar-expand-lg">
-								  <div class="navbar-collapse">
-									<div class="nav-inner">
-									  <ul class="nav main-menu menu navbar-nav">
-										<li class="active"><a href="">Home</a></li>
-										<li><a href="../main/sample.jsp">뮤지컬</a></li>
-										<li><a href="">콘서트(보류)</a></li>
-										<li><a href="">연극(보류)</a></li>
-										<li>
-										  <a href="">고객센터<i class="ti-angle-down"></i></a>
-										  <ul class="dropdown">
-											<li><a href="board-List.html">공지사항</a></li>
-											<li><a href="board-List.html">FAQ</a></li>
-											<li>
-											  <a href="board-List.html">게시판 리스트</a>
-											</li>
-											<li><a href="board-main.html">게시판 상세</a></li>
-										  </ul>
-										</li>
-									  </ul>
+						<div class="container">
+							<div class="cat-nav-head">
+								<div class="row">
+									<div class="col-12">
+										<div class="menu-area">
+											<!-- Main Menu -->
+											<nav class="navbar navbar-expand-lg">
+												<div class="navbar-collapse">
+													<div class="nav-inner">
+														<ul class="nav main-menu menu navbar-nav">
+															<li class="active"><a href="">Home</a></li>
+															<li><a href="../main/sample.jsp">뮤지컬</a></li>
+															<li><a href="">콘서트(보류)</a></li>
+															<li><a href="">연극(보류)</a></li>
+															<li>
+																<a href="">고객센터<i class="ti-angle-down"></i></a>
+																<ul class="dropdown">
+																	<li><a href="board-List.html">공지사항</a></li>
+																	<li><a href="board-List.html">FAQ</a></li>
+																	<li>
+																		<a href="board-List.html">게시판 리스트</a>
+																	</li>
+																	<li><a href="board-main.html">게시판 상세</a></li>
+																</ul>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</nav>
+											<!--/ End Main Menu -->
+										</div>
 									</div>
-								  </div>
-								</nav>
-								<!--/ End Main Menu -->
-							  </div>
+								</div>
 							</div>
-						  </div>
 						</div>
-					  </div>
 					</div>
 					<!--/ End Header Inner -->
-				  </header>
-				  <!--/ End Header -->
+				</header>
+				<!--/ End Header -->
 
 				<!-- Shop Single -->
 				<section class="shop single section">
-					<input type="hidden" name="concert_idx" value="${ vo.concert_idx }">
+					<input type="hidden" name="performance_idx" value="${ vo.performance_idx }">
 					<div class="container">
 						<div class="row">
 							<div class="col-12">
@@ -324,7 +340,7 @@
 											<!-- Images slider -->
 											<div style="width: 300px; height: 435px;">
 												<img style="height: 433px;" class="hall_img"
-													src="../resources/images/${ vo.concert_image }">
+													src="../resources/images/${ vo.performance_image }">
 											</div>
 											<!-- End Images slider -->
 										</div>
@@ -334,7 +350,7 @@
 										<div class="product-des">
 											<!-- Description -->
 											<div class="short" style="display: inline-block; margin-top: 5px;">
-												<h4>${vo.concert_name}</h4>
+												<h4>${vo.performance_name}</h4>
 												<div class="rating-main">
 													<ul class="rating">
 														<li><i class="fa fa-star"></i></li>
@@ -346,14 +362,15 @@
 													<a href="#" class="total-review">(102) Review</a>
 												</div>
 												<p class="price"><span class="discount">장소</span> <a href="#"
-														onclick="showLoc(`${vo.concert_idx}`)">${vo.hallVo.hall_name}<i
+														onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i
 															class="fi fi-sr-caret-right"></i></a></p>
 												<p class="price"><span
-														class="discount">공연기간</span>${vo.concert_startday}~${vo.concert_endday}
+														class="discount">공연기간</span>${vo.performance_startday}~${vo.performance_endday}
 												</p>
 												<p class="price"><span
-														class="discount">공연시간</span>${vo.concert_runtime}분</p>
-												<p class="price"><span class="discount">관람연령</span>${vo.concert_age}세 이상
+														class="discount">공연시간</span>${vo.performance_runtime}분</p>
+												<p class="price"><span
+														class="discount">관람연령</span>${vo.performance_age}세 이상
 													관람가능
 												</p>
 												<p class="price" style="display: grid; grid-template-columns: 18% 84%;">
@@ -379,8 +396,18 @@
 											<div class="product-buy">
 												<div class="add-to-cart">
 													<a href="#" class="btn">예매하기</a>
-													<button type="button" id="love" class="btn min">
-														<i class="ti-heart"></i>
+													<button type="button" id="love" class="btn min"
+														onclick="handleLikeClick()">
+														<c:choose>
+															<c:when test="${isLiked}">
+																<i class="ti-heart"></i>
+																${likeCount}
+															</c:when>
+															<c:otherwise>
+																<i class="ti-heart"></i>
+																${likeCount}
+															</c:otherwise>
+														</c:choose>
 													</button>
 													<!-- <i class="ti-heart"></i> -->
 													<!-- <i class="fa-solid fa-heart" style="color: #ffffff;"></i> -->
@@ -975,7 +1002,7 @@
 					</div>
 				</div>
 
-				<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
+				<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
 				<!-- Jquery -->
 				<script src="../resources/template/js/jquery.min.js"></script>
