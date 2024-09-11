@@ -58,11 +58,11 @@
 								<!-- Tab Nav -->
 								 <!-- nav와 data-toggle을 이용한 부트스트랩 -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#concert1" role="tab">로맨틱코미디</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert2" role="tab">드라마</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert3" role="tab">코믹</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert4" role="tab">공포&스릴러</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#concert5" role="tab">어린이</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#performance1" role="tab">로맨틱코미디</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance2" role="tab">드라마</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance3" role="tab">코믹</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance4" role="tab">공포&스릴러</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance5" role="tab">어린이</a></li>
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
@@ -70,7 +70,7 @@
 								<!-- Start Single Tab -->
 								 <!-- 뮤지컬 부분 -->
 								  <!-- 장르1 -->
-								<div class="tab-pane fade show active" id="concert1" role="tabpanel">
+								<div class="tab-pane fade show active" id="performance1" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -140,7 +140,7 @@
 								<!--/ End Single Tab -->
 
 								<!-- 장르2 부분 -->
-								<div class="tab-pane fade" id="concert2" role="tabpanel">
+								<div class="tab-pane fade" id="performance2" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -209,7 +209,7 @@
 								<!--/ End Single Tab -->
 
 								<!-- 장르3 부분 -->
-								<div class="tab-pane fade" id="concert3" role="tabpanel">
+								<div class="tab-pane fade" id="performance3" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -278,7 +278,7 @@
 								<!--/ End Single Tab -->
 
 								<!-- 장르4 부분 -->
-								<div class="tab-pane fade" id="concert4" role="tabpanel">
+								<div class="tab-pane fade" id="performance4" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
@@ -348,7 +348,7 @@
 							
 
 								<!-- 장르5 부분 -->
-								<div class="tab-pane fade" id="concert5" role="tabpanel">
+								<div class="tab-pane fade" id="performance5" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">

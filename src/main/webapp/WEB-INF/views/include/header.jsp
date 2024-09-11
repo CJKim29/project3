@@ -151,7 +151,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </div>
                 <!-- Search Form -->
                 <div class="search-top">
-                  <form class="search-form" action="concert_list.jsp" method="get">
+                  <form class="search-form" action="" method="get">
                     <input
                       type="text"
                       placeholder="Search here..."
@@ -193,7 +193,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- Search Form -->
                 <!-- 장바구니 버튼 부분 -->
                 <div class="sinlge-bar shopping">
-                  <a href="../main/concert_like.do" class="single-icon"
+                  <a href="../main/performance_like.do" class="single-icon"
                     ><i class="ti-bag"></i
                   ></a>
                   <!-- Shopping Item -->
@@ -218,7 +218,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
                           <li class="active"><a href="../main/list.do">Home</a></li>
-                          <li><a href="../concert/list.do">뮤지컬</a></li>
+                          <li><a href="../performance/list.do">뮤지컬</a></li>
                           <li><a href="">콘서트(보류)</a></li>
                           <li><a href="">연극(보류)</a></li>
                           <li>
