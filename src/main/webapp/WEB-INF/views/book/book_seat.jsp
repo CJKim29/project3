@@ -84,7 +84,7 @@
                         margin-right: 20px;
                     }
 
-                    .seat.seat-row-1,
+                    /* .seat.seat-row-1,
                     .seat.seat-row-2 {
                         background-color: rgb(187, 73, 187);
                     }
@@ -97,6 +97,22 @@
                     .seat.seat-row-5,
                     .seat.seat-row-6 {
                         background-color: rgb(40, 204, 216);
+                    } */
+
+                    .purple {
+                        background-color: purple;
+                    }
+
+                    .green {
+                        background-color: green;
+                    }
+
+                    .blue {
+                        background-color: blue;
+                    }
+
+                    .initial {
+                        background-color: initial;
                     }
                 </style>
 
@@ -268,7 +284,7 @@
                     <c:forEach var="seat" items="${seats}">
                         <div>
                             <c:choose>
-                                <c:when test="${seat.s_hall_row_no <= 6}">
+                                <c:when test="${seat.s_hall_row_no <= 0}">
                                     <!-- 기본 색상 클래스 유지 -->
                                     <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
                                         data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
@@ -314,20 +330,64 @@
                                 </c:when>
                                 <c:otherwise>
                                     <c:choose>
-                                        <c:when test="${fn:length(vo.seatList) == 5}">
+                                        <c:when test="${fn:length(vo.seatList) == 1}">
+                                            <c:set var="rowClass" value="seat-purple" />
+                                        </c:when>
+                                        <c:when test="${fn:length(vo.seatList) == 2}">
                                             <c:choose>
-                                                <c:when test="${seat.s_hall_row_no == 9 || seat.s_hall_row_no == 10}">
-                                                    <c:set var="rowClass" value="seat-navy" />
+                                                <c:when
+                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                    <c:set var="rowClass" value="seat-purple" />
                                                 </c:when>
                                                 <c:otherwise>
+                                                    <c:set var="rowClass" value="seat-green" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:when>
+                                        <c:when test="${fn:length(vo.seatList) == 3}">
+                                            <c:choose>
+                                                <c:when
+                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3}">
+                                                    <c:set var="rowClass" value="seat-purple" />
+                                                </c:when>
+                                                <c:when
+                                                    test="${seat.s_hall_row_no == 4 || seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                    <c:set var="rowClass" value="seat-green" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="rowClass" value="seat-blue" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:when>
+                                        <c:when test="${fn:length(vo.seatList) == 5}">
+                                            <c:choose>
+                                                <c:when test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                    <c:set var="rowClass" value="seat-purple" />
+                                                </c:when>
+                                                <c:when test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                    <c:set var="rowClass" value="seat-green" />
+                                                </c:when>
+                                                <c:when test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                    <c:set var="rowClass" value="seat-blue" />
+                                                </c:when>
+                                                <c:when test="${seat.s_hall_row_no == 7 || seat.s_hall_row_no == 8}">
                                                     <c:set var="rowClass" value="seat-orange" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="rowClass" value="seat-navy" />
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:when>
                                         <c:otherwise>
                                             <c:choose>
-                                                <c:when test="${fn:length(vo.seatList) == 4}">
-                                                    <c:set var="rowClass" value="seat-orange" />
+                                                <c:when test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                    <c:set var="rowClass" value="seat-purple" />
+                                                </c:when>
+                                                <c:when test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                    <c:set var="rowClass" value="seat-green" />
+                                                </c:when>
+                                                <c:when test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                    <c:set var="rowClass" value="seat-blue" />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:set var="rowClass" value="seat-orange" />
