@@ -469,11 +469,11 @@
                 </div>
                 <div class="seat-container3">
                     <p>예약 현황</p>
-                    <form id="bookForm" action="book_result.do" method="post">
+                    <form id="bookForm" action="book_reservation.do" method="post">
                         <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
                         <input type="hidden" name="performance_idx" value="${param.performance_idx}">
                         <input type="hidden" name="date" value="${param.date}">
-                        <input type="button" class="btn btn-danger" value="테스트" onclick="submitBookForm()">
+                        <input type="button" class="btn btn-danger" value="장바구니" onclick="submitBookForm()">
                     </form>
                 </div>
                 </div>
@@ -537,10 +537,6 @@
 
 
                 </table>
-
-                <input class="btn btn-success" type="button" value="장바구니" data-performance-idx="${ vo.performance_idx }"
-                    onclick="location.href='book_result.do?performance_idx=${ param.performance_idx }&date=${ param.date }'">
-
 
                 <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
                 <!-- <div class="seat-container">

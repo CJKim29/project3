@@ -138,7 +138,7 @@ public class BookController {
         return "redirect:/book/performance_seat.do?performance_idx=" + performance_idx + "&date=" + performance_date;
     }
 
-    @PostMapping("/book_result.do")
+    @PostMapping("/book_reservation.do")
     public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
             @RequestParam("performance_idx") int performance_idx,
             @RequestParam("date") String performance_date, Model model) {
@@ -154,6 +154,6 @@ public class BookController {
 
         // 좌석 정보 처리
         model.addAttribute("seatInfo", seatInfo);
-        return "/book/book_result"; // book_result.jsp로 이동
+        return "/mypage/my_reservation"; // book_result.jsp로 이동
     }
 }
