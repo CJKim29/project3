@@ -150,11 +150,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <a href=""><i class="ti-search"></i></a>
                 </div>
                 <!-- Search Form -->
+                 <!-- 헤더메인검색창부분 -->
                 <div class="search-top">
                   <form class="search-form" action="" method="get">
                     <input
                       type="text"
-                      placeholder="Search here..."
+                      placeholder="여기가 검색부분..."
                       name="search"
                     />
                     <button value="search" type="submit">

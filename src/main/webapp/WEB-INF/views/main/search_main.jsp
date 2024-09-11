@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>search</title>
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
+
+    
+
+
+
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>
 </html>

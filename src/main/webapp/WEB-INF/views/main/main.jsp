@@ -57,6 +57,7 @@
 							<div class="nav-main">
 								<!-- Tab Nav -->
 								 <!-- nav와 data-toggle을 이용한 부트스트랩 -->
+								  <!-- 이미지 수정필요 -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#performance1" role="tab">로맨틱코미디</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance2" role="tab">드라마</a></li>
@@ -69,6 +70,7 @@
 							<div class="tab-content" id="myTabContent">
 								<!-- Start Single Tab -->
 								 <!-- 뮤지컬 부분 -->
+								  <!-- 이미지 수정필요 -->
 								  <!-- 장르1 -->
 								<div class="tab-pane fade show active" id="performance1" role="tabpanel">
 									<div class="tab-single">
