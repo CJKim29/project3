@@ -95,11 +95,11 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 김종욱 찾기.jpg" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html"> 뮤지컬 김종욱 찾기</a></h3>
 														<div class="product-price">
 															<span>날짜</span>
 														</div>
@@ -114,7 +114,7 @@
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html"></a></h3>
 														<div class="product-price">
 															<span>날짜</span>
 														</div>
@@ -533,7 +533,7 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/랭킹용 인사이드미.png" alt="#">
 								</a>
                             </div>
                         </div>

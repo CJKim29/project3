@@ -85,7 +85,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Header -->
 
-    <!-- 맨 위의 로그인, 마이페이지 버튼 부분  -->
+    <!-- 상단 위의 로그인, 마이페이지 버튼 부분  -->
     <header class="header shop">
       <!-- Topbar -->
       <div class="topbar">
@@ -123,7 +123,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <a href="../member/logout.do">로그아웃</a>
                     </li>
                   </c:if>
-                  <li><i class="ti-user"></i> <a href="#">마이페이지</a></li>
+                  <li><i class="ti-user"></i> <a href="../main/mypage.do">마이페이지</a></li>
                 </ul>
               </div>
               <!-- End Top Right -->
@@ -172,10 +172,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <div class="search-bar-top">
                 <div class="search-bar">
                   <select>
-                    <option selected="selected">카테고리</option>
-                    <option>뮤지컬</option>
-                    <option>콘서트</option>
-                    <option>연극</option>
+                    <option>통합검색</option>
                   </select>
                   <!-- search 검색 -->
                   <form>
@@ -193,6 +190,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <div class="right-bar">
                 <!-- Search Form -->
                 <!-- 장바구니 버튼 부분 -->
+                 <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
                 <div class="sinlge-bar shopping">
                   <a href="../main/performance_like.do" class="single-icon"
                     ><i class="ti-bag"></i
