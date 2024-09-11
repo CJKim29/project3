@@ -20,7 +20,7 @@
 						}
 
 						.content_wrap {
-							width: 30%;
+							width: 30% !important;
 							/* 각 요소의 너비 설정 */
 							margin-bottom: 30px !important;
 							/* 아래쪽 여백 설정 */
@@ -38,6 +38,7 @@
 						}
 
 						.performance_name {
+							width: 300px !important;
 							font-size: 25px;
 							font-weight: bold;
 							margin-top: 20px;
@@ -121,12 +122,13 @@
 												<img class="performance_img"
 													src="../resources/images/${ vo.performance_image }"
 													onclick="location.href='detailpage.do?performance_idx=${vo.performance_idx}'">
+
 												<div class="performance_content">
 													<div class="performance_cate">${
 														vo.performanceCateVo.performance_cate_name }
 														> ${ vo.performanceDetailCateVo.performance_detail_cate_name }
 													</div>
-													<div class="performance_name">${ vo.performance_name }</div>
+													<div class="performance_name">${ vo.performance_name}</div>
 
 													<!-- 지역 정보 -->
 													<div>
@@ -142,8 +144,14 @@
 															<fmt:formatNumber type="number"
 																value="${seat.seat_price}" />원
 														</c:forEach>
+
 													</div>
 												</div>
+												<!-- 관리자 권한 버튼 -->
+												<c:if test="${ user.mem_grade eq '관리자' }">
+													<input type="button" class="btn btn-sm admin_btn" value="공연 가격 추가"
+														onclick="insert_form_price();" />
+												</c:if>
 											</div>
 										</c:forEach>
 									</div>

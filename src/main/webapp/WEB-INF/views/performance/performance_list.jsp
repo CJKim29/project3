@@ -9,11 +9,6 @@
 
         <head>
           <style>
-            #mylogo a img {
-              /* margin-bottom: 50px; */
-              /* display: block; */
-            }
-
             .mytitle {
               font-weight: bold !important;
               font-size: 25px !important;
@@ -36,13 +31,6 @@
               color: red !important;
             }
 
-            /* a */
-
-            /* 방문 후 링크 상태*/
-            /* .d_cate_list li a:visited {
-						color: yellowgreen !important;
-					} */
-
             .my_top_bar {
               padding: 0px !important;
               padding-top: 50px !important;
@@ -52,46 +40,6 @@
               float: right;
               margin-right: 10px;
             }
-
-            /* 컨텐츠 영역 start*/
-            .performance_list {
-              /* display: inline-block !important; */
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-between;
-            }
-
-            .content_wrap {
-              width: 30%;
-              /* 각 요소의 너비 설정 */
-              margin-bottom: 20px;
-              /* 아래쪽 여백 설정 */
-            }
-
-            .performance_img {
-              margin: 50px 20px 20px 0px;
-            }
-
-            .performance_cate {
-              font-size: 15px !important;
-              color: gray;
-            }
-
-            .performance_name {
-              font-size: 25px;
-              font-weight: bold;
-              margin-top: 20px;
-              margin-bottom: 5px !important;
-            }
-
-            .performance_price {
-              float: right !important;
-              padding-right: 20px;
-              font-size: 20px;
-              font-weight: bold;
-            }
-
-            /* 컨텐츠 영역 end */
           </style>
 
           <script src="../resources/template/js/jquery.min.js"></script>
@@ -199,12 +147,16 @@
             // }
           </script>
 
-          <!-- 공연 추가 버튼 -->
+          <!-- 공연 추가 버튼 / 공연 가격 버튼 -->
           <script>
             function insert_form() {
 
               location.href = "insert_form.do"; // 공연 추가 폼으로 이동
 
+            }
+
+            function insert_form_price() {
+              location.href = "insert_form_price.do";
             }
           </script>
         </head>
@@ -224,7 +176,7 @@
                     <input type="radio" name="performance_detail_cate_idx" value="4" />공포/스릴러
                     <input type="radio" name="performance_detail_cate_idx" value="5" />퍼포먼스
                     <input type="radio" name="performance_detail_cate_idx" value="6" />어린이
-                    <input type="radio" name="performance_detail_cate_idx" value="7" />기타
+
                     <br />
                     <input type="radio" name="hall_area" value="all" checked />전체
                     <input type="radio" name="hall_area" value="서울" />서울
@@ -321,10 +273,8 @@
                         <!-- <input type="button" class="btn admin_btn" value="공연 수정" onclick="location.href='list.do'" /> -->
                         <c:if test="${ user.mem_grade eq '관리자' }">
                           <input type="button" class="btn admin_btn" value="공연 추가" onclick="insert_form();" />
+                          <input type="button" class="btn admin_btn" value="공연 가격 추가" onclick="insert_form_price();" />
                         </c:if>
-
-
-
 
                       </div>
                       <!--/ End Shop Top -->
@@ -337,11 +287,6 @@
 
           <!-- 컨텐츠 영역 -->
           <div id="disp"></div>
-
-          <!-- modal 삭제 -->
-
-          <!-- footer 삭제 -->
-
 
           <!-- Popper JS -->
           <script src="../resources/template/js/popper.min.js"></script>
