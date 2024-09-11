@@ -176,25 +176,8 @@
 					   onclick="comment_insert();">
 			</div>
 		</div>
-		</c:if>
-		
-		<hr>
-		
+		</c:if>	
 		<div id="comment_display">
-		<%-- <c:forEach var="vo" items="${ list }">
-				<!-- 자신의 글만 삭제메뉴 활성화 -->
-				<c:if test="${ user.mem_idx eq vo.mem_idx }">
-					<div style="text-align: right;">
-						<input type="button" value="x"
-							style="background: #ff1d38; color: white;"
-							onclick="comment_delete('${ vo.qna_cmt_idx}');">
-					</div>
-				</c:if>
-				<div>${ vo.mem_nickname }</div>
-				<div>${ vo.qna_cmt_regdate }</div>
-				<div>${ vo.qna_cmt_content }</div>
-				<hr>
-			</c:forEach> --%>
 		</div>
 	</div>
 </body>

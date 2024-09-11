@@ -54,6 +54,14 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
         /* ellipsi 속성 */
       }
+
+      #category-select{
+        width: 80px; 
+        padding: 0 5px; 
+        border-radius: 5px; 
+        color: #333; 
+        font-size: 16px; 
+      }
     </style>
 
     <script type="text/javascript">
@@ -262,7 +270,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       </div>
     </div>
     <!--/ End Blog Grid -->
-    <div style="height: 100px"></div>
 
     <jsp:include page="/WEB-INF/views/include/footer.jsp" />
   </body>
