@@ -45,14 +45,12 @@
 		display: none; /* 기본적으로 내용은 숨깁니다. */
 		margin-top: 10px;
 	}
-	
 	.show {
 		display: block; /* 'show' 클래스가 추가되면 내용이 보입니다. */
 	}
 	
 	.toggle-btn {
 		cursor: pointer;
-		color: #ff1d38;
 	}
 
 </style>
@@ -90,7 +88,7 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 	<div class="blog-single shop-blog grid section" style="padding-top: 50px">
 		<div class="container">
-			<h3 id="title" >::::FAQ페이지::::</h3>
+			<h3 id="title" >::::고객센터 - FAQ페이지::::</h3>
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
             <c:if test="${ user.mem_grade eq '관리자' }">     
@@ -98,13 +96,7 @@
 					   onclick="insert_form();">                     
             </c:if>
 	
-		<table class="table" style="margin-bottom: 0">
-			<tr style="background: #ff1d38;">
-				<th>번호</th>
-				<th style="width: 50%;">제목</th>
-				<th>작성일자</th>
-			<tr>
-			
+		<table class="table" style="margin-bottom: 0">		
 			<!-- 데이터가 없는 경우 -->
 			 <tr>
 			<c:if test="${ empty list }">
@@ -118,15 +110,15 @@
 			<!-- 데이터가 있는 경우 -->
 			<c:forEach var="vo" items="${ list }">
 				<tr>
-					<td>${ vo.faq_no }</td>
 					<td>
-                            <span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')">${ vo.faq_title }&nbsp;&nbsp;&nbsp; V</span>
-                            <div id="content-${vo.faq_no}" class="faq_content" style="background: #f3f3f3;">
-							    ${ vo.faq_content }
-						    </div>
+						<span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')" style="font-size: 20px;">${ vo.faq_title }</span><br>
+						<span style="font-size: 14px; color: #cccccc;">${ fn:substring(vo.faq_regdate,0,10) }</span>
+						<div id="content-${vo.faq_no}" class="faq_content" style="background: #f3f3f3; font-size: 13px; ">
+							${ vo.faq_content }
+						</div>
+
 					</td>
 					<td>
-                        ${ vo.faq_regdate }
                       <!-- 관리자 계정만 수정/삭제 -->
 					<c:if test="${ user.mem_grade eq '관리자' }">
 						<input class="btn" type="button" value="수정" style="background: #5cb85c; color: white;"
@@ -140,15 +132,9 @@
 		</tr>
 		</table>
 		
-		<!-- PageMenu -->
-		
-		<div style="text-align: center; margin: auto;">
-			${ pageMenu }
-		</div>
 	</div>
 </div>
 </div>
-	<div style="height: 100px"></div>
 
 	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
