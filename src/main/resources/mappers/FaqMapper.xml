@@ -5,15 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.githrd.project3.dao.FaqMapper">
 
     <select id="faq_page_list" parameterType="Map" resultType="faq">
-        SELECT f.* 
-		FROM (
 			SELECT
             *,
 				rank() OVER (ORDER BY faq_idx desc) AS faq_no		
 			FROM
 				faq 
-		) f
-		WHERE faq_no BETWEEN ${start} AND ${end};
+
     </select>
 
     <select id="faq_row_total" parameterType="Map" resultType="int">

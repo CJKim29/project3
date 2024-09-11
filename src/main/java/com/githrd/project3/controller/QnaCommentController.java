@@ -38,30 +38,14 @@ public class QnaCommentController {
 
     @RequestMapping("list.do")
     public String list(Integer qna_idx,
-            @RequestParam(name = "page", defaultValue = "1") int nowPage,
             Model model) {
-
-        // 가져올 범위 계산
-        int start = (nowPage - 1) * MyCommon.Comment.BLOCK_LIST + 1;
-        int end = start + MyCommon.Comment.BLOCK_LIST - 1;
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("qna_idx", qna_idx);
-        map.put("start", start);
-        map.put("end", end);
 
         List<QnaCommentVo> list = qna_cmt_mapper.qna_cmt_page_list(map);
 
-        // Paging Menu 만들기
-        int rowTotal = qna_cmt_mapper.qna_cmt_row_total(qna_idx);
-
-        String pageMenu = Paging.getCommentPaging(nowPage,
-                rowTotal,
-                MyCommon.Comment.BLOCK_LIST,
-                MyCommon.Comment.BLOCK_PAGE);
-
         model.addAttribute("list", list);
-        model.addAttribute("pageMenu", pageMenu);
 
         return "qna_cmt/qna_cmt_list";
     }

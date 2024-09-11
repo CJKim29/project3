@@ -36,7 +36,8 @@
 
 </head>
 <body>
-
+	<h2>답변</h2>
+	<hr>
 	<!-- for(CommentVo vo : list) -->
 	<c:forEach var="vo" items="${ list }">
 		<!-- 자신의 글만 삭제메뉴 활성화 -->
@@ -45,16 +46,9 @@
 				<input type="button" value="x" style="background: #F7230E; color: white;" onclick="comment_delete('${ vo.qna_cmt_idx}');">
 			</div>
 		</c:if>
-		<div>${ vo.mem_nickname }</div>
-		<div>${ vo.qna_cmt_regdate }</div>
+		<div><b>${ vo.mem_nickname }</b> (${ vo.qna_cmt_regdate })</div><br>
 		<div>${ vo.qna_cmt_content }</div>
 		<hr>
 	</c:forEach>
-
-	<c:if test="${ not empty list}">
-		<div style="text-align: center;">
-			${ pageMenu }
-		</div>
-	</c:if>
 </body>
 </html>
