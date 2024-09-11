@@ -574,7 +574,7 @@
 	
 	<!-- Start Shop Blog  -->
 	<!-- 게시판부분 -->
-	 <!-- 경로 재지정 필요 -->
+	 <!-- 경로 재지정 필요함 -->
 	<section class="shop-blog section">
 		<div class="container">
 			<div class="row">
