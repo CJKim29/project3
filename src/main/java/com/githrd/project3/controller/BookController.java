@@ -1,8 +1,5 @@
 package com.githrd.project3.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.S_HallMapper;
@@ -71,10 +69,6 @@ public class BookController {
         // performance_idx와 date 값 사용 가능
         model.addAttribute("performance_idx", performance_idx);
         model.addAttribute("performance_date", performance_date);
-
-        // List<S_HallVo> list = performance_mapper.selectS_HallList(performance_idx);
-
-        // model.addAttribute("list", list);
 
         List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
 
@@ -144,47 +138,7 @@ public class BookController {
         return "redirect:/book/performance_seat.do?performance_idx=" + performance_idx + "&date=" + performance_date;
     }
 
-    // @RequestMapping("book_result.do")
-    // public String book_result(
-    // @RequestParam("performance_idx") int performance_idx,
-    // @RequestParam("date") String performance_date,
-    // @RequestParam(value = "selectedSeats", required = false, defaultValue = "[]")
-    // String selectedSeatsJson,
-    // Model model) {
-
-    // List<S_HallVo> seats =
-    // s_hall_mapper.selectSeatsByperformanceAndDate(performance_idx,
-    // performance_date);
-
-    // model.addAttribute("seats", seats);
-
-    // X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
-
-    // model.addAttribute("vo", vo);
-
-    // // 선택된 좌석 정보를 모델에 추가
-    // // JSON 문자열을 파싱하여 좌석 정보 리스트로 변환
-    // ObjectMapper mapper = new ObjectMapper();
-    // List<Map<String, String>> selectedSeats;
-
-    // try {
-    // selectedSeats = mapper.readValue(selectedSeatsJson, new
-    // TypeReference<List<Map<String, String>>>() {
-    // });
-    // } catch (JsonProcessingException e) {
-    // e.printStackTrace();
-    // return "error"; // 파싱 실패 시 에러 페이지로 이동
-    // }
-
-    // List<S_HallVo> list = s_hall_mapper.BookedSeatList(performance_idx);
-    // model.addAttribute("list", list);
-
-    // // 선택된 좌석 정보를 Model에 추가하여 JSP로 전달
-    // model.addAttribute("selectedSeats", selectedSeats);
-
-    // return "book/book_result";
-    // }
-    @PostMapping("/book_result.do")
+    @PostMapping("/book_reservation.do")
     public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
             @RequestParam("performance_idx") int performance_idx,
             @RequestParam("date") String performance_date, Model model) {
@@ -200,6 +154,6 @@ public class BookController {
 
         // 좌석 정보 처리
         model.addAttribute("seatInfo", seatInfo);
-        return "/book/book_result"; // book_result.jsp로 이동
+        return "/mypage/my_reservation"; // book_result.jsp로 이동
     }
 }
