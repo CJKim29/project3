@@ -74,10 +74,8 @@ pageEncoding="UTF-8"%>
               <h4>카테고리</h4>
               <select class="form-control" name="board_cate_idx">
                 <option value="1">뮤지컬</option>
-                <option value="2">콘서트</option>
-                <option value="3">연극</option>
-                <option value="4">전시회</option>
-                <!-- 더 많은 카테고리를 추가할 수 있습니다 -->
+                <option value="2">연극</option>
+                <option value="3">콘서트</option>
               </select>
             </div>
             <div>

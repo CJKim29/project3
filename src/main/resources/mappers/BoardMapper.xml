@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 외부 쿼리 결과를 내부 서브쿼리에서 선택 -->
     SELECT bb.* 
     FROM (
-        		<!-- 내부 서브쿼리 시작 -->
+    												<!-- 내부 서브쿼리 시작 -->
         SELECT
             rank() OVER (ORDER BY b.board_idx DESC) AS board_no,
             b.*,  							
@@ -23,22 +23,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             c.board_cate_name  							
         FROM
             board b  				
-        JOIN		<!-- 게시물 테이블과 카테고리 테이블을 조인합니다. -->
+        JOIN														<!-- 게시물 테이블과 카테고리 테이블을 조인합니다. -->
             board_cate c ON b.board_cate_idx = c.board_cate_idx  	
-				<!-- 동적 쿼리: WHERE 절을 동적으로 생성합니다. -->
+																<!-- 동적 쿼리: WHERE 절을 동적으로 생성합니다. -->
 		<!-- <trim> 태그를 사용하여 WHERE 절의 불필요한 'AND' 또는 'OR'을 제거합니다. -->
 		<trim prefix="where" prefixOverrides="or">
+			<!-- 카테고리 필터링 -->
+			<if test="cate!= null and cate != 'all'">
+				c.board_cate_idx = #{cate}
+			</if>
 			<if test="board_name != null">
-                b.board_name LIKE CONCAT('%', #{board_name}, '%')
+                or b.board_name LIKE CONCAT('%', #{board_name}, '%')
 			</if>
 			<if test="mem_nickname != null">
                 or b.mem_nickname LIKE CONCAT('%', #{mem_nickname}, '%')
 			</if>
 		</trim>
     ) bb  								
-				<!-- 페이징 처리와 정렬을 위한 WHERE 및 ORDER BY 절 -->
+													<!-- 페이징 처리와 정렬을 위한 WHERE 및 ORDER BY 절 -->
     WHERE board_no BETWEEN #{start} AND #{end}
-    						<!-- 정렬 기준에 따라 ORDER BY 절을 동적으로 설정합니다. -->
+    																		<!-- 정렬 기준에 따라 ORDER BY 절을 동적으로 설정합니다. -->
 		<choose>
 			<when test="sort == 'board_readhit'">
             ORDER BY bb.board_readhit DESC
@@ -55,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 전체 게시물 수 -->
 	<select id="board_row_total" parameterType="Map" resultType="int">
-		select ifnull(count(*),0) from board																																												<!-- Dynamic Query: 조건별 query -->
+		select ifnull(count(*),0) from board																																																								<!-- Dynamic Query: 조건별 query -->
 		<trim prefix="where" prefixOverrides="or">			<!-- prefixOverrides 지정한 문자열을 제거하여 재정의 => content만을 수행할 때 where or ... 가 나오는 상황 방지 -->
 			<if test="board_name != null">				<!-- DB에서 문자열 결합 연산 || -->
 					board_name LIKE CONCAT('%', #{board_name}, '%')
