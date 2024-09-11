@@ -384,25 +384,25 @@
 
                 <div class="seat-container2">
                     <c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
-                        <div class="seat2 seat-purple" data-color="purple" id="seat${i}"></div>${seat.seat_grade} :
+                        <div class="seat2 seat-purple" data-color="purple" id="seat${i}"></div>${seat.seat_grade}석 :
                         ${zeroCount1}석<br />
                     </c:forEach>
                     <c:forEach var="seat" items="${vo.seatList}" begin="1" end="1">
-                        <div class="seat2 seat-green" data-color="green" id="seat${i}"></div>${seat.seat_grade} :
+                        <div class="seat2 seat-green" data-color="green" id="seat${i}"></div>${seat.seat_grade}석 :
                         ${zeroCount2}석<br />
                     </c:forEach>
                     <c:forEach var="seat" items="${vo.seatList}" begin="2" end="2">
-                        <div class="seat2 seat-blue" data-color="blue" id="seat${i}"></div>${seat.seat_grade} :
+                        <div class="seat2 seat-blue" data-color="blue" id="seat${i}"></div>${seat.seat_grade}석 :
                         ${zeroCount3}석<br />
                     </c:forEach>
 
                     <c:forEach var="seat" items="${vo.seatList}" begin="3" end="3">
-                        <div class="seat2 seat-orange" data-color="orange" id="seat${i}"></div>${seat.seat_grade} :
+                        <div class="seat2 seat-orange" data-color="orange" id="seat${i}"></div>${seat.seat_grade}석 :
                         ${zeroCount4}석<br />
                     </c:forEach>
                     <c:if test="${fn:length(vo.seatList) == 5}">
                         <c:forEach var="seat" items="${vo.seatList}" begin="4" end="4">
-                            <div class="seat2 seat-navy" data-color="navy" id="seat${i}"></div>${seat.seat_grade} :
+                            <div class="seat2 seat-navy" data-color="navy" id="seat${i}"></div>${seat.seat_grade}석 :
                             ${zeroCount5}석<br />
                         </c:forEach>
                     </c:if>
@@ -452,7 +452,7 @@
                         <td>${param.date}</td>
                         <td>
                             <c:forEach var="seat" items="${vo.seatList}">
-                                ${seat.seat_grade} : ${seat.seat_price} <br>
+                                ${seat.seat_grade}석 : ${seat.seat_price}원 <br>
                             </c:forEach>
                         </td>
                         <td>
