@@ -21,4 +21,7 @@ public interface PerformanceMapper {
 
     // 장르별+지역별 조회
     List<PerformanceVo> selectCategoryList(Map<String, Object> map);
+
+    // 공연 등록
+    int performance_insert(PerformanceVo vo);
 }
