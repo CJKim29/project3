@@ -40,6 +40,7 @@ public class BoardController {
 
 	@RequestMapping("list.do")
 	public String list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+			@RequestParam(defaultValue = "all") String cate,
 			@RequestParam(defaultValue = "all") String search,
 			@RequestParam(defaultValue = "board_idx") String sort, String search_text, Model model) {
 
@@ -54,6 +55,10 @@ public class BoardController {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("sort", sort); // sort 파라미터를 map에 추가
+
+		if (!cate.equals("all")) {
+			map.put("cate", cate);
+		}
 
 		// 제목 + 작성자
 		if (search.equals("name_content")) {

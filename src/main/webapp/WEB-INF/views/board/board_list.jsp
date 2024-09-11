@@ -54,6 +54,14 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
         /* ellipsi 속성 */
       }
+
+      #category-select{
+        width: 80px; 
+        padding: 0 5px; 
+        border-radius: 5px; 
+        color: #333; 
+        font-size: 16px; 
+      }
     </style>
 
     <script type="text/javascript">
@@ -110,8 +118,14 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           "&search_text=" +
           encodeURIComponent(search_text, "utf-8") +
           "&sort=" +
-          encodeURIComponent(currentSort, "utf-8"); // 자바스크립트에서 인코딩/정렬 기준 추가
+          encodeURIComponent(currentSort, "utf-8") + 
+          "&cate=" +
+          encodeURIComponent($("#category-select").val()); // 카테고리 값 추가; // 자바스크립트에서 인코딩/정렬 기준 추가
       }
+
+    function filterByCategory() {
+      find(); // 카테고리 선택 시 검색을 수행
+    }
     </script>
   </head>
   <body class="js">
@@ -190,9 +204,15 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           <!-- 게시판 테이블 구성하기  -->
           <table class="table" style="margin-bottom: 0">
             <tr style="background: #ff1d38">
-              <th>번호</th>
+              <th>
+                <select id="category-select" onchange="filterByCategory()">
+                  <option value="all" ${param.cate eq 'all' ? 'selected' : ''}>전체</option>
+                  <option value="1" ${param.cate eq '1' ? 'selected' : ''}>뮤지컬</option>
+                  <option value="2" ${param.cate eq '2' ? 'selected' : ''}>연극</option>
+                  <option value="3" ${param.cate eq '3' ? 'selected' : ''}>콘서트</option>
+                </select>
+              </th>
               <th style="width: 50%">제목</th>
-              <th>카테고리</th>
               <th>작성자</th>
               <th>작성일자</th>
               <th>조회수</th>
@@ -211,8 +231,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <!-- 데이터가 있는 경우-->
               <c:forEach var="vo" items="${ list }">
                 <tr>
-                  <td>${ vo.board_no }</td>
-
+                  <td>${ vo.board_cate_name }</td>
                   <td>
                     <!-- 삭제된 게시물 -->
                     <c:if test="${ vo.board_use eq 'n' }">
@@ -236,7 +255,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                       </span>
                     </c:if>
                   </td>
-                  <td>${ vo.board_cate_name }</td>
+
                   <td>${ vo.mem_nickname }</td>
                   <td>${ vo.board_regdate }</td>
                   <td>${ vo.board_readhit }</td>
@@ -251,7 +270,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       </div>
     </div>
     <!--/ End Blog Grid -->
-    <div style="height: 100px"></div>
 
     <jsp:include page="/WEB-INF/views/include/footer.jsp" />
   </body>
