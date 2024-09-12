@@ -1,545 +1,468 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+            <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-            <!DOCTYPE html>
-            <html lang="en">
+                <!DOCTYPE html>
+                <html lang="en">
 
-            <head>
-                <meta charset="UTF-8">
-                <title>Seat Booking</title>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>좌석 예약</title>
 
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+                    <link rel="stylesheet" href="../resources/css/book/book_seat.css">
 
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
-                <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-                <style>
-                    /* 기본 좌석 버튼 스타일 */
-                    .seat {
-                        width: 10px;
-                        height: 10px;
-                        margin: 2px;
-                        border: 1px solid black;
-                        display: inline-block;
-                        cursor: pointer;
-                        margin-left: 20px;
-                    }
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-                    .seat2 {
-                        width: 10px;
-                        height: 10px;
-                        margin: 2px;
-                        border: 1px solid black;
-                        display: inline-block;
-                        cursor: pointer;
-                        margin-left: 20px;
-                    }
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+                    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-                    /* .seat.available {
-                        background-color: black;
-                    } */
+                    <!-- 버튼 클릭 -->
+                    <script>
+                        $(document).ready(function () {
+                            // 좌석 버튼 클릭 이벤트 처리
+                            $('.seat').each(function () {
+                                // 원래 색상 저장
+                                var originalColor = $(this).css('background-color');
+                                $(this).data('originalColor', originalColor);
+                            });
 
-                    .seat.unavailable {
-                        pointer-events: none;
-                        background-color: white !important;
-                    }
+                            $('.seat').click(function () {
+                                // 저장된 원래 색상
+                                var originalColor = $(this).data('originalColor');
 
-                    /* 색상 스타일 */
-                    .seat-purple {
-                        background-color: rgb(187, 73, 187);
-                    }
+                                // 현재 색상
+                                var currentColor = $(this).css('background-color');
 
-                    .seat-green {
-                        background-color: rgb(52, 199, 52);
-                    }
+                                // 색상 토글
+                                if (currentColor === originalColor) {
+                                    // 선택된 버튼의 색상을 회색으로 변경
+                                    $(this).css('background-color', 'gray');
 
-                    .seat-blue {
-                        background-color: rgb(40, 204, 216);
-                    }
-
-                    .seat-orange {
-                        background-color: rgb(233, 174, 66);
-                    }
-
-                    .seat-navy {
-                        background-color: rgb(38, 50, 223);
-                    }
-
-                    /* 좌석 컨테이너 스타일 */
-                    .seat-container {
-                        width: 500px;
-                        display: inline-block;
-                        vertical-align: top;
-                        margin-right: 20px;
-                    }
-
-                    .seat-container2,
-                    .seat-container3 {
-                        width: 150px;
-                        display: inline-block;
-                        vertical-align: top;
-                        margin-right: 20px;
-                    }
-
-                    /* .seat.seat-row-1,
-                    .seat.seat-row-2 {
-                        background-color: rgb(187, 73, 187);
-                    }
-
-                    .seat.seat-row-3,
-                    .seat.seat-row-4 {
-                        background-color: rgb(52, 199, 52);
-                    }
-
-                    .seat.seat-row-5,
-                    .seat.seat-row-6 {
-                        background-color: rgb(40, 204, 216);
-                    } */
-
-                    .purple {
-                        background-color: purple;
-                    }
-
-                    .green {
-                        background-color: green;
-                    }
-
-                    .blue {
-                        background-color: blue;
-                    }
-
-                    .initial {
-                        background-color: initial;
-                    }
-                </style>
-
-                <!-- 버튼 클릭 -->
-                <script>
-                    $(document).ready(function () {
-                        // 좌석 버튼 클릭 이벤트 처리
-                        $('.seat').each(function () {
-                            // 원래 색상 저장
-                            var originalColor = $(this).css('background-color');
-                            $(this).data('originalColor', originalColor);
-                        });
-
-                        $('.seat').click(function () {
-                            // 저장된 원래 색상
-                            var originalColor = $(this).data('originalColor');
-
-                            // 현재 색상
-                            var currentColor = $(this).css('background-color');
-
-                            // 색상 토글
-                            if (currentColor === originalColor) {
-                                // 선택된 버튼의 색상을 회색으로 변경
-                                $(this).css('background-color', 'gray');
-                            } else {
-                                // 원래 색상으로 변경
-                                $(this).css('background-color', originalColor);
-                            }
-                        });
-                    });
-                </script>
-
-
-
-                <!-- 달력 -->
-                <script>
-                    $(document).ready(function () {
-                        $('#datepicker').each(function () {
-                            $(this).datepicker({
-                                format: "yyyy-mm-dd",
-                                showOnFocus: false
+                                } else {
+                                    // 원래 색상으로 변경
+                                    $(this).css('background-color', originalColor);
+                                }
                             });
                         });
-                    });
-                </script>
+                    </script>
 
-                <!-- 버튼 클릭시 예약 현황 띄우기 -->
-                <script>
-                    $(document).ready(function () {
-                        // 클릭된 좌석 정보를 저장할 객체
-                        var clickedSeats = {};
-
-                        // 좌석 클릭 이벤트 핸들러
-                        $('.seat').click(function () {
-                            // 클릭된 버튼의 행(row)과 열(column) 정보 추출
-                            var rowNo = $(this).data('row');
-                            var colNo = $(this).data('col');
-
-                            // 좌석 정보 문자열 생성
-                            var seatInfo = rowNo + '열 ' + colNo + '석';
-                            var seatKey = rowNo + '-' + colNo;
-
-                            // 클릭 횟수 업데이트
-                            if (!clickedSeats[seatKey]) {
-                                clickedSeats[seatKey] = 0;
-                            }
-                            clickedSeats[seatKey]++;
-
-                            // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
-                            if (clickedSeats[seatKey] % 2 === 1) {
-                                // 홀수 클릭: 정보 추가
-                                clickedSeats[seatKey] = seatInfo;
-                            } else {
-                                // 짝수 클릭: 정보 제거
-                                delete clickedSeats[seatKey];
-                            }
-
-                            // 결과를 출력할 HTML 요소에 추가
-                            var resultHtml = '';
-                            for (var key in clickedSeats) {
-                                resultHtml += '<p>' + clickedSeats[key] + '</p>';
-                            }
-                            $('.seat-info-container').html(resultHtml);
-                        });
-                        window.submitBookForm = function () {
-                            var form = $('#bookForm');
-                            form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
-                            for (var key in clickedSeats) {
-                                $('<input>').attr({
-                                    type: 'hidden',
-                                    name: 'seatInfo',
-                                    value: clickedSeats[key]
-                                }).appendTo(form);
-                            }
-                            form.submit(); // 폼 제출
-                        };
-                    });
-                </script>
-                <!-- 좌석 다시 선택 -->
-                <script>
-                    function redirectToCurrentPage() {
-                        // 현재 페이지의 URL로 redirect
-                        window.location.href = window.location.href;
-                    }
-                </script>
-                <!-- 좌석 예약 반영 -->
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        let selectedSeats = [];
-
-                        function toggleSeat(row, col) {
-                            const seatId = row + '-' + col;
-                            const index = selectedSeats.indexOf(seatId);
-                            if (index === -1) {
-                                selectedSeats.push(seatId);
-                            } else {
-                                selectedSeats.splice(index, 1);
-                            }
-                            console.log('Selected Seats Updated:', selectedSeats);
-                            updateSeatInfo();
-                        }
-
-                        function submitSeats() {
-                            if (selectedSeats.length === 0) {
-                                alert('좌석을 선택해 주세요.');
-                                return;
-                            }
-                            // Serialize selectedSeats as JSON
-                            document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats.map(seat => {
-                                const [row, col] = seat.split('-');
-                                return { row: parseInt(row), col: col };
-                            }));
-                            document.getElementById('seatForm').submit();
-                        }
-
-
-                        function updateSeatInfo() {
-                            const seatInfoContainer = document.querySelector('.seat-info-container');
-                            seatInfoContainer.innerHTML = '';
-                            selectedSeats.forEach(seatId => {
-                                const [row, col] = seatId.split('-');
-                                const div = document.createElement('div');
-                                div.textContent = `Row: ${row}, Col: ${col}`;
-                                seatInfoContainer.appendChild(div);
+                    <!-- 달력 -->
+                    <script>
+                        $(document).ready(function () {
+                            $('#datepicker').each(function () {
+                                $(this).datepicker({
+                                    format: "yyyy-mm-dd",
+                                    showOnFocus: false
+                                });
                             });
-                        }
+                        });
+                    </script>
 
-                        document.querySelectorAll('.seat').forEach(seat => {
-                            seat.addEventListener('click', (event) => {
-                                const row = event.target.getAttribute('data-row');
-                                const col = event.target.getAttribute('data-col');
-                                toggleSeat(row, col);
+                    <!-- 버튼 클릭시 선택좌석 띄우기 -->
+                    <script>
+                        $(document).ready(function () {
+                            // 클릭된 좌석 정보를 저장할 객체
+                            var clickedSeats = {};
+
+                            // 좌석 클릭 이벤트 핸들러
+                            $('.seat').click(function () {
+                                // 클릭된 버튼의 행(row)과 열(column) 정보 추출
+                                var rowNo = $(this).data('row');
+                                var colNo = $(this).data('col');
+
+                                // 좌석 정보 문자열 생성
+                                var seatInfo = rowNo + '열 ' + colNo + '석';
+                                var seatKey = rowNo + '-' + colNo;
+
+                                // 클릭 횟수 업데이트
+                                if (!clickedSeats[seatKey]) {
+                                    clickedSeats[seatKey] = 0;
+                                }
+                                clickedSeats[seatKey]++;
+
+                                // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
+                                if (clickedSeats[seatKey] % 2 === 1) {
+                                    // 홀수 클릭: 정보 추가
+                                    clickedSeats[seatKey] = seatInfo;
+                                } else {
+                                    // 짝수 클릭: 정보 제거
+                                    delete clickedSeats[seatKey];
+                                }
+
+                                // 결과를 출력할 HTML 요소에 추가
+                                var resultHtml = '';
+                                for (var key in clickedSeats) {
+                                    resultHtml += '<p>' + clickedSeats[key] + '</p>';
+                                }
+                                $('.seat-info-container').html(resultHtml);
+                            });
+                            window.submitBookForm = function () {
+                                var form = $('#bookForm');
+                                form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
+                                for (var key in clickedSeats) {
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        name: 'seatInfo',
+                                        value: clickedSeats[key]
+                                    }).appendTo(form);
+                                }
+                                form.submit(); // 폼 제출
+                            };
+                        });
+                    </script>
+
+                    <!-- 좌석 다시 선택 -->
+                    <script>
+                        function redirectToCurrentPage() {
+                            // 현재 페이지의 URL로 redirect
+                            window.location.href = window.location.href;
+                        }
+                    </script>
+
+                    <!-- 좌석 예약 반영 -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            let selectedSeats = [];
+
+                            function toggleSeat(row, col) {
+                                const seatId = row + '-' + col;
+                                const index = selectedSeats.indexOf(seatId);
+                                if (index === -1) {
+                                    selectedSeats.push(seatId);
+                                } else {
+                                    selectedSeats.splice(index, 1);
+                                }
+                                console.log('Selected Seats Updated:', selectedSeats);
                                 updateSeatInfo();
+                            }
+
+                            function submitSeats() {
+                                if (selectedSeats.length === 0) {
+                                    alert('좌석을 선택해 주세요.');
+                                    return;
+                                }
+                                // Serialize selectedSeats as JSON
+                                document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats.map(seat => {
+                                    const [row, col] = seat.split('-');
+                                    return { row: parseInt(row), col: col };
+                                }));
+                                document.getElementById('seatForm').submit();
+                            }
+
+                            function updateSeatInfo() {
+                                const seatInfoContainer = document.querySelector('.seat-info-container');
+                                seatInfoContainer.innerHTML = '';
+                                selectedSeats.forEach(seatId => {
+                                    const [row, col] = seatId.split('-');
+                                    const div = document.createElement('div');
+                                    div.textContent = `Row: ${row}, Col: ${col}`;
+                                    seatInfoContainer.appendChild(div);
+                                });
+                            }
+
+                            document.querySelectorAll('.seat').forEach(seat => {
+                                seat.addEventListener('click', (event) => {
+                                    const row = event.target.getAttribute('data-row');
+                                    const col = event.target.getAttribute('data-col');
+                                    toggleSeat(row, col);
+                                    updateSeatInfo();
+                                });
                             });
+
+                            document.querySelector('.btn-success').addEventListener('click', submitSeats);
                         });
 
-                        document.querySelector('.btn-success').addEventListener('click', submitSeats);
-                    });
+                    </script>
 
-                </script>
+                </head>
 
-
-
-            </head>
-
-            <body>
-                <h2 style="text-align: left; margin-left: 65px;">${param.date} 좌석 예약</h2>
-                <div class="seat-container">
-                    <c:forEach var="seat" items="${seats}">
-                        <div>
-                            <c:choose>
-                                <c:when test="${seat.s_hall_row_no <= 0}">
-                                    <!-- 기본 색상 클래스 유지 -->
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
-                                        data-seat="${seat.s_hall_a}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
-                                        data-seat="${seat.s_hall_b}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
-                                        data-seat="${seat.s_hall_c}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
-                                        data-seat="${seat.s_hall_d}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
-                                        data-seat="${seat.s_hall_e}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
-                                        data-seat="${seat.s_hall_f}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
-                                        data-seat="${seat.s_hall_g}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
-                                        data-seat="${seat.s_hall_h}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
-                                        data-seat="${seat.s_hall_i}">
-                                    </div>
-                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
-                                        data-seat="${seat.s_hall_j}">
-                                    </div>
-                                    <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
-                                </c:when>
-                                <c:otherwise>
+                <body>
+                    <div id="seat-box">
+                        <h2 style="text-align: left; margin-left: 100px;">${param.date} 좌석 선택</h2>
+                        <div style="margin-left: 40px; margin-bottom: 10px; margin-top: 25px;">
+                            ${ vo.performanceCateVo.performance_cate_name }&nbsp; <${ vo.performance_name }>
+                                &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name } <br />
+                        </div>
+                        <div class="seat-container0">
+                            <br /><br />
+                            <p style="margin-top: 17px; margin-left: 50px;">다른 관람일자 선택</p> <input id="datepicker"
+                                width="120" />
+                            <input class="btn btn-primary" type="button" value="날짜 바꾸기"
+                                data-performance-idx="${ vo.performance_idx }"
+                                onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
+                        </div>
+                        <br />
+                        <div class="seat-container" style="margin-left: 50px;">
+                            <c:forEach var="seat" items="${seats}">
+                                <div>
                                     <c:choose>
-                                        <c:when test="${fn:length(vo.seatList) == 1}">
-                                            <c:set var="rowClass" value="seat-purple" />
-                                        </c:when>
-                                        <c:when test="${fn:length(vo.seatList) == 2}">
-                                            <c:choose>
-                                                <c:when
-                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
-                                                    <c:set var="rowClass" value="seat-purple" />
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="rowClass" value="seat-green" />
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:when>
-                                        <c:when test="${fn:length(vo.seatList) == 3}">
-                                            <c:choose>
-                                                <c:when
-                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3}">
-                                                    <c:set var="rowClass" value="seat-purple" />
-                                                </c:when>
-                                                <c:when
-                                                    test="${seat.s_hall_row_no == 4 || seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
-                                                    <c:set var="rowClass" value="seat-green" />
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="rowClass" value="seat-blue" />
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:when>
-                                        <c:when test="${fn:length(vo.seatList) == 5}">
-                                            <c:choose>
-                                                <c:when test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
-                                                    <c:set var="rowClass" value="seat-purple" />
-                                                </c:when>
-                                                <c:when test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
-                                                    <c:set var="rowClass" value="seat-green" />
-                                                </c:when>
-                                                <c:when test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
-                                                    <c:set var="rowClass" value="seat-blue" />
-                                                </c:when>
-                                                <c:when test="${seat.s_hall_row_no == 7 || seat.s_hall_row_no == 8}">
-                                                    <c:set var="rowClass" value="seat-orange" />
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="rowClass" value="seat-navy" />
-                                                </c:otherwise>
-                                            </c:choose>
+                                        <c:when test="${seat.s_hall_row_no <= 0}">
+                                            <!-- 기본 색상 클래스 유지 -->
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
+                                                data-seat="${seat.s_hall_a}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
+                                                data-seat="${seat.s_hall_b}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
+                                                data-seat="${seat.s_hall_c}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
+                                                data-seat="${seat.s_hall_d}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
+                                                data-seat="${seat.s_hall_e}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
+                                                data-seat="${seat.s_hall_f}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
+                                                data-seat="${seat.s_hall_g}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
+                                                data-seat="${seat.s_hall_h}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
+                                                data-seat="${seat.s_hall_i}">
+                                            </div>
+                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
+                                                data-seat="${seat.s_hall_j}">
+                                            </div>
+                                            <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
                                         </c:when>
                                         <c:otherwise>
                                             <c:choose>
-                                                <c:when test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                <c:when test="${fn:length(vo.seatList) == 1}">
                                                     <c:set var="rowClass" value="seat-purple" />
                                                 </c:when>
-                                                <c:when test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
-                                                    <c:set var="rowClass" value="seat-green" />
+                                                <c:when test="${fn:length(vo.seatList) == 2}">
+                                                    <c:choose>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                            <c:set var="rowClass" value="seat-purple" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:set var="rowClass" value="seat-green" />
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
-                                                <c:when test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
-                                                    <c:set var="rowClass" value="seat-blue" />
+                                                <c:when test="${fn:length(vo.seatList) == 3}">
+                                                    <c:choose>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3}">
+                                                            <c:set var="rowClass" value="seat-purple" />
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 4 || seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                            <c:set var="rowClass" value="seat-green" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:set var="rowClass" value="seat-blue" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:when>
+                                                <c:when test="${fn:length(vo.seatList) == 5}">
+                                                    <c:choose>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                            <c:set var="rowClass" value="seat-purple" />
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                            <c:set var="rowClass" value="seat-green" />
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                            <c:set var="rowClass" value="seat-blue" />
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 7 || seat.s_hall_row_no == 8}">
+                                                            <c:set var="rowClass" value="seat-orange" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:set var="rowClass" value="seat-navy" />
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:set var="rowClass" value="seat-orange" />
+                                                    <c:choose>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                            <c:set var="rowClass" value="seat-purple" />
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                            <c:set var="rowClass" value="seat-green" />
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                            <c:set var="rowClass" value="seat-blue" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:set var="rowClass" value="seat-orange" />
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:otherwise>
                                             </c:choose>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
+                                                data-seat="${seat.s_hall_a}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
+                                                data-seat="${seat.s_hall_b}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
+                                                data-seat="${seat.s_hall_c}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
+                                                data-seat="${seat.s_hall_d}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
+                                                data-seat="${seat.s_hall_e}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
+                                                data-seat="${seat.s_hall_f}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
+                                                data-seat="${seat.s_hall_g}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
+                                                data-seat="${seat.s_hall_h}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
+                                                data-seat="${seat.s_hall_i}">
+                                            </div>
+                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
+                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
+                                                data-seat="${seat.s_hall_j}">
+                                            </div>
+                                            <strong>&nbsp;&nbsp;${seat.s_hall_row_no}</strong>
                                         </c:otherwise>
                                     </c:choose>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
-                                        data-seat="${seat.s_hall_a}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
-                                        data-seat="${seat.s_hall_b}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
-                                        data-seat="${seat.s_hall_c}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
-                                        data-seat="${seat.s_hall_d}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
-                                        data-seat="${seat.s_hall_e}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
-                                        data-seat="${seat.s_hall_f}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
-                                        data-seat="${seat.s_hall_g}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
-                                        data-seat="${seat.s_hall_h}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
-                                        data-seat="${seat.s_hall_i}">
-                                    </div>
-                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
-                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
-                                        data-seat="${seat.s_hall_j}">
-                                    </div>
-                                    <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </c:forEach>
-                </div>
-
-                <div class="seat-container2">
-                    <c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
-                        <div class="seat2 seat-purple" data-color="purple" id="seat${i}"></div>${seat.seat_grade}석 :
-                        ${zeroCount1}석<br />
-                    </c:forEach>
-                    <c:forEach var="seat" items="${vo.seatList}" begin="1" end="1">
-                        <div class="seat2 seat-green" data-color="green" id="seat${i}"></div>${seat.seat_grade}석 :
-                        ${zeroCount2}석<br />
-                    </c:forEach>
-                    <c:forEach var="seat" items="${vo.seatList}" begin="2" end="2">
-                        <div class="seat2 seat-blue" data-color="blue" id="seat${i}"></div>${seat.seat_grade}석 :
-                        ${zeroCount3}석<br />
-                    </c:forEach>
-
-                    <c:forEach var="seat" items="${vo.seatList}" begin="3" end="3">
-                        <div class="seat2 seat-orange" data-color="orange" id="seat${i}"></div>${seat.seat_grade}석 :
-                        ${zeroCount4}석<br />
-                    </c:forEach>
-                    <c:if test="${fn:length(vo.seatList) == 5}">
-                        <c:forEach var="seat" items="${vo.seatList}" begin="4" end="4">
-                            <div class="seat2 seat-navy" data-color="navy" id="seat${i}"></div>${seat.seat_grade}석 :
-                            ${zeroCount5}석<br />
-                        </c:forEach>
-                    </c:if>
-                </div>
-                <div class="seat-container3">
-                    <p>예약 현황</p>
-                    <form id="bookForm" action="book_reservation.do" method="post">
-                        <div class="seat-info-container" style="max-height: 150px; overflow-y: auto;"></div>
-                        <input type="hidden" name="performance_idx" value="${param.performance_idx}">
-                        <input type="hidden" name="date" value="${param.date}">
-                        <input type="button" class="btn btn-danger" value="장바구니" onclick="submitBookForm()">
-                    </form>
-                </div>
-                </div>
-                <!-- 예약 현황 출력 -->
-                <div class="seat-container3">
-                    <input class="btn btn-warning" type="button" value="좌석다시선택" onclick="redirectToCurrentPage()">
-                    <br /><br /><br />
-                    <form id="seatForm" action="reserve_seats.do" method="post">
-                        <input type="hidden" name="performance_idx" value="${param.performance_idx}">
-                        <input type="hidden" name="date" value="${param.date}">
-                        <input type="hidden" id="seat_row" name="row">
-                        <input type="hidden" id="seat_col" name="col">
-                        <input type="hidden" name="seat_idx" value="${seat_idx}">
-                        <input type="hidden" id="selectedSeats" name="selectedSeats" />
-                        <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">
-                    </form>
-                </div>
-
-                <br /><br />
-                <table class="table">
-                    <tr class="info">
-                        <th>카테고리</th>
-                        <th>공연명</th>
-                        <th>공연장</th>
-                        <th>공연날짜</th>
-                        <th>좌석등급</th>
-                        <th>다른 관람일자</th>
-                        <th>다른 관람일자 선택</th>
-                        <th>테스트</th>
-                    </tr>
-
-                    <tr>
-                        <td>${ vo.performanceCateVo.performance_cate_name }</td>
-                        <td>${ vo.performance_name }</td>
-                        <td>${ vo.hallVo.hall_name }</td>
-                        <td>${param.date}</td>
-                        <td>
-                            <c:forEach var="seat" items="${vo.seatList}">
-                                ${seat.seat_grade}석 : ${seat.seat_price}원 <br>
-                            </c:forEach>
-                        </td>
-                        <td>
-                            <input id="datepicker" width="276" />
-                        </td>
-                        <td><input class="btn btn-success" type="button" value="날짜 바꾸기"
-                                data-performance-idx="${ vo.performance_idx }"
-                                onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
-                        </td>
-                        <td>
-                            <c:forEach var="seat" items="${vo.seatList}" varStatus="status">
-                                <div class="seat2 seat-${status.index == 0 ? 'purple' : status.index == 1 ? 'green' : status.index == 2 ? 'blue' : 'orange'}"
-                                    data-color="${status.index == 0 ? 'purple' : status.index == 1 ? 'green' : status.index == 2 ? 'blue' : 'orange'}"
-                                    id="seat${status.index}">
                                 </div>
-                                ${seat.seat_grade} : ${status.index == 0 ? zeroCount1 : status.index == 1 ? zeroCount2 :
-                                status.index == 2 ? zeroCount3 : status.index == 3 ? zeroCount4 : zeroCount5}석<br />
                             </c:forEach>
-                        </td>
-                    </tr>
+                        </div>
+                        <br />
+                        <div class="seat-container2">
+                            <table cellpadding="10" cellspacing="0">
+                                <tr>
+                                    <th colspan="4">&emsp;&emsp;&nbsp;&nbsp;좌석등급/잔여석</th>
+                                </tr>
+                                <tr>
+                                    <c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
+                                        <td>
+                                            <div class="seat2 seat-purple" data-color="purple" id="seat${i}"></div>
+                                        </td>
+                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">${zeroCount1}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">
+                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                        </td>
+                                    </c:forEach>
+                                </tr>
+                                <tr>
+                                    <c:forEach var="seat" items="${vo.seatList}" begin="1" end="1">
+                                        <td>
+                                            <div class="seat2 seat-green" data-color="green" id="seat${i}"></div>
+                                        </td>
+                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">${zeroCount2}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">
+                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                        </td>
+                                    </c:forEach>
+                                </tr>
+                                <tr>
+                                    <c:forEach var="seat" items="${vo.seatList}" begin="2" end="2">
+                                        <td>
+                                            <div class="seat2 seat-blue" data-color="blue" id="seat${i}"></div>
+                                        </td>
+                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">${zeroCount3}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">
+                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                        </td>
+                                    </c:forEach>
+                                </tr>
+                                <tr>
+                                    <c:forEach var="seat" items="${vo.seatList}" begin="3" end="3">
+                                        <td>
+                                            <div class="seat2 seat-orange" data-color="orange" id="seat${i}"></div>
+                                        </td>
+                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">${zeroCount4}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">
+                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                        </td>
+                                    </c:forEach>
+                                </tr>
+                                <tr>
+                                    <c:forEach var="seat" items="${vo.seatList}" begin="4" end="4">
+                                        <td>
+                                            <div class="seat2 seat-navy" data-color="navy" id="seat${i}"></div>
+                                        </td>
+                                        <td>&nbsp;${seat.seat_grade}석>&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">${zeroCount5}석>&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">
+                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                        </td>
+                                    </c:forEach>
+                                </tr>
+                            </table>
+                            <br /><br />
+                        </div>
+                        <div class="seat-container3">
+                            <p>선택좌석</p>
+                            <!-- 예약 폼 -->
+                            <form id="seatForm" action="reserve_seats.do" method="post">
+                                <div class="seat-info-container"
+                                    style="height: 120px; max-height: 150px; overflow-y: auto;">
+                                </div>
+                                <input type="hidden" name="performance_idx" value="${param.performance_idx}">
+                                <input type="hidden" name="date" value="${param.date}">
+                                <input type="hidden" id="seat_row" name="row">
+                                <input type="hidden" id="seat_col" name="col">
+                                <input type="hidden" name="seat_idx" value="${seat_idx}">
+                                <input type="hidden" id="selectedSeats" name="selectedSeats">
+                                <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">
+                            </form>
+                        </div>
+                        <div class="seat-container3">
+                            <input class="btn btn-warning" type="button" value="좌석다시선택"
+                                onclick="redirectToCurrentPage()">
+                            <br /><br /><br />
+                            <!-- 장바구니 담기 폼 -->
+                            <form id="bookForm" action="book_reservation.do" method="post">
+                                <input type="hidden" name="performance_idx" value="${param.performance_idx}">
+                                <input type="hidden" name="date" value="${param.date}">
+                                <input type="button" class="btn btn-danger" value="장바구니 담기" onclick="submitBookForm()">
+                            </form>
+                        </div>
 
-
-
-                </table>
-
-                <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
-                <!-- <div class="seat-container">
+                        <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
+                        <!-- <div class="seat-container">
                     <%-- 100개의 좌석 버튼 생성 --%>
                         <c:forEach var="i" begin="1" end="100">
                             <c:choose>
@@ -562,6 +485,17 @@
                                 </c:if>
                         </c:forEach>
                 </div> -->
-            </body>
+                        <!-- 나중에 참고할 일 생길까봐 남겨 놓는 잔여 좌석 코드 
+                    <c:forEach var="seat" items="${vo.seatList}" varStatus="status">
+                        <div class="seat2 seat-${status.index == 0 ? 'purple' : status.index == 1 ? 'green' : status.index == 2 ? 'blue' : 'orange'}"
+                            data-color="${status.index == 0 ? 'purple' : status.index == 1 ? 'green' : status.index == 2 ? 'blue' : 'orange'}"
+                            id="seat${status.index}">
+                        </div>
+                        ${seat.seat_grade} : ${status.index == 0 ? zeroCount1 : status.index == 1 ? zeroCount2 :
+                        status.index == 2 ? zeroCount3 : status.index == 3 ? zeroCount4 : zeroCount5}석<br />
+                    </c:forEach> 
+                -->
+                    </div>
+                </body>
 
-            </html>
+                </html>

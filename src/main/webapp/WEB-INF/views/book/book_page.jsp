@@ -95,12 +95,17 @@
                             var selectedDate = $('#datepicker').val();
                             var performanceIdx = $(this).data('performanceIdx'); // 버튼에 저장된 공연 번호 가져오기
 
-                            if (selectedDate) {
-                                window.location.href = 'performance_seat.do?performance_idx=' + performanceIdx + '&date=' + selectedDate;
-                            } else {
-                                alert('날짜를 선택해주세요.');
-                                window.location.href = 'performance_page.do?performance_idx=' + performanceIdx;
+                            console.log('Selected Date:', selectedDate);
+
+                            if (!selectedDate || selectedDate.trim() === "") {
+                                alert('날짜를 선택해주세요.'); // 날짜 선택 안 된 경우 경고창 띄우기
+                                return; // 여기서 함수를 종료시킵니다.
                             }
+
+                            // 날짜가 선택된 경우에만 새 창을 엽니다.
+                            window.open('performance_seat.do?performance_idx=' + performanceIdx + '&date=' + selectedDate,
+                                'window_name',
+                                'width=800, height=600, location=center, status=no, scrollbars=yes');
                         });
 
                     });
@@ -175,11 +180,7 @@
                             <td><input id="datepicker" width="276" />
                             </td>
                             <td><input class="btn btn-success" type="button" value="좌석정보"
-                                    data-performance-idx="${ vo.performance_idx }"
-                                    onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
-
-                            </td>
-
+                                    data-performance-idx="${ vo.performance_idx }" </td>
                         </tr>
 
 
