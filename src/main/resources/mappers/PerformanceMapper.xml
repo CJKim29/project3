@@ -103,12 +103,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   </select>
 
-  <!-- 지역별 공연 리스트 조회 -->
-  <!-- <select id="performance_area_list" parameterType="int" resultMap="performanceMap">
-		select * from performance 
-				 where performance_detail_cate_idx = #{performance_detail_cate_idx}
-				 	   and hall_idx = #{hall_idx};
-				</select> -->
+  <!-- 공연 정보 등록 -->
+  <insert id="performance_insert" parameterType="performance">
+    insert into performance values(null,
+							                     #{performance_cate_idx},
+                                   #{performance_detail_cate_idx},
+                                   #{hall_idx},
+                                   #{performance_name},
+                                   #{performance_startday},
+                                   #{performance_endday},
+							                     #{performance_runtime},
+                                   #{performance_image},
+                                   #{performance_age}							
+                               );
+  </insert>
 
 
   <!--parameterType = 전달인자타입
