@@ -32,10 +32,8 @@ public class DetailPageController {
     public String detail_page(int performance_idx, Model model) {
 
         PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
-        PerformanceDetailVo detailVo = detail_mapper.selectDetailOneFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
-        model.addAttribute("detailVo", detailVo);
 
         MemberVo user = (MemberVo) session.getAttribute("user");
 

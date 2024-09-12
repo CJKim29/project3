@@ -61,14 +61,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE performance_idx = #{performance_idx}
    </select>
 
-   <!-- 상세정보 전체조회 -->
-   <select id="selectDetailList" resultType="performanceDetail">
-      select * from performance_detail order by performance_idx
-   </select>
-
-   <!-- 상세정보 Idx조회 -->
-   <select id="selectDetailOneFromIdx" parameterType="int" resultType="performanceDetail">
-      select * from performance_detail where performance_idx=#{ performance_idx }
-   </select>
-
 </mapper>

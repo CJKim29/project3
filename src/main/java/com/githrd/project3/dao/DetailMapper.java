@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.githrd.project3.vo.PerformanceDetailVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
 
@@ -30,10 +29,4 @@ public interface DetailMapper {
 
     // 특정 공연의 전체 좋아요 수 조회
     int getTotalLikeCount(int performance_idx);
-
-    // 상세정보 전체조회
-    List<PerformanceDetailVo> selectDetailList();
-
-    // 상세정보 Idx조회
-    PerformanceDetailVo selectDetailOneFromIdx(int Performance_idx);
 }

@@ -439,7 +439,7 @@
 												<!-- Tab Nav -->
 												<ul class="nav nav-tabs" id="myTab" role="tablist">
 													<li class="nav-item"><a class="nav-link active" data-toggle="tab"
-															href="#description" role="tab">Description</a></li>
+															href="#description" role="tab">공연정보</a></li>
 													<li class="nav-item"><a class="nav-link" data-toggle="tab"
 															href="#reviews" role="tab">Reviews</a></li>
 												</ul>
@@ -447,26 +447,24 @@
 											</div>
 											<div class="tab-content" id="myTabContent">
 												<!-- Description Tab -->
-												<input type="hidden" name="performance_detail_idx"
-													value="${ detailVo.performance_detail_idx }">
 												<div class="tab-pane fade show active" id="description" role="tabpanel">
 													<div class="tab-single">
 														<div class="row">
 															<div class="col-12">
 																<div class="single-des">
 																	<h4>공연시간 정보</h4>
-																	<p>${detailVo.performance_detail_info}</p>
+																	<p>${vo.performance_detail_info}</p>
 																</div><br>
 																<div class="single-des">
-																	<c:if test="${detailVo.performance_al != null}">
+																	<c:if test="${vo.performance_al != null}">
 																		<h4>공지사항</h4>
-																		<p>${detailVo.performance_al}</p>
+																		<p>${vo.performance_al}</p>
 																	</c:if>
 																</div><br>
 																<div class="single-des">
 																	<h4>공연상세 / 캐스팅일정</h4>
 																	<img
-																		src="../resources/images/${detailVo.performance_detail_image}">
+																		src="../resources/images/${vo.performance_detail_image}">
 																</div>
 															</div>
 														</div>
