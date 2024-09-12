@@ -87,11 +87,17 @@
 							'opsz' 24
 					}
 
-					/* #love:hover {
+					.loves {
 						background-color: blue;
-					} */
-					isLiked {
-						background-color: #ff1d38;
+					}
+
+					.single-des h4 {
+						font-weight: bold !important;
+					}
+
+					.single-des p {
+						color: black;
+						font-size: 15px;
 					}
 				</style>
 
@@ -100,33 +106,20 @@
 						$("#myModal").modal({ backdrop: "static" });
 						loadMap();
 					}
-				</script>
-
-				<script type="text/javascript">
 
 					function handleLikeClick() {
-						var isLoggedIn = 'session.getAttribute("mem_idx") != null';
 
-						if (isLoggedIn === 'false') {
+						//로그인 상태 체크
+						if ("${ empty user }" == "true") {
 
-							// 로그인 여부 체크
-							if ("${empty user}" == "true") {
-
-								if (confirm("글쓰기는 로그인 후 가능합니다\n로그인 하시겠습니까?") == false) return;
-
-								// 로그인폼으로 이동
-								location.href = "../member/login_form.do";
-
-								return;
-							}
-
-							// 새글 쓰기 폼 띄우기
-							location.href = "insert_form.do";
-							alert("로그인이 필요합니다.");
-							window.location.href = "<c:url value='../member/member_login_form' />";
-						} else {
-							window.location.href = "<c:url value='/detail/toggleLike.do?performance_idx='/>" + '<%= request.getParameter("performance_idx") %>';
+							if (confirm("좋아요는 로그인후 이용가능합니다\n로그인 하시겠습니까?") == false) return;
+							//                                               현재url주소를 넘긴다
+							location.href = "../member/login_form.do?url=" + encodeURIComponent(location.href);
+							return;
 						}
+
+						location.href = "toggleLike.do?performance_idx=${param.performance_idx}";
+
 					}
 
 				</script>
@@ -297,17 +290,18 @@
 												<div class="navbar-collapse">
 													<div class="nav-inner">
 														<ul class="nav main-menu menu navbar-nav">
-															<li class="active"><a href="">Home</a></li>
-															<li><a href="../main/sample.jsp">뮤지컬</a></li>
+															<li class="active"><a href="../main/list.do">Home</a></li>
+															<li><a href="../performance/list.do">뮤지컬</a>
+															</li>
 															<li><a href="">콘서트(보류)</a></li>
 															<li><a href="">연극(보류)</a></li>
 															<li>
 																<a href="">고객센터<i class="ti-angle-down"></i></a>
 																<ul class="dropdown">
 																	<li><a href="board-List.html">공지사항</a></li>
-																	<li><a href="board-List.html">FAQ</a></li>
+																	<li><a href="../faq/list.do">FAQ</a></li>
 																	<li>
-																		<a href="board-List.html">게시판 리스트</a>
+																		<a href="../board/list.do">게시판 리스트</a>
 																	</li>
 																	<li><a href="board-main.html">게시판 상세</a></li>
 																</ul>
@@ -365,7 +359,8 @@
 														onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i
 															class="fi fi-sr-caret-right"></i></a></p>
 												<p class="price"><span
-														class="discount">공연기간</span>${vo.performance_startday}~${vo.performance_endday}
+														class="discount">공연기간</span>${fn:substringBefore(vo.performance_startday,
+													' ')}~${fn:substringBefore(vo.performance_endday, ' ')}
 												</p>
 												<p class="price"><span
 														class="discount">공연시간</span>${vo.performance_runtime}분</p>
@@ -376,7 +371,7 @@
 												<p class="price" style="display: grid; grid-template-columns: 18% 84%;">
 													<span class="discount">가격</span>
 													<c:forEach var="seat" items="${vo.seatList}">
-														${seat.seat_grade} : ${seat.seat_price}원<br>
+														${seat.seat_grade}석 : ${seat.seat_price}원<br>
 													</c:forEach>
 												</p>
 											</div>
@@ -396,21 +391,24 @@
 											<div class="product-buy">
 												<div class="add-to-cart">
 													<a href="#" class="btn">예매하기</a>
-													<button type="button" id="love" class="btn min"
-														onclick="handleLikeClick()">
-														<c:choose>
-															<c:when test="${isLiked}">
-																<i class="ti-heart"></i>
-																${likeCount}
-															</c:when>
-															<c:otherwise>
-																<i class="ti-heart"></i>
-																${likeCount}
-															</c:otherwise>
-														</c:choose>
-													</button>
+													<c:choose>
+														<c:when test="${isLiked}">
+															<button type="button" id="love" class="btn min"
+																style="background-color: #ff1d38;"
+																onclick="handleLikeClick();">
+																<i class="ti-heart"></i> &nbsp;
+																<span>${ likeCount }</span>
+															</button>
+														</c:when>
+														<c:otherwise>
+															<button type="button" id="love" class="btn min"
+																onclick="handleLikeClick();">
+																<i class="ti-heart"></i> &nbsp;
+																<span>${ likeCount }</span>
+															</button>
+														</c:otherwise>
+													</c:choose>
 													<!-- <i class="ti-heart"></i> -->
-													<!-- <i class="fa-solid fa-heart" style="color: #ffffff;"></i> -->
 												</div>
 											</div>
 											<!--/ End Product Buy -->
@@ -449,65 +447,26 @@
 											</div>
 											<div class="tab-content" id="myTabContent">
 												<!-- Description Tab -->
+												<input type="hidden" name="performance_detail_idx"
+													value="${ detailVo.performance_detail_idx }">
 												<div class="tab-pane fade show active" id="description" role="tabpanel">
 													<div class="tab-single">
 														<div class="row">
 															<div class="col-12">
 																<div class="single-des">
-																	<p>simply dummy text of the printing and typesetting
-																		industry.
-																		Lorem Ipsum has been the industry's standard
-																		dummy text
-																		ever
-																		since the 1500s, when an unknown printer took a
-																		galley
-																		of
-																		type and scrambled it to make a type specimen
-																		book. It
-																		has
-																		survived not only five centuries, but also the
-																		leap into
-																		electronic typesetting, remaining essentially
-																		unchanged.
-																		It
-																		was popularised in the 1960s with the release of
-																		Letraset
-																		sheets containing Lorem Ipsum passages, and more
-																		recently
-																		with deskto</p>
-																</div>
+																	<h4>공연시간 정보</h4>
+																	<p>${detailVo.performance_detail_info}</p>
+																</div><br>
 																<div class="single-des">
-																	<p>Suspendisse consequatur voluptates lorem nobis
-																		accumsan
-																		natus
-																		mattis. Optio pede, optio qui metus, delectus!
-																		Ultricies
-																		impedit, minus tempor fuga, quasi, pede felis
-																		commodo
-																		bibendum voluptas nisi? Voluptatem risus tempore
-																		tempora.
-																		Quaerat aspernatur? Error praesent laoreet, cras
-																		in
-																		fames
-																		hac ea, massa montes diamlorem nec quaerat, quos
-																		occaecati
-																		leo nam aliquet corporis, ab recusandae
-																		parturient,
-																		etiam
-																		fermentum, a quasi possimus commodi, mollis
-																		voluptate
-																		mauris
-																		mollis, quisque donec</p>
-																</div>
+																	<c:if test="${detailVo.performance_al != null}">
+																		<h4>공지사항</h4>
+																		<p>${detailVo.performance_al}</p>
+																	</c:if>
+																</div><br>
 																<div class="single-des">
-																	<h4>Product Features:</h4>
-																	<ul>
-																		<li>long established fact.</li>
-																		<li>has a more-or-less normal distribution.
-																		</li>
-																		<li>lmany variations of passages of. </li>
-																		<li>generators on the Interne.</li>
-																	</ul>
+																	<h4>공연상세 / 캐스팅일정</h4>
+																	<img
+																		src="../resources/images/${detailVo.performance_detail_image}">
 																</div>
 															</div>
 														</div>
@@ -653,288 +612,6 @@
 					</div>
 				</section>
 				<!--/ End Shop Single -->
-
-				<!-- Start Most Popular -->
-				<div class="product-area most-popular related-product section">
-					<div class="container">
-						<div class="row">
-							<div class="col-12">
-								<div class="section-title">
-									<h2>Related Products</h2>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<div class="owl-carousel popular-slider">
-									<!-- Start Single Product -->
-									<div class="single-product">
-										<div class="product-img">
-											<a href="product-details.html">
-												<img class="default-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-												<img class="hover-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-												<span class="out-of-stock">Hot</span>
-											</a>
-											<div class="button-head">
-												<div class="product-action">
-													<a data-toggle="modal" data-target="#exampleModal"
-														title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick
-															Shop</span></a>
-													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-															Wishlist</span></a>
-													<a title="Compare" href="#"><i
-															class="ti-bar-chart-alt"></i><span>Add to
-															Compare</span></a>
-												</div>
-												<div class="product-action-2">
-													<a title="Add to cart" href="#">Add to cart</a>
-												</div>
-											</div>
-										</div>
-										<div class="product-content">
-											<h3><a href="product-details.html">Black Sunglass For Women</a></h3>
-											<div class="product-price">
-												<span class="old">$60.00</span>
-												<span>$50.00</span>
-											</div>
-										</div>
-									</div>
-									<!-- End Single Product -->
-									<!-- Start Single Product -->
-									<div class="single-product">
-										<div class="product-img">
-											<a href="product-details.html">
-												<img class="default-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-												<img class="hover-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-											</a>
-											<div class="button-head">
-												<div class="product-action">
-													<a data-toggle="modal" data-target="#exampleModal"
-														title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick
-															Shop</span></a>
-													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-															Wishlist</span></a>
-													<a title="Compare" href="#"><i
-															class="ti-bar-chart-alt"></i><span>Add to
-															Compare</span></a>
-												</div>
-												<div class="product-action-2">
-													<a title="Add to cart" href="#">Add to cart</a>
-												</div>
-											</div>
-										</div>
-										<div class="product-content">
-											<h3><a href="product-details.html">Women Hot Collection</a></h3>
-											<div class="product-price">
-												<span>$50.00</span>
-											</div>
-										</div>
-									</div>
-									<!-- End Single Product -->
-									<!-- Start Single Product -->
-									<div class="single-product">
-										<div class="product-img">
-											<a href="product-details.html">
-												<img class="default-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-												<img class="hover-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-												<span class="new">New</span>
-											</a>
-											<div class="button-head">
-												<div class="product-action">
-													<a data-toggle="modal" data-target="#exampleModal"
-														title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick
-															Shop</span></a>
-													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-															Wishlist</span></a>
-													<a title="Compare" href="#"><i
-															class="ti-bar-chart-alt"></i><span>Add to
-															Compare</span></a>
-												</div>
-												<div class="product-action-2">
-													<a title="Add to cart" href="#">Add to cart</a>
-												</div>
-											</div>
-										</div>
-										<div class="product-content">
-											<h3><a href="product-details.html">Awesome Pink Show</a></h3>
-											<div class="product-price">
-												<span>$50.00</span>
-											</div>
-										</div>
-									</div>
-									<!-- End Single Product -->
-									<!-- Start Single Product -->
-									<div class="single-product">
-										<div class="product-img">
-											<a href="product-details.html">
-												<img class="default-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-												<img class="hover-img" src="https://via.placeholder.com/550x750"
-													alt="#">
-											</a>
-											<div class="button-head">
-												<div class="product-action">
-													<a data-toggle="modal" data-target="#exampleModal"
-														title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick
-															Shop</span></a>
-													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-															Wishlist</span></a>
-													<a title="Compare" href="#"><i
-															class="ti-bar-chart-alt"></i><span>Add to
-															Compare</span></a>
-												</div>
-												<div class="product-action-2">
-													<a title="Add to cart" href="#">Add to cart</a>
-												</div>
-											</div>
-										</div>
-										<div class="product-content">
-											<h3><a href="product-details.html">Awesome Bags Collection</a></h3>
-											<div class="product-price">
-												<span>$50.00</span>
-											</div>
-										</div>
-									</div>
-									<!-- End Single Product -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- End Most Popular Area -->
-
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-										class="ti-close" aria-hidden="true"></span></button>
-							</div>
-							<div class="modal-body">
-								<div class="row no-gutters">
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-										<!-- Product Slider -->
-										<div class="product-gallery">
-											<div class="quickview-slider-active">
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-												<div class="single-slider">
-													<img src="https://via.placeholder.com/569x528" alt="#">
-												</div>
-											</div>
-										</div>
-										<!-- End Product slider -->
-									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-										<div class="quickview-content">
-											<h2>Flared Shift Dress</h2>
-											<div class="quickview-ratting-review">
-												<div class="quickview-ratting-wrap">
-													<div class="quickview-ratting">
-														<i class="yellow fa fa-star"></i>
-														<i class="yellow fa fa-star"></i>
-														<i class="yellow fa fa-star"></i>
-														<i class="yellow fa fa-star"></i>
-														<i class="fa fa-star"></i>
-													</div>
-													<a href="#"> (1 customer review)</a>
-												</div>
-												<div class="quickview-stock">
-													<span><i class="fa fa-check-circle-o"></i> in stock</span>
-												</div>
-											</div>
-											<h3>$29.00</h3>
-											<div class="quickview-peragraph">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
-													iste
-													laborum
-													ad impedit pariatur esse optio tempora sint ullam autem deleniti nam
-													in quos
-													qui
-													nemo ipsum numquam.</p>
-											</div>
-											<div class="size">
-												<div class="row">
-													<div class="col-lg-6 col-12">
-														<h5 class="title">Size</h5>
-														<select>
-															<option selected="selected">s</option>
-															<option>m</option>
-															<option>l</option>
-															<option>xl</option>
-														</select>
-													</div>
-													<div class="col-lg-6 col-12">
-														<h5 class="title">Color</h5>
-														<select>
-															<option selected="selected">orange</option>
-															<option>purple</option>
-															<option>black</option>
-															<option>pink</option>
-														</select>
-													</div>
-												</div>
-											</div>
-											<div class="quantity">
-												<!-- Input Order -->
-												<div class="input-group">
-													<div class="button minus">
-														<button type="button" class="btn btn-primary btn-number"
-															disabled="disabled" data-type="minus" data-field="quant[1]">
-															<i class="ti-minus"></i>
-														</button>
-													</div>
-													<input type="text" name="quant[1]" class="input-number" data-min="1"
-														data-max="1000" value="1">
-													<div class="button plus">
-														<button type="button" class="btn btn-primary btn-number"
-															data-type="plus" data-field="quant[1]">
-															<i class="ti-plus"></i>
-														</button>
-													</div>
-												</div>
-												<!--/ End Input Order -->
-											</div>
-											<div class="add-to-cart">
-												<a href="#" class="btn">Add to cart</a>
-												<a href="#" class="btn min"><i class="ti-heart"></i></a>
-												<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-											</div>
-											<div class="default-social">
-												<h4 class="share-now">Share:</h4>
-												<ul>
-													<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
-													</li>
-													<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
-													</li>
-													<li><a class="youtube" href="#"><i
-																class="fa fa-pinterest-p"></i></a></li>
-													<li><a class="dribbble" href="#"><i
-																class="fa fa-google-plus"></i></a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Modal end -->
 
 				<!-- Modal -->
 				<div id="myModal" class="modal fade" role="dialog">

@@ -4,67 +4,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.DetailMapper">
 
-      <resultMap id="performanceMap" type="performance">
-            <result property="hall_idx" column="hall_idx"/>
-            <result property="performance_cate_idx" column="performance_cate_idx"/>
-            <result property="performance_idx" column="performance_idx"/>
-            <result property="seat_idx" column="seat_idx"/>
+   <resultMap id="performanceMap" type="performance">
+      <result property="hall_idx" column="hall_idx"/>
+      <result property="performance_cate_idx" column="performance_cate_idx"/>
+      <result property="performance_idx" column="performance_idx"/>
+      <result property="seat_idx" column="seat_idx"/>
 
-            <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
-            <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
-            <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
-      </resultMap>
+      <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
+      <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+      <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
+   </resultMap>
 
-      <select id="performance_cate_list" resultType="performance_cate">
+   <select id="performance_cate_list" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
-      </select>
-      <select id="hall_list" resultType="hall">
+   </select>
+   <select id="hall_list" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-      </select>
-      <select id="seat_list" resultType="seat">
+   </select>
+   <select id="seat_list" resultType="seat">
        select * from seat where performance_idx=#{ performance_idx }
-      </select>
+   </select>
 
 
-      <!-- 전체조회 -->
-      <select id="selectList" resultMap="performanceMap">
+   <!-- 전체조회 -->
+   <select id="selectList" resultMap="performanceMap">
 		select * from performance order by performance_idx
-      </select>
+   </select>
 
-      <!-- idx조회 -->
-      <select id="selectOneFromIdx" resultMap="performanceMap">
+   <!-- idx조회 -->
+   <select id="selectOneFromIdx" resultMap="performanceMap">
 		select * from performance where performance_idx=#{ performance_idx }
-      </select>
+   </select>
 
-      <!-- 좋아요 유무 -->
-      <select id="findLike" resultType="Boolean">
+   <!-- 좋아요 유무 -->
+   <select id="findLike" resultType="Boolean">
 		select count(*) from performance_ex_like where performance_idx=#{performance_idx} and mem_idx=#{mem_idx}
-      </select>
+   </select>
 
-      <!-- 좋아요 추가 -->
-      <insert id="likeUp">
+   <!-- 좋아요 추가 -->
+   <insert id="likeUp">
 		INSERT INTO performance_ex_like (performance_idx, mem_idx, like_number)
         VALUES (#{performance_idx}, #{mem_idx}, 1)
-      </insert>
+   </insert>
 
-      <!-- 좋아요 취소 -->
-      <delete id="likeDown">
+   <!-- 좋아요 취소 -->
+   <delete id="likeDown">
 		delete from performance_ex_like 
 			where performance_idx = #{performance_idx} and 
 					mem_idx = #{mem_idx}
-      </delete>
+   </delete>
 
-      <update id="updateLikeNumber">
-        UPDATE performance_ex_like
-        SET like_number = like_number + 1
-        WHERE performance_idx = #{performance_idx} AND mem_idx = #{mem_idx}
-      </update>
-
-      <!-- 좋아요 수 -->
-      <select id="selectLikeNumber" resultType="int">
-        SELECT like_number
+   <!-- 좋아요 수 -->
+   <select id="getTotalLikeCount" parameterType="int" resultType="int">
+        SELECT ifnull(sum(like_number),0)
         FROM performance_ex_like
-        WHERE performance_idx = #{performance_idx} AND mem_idx = #{mem_idx}
-      </select>
+        WHERE performance_idx = #{performance_idx}
+   </select>
+
+   <!-- 상세정보 전체조회 -->
+   <select id="selectDetailList" resultType="performanceDetail">
+      select * from performance_detail order by performance_idx
+   </select>
+
+   <!-- 상세정보 Idx조회 -->
+   <select id="selectDetailOneFromIdx" parameterType="int" resultType="performanceDetail">
+      select * from performance_detail where performance_idx=#{ performance_idx }
+   </select>
 
 </mapper>
