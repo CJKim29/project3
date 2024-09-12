@@ -53,6 +53,13 @@ public class MemberController {
     @RequestMapping("login_form.do")
     public String login_form() {
 
+        String referer = request.getHeader("Referer");
+
+        // 세션에 이전 페이지 URL 저장 (로그인 폼이 아닌 경우에만)
+        if (referer != null && !referer.contains("login_form.do")) {
+            session.setAttribute("prevPage", referer);
+        }
+
         return "member/member_login_form";
     }
 
@@ -84,7 +91,16 @@ public class MemberController {
         // 로그인처리: 현재 로그인된 객체(user)정보를 session에 저장
         session.setAttribute("user", user);
 
-        return "redirect:../member/list.do";
+        // 이전 페이지 정보가 세션에 저장되어 있는지 확인
+        String prevPage = (String) session.getAttribute("prevPage");
+
+        // 이전 페이지가 있다면 그쪽으로 리다이렉트, 없으면 메인 페이지로 이동
+        if (prevPage != null) {
+            session.removeAttribute("prevPage"); // 사용 후 세션에서 제거
+            return "redirect:" + prevPage;
+        }
+
+        return "redirect:../main/list.do"; // 기본적으로 메인 페이지로 이동
     }
 
     // 로그아웃
@@ -93,7 +109,14 @@ public class MemberController {
 
         session.removeAttribute("user");
 
-        return "redirect:../member/list.do";
+        // 로그아웃 하기 전 페이지로 이동
+        String referer = request.getHeader("Referer");
+
+        if (referer != null) {
+            return "redirect:" + referer;
+        }
+
+        return "redirect:../main/list.do";
     }
 
     // 삭제
@@ -118,7 +141,7 @@ public class MemberController {
         // 3.DB delete
         int res = member_mapper.delete(mem_idx);
 
-        return "redirect:list.do";
+        return "redirect:../main/list.do";
     }
 
     // 회원가입 폼
@@ -173,7 +196,7 @@ public class MemberController {
             session.setAttribute("user", user);
         }
 
-        return "redirect:list.do";
+        return "redirect:../mypage/mypage.do";
     }
 
     // 아이디체크

@@ -90,7 +90,7 @@
 			f.mem_addr.focus();
 			return;
 		}
-		
+		alert("회원 정보 수정이 완료되었습니다.");
 		f.action = "modify.do";
 		f.submit();		// 전송
 	}// end: send
