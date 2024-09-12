@@ -1,9 +1,20 @@
 @charset "UTF-8";
 
+html, body {
+    width: 800px;
+    height: 600px;
+    background-color: gray;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
 #seat-box {
-    width: 780px;
-    height: 570px;
-    margin: auto;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .seat {
@@ -55,10 +66,10 @@
 
 /* 좌석 컨테이너 스타일 */
 .seat-container0 {
-    width: 450px;
+    width: 380px;
     display: inline-block;
     vertical-align: top;
-    margin-right: 20px;
+    margin-left: 60px;
     display: flex;
     /* Flexbox를 사용하여 나란히 배치 */
     align-items: center;
@@ -68,12 +79,15 @@
 }
 
 .seat-container {
-    width: 400px;
+    width: 420px;
+    height: 380px;
+    padding-top: 20px;
+    padding-left: 10px;
+    margin-left: 40px;
     display: inline-block;
     vertical-align: top;
-    margin-right: 60px;
-    float: left;
     background-color: antiquewhite;
+    float: left;
 }
 
 .seat-container2 {
@@ -104,4 +118,19 @@
 
 .initial {
     background-color: initial;
+}
+
+.seat-title{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 60px;
+    margin-bottom: 10px;
+    color: white;
+    background-color: black;
+}
+.seat-content{
+    width: 300px;
+    height: 380px;
+    float: right;
 }

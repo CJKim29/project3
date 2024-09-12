@@ -182,21 +182,22 @@
 
                 <body>
                     <div id="seat-box">
-                        <h2 style="text-align: left; margin-left: 100px;">${param.date} 좌석 선택</h2>
-                        <div style="margin-left: 40px; margin-bottom: 10px; margin-top: 25px;">
+                        <h3 style="width: 270px; float: right; text-align: center; height: 45px; line-height: 45px;
+                        color: white; background-color: rgb(228, 64, 64); margin-right: 10px;">${param.date} 좌석 선택</h3>
+                        <br /><br />
+                        <div class="seat-title">
                             ${ vo.performanceCateVo.performance_cate_name }&nbsp; <${ vo.performance_name }>
                                 &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name } <br />
                         </div>
                         <div class="seat-container0">
-                            <br /><br />
-                            <p style="margin-top: 17px; margin-left: 50px;">다른 관람일자 선택</p> <input id="datepicker"
+                            <p style="margin-top: 17px; color: white; background-color: rgb(51, 121, 181);">다른 관람일자 선택</p> <input id="datepicker"
                                 width="120" />
                             <input class="btn btn-primary" type="button" value="날짜 바꾸기"
                                 data-performance-idx="${ vo.performance_idx }"
                                 onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
                         </div>
                         <br />
-                        <div class="seat-container" style="margin-left: 50px;">
+                        <div class="seat-container">
                             <c:forEach var="seat" items="${seats}">
                                 <div>
                                     <c:choose>
@@ -365,6 +366,7 @@
                             </c:forEach>
                         </div>
                         <br />
+                        <div class="seat-content">
                         <div class="seat-container2">
                             <table cellpadding="10" cellspacing="0">
                                 <tr>
@@ -423,18 +425,19 @@
                                         <td>
                                             <div class="seat2 seat-navy" data-color="navy" id="seat${i}"></div>
                                         </td>
-                                        <td>&nbsp;${seat.seat_grade}석>&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">${zeroCount5}석>&nbsp;&nbsp;</td>
+                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                        <td style="text-align: right;">${zeroCount5}석&nbsp;&nbsp;</td>
                                         <td style="text-align: right;">
                                             <fmt:formatNumber type="number" value="${seat.seat_price}" />원
                                         </td>
                                     </c:forEach>
                                 </tr>
                             </table>
-                            <br /><br />
+                            <br />
                         </div>
+                        <div style="width: 240px; background-color: rgb(228, 64, 64); color: white; text-align: center;">원하시는 좌석 위치를 선택해주세요.</div><br/>
                         <div class="seat-container3">
-                            <p>선택좌석</p>
+                            <p style="background-color: aquamarine; text-align: center;">선택좌석</p>
                             <!-- 예약 폼 -->
                             <form id="seatForm" action="reserve_seats.do" method="post">
                                 <div class="seat-info-container"
@@ -446,7 +449,9 @@
                                 <input type="hidden" id="seat_col" name="col">
                                 <input type="hidden" name="seat_idx" value="${seat_idx}">
                                 <input type="hidden" id="selectedSeats" name="selectedSeats">
-                                <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">
+                                <div style="display: flex; justify-content: center;">
+                                    <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">
+                                </div>
                             </form>
                         </div>
                         <div class="seat-container3">
@@ -460,7 +465,7 @@
                                 <input type="button" class="btn btn-danger" value="장바구니 담기" onclick="submitBookForm()">
                             </form>
                         </div>
-
+                    </div>
                         <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
                         <!-- <div class="seat-container">
                     <%-- 100개의 좌석 버튼 생성 --%>
