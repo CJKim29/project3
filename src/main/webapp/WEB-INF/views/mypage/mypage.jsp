@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
     </style>
     <script type="text/javascript">
       function member_modify() {
-        location.href = "../member/modify_form.do";
+        location.href = "../member/modify_form.do?mem_idx=" + `${user.mem_idx}`;
       }
       function member_delete() {
         alert("회원 탈퇴가 완료되었습니다.");
