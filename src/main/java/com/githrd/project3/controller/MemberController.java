@@ -53,6 +53,13 @@ public class MemberController {
     @RequestMapping("login_form.do")
     public String login_form() {
 
+        String referer = request.getHeader("Referer");
+
+        // 세션에 이전 페이지 URL 저장 (로그인 폼이 아닌 경우에만)
+        if (referer != null && !referer.contains("login_form.do")) {
+            session.setAttribute("prevPage", referer);
+        }
+
         return "member/member_login_form";
     }
 
@@ -84,15 +91,16 @@ public class MemberController {
         // 로그인처리: 현재 로그인된 객체(user)정보를 session에 저장
         session.setAttribute("user", user);
 
-        // 로그인 하기 전 페이지로 이동
-        String referer = request.getHeader("Referer");
+        // 이전 페이지 정보가 세션에 저장되어 있는지 확인
+        String prevPage = (String) session.getAttribute("prevPage");
 
-        // referer가 null이 아니고 로그인 폼이 아닌 경우에만 referer로 리다이렉트
-        if (referer != null && !referer.contains("login_form.do")) {
-            return "redirect:" + referer;
+        // 이전 페이지가 있다면 그쪽으로 리다이렉트, 없으면 메인 페이지로 이동
+        if (prevPage != null) {
+            session.removeAttribute("prevPage"); // 사용 후 세션에서 제거
+            return "redirect:" + prevPage;
         }
 
-        return "redirect:../main/list.do";
+        return "redirect:../main/list.do"; // 기본적으로 메인 페이지로 이동
     }
 
     // 로그아웃
