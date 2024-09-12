@@ -147,16 +147,12 @@
             // }
           </script>
 
-          <!-- 공연 추가 버튼 / 공연 가격 버튼 -->
+          <!-- 공연 추가 -->
           <script>
             function insert_form() {
 
               location.href = "insert_form.do"; // 공연 추가 폼으로 이동
 
-            }
-
-            function insert_form_price() {
-              location.href = "insert_form_price.do";
             }
           </script>
         </head>
@@ -273,7 +269,6 @@
                         <!-- <input type="button" class="btn admin_btn" value="공연 수정" onclick="location.href='list.do'" /> -->
                         <c:if test="${ user.mem_grade eq '관리자' }">
                           <input type="button" class="btn admin_btn" value="공연 추가" onclick="insert_form();" />
-                          <input type="button" class="btn admin_btn" value="공연 가격 추가" onclick="insert_form_price();" />
                         </c:if>
 
                       </div>

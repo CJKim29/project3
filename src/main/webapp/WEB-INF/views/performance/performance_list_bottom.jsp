@@ -22,7 +22,7 @@
 						.content_wrap {
 							width: 30% !important;
 							/* 각 요소의 너비 설정 */
-							margin-bottom: 30px !important;
+							margin-bottom: 50px !important;
 							/* 아래쪽 여백 설정 */
 						}
 
@@ -30,27 +30,49 @@
 
 							margin: 0px 20px 20px 20px;
 
+							width: 450px;
+							height: 500px;
+							object-fit: fill;
+
+
 						}
 
 						.performance_cate {
 							font-size: 15px !important;
 							color: gray;
+							margin-bottom: 10px;
 						}
 
 						.performance_name {
-							width: 300px !important;
-							font-size: 25px;
+							/* width: 300px !important; */
+							font-size: 23px;
 							font-weight: bold;
 							margin-top: 20px;
-							margin-bottom: 5px !important;
+							margin-bottom: 10px !important;
+
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							word-break: break-all;
+
+						}
+
+						.area {
+							margin-bottom: 10px;
 						}
 
 						.performance_price {
-							float: right !important;
-							padding-right: 20px;
 							font-size: 20px;
 							font-weight: bold;
-							margin-bottom: 50px;
+							margin-bottom: 10px;
+							margin-left: 240px;
+						}
+
+						.admin_btns input {
+							/* width: 100px; */
+							/* text-align: left !important; */
+							padding: 7px;
+
 						}
 
 						/* 조회 데이터 없음 메세지 */
@@ -97,6 +119,20 @@
 						}
 					</script> -->
 
+					<script>
+						//공연 좌석 정보 추가
+						function insert_form_seat(performance_idx) {
+							location.href = "insert_form_seat.do?performance_idx=" + performance_idx; // 공연 추가 폼으로 이동
+						}
+
+						// 공연 수정
+						function modify_form(performance_idx) {
+							location.href = "modify_form.do?performance_idx=" + performance_idx; // 공연 수정 폼으로 이동
+
+						}
+
+					</script>
+
 				</head>
 
 				<body class="js">
@@ -118,40 +154,49 @@
 									<!-- 공연 목록 출력 -->
 									<div class="performance_list">
 										<c:forEach var="vo" items="${ list }">
-											<div content_wrap>
+											<div class="content_wrap">
 												<img class="performance_img"
 													src="../resources/images/${ vo.performance_image }"
 													onclick="location.href='detailpage.do?performance_idx=${vo.performance_idx}'">
 
-												<div class="performance_content">
-													<div class="performance_cate">${
-														vo.performanceCateVo.performance_cate_name }
-														> ${ vo.performanceDetailCateVo.performance_detail_cate_name }
-													</div>
-													<div class="performance_name">${ vo.performance_name}</div>
 
-													<!-- 지역 정보 -->
-													<div>
-														${vo.hallVo.hall_area} >
-														${vo.hallVo.hall_name}
-													</div>
-
-													<!-- 가격 정보 -->
-													<div class="performance_price">
-														<c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
-															<!-- 가격 표시 : 숫자 3자리마다 , 찍기 -->
-															<!-- <fmt:setLocale value="ko_KR" /> -->
-															<fmt:formatNumber type="number"
-																value="${seat.seat_price}" />원
-														</c:forEach>
-
-													</div>
+												<div class="performance_cate">${
+													vo.performanceCateVo.performance_cate_name }
+													> ${ vo.performanceDetailCateVo.performance_detail_cate_name }
 												</div>
+												<div class="performance_name" title="${vo.performance_name}">${
+													vo.performance_name}</div>
+
+												<!-- 지역 정보 -->
+												<div class="area">
+													${vo.hallVo.hall_area} >
+													${vo.hallVo.hall_name}
+												</div>
+
+												<!-- 가격 정보 -->
+												<div class="performance_price">
+													<c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
+														<!-- 가격 표시 : 숫자 3자리마다 , 찍기 -->
+														<!-- <fmt:setLocale value="ko_KR" /> -->
+														<fmt:formatNumber type="number" value="${seat.seat_price}" />원
+													</c:forEach>
+												</div>
+
 												<!-- 관리자 권한 버튼 -->
-												<c:if test="${ user.mem_grade eq '관리자' }">
-													<input type="button" class="btn btn-sm admin_btn" value="공연 가격 추가"
-														onclick="insert_form_price();" />
-												</c:if>
+												<div class="admin_btns">
+													<c:if test="${ user.mem_grade eq '관리자' }">
+														<input type="button" class="btn" value="좌석 등록"
+															onclick="insert_form_seat('${vo.performance_idx}');" />
+
+														<input type="button" class="btn" value="공연 수정"
+															onclick="modify_form('${vo.performance_idx}');" />
+														<input type="button" class="btn" value="좌석 수정"
+															onclick="insert_form_seat('${vo.performance_idx}');" />
+
+														<input type="button" class="btn" value="공연 삭제"
+															onclick="insert_form_seat('${vo.performance_idx}');" />
+													</c:if>
+												</div>
 											</div>
 										</c:forEach>
 									</div>

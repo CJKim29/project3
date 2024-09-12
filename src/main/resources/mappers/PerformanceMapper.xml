@@ -18,11 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
   </resultMap>
 
-  <!-- 공연 카테고리 map으로 포장 -> 공연 세부카테고리 사용 위해 -->
-  <!-- <resultMap type="performance_cate" id="performanceCateMap">
-		<result property="performance_cate_idx" column="performance_cate_idx"/>
-		<association property="performanceDetailCateVo" column="performance_cate_idx=performance_cate_idx" select="detail_cate_list_sub" />
-	</resultMap> -->
 
   <!-- id명 =  association의 select명            vo alias-->
   <select id="detail_cate_list_sub" resultType="performance_detail_cate">
@@ -118,6 +113,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                );
   </insert>
 
+  <!-- 공연 정보 등록 - 좌석 별 가격 -->
+  <insert id="performance_insert_seat" parameterType="seat">
+    insert into seat values(null,
+                            #{performance_idx},
+                            #{seat_grade},
+                            #{seat_price}
+    );
+  </insert>
+
+  <!-- 공연 수정 -->
+  <update id="performance_update" parameterType="performance">
+    update performance set performance_cate_idx = #{performance_cate_idx},
+                           performance_detail_cate_idx = #{performance_detail_cate_idx},
+                           hall_idx = #{hall_idx},
+                           performance_name = #{performance_name},
+                           performance_startday = #{performance_startday},
+                           performance_endday = #{performance_endday},
+                           performance_runtime = #{performance_runtime},
+                           performance_image = #{performance_image},
+                           performance_age = #{performance_age}
+  </update>
+
+  <!-- 검색어에 따른 공연 목록 조회!! -->
+  <select id="searchPerformances" parameterType="string" resultMap="performanceMap">
+        select * from performance
+        where performance_name like #{search}
+  </select>
 
   <!--parameterType = 전달인자타입
 		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->

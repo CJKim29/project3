@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import com.githrd.project3.vo.PerformanceVo;
+import com.githrd.project3.vo.SeatVo;
 
 @Mapper
 public interface PerformanceMapper {
@@ -24,4 +25,13 @@ public interface PerformanceMapper {
 
     // 공연 등록
     int performance_insert(PerformanceVo vo);
+
+    // 공연 등록 - 좌석 별 가격
+    int performance_insert_seat(SeatVo vo);
+
+    // 공연 수정
+    int performance_update(PerformanceVo vo);
+
+    // 검색어를 포함한 공연 목록 조회
+    List<PerformanceVo> searchPerformances(String search);
 }
