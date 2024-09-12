@@ -44,6 +44,9 @@ pageEncoding="UTF-8"%>
           />
           <input type="button" value="회원탈퇴" onclick="member_delete();" />
           <input type="button" value="장바구니" />
+          <p>구매내역</p>
+          <p>나의 후기 목록</p>
+          <p>좋아요한 공연 목록</p>
         </div>
       </div>
     </div>
