@@ -9,15 +9,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceVo;
+import com.githrd.project3.vo.SeatVo;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -142,6 +143,108 @@ public class PerformanceController {
 		return "redirect:list.do";
 	}
 
+	// 공연 좌석 등록 폼
+	// "insert_form_price.do?performance_idx=" + performance_idx;
+	@RequestMapping("insert_form_seat.do")
+	public String insert_form_seat(int performance_idx, Model model) {
+
+		// 공연 정보 등을 모델에 추가하여 JSP에 전달
+		model.addAttribute("performance_idx", performance_idx);
+
+		return "performance/performance_insert_form_seat";
+	}
+
+	// 공연 좌석 등록
+	@RequestMapping("insert_seat.do")
+	// 파라미터 Vo로 포장해달라고 요청
+	public String insert_seat(SeatVo vo, int performance_idx, RedirectAttributes ra) {
+
+		// session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
+		MemberVo user = (MemberVo) session.getAttribute("user");
+		if (user == null) {
+
+			ra.addAttribute("reason", "session_timeout");
+
+			return "redirect:../member/login_form.do";
+		}
+
+		// insert 문자형 자료 enter 처리
+		String seat_grade = vo.getSeat_grade().replaceAll("\n", "<br>");
+		vo.setSeat_grade(seat_grade);
+
+		// DB insert
+		int res = performance_mapper.performance_insert_seat(vo);
+
+		return "redirect:list.do";
+	}
+
+	// 공연 수정 폼
+	@RequestMapping("modify_form.do")
+	public String modify_form(int performance_idx, Model model) {
+
+		PerformanceVo vo = performance_mapper.selectOneFromIdx(performance_idx);
+
+		// insert 문자형 자료 enter 처리
+		String performance_name = vo.getPerformance_name().replaceAll("\n", "<br>");
+		vo.setPerformance_name(performance_name);
+
+		model.addAttribute("vo", vo);
+
+		return "performance/performance_modify_form";
+	}
+
+	// 공연 수정
+	@RequestMapping("modify.do")
+	// 파라미터 Vo로 포장해달라고 요청
+	public String modify(PerformanceVo vo, @RequestParam MultipartFile photo, RedirectAttributes ra)
+			throws IllegalStateException, IOException {
+
+		// session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
+		// 세션 정보 구하기 - 로그인 한 유저 정보
+		MemberVo user = (MemberVo) session.getAttribute("user");
+		if (user == null) {
+
+			// 사용자한테 로그아웃됐다고 알려주기 => member_login_form.jsp로 가서 안내멘트 작성
+			ra.addAttribute("reason", "session_timeout");
+
+			return "redirect:../member/login_form.do";
+		}
+
+		// 파일 업로드 처리
+		String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
+		String performance_image = "no_file";
+
+		if (!photo.isEmpty()) {
+
+			// 업로드 된 파일 이름 얻어오기
+			performance_image = photo.getOriginalFilename();
+
+			File f = new File(absPath, performance_image);
+
+			if (f.exists()) { // 저장 경로에 동일한 파일이 존재하면 파일명 바꾸기
+				// 원래 파일명 = 시간_원래파일명
+				long tm = System.currentTimeMillis();
+				performance_image = String.format("%d_%s", tm, performance_image);
+
+				f = new File(absPath, performance_image);
+			}
+			// 임시 파일
+			photo.transferTo(f); // 예외 처리 넘기기
+
+		}
+		// 업로드 된 파일 이름 저장
+		vo.setPerformance_image(performance_image);
+
+		// insert 문자형 자료 enter 처리
+		String performance_name = vo.getPerformance_name().replaceAll("\n", "<br>");
+		vo.setPerformance_name(performance_name);
+
+		// DB insert
+		int res = performance_mapper.performance_update(vo);
+
+		return "redirect:list.do";
+	}
+
 	// 상세페이지 띄우기
 	@RequestMapping("performance_page.do")
 	public String Performance_page(int performance_idx, Model model) {
@@ -157,6 +260,15 @@ public class PerformanceController {
 	@RequestMapping("performance_seat.do")
 	public String performance_seat(Model model) {
 		return "performance/performance_seat";
+	}
+
+	// 검색 기능 추가!!!
+	@RequestMapping("performance_search.do")
+	public String search(String search, Model model) {
+		// 검색어를 포함한 공연 목록 가져오기
+		List<PerformanceVo> list = performance_mapper.searchPerformances("%" + search + "%");
+		model.addAttribute("list", list);
+		return "performance/performance_search"; // 검색 결과를 보여줄 JSP 페이지
 	}
 
 }
