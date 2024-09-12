@@ -84,7 +84,15 @@ public class MemberController {
         // 로그인처리: 현재 로그인된 객체(user)정보를 session에 저장
         session.setAttribute("user", user);
 
-        return "redirect:../member/list.do";
+        // 로그인 하기 전 페이지로 이동
+        String referer = request.getHeader("Referer");
+
+        // referer가 null이 아니고 로그인 폼이 아닌 경우에만 referer로 리다이렉트
+        if (referer != null && !referer.contains("login_form.do")) {
+            return "redirect:" + referer;
+        }
+
+        return "redirect:../main/list.do";
     }
 
     // 로그아웃
@@ -93,7 +101,14 @@ public class MemberController {
 
         session.removeAttribute("user");
 
-        return "redirect:../member/list.do";
+        // 로그아웃 하기 전 페이지로 이동
+        String referer = request.getHeader("Referer");
+
+        if (referer != null) {
+            return "redirect:" + referer;
+        }
+
+        return "redirect:../main/list.do";
     }
 
     // 삭제
@@ -118,7 +133,7 @@ public class MemberController {
         // 3.DB delete
         int res = member_mapper.delete(mem_idx);
 
-        return "redirect:list.do";
+        return "redirect:../main/list.do";
     }
 
     // 회원가입 폼
@@ -173,7 +188,7 @@ public class MemberController {
             session.setAttribute("user", user);
         }
 
-        return "redirect:list.do";
+        return "redirect:../mypage/mypage.do";
     }
 
     // 아이디체크
