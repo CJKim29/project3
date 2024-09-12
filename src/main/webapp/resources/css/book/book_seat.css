@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+#seat-box {
+    width: 780px;
+    height: 570px;
+    margin: auto;
+}
+
+.seat {
+    width: 27px;
+    height: 27px;
+    margin: 1px;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 10px 0px 0px 0px;
+}
+
+.seat2 {
+    width: 10px;
+    height: 10px;
+    margin: 2px;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.seat.unavailable {
+    pointer-events: none;
+    background-color: white !important;
+}
+
+/* 색상 스타일 */
+.seat-purple {
+    background-color: rgb(187, 73, 187);
+}
+
+.seat-green {
+    background-color: rgb(52, 199, 52);
+}
+
+.seat-blue {
+    background-color: rgb(40, 204, 216);
+}
+
+.seat-orange {
+    background-color: rgb(233, 174, 66);
+}
+
+.seat-navy {
+    background-color: rgb(38, 50, 223);
+}
+
+/* 좌석 컨테이너 스타일 */
+.seat-container0 {
+    width: 450px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+    display: flex;
+    /* Flexbox를 사용하여 나란히 배치 */
+    align-items: center;
+    /* 세로로 중앙 정렬 */
+    gap: 20px;
+    /* 두 요소 사이에 간격을 추가 */
+}
+
+.seat-container {
+    width: 400px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 60px;
+    float: left;
+    background-color: antiquewhite;
+}
+
+.seat-container2 {
+    width: 220px;
+    display: inline-block;
+    /* vertical-align: top; */
+    margin-right: 20px;
+}
+
+.seat-container3 {
+    width: 100px;
+    display: inline-block;
+    /* vertical-align: top; */
+    margin-right: 20px;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.initial {
+    background-color: initial;
+}
