@@ -79,6 +79,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="../resources/template/css/color/color12.css" />
 
     <link rel="stylesheet" href="#" id="colors" />
+
+
   </head>
   <body class="js">
 
@@ -105,8 +107,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <!-- 로그인이 안된 경우 -->
                   <c:if test="${ empty user }">
                     <li>
-                      <i class="ti-power-off"></i
-                      ><a href="../member/insert_form.do">회원가입</a>
+                      <i class="ti-power-off"></i>
+                      <a href="../member/insert_form.do">회원가입</a>
                     </li>
                     <li>
                       <i class="ti-power-off"></i
@@ -116,14 +118,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <!-- 로그인이 된 경우 -->
                   <c:if test="${ not empty sessionScope.user }">
                     <li>
-                      <i class="ti-power-off"></i><a href="#">회원정보</a>
-                    </li>
-                    <li>
                       <b>${ user.mem_nickname }님</b>
                       <a href="../member/logout.do">로그아웃</a>
                     </li>
+                    <li><i class="ti-user"></i> <a href="../mypage/mypage.do">마이페이지</a></li>
                   </c:if>
-                  <li><i class="ti-user"></i> <a href="../main/mypage.do">마이페이지</a></li>
                 </ul>
               </div>
               <!-- End Top Right -->
@@ -175,13 +174,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <option>통합검색</option>
                   </select>
                   <!-- search 검색 -->
-                  <form>
+                  <form id="searchForm" action="../performance/performance_search.do" method="GET">
                     <input
+                      id="searchInput"
                       name="search"
                       placeholder="찾으실 공연을 입력해주세요"
                       type="search"
+                      required
                     />
-                    <button class="btnn"><i class="ti-search"></i></button>
+                    <button class="btnn" type="submit"><i class="ti-search"></i></button>
                   </form>
                 </div>
               </div>
@@ -218,12 +219,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <ul class="nav main-menu menu navbar-nav">
                           <li class="active"><a href="../main/list.do">Home</a></li>
                           <li><a href="../performance/list.do">뮤지컬</a></li>
-
-                          <li><a href="">콘서트</a></li>
-                          <li><a href="">연극</a></li>
-
+                          <li><a href="../performance/list.do">콘서트</a></li>
+                          <li><a href="../performance/list.do">연극</a></li>
                           <li>
-                            <a href="">고객센터<i class="ti-angle-down"></i></a>
+                            <a href="../faq/list.do">고객센터<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
                               <li><a href="../qna/list.do">Q&A</a></li>
                               <li><a href="../faq/list.do">FAQ</a></li>

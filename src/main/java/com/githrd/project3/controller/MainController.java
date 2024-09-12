@@ -49,5 +49,6 @@ public class MainController {
     public String mypage(Model model){
         return "main/mypage";
     }
+    
 
 }
