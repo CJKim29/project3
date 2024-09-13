@@ -13,4 +13,9 @@ public interface HallMapper {
 
     int hall_insert(HallVo vo);
 
+    HallVo hall_one_from_idx(int hall_idx);
+
+    int hall_delete(int hall_idx);
+
+    int hall_modify(HallVo vo);
 }

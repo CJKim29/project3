@@ -1,6 +1,7 @@
 package com.githrd.project3.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,4 +97,62 @@ public class HallController {
 		return "redirect:list.do";
 	}
 
+	@RequestMapping("delete.do")
+	public String delete(int hall_idx) {
+
+		int res = hall_mapper.hall_delete(hall_idx);
+
+		return "redirect:list.do";
+	}
+
+	@RequestMapping("modify_form.do")
+	public String modify_form(int hall_idx, Model model) {
+
+		HallVo vo = hall_mapper.hall_one_from_idx(hall_idx);
+
+		model.addAttribute("vo", vo);
+
+		return "hall/hall_modify_form";
+	}
+
+	@RequestMapping("modify.do")
+	public String modify(HallVo vo, @RequestParam MultipartFile photo, RedirectAttributes ra)
+			throws Exception {
+
+		MemberVo user = (MemberVo) session.getAttribute("user");
+
+		if (user == null) {
+
+			ra.addAttribute("reason", "session_timeout");
+
+			return "redirect:../member/login_form.do";
+		}
+
+		// 파일 업로드 처리
+		String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
+		String hall_image = "no_file";
+
+		if (!hall_image.isEmpty()) {
+
+			// 업로드 된 파일 이름 얻어오기
+			hall_image = photo.getOriginalFilename();
+
+			File f = new File(absPath, hall_image);
+
+			if (f.exists()) { // 저장 경로에 동일한 파일이 존재하면 파일명 바꾸기
+				// 원래 파일명 = 시간_원래파일명
+				long tm = System.currentTimeMillis();
+				hall_image = String.format("%d_%s", tm, hall_image);
+
+				f = new File(absPath, hall_image);
+			}
+			// 임시 파일
+			photo.transferTo(f); // 예외 처리 넘기기
+		}
+		vo.setHall_image(hall_image);
+
+		int res = hall_mapper.hall_modify(vo);
+
+		return "redirect:list.do";
+	}
 }
