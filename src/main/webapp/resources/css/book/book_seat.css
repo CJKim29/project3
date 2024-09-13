@@ -80,8 +80,8 @@ body {
 }
 
 .seat-container {
-    width: 420px;
-    height: 380px;
+    width: 468px;
+    height: 498px;
     display: inline-block;
     vertical-align: top;
     background-color: #eeeeee;
@@ -103,6 +103,13 @@ body {
     margin-right: 20px;
 }
 
+.seat-container4 {
+    width: 120px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+}
+
 .purple {
     background-color: purple;
 }
@@ -121,6 +128,12 @@ body {
 
 .seat-title {
     display: inline-block;
+    width: 400px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    text-align: center;
     font-size: 20px;
     font-weight: bold;
     margin-left: 60px;
@@ -171,6 +184,6 @@ body {
 }
 
 #seat-box-body-left-button {
-    margin-top: 5px;
-    margin-left: 27px;
+    margin-top: 33px;
+    margin-left: 37px;
 }

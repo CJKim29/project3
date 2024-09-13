@@ -9,6 +9,7 @@
                 <head>
                     <meta charset="UTF-8">
                     <title>좌석 예약</title>
+                    <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
                     <link rel="stylesheet" href="../resources/css/book/book_seat.css">
 
@@ -186,9 +187,10 @@
                             <h3 style="width: 150px; float: right; text-align: center; height: 45px; line-height: 45px;
                         color: white; background-color: rgb(228, 64, 64); margin-right: 10px;">좌석 선택</h3>
                             <br /><br />
-                            <div class="seat-title">
-                                ${ vo.performanceCateVo.performance_cate_name }&nbsp; <${ vo.performance_name }>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name } <br />
+                            <div class="seat-title" title="${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
+                            &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name }">
+                                ${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
+                                &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name } <br />
                             </div>
                             <div class="seat-container0">
                                 <p style="margin-top: 17px; color: white; background-color: rgb(51, 121, 181);">다른 관람일자
@@ -477,7 +479,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="seat-container3">
+                                    <div class="seat-container4">
                                         <input class="btn btn-warning" type="button" value="좌석다시선택"
                                             onclick="redirectToCurrentPage()">
                                         <br /><br /><br />
