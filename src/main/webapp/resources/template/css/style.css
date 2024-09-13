@@ -2663,13 +2663,14 @@ Version:1.0
 }
 .shop-home-list .single-list .content .title {
 	line-height: 18px;
+	color: #ff4f19;
 }
 .shop-home-list .single-list .content .title a{
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 600;
 }
 .shop-home-list .single-list .content .titlea {
-	color: #333;
+	color: #f73737;
 }
 .shop-home-list .single-list .content a:hover{
 	color: #F7941D;
@@ -2682,7 +2683,7 @@ Version:1.0
 	color: #fff;
 	padding: 4px 24px;
 	border-radius: 30px;
-	font-size: 14px;
+	font-size: 10px;
 	font-weight: 500;
 }
 /*======================================
