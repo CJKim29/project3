@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.githrd.project3.dao.DetailMapper;
 import com.githrd.project3.vo.MemberVo;
-import com.githrd.project3.vo.PerformanceDetailVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
 

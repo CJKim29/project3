@@ -19,6 +19,10 @@ public class PerformanceVo {
     String performance_runtime;
     String performance_image;
     int performance_age;
+    String performance_state;
+    String performance_detail_info;
+    String performance_al;
+    String performance_detail_image;
 
     HallVo hallVo;
     PerformanceCateVo performanceCateVo;
