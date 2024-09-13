@@ -1,11 +1,15 @@
 package com.githrd.project3.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.githrd.project3.dao.DetailMapper;
+import com.githrd.project3.vo.ActorVo;
+import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
@@ -31,8 +35,10 @@ public class DetailPageController {
     public String detail_page(int performance_idx, Model model) {
 
         PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+        List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
+        model.addAttribute("list", list);
 
         MemberVo user = (MemberVo) session.getAttribute("user");
 
@@ -71,4 +77,15 @@ public class DetailPageController {
 
         return "redirect:/detail/detail.do?performance_idx=" + performance_idx;
     }
+
+    @RequestMapping("actor_list.do")
+    public String list(Model model) {
+
+        List<ActorVo> list = detail_mapper.selectActorList();
+
+        model.addAttribute("list", list);
+
+        return "detailpage/actor_list";
+    }
+
 }

@@ -67,6 +67,8 @@
 				<!-- 아이콘css 다희추가 -->
 				<link rel='stylesheet'
 					href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+				<link rel='stylesheet'
+					href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
 
 				<style>
 					.price a {
@@ -87,10 +89,6 @@
 							'opsz' 24
 					}
 
-					.loves {
-						background-color: blue;
-					}
-
 					.single-des h4 {
 						font-weight: bold !important;
 					}
@@ -98,6 +96,47 @@
 					.single-des p {
 						color: black;
 						font-size: 15px;
+					}
+
+					#actor_pic {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+					}
+
+					#actor_box {
+						width: 105px;
+						height: 110px;
+						border-radius: 70%;
+						overflow: hidden;
+						display: inline-block;
+					}
+
+					#casting_list {
+						display: inline-block;
+						margin: 0 36px 40px 0;
+						text-align: center;
+					}
+
+					#toggleButton {
+						width: 880px;
+						height: 60px;
+						background-color: #f4f6f9;
+						color: #666;
+						font-size: 16px;
+						border: 0;
+						border-bottom: 1px solid #dfe5ed;
+						outline: none;
+					}
+
+					#more {
+						position: relative;
+						top: 2px;
+					}
+
+					.collapsed {
+						height: 230px;
+						overflow: hidden;
 					}
 				</style>
 
@@ -120,6 +159,19 @@
 
 						location.href = "toggleLike.do?performance_idx=${param.performance_idx}";
 
+					}
+
+					function toggleText() {
+						var moreText = document.getElementById("moreText");
+						var btnText = document.getElementById("toggleButton");
+
+						if (moreText.classList.contains("collapsed")) {
+							moreText.classList.remove("collapsed");
+							btnText.innerHTML = '닫기 <i id="more" class="fi fi-rs-angle-small-up"></i>';
+						} else {
+							moreText.classList.add("collapsed");
+							btnText.innerHTML = '더보기 <i id="more" class="fi fi-rs-angle-small-down"></i>';
+						}
 					}
 
 				</script>
@@ -451,21 +503,48 @@
 													<div class="tab-single">
 														<div class="row">
 															<div class="col-12">
-																<div class="single-des">
-																	<h4>공연시간 정보</h4>
-																	<p>${vo.performance_detail_info}</p>
+																<div class="single-des" style="width: 880px;">
+																	<div id="moreText" class="collapsed">
+																		<h4>캐스팅</h4>
+																		<c:forEach var="castingVo" items="${ list }">
+																			<div id="casting_list">
+																				<div id="actor_box">
+																					<a href="#">
+																						<img id="actor_pic"
+																							src="../resources/images/${castingVo.actorVo.actor_pic}">
+																					</a>
+																				</div>
+																				<h6>${castingVo.casting_name}</h6>
+																				<p style="color: #666666;">
+																					${castingVo.actorVo.actor_name}</p>
+																			</div>
+																		</c:forEach>
+																	</div>
+																	<button onclick="toggleText()" id="toggleButton">더보기
+																		<i id="more"
+																			class="fi fi-rs-angle-small-down"></i>
+																	</button>
 																</div><br>
-																<div class="single-des">
-																	<c:if test="${vo.performance_al != null}">
+
+																<c:if test="${vo.performance_detail_info != null}">
+																	<div class="single-des">
+																		<h4>공연시간 정보</h4>
+																		<p>${vo.performance_detail_info}</p>
+																	</div><br>
+																</c:if>
+																<c:if test="${vo.performance_al != null}">
+																	<div class="single-des">
 																		<h4>공지사항</h4>
 																		<p>${vo.performance_al}</p>
-																	</c:if>
-																</div><br>
-																<div class="single-des">
-																	<h4>공연상세 / 캐스팅일정</h4>
-																	<img
-																		src="../resources/images/${vo.performance_detail_image}">
-																</div>
+																	</div><br>
+																</c:if>
+																<c:if test="${vo.performance_detail_image != null}">
+																	<div class="single-des">
+																		<h4>공연상세 / 캐스팅일정</h4>
+																		<img
+																			src="../resources/images/${vo.performance_detail_image}">
+																	</div>
+																</c:if>
 															</div>
 														</div>
 													</div>
@@ -676,6 +755,7 @@
 
 					</div>
 				</div>
+
 
 				<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
