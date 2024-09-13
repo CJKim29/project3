@@ -521,7 +521,7 @@
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h6 class="title">1st</h6>
-                                <p style="font-size: 12px;">써니텐</p>
+                                <p style="font-size: 12px;">뮤지컬<br>써니텐</p>
                             </div>
                         </div>
                     </div>
@@ -540,7 +540,7 @@
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h6 class="title">2st</h6>
-                                <p style="font-size: 12px;">인사이드 미</p>
+                                <p style="font-size: 12px;">뮤지컬<br>인사이드 미</p>
                             </div>
                         </div>
                     </div>
@@ -559,7 +559,7 @@
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
                                 <h6 class="title">3st</h6>
-                                <p style="font-size: 12px;">김종욱 찾기</p>
+                                <p style="font-size: 12px;">뮤지컬<br>김종욱 찾기</p>
                             </div>
                         </div>
                     </div>

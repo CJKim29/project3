@@ -219,8 +219,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <ul class="nav main-menu menu navbar-nav">
                           <li class="active"><a href="../main/list.do">Home</a></li>
                           <li><a href="../performance/list.do">뮤지컬</a></li>
-                          <li><a href="../performance/list.do">콘서트</a></li>
-                          <li><a href="../performance/list.do">연극</a></li>
+                          <li><a href="#">콘서트</a></li>
+                          <li><a href="#">연극</a></li>
                           <li>
                             <a href="../faq/list.do">고객센터<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
@@ -245,6 +245,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!--/ End Header Inner -->
     </header>
     <!--/ End Header -->
+
+    
 
     <!-- Jquery -->
     <script src="../resources/template/js/jquery.min.js"></script>
@@ -282,5 +284,51 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="../resources/template/js/easing.js"></script>
     <!-- Active JS -->
     <script src="../resources/template/js/active.js"></script>
+
+    <script>
+
+      $(document).ready(function() {
+          function setActiveMenu() {
+              let currentUrl = window.location.pathname; // 현재 페이지의 경로
+
+              // 모든 항목에서 'active' 클래스 제거
+              $('.nav.main-menu.menu.navbar-nav li').removeClass('active');
+
+              // 현재 URL과 매칭되는 메뉴 항목에 'active' 클래스 추가
+              $('.nav.main-menu.menu.navbar-nav a').each(function() {
+                  let linkUrl = $(this).attr('href');
+
+              // 상대 경로를 절대 경로로 변환
+              let absoluteLinkUrl = new URL(linkUrl, window.location.origin).pathname;
+
+              // 현재 페이지 URL과 메뉴 링크가 일치하면
+              if (currentUrl === absoluteLinkUrl) {
+                   $(this).parent().addClass('active');
+                  }
+              });
+          }
+
+          // 초기 로드 시 활성화된 메뉴 항목 설정
+          setActiveMenu();
+
+          // 메뉴 항목 클릭 시
+          $('.nav.main-menu.menu.navbar-nav a').click(function(event) {
+              event.preventDefault(); // 링크 기본 동작 방지
+
+              // 모든 'active' 클래스 제거
+              $('.nav.main-menu.menu.navbar-nav li').removeClass('active');
+
+              // 클릭한 'active' 클래스 추가
+              $(this).parent().addClass('active');
+
+              // 링크 이동
+              window.location.href = $(this).attr('href');
+          });
+      });
+
+
+
+    </script>
+
   </body>
 </html>
