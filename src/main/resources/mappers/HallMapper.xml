@@ -9,4 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from hall order by hall_idx
     </select>
 
+    <insert id="hall_insert" parameterType="hall">
+        insert into hall values(null,#{hall_name},#{hall_area},#{hall_addr},#{hall_tel},#{hall_site},#{hall_seat},#{hall_image})
+    </insert>
+
 </mapper>
