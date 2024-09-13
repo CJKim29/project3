@@ -17,6 +17,9 @@ pageEncoding="UTF-8" %>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+    <!-- 주소 검색 API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     <style type="text/css">
       #box {
         width: 600px;
@@ -41,13 +44,25 @@ pageEncoding="UTF-8" %>
         transition: background-color 5000s ease-in-out 0s;
       }
     </style>
-    <!-- 입력값 검증 - 잘못 입력, 미입력 시 안내 메세지 -->
+
+    <script type="text/javascript">
+      // 주소 찾기 -> API
+      function find_addr() {
+        var themeObj = {
+          bgColor: "#05142f", //바탕 배경색
+        };
+
+        new daum.Postcode({
+          theme: themeObj,
+          oncomplete: function (data) {
+            $("#addr").val(data.address); // 주소 넣기
+          },
+        }).open();
+      } // end: find_addr()
+    </script>
+
     <script type="text/javascript">
       function send(f) {
-        /* 임의적으로 f라고 form의 이름을 적어줌 */
-
-        // 입력값 검증(잘못 입력 시 안 넘어가도록 입력값을 검증하자)
-        /* f안의 name의 value값 얻어와서 공백제거 */
         let hall_name = f.hall_name.value.trim();
         let hall_area = f.hall_area.value;
         let hall_addr = f.hall_addr.value.trim();
@@ -115,7 +130,20 @@ pageEncoding="UTF-8" %>
               </select>
 
               <h4>주소</h4>
-              <input class="form-control content" name="hall_addr" />
+              <input
+                class="form-control content"
+                name="hall_addr"
+                id="addr"
+                style="width: 460px; float: left"
+              />
+              <input
+                class="a_search btn"
+                type="button"
+                value="주소검색"
+                onclick="find_addr();"
+                style="float: left; margin-left: 10px"
+              />
+              <div style="clear: both"></div>
 
               <h4>공연장 전화번호</h4>
               <div>*정확히 입력해주세요 ex) 0211111111 -> 02-1111-1111</div>

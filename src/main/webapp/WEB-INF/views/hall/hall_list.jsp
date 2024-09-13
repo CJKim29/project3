@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>member_list</title>
+    <title>티모아</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -15,7 +15,7 @@
 
     <style type="text/css">
         #box {
-            width: 1500px;
+            width: 1700px;
             margin: auto;
             margin-top: 50px;
         }
@@ -89,7 +89,7 @@
 
         <table class="table">
             <tr class="info">
-                <th>공연장번호</th>
+                <th>번호</th>
                 <th>공연장</th>
                 <th>지역</th>
                 <th>주소</th>
