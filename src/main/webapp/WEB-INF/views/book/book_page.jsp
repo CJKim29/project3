@@ -105,7 +105,7 @@
                             // 날짜가 선택된 경우에만 새 창을 엽니다.
                             window.open('performance_seat.do?performance_idx=' + performanceIdx + '&date=' + selectedDate,
                                 'window_name',
-                                'width=800, height=600, location=no, status=no, scrollbars=yes, resizable=no');
+                                'width=800, height=630, location=no, status=no, scrollbars=yes');
                         });
 
                     });
