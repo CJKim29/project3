@@ -9,6 +9,7 @@
                 <head>
                     <meta charset="UTF-8">
                     <title>좌석 예약</title>
+                    <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
                     <link rel="stylesheet" href="../resources/css/book/book_seat.css">
 
@@ -182,290 +183,318 @@
 
                 <body>
                     <div id="seat-box">
-                        <h3 style="width: 270px; float: right; text-align: center; height: 45px; line-height: 45px;
-                        color: white; background-color: rgb(228, 64, 64); margin-right: 10px;">${param.date} 좌석 선택</h3>
-                        <br /><br />
-                        <div class="seat-title">
-                            ${ vo.performanceCateVo.performance_cate_name }&nbsp; <${ vo.performance_name }>
+                        <div id="seat-box-header">
+                            <h3 style="width: 150px; float: right; text-align: center; height: 45px; line-height: 45px;
+                        color: white; background-color: rgb(228, 64, 64); margin-right: 10px;">좌석 선택</h3>
+                            <br /><br />
+                            <div class="seat-title" title="${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
+                            &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name }">
+                                ${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
                                 &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name } <br />
+                            </div>
+                            <div class="seat-container0">
+                                <p style="margin-top: 17px; color: white; background-color: rgb(51, 121, 181);">다른 관람일자
+                                    선택
+                                </p> <input id="datepicker" width="120" value="${param.date}" />
+                                <input class="btn btn-primary" type="button" value="날짜 바꾸기"
+                                    data-performance-idx="${ vo.performance_idx }"
+                                    onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
+                            </div>
                         </div>
-                        <div class="seat-container0">
-                            <p style="margin-top: 17px; color: white; background-color: rgb(51, 121, 181);">다른 관람일자 선택</p> <input id="datepicker"
-                                width="120" />
-                            <input class="btn btn-primary" type="button" value="날짜 바꾸기"
-                                data-performance-idx="${ vo.performance_idx }"
-                                onclick="location.href='performance_seat.do?performance_idx=${ vo.performance_idx }&date=' + $('#datepicker').val()">
-                        </div>
-                        <br />
-                        <div class="seat-container">
-                            <c:forEach var="seat" items="${seats}">
-                                <div>
-                                    <c:choose>
-                                        <c:when test="${seat.s_hall_row_no <= 0}">
-                                            <!-- 기본 색상 클래스 유지 -->
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
-                                                data-seat="${seat.s_hall_a}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
-                                                data-seat="${seat.s_hall_b}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
-                                                data-seat="${seat.s_hall_c}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
-                                                data-seat="${seat.s_hall_d}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
-                                                data-seat="${seat.s_hall_e}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
-                                                data-seat="${seat.s_hall_f}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
-                                                data-seat="${seat.s_hall_g}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
-                                                data-seat="${seat.s_hall_h}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
-                                                data-seat="${seat.s_hall_i}">
-                                            </div>
-                                            <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
-                                                data-seat="${seat.s_hall_j}">
-                                            </div>
-                                            <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
-                                        </c:when>
-                                        <c:otherwise>
+                        <div id="seat-box-body-left">
+                            <div class="seat-container">
+                                <div id="seat-box-body-left-img">
+                                    <img src="/resources/images/무대.png" style="width: 469px;" />
+                                </div>
+                                <div id="seat-box-body-left-button">
+                                    <c:forEach var="seat" items="${seats}">
+                                        <div>
                                             <c:choose>
-                                                <c:when test="${fn:length(vo.seatList) == 1}">
-                                                    <c:set var="rowClass" value="seat-purple" />
-                                                </c:when>
-                                                <c:when test="${fn:length(vo.seatList) == 2}">
-                                                    <c:choose>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
-                                                            <c:set var="rowClass" value="seat-purple" />
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:set var="rowClass" value="seat-green" />
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:when>
-                                                <c:when test="${fn:length(vo.seatList) == 3}">
-                                                    <c:choose>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3}">
-                                                            <c:set var="rowClass" value="seat-purple" />
-                                                        </c:when>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 4 || seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
-                                                            <c:set var="rowClass" value="seat-green" />
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:set var="rowClass" value="seat-blue" />
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:when>
-                                                <c:when test="${fn:length(vo.seatList) == 5}">
-                                                    <c:choose>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
-                                                            <c:set var="rowClass" value="seat-purple" />
-                                                        </c:when>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
-                                                            <c:set var="rowClass" value="seat-green" />
-                                                        </c:when>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
-                                                            <c:set var="rowClass" value="seat-blue" />
-                                                        </c:when>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 7 || seat.s_hall_row_no == 8}">
-                                                            <c:set var="rowClass" value="seat-orange" />
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:set var="rowClass" value="seat-navy" />
-                                                        </c:otherwise>
-                                                    </c:choose>
+                                                <c:when test="${seat.s_hall_row_no <= 0}">
+                                                    <!-- 기본 색상 클래스 유지 -->
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
+                                                        data-seat="${seat.s_hall_a}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
+                                                        data-seat="${seat.s_hall_b}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
+                                                        data-seat="${seat.s_hall_c}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
+                                                        data-seat="${seat.s_hall_d}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
+                                                        data-seat="${seat.s_hall_e}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
+                                                        data-seat="${seat.s_hall_f}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
+                                                        data-seat="${seat.s_hall_g}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
+                                                        data-seat="${seat.s_hall_h}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
+                                                        data-seat="${seat.s_hall_i}">
+                                                    </div>
+                                                    <div class="seat seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
+                                                        data-seat="${seat.s_hall_j}">
+                                                    </div>
+                                                    <strong>&nbsp;&nbsp;${seat.s_hall_row_no}열</strong>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:choose>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                        <c:when test="${fn:length(vo.seatList) == 1}">
                                                             <c:set var="rowClass" value="seat-purple" />
                                                         </c:when>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
-                                                            <c:set var="rowClass" value="seat-green" />
+                                                        <c:when test="${fn:length(vo.seatList) == 2}">
+                                                            <c:choose>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                                    <c:set var="rowClass" value="seat-purple" />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="rowClass" value="seat-green" />
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:when>
-                                                        <c:when
-                                                            test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
-                                                            <c:set var="rowClass" value="seat-blue" />
+                                                        <c:when test="${fn:length(vo.seatList) == 3}">
+                                                            <c:choose>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2 || seat.s_hall_row_no == 3}">
+                                                                    <c:set var="rowClass" value="seat-purple" />
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 4 || seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                                    <c:set var="rowClass" value="seat-green" />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="rowClass" value="seat-blue" />
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:when>
+                                                        <c:when test="${fn:length(vo.seatList) == 5}">
+                                                            <c:choose>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                                    <c:set var="rowClass" value="seat-purple" />
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                                    <c:set var="rowClass" value="seat-green" />
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                                    <c:set var="rowClass" value="seat-blue" />
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 7 || seat.s_hall_row_no == 8}">
+                                                                    <c:set var="rowClass" value="seat-orange" />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="rowClass" value="seat-navy" />
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <c:set var="rowClass" value="seat-orange" />
+                                                            <c:choose>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 1 || seat.s_hall_row_no == 2}">
+                                                                    <c:set var="rowClass" value="seat-purple" />
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 3 || seat.s_hall_row_no == 4}">
+                                                                    <c:set var="rowClass" value="seat-green" />
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${seat.s_hall_row_no == 5 || seat.s_hall_row_no == 6}">
+                                                                    <c:set var="rowClass" value="seat-blue" />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:set var="rowClass" value="seat-orange" />
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:otherwise>
                                                     </c:choose>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
+                                                        data-seat="${seat.s_hall_a}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
+                                                        data-seat="${seat.s_hall_b}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
+                                                        data-seat="${seat.s_hall_c}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
+                                                        data-seat="${seat.s_hall_d}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
+                                                        data-seat="${seat.s_hall_e}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
+                                                        data-seat="${seat.s_hall_f}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
+                                                        data-seat="${seat.s_hall_g}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
+                                                        data-seat="${seat.s_hall_h}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
+                                                        data-seat="${seat.s_hall_i}">
+                                                    </div>
+                                                    <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
+                                                        data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
+                                                        data-seat="${seat.s_hall_j}">
+                                                    </div>
+                                                    <strong>&nbsp;&nbsp;${seat.s_hall_row_no}</strong>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_a == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_a"
-                                                data-seat="${seat.s_hall_a}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_b == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_b"
-                                                data-seat="${seat.s_hall_b}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_c == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_c"
-                                                data-seat="${seat.s_hall_c}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_d == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_d"
-                                                data-seat="${seat.s_hall_d}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_e == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_e"
-                                                data-seat="${seat.s_hall_e}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_f == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_f"
-                                                data-seat="${seat.s_hall_f}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_g == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_g"
-                                                data-seat="${seat.s_hall_g}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_h == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_h"
-                                                data-seat="${seat.s_hall_h}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_i == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_i"
-                                                data-seat="${seat.s_hall_i}">
-                                            </div>
-                                            <div class="seat ${rowClass} seat-row-${seat.s_hall_row_no} ${seat.s_hall_j == 0 ? 'available' : 'unavailable'}"
-                                                data-row="${seat.s_hall_row_no}" data-col="s_hall_j"
-                                                data-seat="${seat.s_hall_j}">
-                                            </div>
-                                            <strong>&nbsp;&nbsp;${seat.s_hall_row_no}</strong>
-                                        </c:otherwise>
-                                    </c:choose>
+                                        </div>
+                                    </c:forEach>
                                 </div>
-                            </c:forEach>
+                            </div>
                         </div>
-                        <br />
-                        <div class="seat-content">
-                        <div class="seat-container2">
-                            <table cellpadding="10" cellspacing="0">
-                                <tr>
-                                    <th colspan="4">&emsp;&emsp;&nbsp;&nbsp;좌석등급/잔여석</th>
-                                </tr>
-                                <tr>
-                                    <c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
-                                        <td>
-                                            <div class="seat2 seat-purple" data-color="purple" id="seat${i}"></div>
-                                        </td>
-                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">${zeroCount1}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">
-                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-                                        </td>
-                                    </c:forEach>
-                                </tr>
-                                <tr>
-                                    <c:forEach var="seat" items="${vo.seatList}" begin="1" end="1">
-                                        <td>
-                                            <div class="seat2 seat-green" data-color="green" id="seat${i}"></div>
-                                        </td>
-                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">${zeroCount2}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">
-                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-                                        </td>
-                                    </c:forEach>
-                                </tr>
-                                <tr>
-                                    <c:forEach var="seat" items="${vo.seatList}" begin="2" end="2">
-                                        <td>
-                                            <div class="seat2 seat-blue" data-color="blue" id="seat${i}"></div>
-                                        </td>
-                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">${zeroCount3}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">
-                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-                                        </td>
-                                    </c:forEach>
-                                </tr>
-                                <tr>
-                                    <c:forEach var="seat" items="${vo.seatList}" begin="3" end="3">
-                                        <td>
-                                            <div class="seat2 seat-orange" data-color="orange" id="seat${i}"></div>
-                                        </td>
-                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">${zeroCount4}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">
-                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-                                        </td>
-                                    </c:forEach>
-                                </tr>
-                                <tr>
-                                    <c:forEach var="seat" items="${vo.seatList}" begin="4" end="4">
-                                        <td>
-                                            <div class="seat2 seat-navy" data-color="navy" id="seat${i}"></div>
-                                        </td>
-                                        <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">${zeroCount5}석&nbsp;&nbsp;</td>
-                                        <td style="text-align: right;">
-                                            <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-                                        </td>
-                                    </c:forEach>
-                                </tr>
-                            </table>
-                            <br />
-                        </div>
-                        <div style="width: 240px; background-color: rgb(228, 64, 64); color: white; text-align: center;">원하시는 좌석 위치를 선택해주세요.</div><br/>
-                        <div class="seat-container3">
-                            <p style="background-color: aquamarine; text-align: center;">선택좌석</p>
-                            <!-- 예약 폼 -->
-                            <form id="seatForm" action="reserve_seats.do" method="post">
-                                <div class="seat-info-container"
-                                    style="height: 120px; max-height: 150px; overflow-y: auto;">
+                        <div id="seat-box-body-right">
+                            <div class="seat-content">
+                                <div id="seat-box-body-right-top">
+                                    <div class="seat-container2">
+                                        <table cellpadding="10" cellspacing="0">
+                                            <tr>
+                                                <th colspan="4">&emsp;&emsp;&nbsp;&nbsp;좌석등급/잔여석</th>
+                                            </tr>
+                                            <tr>
+                                                <c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
+                                                    <td>
+                                                        <div class="seat2 seat-purple" data-color="purple"
+                                                            id="seat${i}">
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">${zeroCount1}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">
+                                                        <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <c:forEach var="seat" items="${vo.seatList}" begin="1" end="1">
+                                                    <td>
+                                                        <div class="seat2 seat-green" data-color="green" id="seat${i}">
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">${zeroCount2}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">
+                                                        <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <c:forEach var="seat" items="${vo.seatList}" begin="2" end="2">
+                                                    <td>
+                                                        <div class="seat2 seat-blue" data-color="blue" id="seat${i}">
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">${zeroCount3}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">
+                                                        <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <c:forEach var="seat" items="${vo.seatList}" begin="3" end="3">
+                                                    <td>
+                                                        <div class="seat2 seat-orange" data-color="orange"
+                                                            id="seat${i}">
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">${zeroCount4}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">
+                                                        <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <c:forEach var="seat" items="${vo.seatList}" begin="4" end="4">
+                                                    <td>
+                                                        <div class="seat2 seat-navy" data-color="navy" id="seat${i}">
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">${zeroCount5}석&nbsp;&nbsp;</td>
+                                                    <td style="text-align: right;">
+                                                        <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                                                    </td>
+                                                </c:forEach>
+                                            </tr>
+                                        </table>
+                                        <br />
+                                    </div>
                                 </div>
-                                <input type="hidden" name="performance_idx" value="${param.performance_idx}">
-                                <input type="hidden" name="date" value="${param.date}">
-                                <input type="hidden" id="seat_row" name="row">
-                                <input type="hidden" id="seat_col" name="col">
-                                <input type="hidden" name="seat_idx" value="${seat_idx}">
-                                <input type="hidden" id="selectedSeats" name="selectedSeats">
-                                <div style="display: flex; justify-content: center;">
-                                    <input type="button" class="btn btn-success" value="예약" onclick="submitSeats()">
+                                <div id="seat-box-body-right-bottom">
+                                    <div
+                                        style="width: 240px; background-color: rgb(228, 64, 64); color: white; text-align: center;">
+                                        원하시는 좌석 위치를 선택해주세요.</div><br />
+                                    <div class="seat-container3">
+                                        <p style="background-color: aquamarine; text-align: center;">선택좌석</p>
+                                        <!-- 예약 폼 -->
+                                        <form id="seatForm" action="reserve_seats.do" method="post">
+                                            <div class="seat-info-container"
+                                                style="background-color: #eeeeee; height: 120px; max-height: 150px; overflow-y: auto;">
+                                            </div>
+                                            <input type="hidden" name="performance_idx"
+                                                value="${param.performance_idx}">
+                                            <input type="hidden" name="date" value="${param.date}">
+                                            <input type="hidden" id="seat_row" name="row">
+                                            <input type="hidden" id="seat_col" name="col">
+                                            <input type="hidden" name="seat_idx" value="${seat_idx}">
+                                            <input type="hidden" id="selectedSeats" name="selectedSeats">
+                                            <div style="display: flex; justify-content: center;">
+                                                <input type="button" class="btn btn-success" value="예약"
+                                                    style="width: 100px;" onclick="submitSeats()">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="seat-container4">
+                                        <input class="btn btn-warning" type="button" value="좌석다시선택"
+                                            onclick="redirectToCurrentPage()">
+                                        <br /><br /><br />
+                                        <!-- 장바구니 담기 폼 -->
+                                        <form id="bookForm" action="book_reservation.do" method="post">
+                                            <input type="hidden" name="performance_idx"
+                                                value="${param.performance_idx}">
+                                            <input type="hidden" name="date" value="${param.date}">
+                                            <input type="button" class="btn btn-danger" value="장바구니 담기"
+                                                onclick="submitBookForm()">
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                        <div class="seat-container3">
-                            <input class="btn btn-warning" type="button" value="좌석다시선택"
-                                onclick="redirectToCurrentPage()">
-                            <br /><br /><br />
-                            <!-- 장바구니 담기 폼 -->
-                            <form id="bookForm" action="book_reservation.do" method="post">
-                                <input type="hidden" name="performance_idx" value="${param.performance_idx}">
-                                <input type="hidden" name="date" value="${param.date}">
-                                <input type="button" class="btn btn-danger" value="장바구니 담기" onclick="submitBookForm()">
-                            </form>
-                        </div>
-                    </div>
                         <!-- 나중에 참고할 일 생길까봐 남겨 놓는 버튼 생성 코드 -->
                         <!-- <div class="seat-container">
                     <%-- 100개의 좌석 버튼 생성 --%>

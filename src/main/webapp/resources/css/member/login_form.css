@@ -2,44 +2,49 @@
 /* @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css'); */
 
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'Pretendard-Regular';
+	src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
-body{
-	background-color: #1F2128 !important; 
-	
+body {
+	background-color: white !important;
+
 }
-*{
+
+* {
 	font-family: Pretendard-Regular;
-	color: #999999;
+	color: black;
 }
-#box{
-	width: 500px;
+
+#box {
+	width: 400px;
 	margin: auto;
-	margin-top: 300px;
+	margin-top: 30px;
 }
-	   
+
 /* input[type='button']{
 	width: 100px;
 } */
-input{
-	background-color: #1D1F26 !important;
-	border: 0.5px solid #2D2F35 !important;
+input {
 	font-size: 20px;
-}
-input:active, input:focus {
-	border: 0.5px soild #ac8d5a !important; 
+	width: 100%;
 	box-shadow: none !important;
+	border: none !important;
+}
+
+input:active,
+input:focus {
+	box-shadow: none !important;
+	border: none !important;
 }
 
 /* 자동완성 관련 커스텀 */
@@ -47,48 +52,77 @@ input:autofill,
 input:autofill:hover,
 input:autofill:focus,
 input:autofill:active {
-	-webkit-text-fill-color: #999;		/* 글씨 색 */
-/*  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+	-webkit-text-fill-color: rgb(26, 24, 24);
+	/* 글씨 색 */
+	/*  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     box-shadow: 0 0 0px 1000px #fff inset; */
-    transition: background-color 5000s ease-in-out 0s;
+	transition: background-color 5000s ease-in-out 0s;
 }
 
 /* 버튼 기본 속성 제거 + 커스텀 */
-.btn:active, .btn:focus {
+.btn:active,
+.btn:focus {
 	outline: none !important;
 	box-shadow: none !important;
-	color: #999 !important;
-	}
-	
-.btn{
+	color: white !important;
+}
+
+.btn {
 	font-weight: bold;
 	border: 1px solid yellow;
 	margin-top: 40px;
 	margin-bottom: 40px;
-	
-}
-.btn:hover{
-	color: white !important;
-	border:1px solid #ac8d5a !important;
+
 }
 
+/* .btn:hover {
+	color: white !important;
+	border: 1px solid #ac8d5a !important;
+} */
+
 hr {
-    background:#2D2F35 !important;
-    height:1px !important;
-    border:0 !important;
+	background: #2D2F35 !important;
+	height: 1px !important;
+	border: 0 !important;
 }
-.membership1{
-	display: block;
-	float: left;
+
+.membership1,
+.membership2 {
+	display: inline-block;
 }
-.membership2 a span{
-	display: block;
-	float: right;
+
+.membership2 a span {
+	display: inline-block;
 	text-decoration: none;
 }
-.membership2 a span:hover{
-	display: block;
-	float: right;
+
+.membership2 a span:hover {
+	display: inline-block;
 	text-decoration: none;
-	color: white;
+	color: rgb(255, 29, 56);
+}
+
+#logo {
+	width: 100%;
+	text-align: center;
+	margin-top: 180px;
+}
+
+.form-group.text1 div {
+	display: flex;
+	align-items: center;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+}
+
+.checkbox {
+	display: flex;
+	width: 200px;
+}
+
+.outline {
+	border-radius: 15px !important;
 }
