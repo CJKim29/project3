@@ -47,13 +47,12 @@
 
 
     <script type="text/javascript">
-        function del(hall_idx){
+        function del(hall_idx){            
             
             if(confirm("정말 삭제하시겠습니까?")==false)return;
 			
 			location.href = "delete.do?hall_idx="+hall_idx;
         }
-
     </script>
 
 
