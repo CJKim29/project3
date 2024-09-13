@@ -454,8 +454,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h4 class="title"><a href="#">NEW</a></h4>
-                                <p>제목</p>
+                                <h6 class="title">NEW</h6>
+                                <p style="font-size: 12px;">제목</p>
                             </div>
                         </div>
                     </div>
@@ -473,8 +473,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">NEW</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">NEW</h6>
+                                <p style="font-size: 12px;">제목</p>
                             </div>
                         </div>
                     </div>
@@ -492,8 +492,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">NEW</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">NEW</h6>
+                                <p style="font-size: 12px;">제목</p>
                             </div>
                         </div>
                     </div>
@@ -514,14 +514,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/랭킹용써니텐.png" alt="#">
 								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">1st</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">1st</h6>
+                                <p style="font-size: 12px;">써니텐</p>
                             </div>
                         </div>
                     </div>
@@ -539,8 +539,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">2st</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">2st</h6>
+                                <p style="font-size: 12px;">인사이드 미</p>
                             </div>
                         </div>
                     </div>
@@ -552,14 +552,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/랭킹용김종욱찾기.png" alt="#">
 								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">3st</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">3st</h6>
+                                <p style="font-size: 12px;">김종욱 찾기</p>
                             </div>
                         </div>
                     </div>
