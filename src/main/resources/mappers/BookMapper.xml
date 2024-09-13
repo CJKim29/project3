@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <collection property="seatList" column="performance_idx=performance_idx" select="seat_list_onemap" />
     </resultMap>
 
-    <!-- 안쓰는 코드들 -->
+
     <select id="performance_cate_list_onemap" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
     </select>
@@ -78,14 +78,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="seat_list_onemap" resultType="seat">
        select * from seat where performance_idx=#{ performance_idx }
     </select>
-
-    <!--<select id="performance_cate_list_listmap" resultType="performance_cate">
+    <select id="performance_cate_list_listmap" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
-    </select> 
-
-     <select id="hall_list_listmap" resultType="hall">
+    </select>
+    <select id="hall_list_listmap" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-    </select>  -->
+    </select>
+    <!-- 안쓰는 코드들 -->
 
     <!-- 잔여좌석 조회 -->
     <!-- <select id="selectRemainSeat" resultType="int" parameterType="map">
