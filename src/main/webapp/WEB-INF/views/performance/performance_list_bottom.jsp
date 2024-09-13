@@ -120,6 +120,7 @@
 					</script> -->
 
 					<script>
+
 						//공연 좌석 정보 추가
 						function insert_form_seat(performance_idx) {
 							location.href = "insert_form_seat.do?performance_idx=" + performance_idx; // 공연 추가 폼으로 이동
@@ -127,10 +128,14 @@
 
 						// 공연 수정
 						function modify_form(performance_idx) {
-							location.href = "modify_form.do?performance_idx=" + performance_idx; // 공연 수정 폼으로 이동
+							location.href = "modify_form.do?performance_idx=" + performance_idx;
 
 						}
 
+						// 공연 좌석 수정
+						function modify_form_seat(performance_idx) {
+							location.href = "modify_form_seat.do?performance_idx=" + performance_idx;
+						}
 					</script>
 
 				</head>
@@ -190,11 +195,14 @@
 
 														<input type="button" class="btn" value="공연 수정"
 															onclick="modify_form('${vo.performance_idx}');" />
-														<input type="button" class="btn" value="좌석 수정"
-															onclick="insert_form_seat('${vo.performance_idx}');" />
+
+														<!-- <input type="button" class="btn" value="좌석 수정"
+															onclick="modify_form_seat('${vo.performance_idx}');" /> -->
+														<input class="btn" type="button" value="좌석 수정"
+															onclick="location.href='modify_form_seat.do?performance_idx=${ vo.performance_idx }'">
 
 														<input type="button" class="btn" value="공연 삭제"
-															onclick="insert_form_seat('${vo.performance_idx}');" />
+															onclick="del('${vo.performance_idx}');" />
 													</c:if>
 												</div>
 											</div>

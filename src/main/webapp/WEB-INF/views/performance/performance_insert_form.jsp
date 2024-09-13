@@ -32,8 +32,22 @@
                 margin-bottom: 40px !important;
             }
 
+            #image-preview {
+
+                margin: 5px 0px 20px 5px;
+            }
+
             .btn_insert {
                 margin-left: 425px;
+            }
+
+            /* 자동완성 커스텀 */
+            input:autofill,
+            input:autofill:hover,
+            input:autofill:focus,
+            input:autofill:active {
+                -webkit-text-fill-color: rgb(26, 24, 24);
+                transition: background-color 5000s ease-in-out 0s;
             }
         </style>
 
@@ -106,7 +120,7 @@
 
         <!-- 공연 카테고리 선택 시 실행 될 이벤트 -->
         <script>
-            function select_d_cate() {
+            function selectDetailCate() {
                 let performance_cate_idx = document.getElementById("performance_cate_idx").value;
                 let musical_theater_cate = document.getElementById("musical_theater_cate");
                 let concert_cate = document.getElementById("concert_cate");
@@ -146,6 +160,26 @@
             });
         </script>
 
+        <!-- 이미지 선택 - 선택 파일 미리보기-->
+        <script type="text/javascript">
+
+            function previewImage(event) {
+                var reader = new FileReader();
+                var output = document.getElementById('image-preview');
+
+                // 선택한 파일이 있는지 확인
+                if (event.target.files && event.target.files[0]) {
+                    reader.onload = function () {
+                        output.src = reader.result; // 선택한 이미지를 미리보기
+                    };
+                    reader.readAsDataURL(event.target.files[0]); // 선택한 파일 읽기
+                } else {
+                    // 파일 선택이 없을 때 기본 이미지로 설정
+                    output.src = '../resources/images/no_img.png'; // 기본 이미지 경로
+                }
+            }
+        </script>
+
 
 
 
@@ -162,7 +196,7 @@
                         <div>
                             <h4>공연 카테고리</h4>
                             <select class="form-control content" id="performance_cate_idx" name="performance_cate_idx"
-                                onchange="select_d_cate();">
+                                onchange="selectDetailCate();">
                                 <option value="1">뮤지컬</option>
                                 <option value="2">연극</option>
                                 <option value="3">콘서트</option>
@@ -220,17 +254,15 @@
                             <input class="form-control content" type="number" name="performance_runtime">
 
                             <h4>공연 이미지</h4>
-                            <input class="form-control content" type="file" name="photo">
+                            <!-- <input class="form-control content" type="file" name="photo"> -->
+                            <img id="image-preview" src="../resources/images/no_img.png" alt="이미지 추가" width="240"
+                                height="300">
+                            <input type="file" class="content" name="photo" accept="image/*"
+                                onchange="previewImage(event)">
 
                             <h4>최소 관람 연령</h4>
                             <div>*연령만 입력해주세요. ex) 12세 -> 12</div>
                             <input class="form-control content" type="number" name="performance_age">
-
-                            <!-- <h4>좌석 별 가격</h4>
-                            <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
-                            <input class="form-control content" type="number" name="performance_age"> -->
-
-
 
                             <input class="btn btn-success" type="button" value="이전" onclick="location.href='list.do'">
                             <input class="btn btn-primary btn_insert" type="button" value="등록하기"

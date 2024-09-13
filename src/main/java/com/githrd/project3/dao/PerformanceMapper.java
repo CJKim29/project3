@@ -24,14 +24,24 @@ public interface PerformanceMapper {
     List<PerformanceVo> selectCategoryList(Map<String, Object> map);
 
     // 공연 등록
-    int performance_insert(PerformanceVo vo);
+    int insert(PerformanceVo vo);
 
     // 공연 등록 - 좌석 별 가격
-    int performance_insert_seat(SeatVo vo);
+    int insertSeat(SeatVo vo);
 
     // 공연 수정
-    int performance_update(PerformanceVo vo);
+    int update(PerformanceVo vo);
+
+    // 공연 수정 - 이미지 파일 업로드
+    int updateImage(PerformanceVo vo);
+
+    // 공연 좌석 수정을 위한 selectOne
+    SeatVo selectOneFromSeatIdx(int seat_idx);
+
+    // 공연 좌석 수정
+    int updateSeat(SeatVo vo);
 
     // 검색어를 포함한 공연 목록 조회
     List<PerformanceVo> searchPerformances(String search);
+
 }

@@ -26,9 +26,11 @@ public class PerformanceVo {
 
     HallVo hallVo;
     PerformanceCateVo performanceCateVo;
-    // SeatVo seatVo;
+
     List<SeatVo> seatList;
+
     // 공연 상세 카테고리
     PerformanceDetailCateVo performanceDetailCateVo;
     List<PerformanceDetailCateVo> performanceDetailCateList;
+
 }
