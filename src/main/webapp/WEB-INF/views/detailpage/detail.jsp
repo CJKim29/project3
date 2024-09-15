@@ -12,7 +12,8 @@
 				<meta http-equiv="X-UA-Compatible" content="IE=edge">
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 				<!-- Title Tag  -->
-				<title>Eshop - eCommerce HTML5 Template.</title>
+				<title>${vo.performance_name}</title>
+				<link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 				<!-- Favicon -->
 				<link rel="icon" type="image/png" href="../resources/template/images/favicon.png">
 				<!-- Web Font -->
@@ -493,7 +494,7 @@
 													<li class="nav-item"><a class="nav-link active" data-toggle="tab"
 															href="#description" role="tab">공연정보</a></li>
 													<li class="nav-item"><a class="nav-link" data-toggle="tab"
-															href="#reviews" role="tab">Reviews</a></li>
+															href="#reviews" role="tab">관람후기</a></li>
 												</ul>
 												<!--/ End Tab Nav -->
 											</div>
