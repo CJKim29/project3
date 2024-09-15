@@ -37,10 +37,6 @@
                 margin: 5px 0px 20px 5px;
             }
 
-            .btn_insert {
-                margin-left: 425px;
-            }
-
             /* 자동완성 커스텀 */
             input:autofill,
             input:autofill:hover,
@@ -48,6 +44,29 @@
             input:autofill:active {
                 -webkit-text-fill-color: rgb(26, 24, 24);
                 transition: background-color 5000s ease-in-out 0s;
+            }
+
+            .btn {
+                width: 80px;
+                font-weight: bold;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .btn:hover {
+                background-color: #ff1d38;
+                color: #fff;
+                transition: 0.4s all ease-in-out;
+            }
+
+            /* 버튼 클릭 후 남아있는 효과 지우기 */
+            .btn:focus {
+                border: none;
+                outline: none;
+            }
+
+            .btn_insert {
+                float: right;
             }
         </style>
 
@@ -71,7 +90,7 @@
                 let endDate = new Date(performance_endday);
 
                 if (endDate < startDate) {
-                    alert("종료일자는 시작일자보다 늦어야 합니다.");
+                    alert("종료 일자는 시작 일자보다 늦어야 합니다.");
                     f.performance_endday.focus();
                     return;
                 }
@@ -83,19 +102,19 @@
                     return;
                 }
                 if (performance_startday == '') {
-                    alert("시작일자를 입력해주세요");
+                    alert("시작 일자를 입력해주세요");
                     f.performance_startday.value = "";	/* 지우기 */
                     f.performance_startday.focus();
                     return;
                 }
                 if (performance_endday == '') {
-                    alert("종료일자를 입력해주세요");
+                    alert("종료 일자를 입력해주세요");
                     f.performance_endday.value = "";	/* 지우기 */
                     f.performance_endday.focus();
                     return;
                 }
                 if (performance_runtime == '') {
-                    alert("관람 시간을 입력해주세요\n* 숫자만 입력 가능");
+                    alert("관람 시간을 입력해주세요\n*숫자만 입력 가능");
                     f.performance_runtime.value = "";	/* 지우기 */
                     f.performance_runtime.focus();
                     return;
@@ -105,7 +124,7 @@
                     return;
                 }
                 if (performance_age == '') {
-                    alert("관람 연령을 입력해주세요\n* 숫자만 입력 가능");
+                    alert("관람 연령을 입력해주세요\n*숫자만 입력 가능");
                     f.performance_age.value = "";	/* 지우기 */
                     f.performance_age.focus();
                     return;
@@ -189,8 +208,10 @@
         <form method="POST" enctype="multipart/form-data"> <!-- file 업로드 시 꼭 작성해야 하는 것 -->
             <div id="box">
 
-                <div class="panel panel-success">
-                    <div class="panel-heading">공연 정보 등록</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 style="text-align: center;">공연 정보 추가</h4>
+                    </div>
                     <div class="panel-body">
 
                         <div>
@@ -250,23 +271,21 @@
                             <input id="datepicker_end" class="content" name="performance_endday" width="276" />
 
                             <h4>관람 시간</h4>
-                            <div>*시간만 입력해주세요. ex) 60분 -> 60</div>
+                            <div>*숫자만 입력해주세요. ex) 60분 -> 60</div>
                             <input class="form-control content" type="number" name="performance_runtime">
 
                             <h4>공연 이미지</h4>
-                            <!-- <input class="form-control content" type="file" name="photo"> -->
                             <img id="image-preview" src="../resources/images/no_img.png" alt="이미지 추가" width="240"
                                 height="300">
                             <input type="file" class="content" name="photo" accept="image/*"
                                 onchange="previewImage(event)">
 
-                            <h4>최소 관람 연령</h4>
-                            <div>*연령만 입력해주세요. ex) 12세 -> 12</div>
+                            <h4>관람 연령</h4>
+                            <div>*숫자만 입력해주세요. ex) 12세 -> 12</div>
                             <input class="form-control content" type="number" name="performance_age">
 
-                            <input class="btn btn-success" type="button" value="이전" onclick="location.href='list.do'">
-                            <input class="btn btn-primary btn_insert" type="button" value="등록하기"
-                                onclick="send(this.form);">
+                            <input class="btn" type="button" value="이전" onclick="location.href='list.do'">
+                            <input class="btn btn_insert" type="button" value="등록" onclick="send(this.form);">
 
 
                         </div>

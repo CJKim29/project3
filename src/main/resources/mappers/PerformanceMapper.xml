@@ -147,8 +147,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 공연 좌석 수정 -->
   <update id="updateSeat" parameterType="seat">
-    update seat set seat_grade=#{seat_grade}, seat_price=#{seat_price}
-                where performance_idx=#{performance_idx}
+  update seat set seat_grade=#{seat_grade}, seat_price=#{seat_price}
+              where seat_idx=#{seat_idx} and performance_idx=#{performance_idx}
   </update>
 
 

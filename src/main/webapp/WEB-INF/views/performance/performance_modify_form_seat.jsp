@@ -33,8 +33,31 @@
                     margin-bottom: 40px !important;
                 }
 
+                hr {
+                    margin-top: 0px !important;
+                }
+
+                .btn {
+                    width: 80px;
+                    font-weight: bold;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+
+                .btn:hover {
+                    background-color: #ff1d38;
+                    color: #fff;
+                    transition: 0.4s all ease-in-out;
+                }
+
+                /* 버튼 클릭 후 남아있는 효과 지우기 */
+                .btn:focus {
+                    border: none;
+                    outline: none;
+                }
+
                 .btn_insert {
-                    margin-left: 425px;
+                    float: right;
                 }
             </style>
 
@@ -67,8 +90,10 @@
             </script> -->
 
             <script type="text/javascript">
+
                 // 폼 전송 전 검증
                 function send(f) {
+
                     // 모든 좌석 등급과 가격 입력 검증
                     let valid = true;
                     $('input[name="seat_grade[]"]').each(function () {
@@ -83,7 +108,7 @@
                     if (valid) {
                         $('input[name="seat_price[]"]').each(function () {
                             if ($(this).val().trim() === '') {
-                                alert('가격을 입력해주세요');
+                                alert('좌석 가격을 입력해주세요\n*숫자만 입력 가능');
                                 $(this).focus();
                                 valid = false;
                                 return false;  // 반복문 종료
@@ -103,39 +128,39 @@
             <form>
                 <!-- JSP에서 서버가 전달한 performance_idx 값을 해당 폼 필드의 value 속성에 넣음 -->
                 <!-- performance_idx 값을 서버에서 폼으로 전달하여, 폼 전송 시 함께 performance_idx를 전송 -->
-                <!-- 좌석 정보 수정 시 공연정보와 좌석정보 둘 다 필요함 -->
                 <input type="hidden" name="performance_idx" value="${vo.performance_idx}">
 
                 <div id="box">
 
-                    <div class="panel panel-success">
-                        <div class="panel-heading">공연 좌석 수정</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 style="text-align: center;">공연 좌석 수정</h4>
+                        </div>
                         <div class="panel-body">
 
                             <div>
                                 <c:forEach var="seat" items="${vo.seatList}">
-
-                                    좌석 이름(등급)
+                                    <br>
+                                    <h4>좌석 이름(등급)</h4>
+                                    <div>*좌석 이름만 입력해주세요. ex) VIP석 -> VIP</div>
                                     <input type="text" class="form-control" name="seat_grade[]"
                                         value="${seat.seat_grade}">
                                     <br>
 
-                                    좌석 가격
+                                    <h4>좌석 가격</h4>
+                                    <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
                                     <input type="number" class="form-control" name="seat_price[]"
                                         value="${seat.seat_price}">
 
                                     <!-- 좌석 ID를 hidden으로 함께 전송 -->
                                     <input type="hidden" name="seat_idx[]" value="${seat.seat_idx}">
-                                    <!-- <input type="button" class="btn" value="수정" onclick="send(this.form);"> -->
                                     <br>
                                     <hr>
 
                                 </c:forEach>
 
-                                <input class="btn btn-success" type="button" value="이전"
-                                    onclick="location.href='list.do'">
-                                <input class="btn btn-primary btn_insert" type="button" value="수정"
-                                    onclick="send(this.form);">
+                                <input class="btn" type="button" value="이전" onclick="location.href='list.do'">
+                                <input class="btn btn_insert" type="button" value="수정" onclick="send(this.form);">
 
 
                             </div>

@@ -269,25 +269,7 @@ public class PerformanceController {
 		return map;
 	}
 
-	// // 공연 좌석 수정 폼 띄우기
-	// @RequestMapping("modify_form_seat.do")
-	// public String modify_form_seat(int performance_idx, int seat_idx, Model
-	// model) {
-
-	// PerformanceVo performance_vo =
-	// performance_mapper.selectOneFromIdx(performance_idx);
-	// SeatVo seat_vo = performance_mapper.selectOneFromSeatIdx(seat_idx);
-
-	// // insert 문자형 자료 enter 처리 seat_grade
-	// String seat_grade = seat_vo.getSeat_grade().replaceAll("\n", "<br>");
-	// seat_vo.setSeat_grade(seat_grade);
-
-	// model.addAttribute("performance_vo", performance_vo);
-	// model.addAttribute("seat_vo", seat_vo);
-
-	// return "performance/performance_modify_form_seat";
-	// }
-
+	// 공연 좌석 수정 폼 띄우기
 	@RequestMapping("modify_form_seat.do")
 	public String modify_form_seat(int performance_idx, Model model) {
 
@@ -297,34 +279,6 @@ public class PerformanceController {
 
 		return "performance/performance_modify_form_seat";
 	}
-
-	// 공연 좌석 수정
-	// @RequestMapping("modify_seat.do")
-	// // 파라미터 Vo로 포장해달라고 요청
-	// public String modify_seat(SeatVo vo, int performance_idx, RedirectAttributes
-	// ra)
-	// throws IllegalStateException, IOException {
-
-	// // session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
-	// // 세션 정보 구하기 - 로그인 한 유저 정보
-	// MemberVo user = (MemberVo) session.getAttribute("user");
-	// if (user == null) {
-
-	// // 사용자한테 로그아웃됐다고 알려주기 => member_login_form.jsp로 가서 안내멘트 작성
-	// ra.addAttribute("reason", "session_timeout");
-
-	// return "redirect:../member/login_form.do";
-	// }
-
-	// // insert 문자형 자료 enter 처리
-	// String seat_grade = vo.getSeat_grade().replaceAll("\n", "<br>");
-	// vo.setSeat_grade(seat_grade);
-
-	// // DB insert
-	// int res = performance_mapper.updateSeat(vo);
-
-	// return "redirect:list.do";
-	// }
 
 	// 공연 좌석 수정
 	@RequestMapping("modify_seat.do")
@@ -347,12 +301,13 @@ public class PerformanceController {
 			return "redirect:../member/login_form.do";
 		}
 
-		// 좌석 정보 수정 처리
+		// 좌석 정보 수정 처리 - 여러 좌석 한 번에 수정하기 위해 배열로 받고 반복문 돌림
 		for (int i = 0; i < seat_idx_list.size(); i++) {
 			SeatVo vo = new SeatVo();
 			vo.setSeat_idx(seat_idx_list.get(i));
 			vo.setSeat_grade(seat_grade_list.get(i).replaceAll("\n", "<br>"));
 			vo.setSeat_price(seat_price_list.get(i));
+			vo.setPerformance_idx(performance_idx); // 이 부분 추가
 
 			// 각 좌석 업데이트
 			int res = performance_mapper.updateSeat(vo);
