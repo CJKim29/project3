@@ -189,7 +189,7 @@
                             <br /><br />
                             <div class="seat-title" title="${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
                             &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name }">
-                                ${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
+                                ${ vo.performanceCateVo.performance_cate_name }&nbsp; 「${ vo.performance_name }」
                                 &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name } <br />
                             </div>
                             <div class="seat-container0">

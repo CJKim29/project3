@@ -6,13 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.DetailMapper;
+import com.githrd.project3.dao.MemberMapper;
+import com.githrd.project3.dao.ReviewMapper;
 import com.githrd.project3.vo.ActorVo;
 import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
+import com.githrd.project3.vo.ReviewScoreVo;
+import com.githrd.project3.vo.ReviewVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +37,12 @@ public class DetailPageController {
 
     @Autowired
     DetailMapper detail_mapper;
+
+    @Autowired
+    ReviewMapper review_mapper;
+
+    @Autowired
+    MemberMapper member_mapper;
 
     @RequestMapping("detail.do")
     public String detail_page(int performance_idx, Model model) {
@@ -52,6 +65,10 @@ public class DetailPageController {
 
             model.addAttribute("isLiked", isLiked);
         }
+
+        List<ReviewVo> list_review = review_mapper.selectReviewList(performance_idx);
+
+        model.addAttribute("list_review", list_review);
 
         return "detailpage/detail";
     }
@@ -88,4 +105,41 @@ public class DetailPageController {
         return "detailpage/actor_list";
     }
 
+    @RequestMapping(value = "review_insert.do", method = RequestMethod.POST)
+    public String insertReview(
+        ReviewVo vo,
+        @RequestParam("performance_idx") int performance_idx,
+        @RequestParam("review_score_point") int review_score_point,
+        Model model, RedirectAttributes ra) {
+
+            MemberVo user = (MemberVo) session.getAttribute("user");
+
+		    if (user == null) {
+
+			ra.addAttribute("reason", "session_timeout");
+
+			return "redirect:../member/login_form.do";
+		}
+
+        vo.setMem_idx(user.getMem_idx());
+		vo.setMem_nickname(user.getMem_nickname());
+        vo.setPerformance_idx(performance_idx);
+
+        String review_content = vo.getReview_content().replaceAll("\n", "<br>");
+		vo.setReview_content(review_content);
+
+		// DB insert
+		review_mapper.review_insert(vo); // review_idx가 vo 객체에 설정됩니다.
+        int review_idx = vo.getReview_idx(); // review_idx를 가져옵니다.
+
+        ReviewScoreVo reviewScoreVo = new ReviewScoreVo();
+        reviewScoreVo.setMem_idx(user.getMem_idx());
+        reviewScoreVo.setPerformance_idx(performance_idx);
+        reviewScoreVo.setReview_idx(review_idx);
+        reviewScoreVo.setReview_score_point(review_score_point);
+
+        review_mapper.insertReviewScore(reviewScoreVo);
+
+        return "redirect:detail.do?performance_idx=" + performance_idx + "&review_submitted=true";
+    }
 }

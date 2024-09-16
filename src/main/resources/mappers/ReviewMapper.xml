@@ -5,21 +5,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.githrd.project3.dao.ReviewMapper">
 
   <!-- 전체조회 -->
-  <select id="selectList" resultType="review">
-		select * from review order by review_idx
+  <select id="selectReviewList" resultType="review">
+		select * from review 
+    where performance_idx = ${ performance_idx }
+    order by review_idx
   </select>
 
   <!-- 리뷰 작성(insert) -->
-  <insert id="insert" parameterType="review">
+  <!-- review_idx 받아오기 위해 useGenerateKeys와 keyProperty사용 -->
+  <insert id="review_insert" parameterType="review"  useGeneratedKeys="true" keyProperty="review_idx">
      insert into review values(null,
-                               #{mem_idx},
-                               #{concert_idx},
-                               #{review_title},
-                               #{review_content},
-                               #{mem_nickname},
-                               default,
-                               #{review_ip});
+                               #{ mem_idx },
+                               #{ performance_idx },
+                               #{ review_title },
+                               #{ review_content },
+                               #{ mem_nickname },
+                               now(),
+                               default
+                               );
     
+  </insert>
+  <!-- 평점 insert -->
+  <insert id="insertReviewScore" parameterType="review_score">
+      insert into review_score values(null,
+                                      #{ mem_idx },
+                                      #{ performance_idx },
+                                      #{ review_idx },
+                                      #{ review_score_point }
+                                      );
   </insert>
 
 </mapper>

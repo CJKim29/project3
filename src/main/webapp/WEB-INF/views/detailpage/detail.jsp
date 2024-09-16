@@ -21,6 +21,7 @@
 					href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
 					rel="stylesheet">
 
+				<link rel="stylesheet" href="../resources/css/detail/detailpage.css">
 				<!-- StyleSheet -->
 
 				<!-- Bootstrap -->
@@ -406,7 +407,45 @@
 														<li><i class="fa fa-star-half-o"></i></li>
 														<li class="dark"><i class="fa fa-star-o"></i></li>
 													</ul>
-													<a href="#" class="total-review">(102) Review</a>
+													<a href="#" class="total-review" id="totalReviewLink">관람 후기(${fn:length(list_review)})</a>
+													<script>
+														$(document).ready(function () {
+															// '관람 후기' 탭을 활성화하고 표시하는 함수
+															function activateReviewTab() {
+																// 탭 메뉴의 '관람 후기'를 활성화
+																$('#toggleReview').removeClass('active'); // '관람 후기 작성' 버튼 비활성화
+																$('a[href="#reviews"]').tab('show'); // '관람 후기' 탭 활성화
+															}
+
+															// '관람 후기 작성' 버튼 클릭 시
+															$('#toggleReview').on('click', function (e) {
+																e.preventDefault(); // 링크의 기본 동작 방지
+																// 로그인 여부 체크
+																if ("${ empty user }" === "true") {
+																	if (
+																		confirm("관람 후기는 로그인 후 작성 가능합니다 \n 로그인 하시겠습니까?") ==
+																		false
+																	)
+																		return;
+
+																	location.href = "../member/login_form.do";
+
+																	return;
+																}
+
+																// 탭 상태 업데이트
+																activateReviewTab();
+															});
+
+															// '총 리뷰' 링크 클릭 시
+															$('#totalReviewLink').on('click', function (e) {
+																e.preventDefault(); // 링크의 기본 동작 방지
+
+																// '관람 후기' 탭 활성화
+																activateReviewTab();
+															});
+														});
+													</script>
 												</div>
 												<p class="price"><span class="discount">장소</span> <a href="#"
 														onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i
@@ -493,8 +532,10 @@
 												<ul class="nav nav-tabs" id="myTab" role="tablist">
 													<li class="nav-item"><a class="nav-link active" data-toggle="tab"
 															href="#description" role="tab">공연정보</a></li>
-													<li class="nav-item"><a class="nav-link" data-toggle="tab"
-															href="#reviews" role="tab">관람후기</a></li>
+													<li class="nav-item">
+														<a class="nav-link" id="reviews-tab" data-toggle="tab"
+															href="#reviews" role="tab">관람 후기</a>
+													</li>
 												</ul>
 												<!--/ End Tab Nav -->
 											</div>
@@ -557,79 +598,25 @@
 														<div class="row">
 															<div class="col-12">
 																<div class="ratting-main">
-																	<div class="avg-ratting">
-																		<h4>4.5 <span>(Overall)</span></h4>
-																		<span>Based on 1 Comments</span>
-																	</div>
-																	<!-- Single Rating -->
-																	<div class="single-rating">
-																		<div class="rating-author">
-																			<img src="https://via.placeholder.com/200x200"
-																				alt="#">
-																		</div>
-																		<div class="rating-des">
-																			<h6>Naimur Rahman</h6>
-																			<div class="ratings">
-																				<ul class="rating">
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i
-																							class="fa fa-star-half-o"></i>
-																					</li>
-																					<li><i class="fa fa-star-o"></i>
-																					</li>
-																				</ul>
-																				<div class="rate-count">
-																					(<span>3.5</span>)</div>
-																			</div>
-																			<p>Duis tincidunt mauris ac aliquet congue.
-																				Donec
-																				vestibulum consequat cursus. Aliquam
-																				pellentesque
-																				nulla dolor, in imperdiet.</p>
+																	<div class="avg-ratting"
+																		style="display: flex; justify-content: space-between; align-items: center;">
+																		<h6 style="width: 300px;"><span>관람
+																				후기(${fn:length(list_review)})&emsp;</span>4.5/5</h6>
+																		<div class="nav-main">
+																			<ul class="nav nav-tabs"
+																				style="width: 100%;" id="myReview"
+																				role="tablist">
+																				<li class="nav-item">
+																					<a class="nav-link active"
+																						id="toggleReview"
+																						href="javascript:void(0);">관람 후기
+																						작성</a>
+																				</li>
+																			</ul>
 																		</div>
 																	</div>
-																	<!--/ End Single Rating -->
-																	<!-- Single Rating -->
-																	<div class="single-rating">
-																		<div class="rating-author">
-																			<img src="https://via.placeholder.com/200x200"
-																				alt="#">
-																		</div>
-																		<div class="rating-des">
-																			<h6>Advin Geri</h6>
-																			<div class="ratings">
-																				<ul class="rating">
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i class="fa fa-star"></i></li>
-																					<li><i class="fa fa-star"></i></li>
-																				</ul>
-																				<div class="rate-count">
-																					(<span>5.0</span>)</div>
-																			</div>
-																			<p>Duis tincidunt mauris ac aliquet congue.
-																				Donec
-																				vestibulum consequat cursus. Aliquam
-																				pellentesque
-																				nulla dolor, in imperdiet.</p>
-																		</div>
-																	</div>
-																	<!--/ End Single Rating -->
-																</div>
-																<!-- Review -->
-																<div class="comment-review">
-																	<div class="add-review">
-																		<h5>Add A Review</h5>
-																		<p>Your email address will not be published.
-																			Required
-																			fields
-																			are marked</p>
-																	</div>
-																	<h4>Your Rating</h4>
-																	<div class="review-inner">
+																	<!-- Review -->
+																	<!-- <div class="review-inner">
 																		<div class="ratings">
 																			<ul class="rating">
 																				<li><i class="fa fa-star"></i></li>
@@ -639,43 +626,181 @@
 																				<li><i class="fa fa-star"></i></li>
 																			</ul>
 																		</div>
+																	</div> -->
+																	<div class="comment-review" id="reviewForm"
+																		style="display: none;">
+																		<div class="add-review">
+																			<h5>「${vo.performance_name}」 - 관람 후기 작성</h5>
+																		</div>
+																		<h4>평점</h4>
+																		<form id="ratingForm" class="review-inner"
+																			method="POST" action="review_insert.do">
+																			<input type="hidden" name="performance_idx" id="performance_idx" value="${param.performance_idx}">
+																			<div class="ratings">
+																				<label>
+																					<input type="radio"
+																						name="review_score_point"
+																						value="5" class="rating-radio"
+																						required>
+																					<span class="star"
+																						data-value="5">★★★★★</span>
+																				</label>
+																				<label>
+																					<input type="radio"
+																						name="review_score_point"
+																						value="4" class="rating-radio"
+																						required>
+																					<span class="star"
+																						data-value="4">★★★★</span>
+																				</label>
+																				<label>
+																					<input type="radio"
+																						name="review_score_point"
+																						value="3" class="rating-radio"
+																						required>
+																					<span class="star"
+																						data-value="3">★★★</span>
+																				</label>
+																				<label>
+																					<input type="radio"
+																						name="review_score_point"
+																						value="2" class="rating-radio"
+																						required>
+																					<span class="star"
+																						data-value="2">★★</span>
+																				</label>
+																				<label>
+																					<input type="radio"
+																						name="review_score_point"
+																						value="1" class="rating-radio"
+																						required>
+																					<span class="star"
+																						data-value="1">★</span>
+																				</label>
+																			</div>
+																			<!-- Form -->
+																			<div class="form">
+																				<div class="row">
+																					<div class="col-lg-6 col-12">
+																						<div class="form-group">
+																							<label>제목<span>*</span></label>
+																							<input type="text"
+																								name="review_title"
+																								required="required"
+																								placeholder="">
+																						</div>
+																					</div>
+																					<div class="col-lg-12 col-12">
+																						<div class="form-group">
+																							<label>내용<span>*</span></label>
+																							<textarea
+																								name="review_content"
+																								rows="6"
+																								placeholder=""></textarea>
+																						</div>
+																					</div>
+																					<div class="col-lg-12 col-12">
+																						<div class="form-group button5"
+																							style="text-align: center;">
+																							<button type="button"
+																								class="btn"
+																								onclick="send(this.form)">작성완료</button>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</form>
 																	</div>
+																	<!--/ End Form -->
+																	<!-- 리뷰 토글 -->
+																	<script>
+																		document.getElementById("toggleReview").addEventListener("click", function () {
+																			var reviewForm = document.getElementById("reviewForm");
+																			if (reviewForm.style.display === "none") {
+																				reviewForm.style.display = "block";
+																			} else {
+																				reviewForm.style.display = "none";
+																			}
+																		});
+																	</script>
+																	<!-- 후기 등록 -->
+																	<script type="text/javascript">
+																		function send(f) {
+																			let performance_idx = document.getElementById('performance_idx').value;
+
+																			let review_title = f.review_title.value.trim();
+																			let review_content = f.review_content.value.trim();
+
+																			// 라디오 버튼 체크 여부 확인
+																			let ratingChecked = false;
+																			let radios = document.getElementsByName('review_score_point');
+
+																			for (let i = 0; i < radios.length; i++) {
+																				if (radios[i].checked) {
+																					ratingChecked = true;
+																					break;
+																				}
+																			}
+
+																			if (!ratingChecked) {
+																				alert("평점을 선택하세요.");
+																				return;
+																			}
+
+
+																			if (review_title == "") {
+																				alert("제목을 입력하세요.");
+																				f.review_title.value = "";
+																				f.review_title.focus();
+																				return;
+																			}
+																			if (review_content == "") {
+																				alert("내용을 입력하세요.");
+																				f.review_content.value = "";
+																				f.review_content.focus();
+																				return;
+																			}
+
+																			f.submit();
+																		}
+																	</script>
+																	<!-- 관람 후기 -->
+																	<c:forEach var="review" items="${list_review}">
+																	<div class="single-rating">
+																		<div class="rating-author">
+																			<!-- <img src="https://via.placeholder.com/200x200"
+																				alt="#"> -->
+																				${ memVo.mem_filename }
+																		</div>
+																		<div class="rating-des">
+																			<div class="ratings">
+																				<div class="rating-tag"
+																					style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+																					<ul class="rating">
+																						<li><i class="fa fa-star"></i>
+																						</li>
+																						<li><i class="fa fa-star"></i>
+																						</li>
+																						<li><i class="fa fa-star"></i>
+																						</li>
+																						<li><i class="fa fa-star"></i>
+																						</li>
+																						<li><i class="fa fa-star"></i>
+																						</li>
+																					</ul>
+																					<h6 style="width: 200px;">${ review.mem_nickname }</h6>
+																					<div class="reg-information"
+																						style="text-align: right;">${ review.review_regdate }
+																					</div>
+																				</div>
+																			</div>
+																				<h6>${ review.review_title }</h6>
+																				<p>${ review.review_content }</p>
+																			</div>
+																		</div>
+																	</c:forEach>
+																	<!--/ End 관람 후기 -->
 																</div>
-																<!--/ End Review -->
-																<!-- Form -->
-																<form class="form" method="post" action="mail/mail.php">
-																	<div class="row">
-																		<div class="col-lg-6 col-12">
-																			<div class="form-group">
-																				<label>Your Name<span>*</span></label>
-																				<input type="text" name="name"
-																					required="required" placeholder="">
-																			</div>
-																		</div>
-																		<div class="col-lg-6 col-12">
-																			<div class="form-group">
-																				<label>Your Email<span>*</span></label>
-																				<input type="email" name="email"
-																					required="required" placeholder="">
-																			</div>
-																		</div>
-																		<div class="col-lg-12 col-12">
-																			<div class="form-group">
-																				<label>Write a
-																					review<span>*</span></label>
-																				<textarea name="message" rows="6"
-																					placeholder=""></textarea>
-																			</div>
-																		</div>
-																		<div class="col-lg-12 col-12">
-																			<div class="form-group button5">
-																				<button type="submit"
-																					class="btn">Submit</button>
-																			</div>
-																		</div>
-																	</div>
-																</form>
-																<!--/ End Form -->
 															</div>
 														</div>
 													</div>
