@@ -833,17 +833,17 @@
 																								- 2)}**</h6>
 																							<div class="reg-information"
 																								style="text-align: right;">
-																								${ review.review_regdate
-																								}
+																								조회&nbsp;${ review.review_readhit }&emsp;${ review.review_regdate }
 																							</div>
 																						</div>
 																					</div>
 																					<div class="review-container">
 																						<div class="review-list">
 																							<h6 class="toggle-btn review_title"
-																								onclick="toggleContent('review-${review.review_idx}')">
+																								onclick="toggleContent('review-${review.review_idx}', '${review.review_idx}')">
 																								${review.review_title}
 																							</h6>
+
 																							<p id="review-${review.review_idx}"
 																								class="review_content">
 																								${review.review_content}
@@ -852,15 +852,27 @@
 																					</div>
 
 																					<script type="text/javascript">
-																						function toggleContent(id) {
+																						function toggleContent(id, review_idx) {
 																							var content = document.getElementById(id);
 																							if (content.classList.contains('show')) {
 																								content.classList.remove('show');
 																							} else {
 																								content.classList.add('show');
+																								console.log("Review ID in JS:", review_idx); // 여기서 review_idx 확인
+																								// 로그인 상태 체크 후 조회수 증가 요청
+																								var xhr = new XMLHttpRequest();
+																								xhr.open('POST', '/detail/updateReadhit', true);
+																								xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+																								xhr.onreadystatechange = function () {
+																									if (xhr.readyState === 4 && xhr.status === 200) {
+																										console.log("Response received:", xhr.responseText); // 응답 확인
+																									}
+																								};
+																								xhr.send('review_idx=' + review_idx);
 																							}
 																						}
 																					</script>
+
 																				</div>
 																			</div>
 																		</c:forEach>

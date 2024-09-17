@@ -1,13 +1,17 @@
 package com.githrd.project3.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.DetailMapper;
@@ -144,5 +148,37 @@ public class DetailPageController {
         review_mapper.insertReviewScore(reviewScoreVo);
 
         return "redirect:detail.do?performance_idx=" + performance_idx + "&review_submitted=true";
+    }
+
+    @PostMapping("/updateReadhit")
+    @ResponseBody
+        public Map<String, Object> updateReadhit(@RequestParam("review_idx") int review_idx, HttpSession session) {
+            Map<String, Object> response = new HashMap<>();
+            
+            // 로그인 여부 확인
+            Integer mem_idx = (Integer) session.getAttribute("mem_idx");
+            if (mem_idx == null) {
+                response.put("success", false);
+                response.put("message", "로그인 후에만 조회수를 증가시킬 수 있습니다.");
+                return response;
+            }
+
+            // 유저가 이미 조회수를 증가시킨 경우를 체크
+            boolean hasAlreadyRead = review_mapper.checkUserReadhit(mem_idx, review_idx);
+            if (hasAlreadyRead) {
+                response.put("success", false);
+                response.put("message", "이미 조회수가 증가된 항목입니다.");
+                return response;
+            }
+
+            // 조회수 증가
+            review_mapper.incrementReadhit(review_idx);
+
+            // 유저의 조회수 증가 기록 추가
+            review_mapper.insertUserReadhit(mem_idx, review_idx);
+
+            response.put("success", true);
+            response.put("message", "조회수가 성공적으로 업데이트되었습니다.");
+            return response;
     }
 }

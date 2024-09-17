@@ -3,6 +3,7 @@ package com.githrd.project3.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.githrd.project3.vo.ReviewScoreVo;
 import com.githrd.project3.vo.ReviewVo;
@@ -19,4 +20,11 @@ public interface ReviewMapper {
     void insertReviewScore(ReviewScoreVo reviewScoreVo);
 
 
+    // 유저가 이미 조회수를 증가시킨 경우를 체크하는 메서드
+    boolean checkUserReadhit(@Param("mem_idx") int mem_idx, @Param("review_idx") int review_idx);
+    // 조회수 증가 메서드
+    void incrementReadhit(@Param("review_idx") int review_idx);
+    // 유저의 조회수 증가 기록 추가 메서드
+    void insertUserReadhit(@Param("mem_idx") int mem_idx, @Param("review_idx") int review_idx);
+    
 }

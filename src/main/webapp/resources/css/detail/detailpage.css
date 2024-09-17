@@ -103,7 +103,7 @@ h6 {
 /* 리뷰 */
 .review-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* 1열로 정렬 */
     margin-bottom: 20px;
 }
 
