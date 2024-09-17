@@ -22,5 +22,6 @@ public class ReviewVo {
     int review_readhit;     // 조회수
 
     String mem_filename;    //후기 목록에 이미지를 불러오기 위해 추가
+    int review_score_point; //평점 불러오기 위해 추가
 
 }

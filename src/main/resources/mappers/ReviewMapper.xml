@@ -6,7 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 전체조회 -->
   <select id="selectReviewList" resultType="review">
-		SELECT r.review_idx, r.review_title, r.review_content, r.mem_nickname, r.review_regdate, rs.review_score_point, m.mem_filename
+		SELECT r.review_idx, r.review_title, r.review_content,
+           r.mem_nickname, r.review_regdate,
+           rs.review_score_point, m.mem_filename
     FROM review r
     JOIN member m ON r.mem_idx = m.mem_idx
     LEFT JOIN review_score rs ON r.review_idx = rs.review_idx
