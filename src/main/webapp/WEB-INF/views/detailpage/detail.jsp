@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 			<!DOCTYPE html>
 			<html lang="zxx">
 
@@ -601,7 +602,7 @@
 																	<div class="avg-ratting"
 																		style="display: flex; justify-content: space-between; align-items: center;">
 																		<h6 style="width: 300px;"><span>관람
-																				후기(${fn:length(list_review)})&emsp;</span>4.5/5</h6>
+																				후기(${fn:length(list_review)})&emsp;</span><fmt:formatNumber value="${avgScore}" type="number" maxFractionDigits="2"/>/5</h6>
 																		<div class="nav-main">
 																			<ul class="nav nav-tabs"
 																				style="width: 100%;" id="myReview"

@@ -15,4 +15,6 @@ public class ReviewScoreVo {
     int performance_idx;
     int review_idx;
     int review_score_point;
+
+    Double average_score; //평균 값을 위해
 }

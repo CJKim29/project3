@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.ReviewScoreVo;
 import com.githrd.project3.vo.ReviewVo;
 

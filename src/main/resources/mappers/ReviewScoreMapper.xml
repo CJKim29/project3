@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.ReviewScoreMapper">
+
+  <!-- 전체조회 -->
+  <select id="avgScore" parameterType="int" resultType="double">
+		SELECT AVG(review_score_point)
+    FROM review_score
+    WHERE performance_idx = #{performance_idx}
+  </select>
+</mapper>

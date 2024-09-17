@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.githrd.project3.dao.DetailMapper;
 import com.githrd.project3.dao.MemberMapper;
 import com.githrd.project3.dao.ReviewMapper;
+import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.vo.ActorVo;
 import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
@@ -42,7 +43,7 @@ public class DetailPageController {
     ReviewMapper review_mapper;
 
     @Autowired
-    MemberMapper member_mapper;
+    ReviewScoreMapper review_score_mapper;
 
     @RequestMapping("detail.do")
     public String detail_page(int performance_idx, Model model) {
@@ -67,8 +68,10 @@ public class DetailPageController {
         }
 
         List<ReviewVo> list_review = review_mapper.selectReviewList(performance_idx);
-
         model.addAttribute("list_review", list_review);
+
+        Double avgScore = review_score_mapper.avgScore(performance_idx);
+        model.addAttribute("avgScore", avgScore);
 
         return "detailpage/detail";
     }
