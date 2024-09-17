@@ -620,7 +620,7 @@
 																	<div class="ratting-main">
 																		<div class="avg-ratting"
 																			style="display: flex; justify-content: space-between; align-items: center;">
-																			<h6 style="width: 300px;"><span>관람
+																			<h6 style="width: 300px;"><span>&emsp;관람
 																					후기(${fn:length(list_review)})&emsp;</span>
 																				<fmt:formatNumber value="${avgScore}"
 																					type="number"
@@ -881,6 +881,9 @@
 																</div>
 															</div>
 														</div>
+														<!-- Pagination -->
+															<div style="text-align: center; margin: auto">${ pageMenu }</div>
+														<!--/ End Pagination -->	
 													</div>
 													<!--/ End Reviews Tab -->
 												</div>

@@ -60,4 +60,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO user_review_readhit (mem_idx, review_idx)
         VALUES (#{ mem_idx }, #{ review_idx })
     </insert>
+
+    <!-- 페이징 -->
+    <!-- 전체 게시물 수 -->
+	<select id="review_row_total" parameterType="Map" resultType="int">
+        SELECT IFNULL(COUNT(*), 0) FROM review
+    </select>
+
+
+
+    <!-- paging 별 조회 -->
+	<select id="review_page_list" parameterType="Map" resultType="review">
+        SELECT * 
+        FROM (
+            SELECT
+                RANK() OVER (ORDER BY r.review_idx DESC) AS no, -- 순위 매기기: review_idx를 기준으로 내림차순 정렬
+                r.*, -- review 테이블의 모든 컬럼 선택
+                (SELECT IFNULL(COUNT(*), 0) FROM comment_tb WHERE review_idx = r.review_idx) AS cmt_count -- 댓글 수 계산
+            FROM
+                review r -- review 테이블
+        ) ranked_reviews
+        WHERE no BETWEEN #{start} AND #{end} -- 페이징 처리
+    </select>
+
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.githrd.project3.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -26,5 +27,9 @@ public interface ReviewMapper {
     void incrementReadhit(@Param("review_idx") int review_idx);
     // 유저의 조회수 증가 기록 추가 메서드
     void insertUserReadhit(@Param("mem_idx") int mem_idx, @Param("review_idx") int review_idx);
+
+    int review_row_total(Map<String, Object> map);
+
+    List<ReviewVo> review_page_list(Map<String, Object> map);
     
 }

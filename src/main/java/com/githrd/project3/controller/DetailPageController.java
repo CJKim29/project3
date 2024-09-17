@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.DetailMapper;
-import com.githrd.project3.dao.MemberMapper;
 import com.githrd.project3.dao.ReviewMapper;
 import com.githrd.project3.dao.ReviewScoreMapper;
+import com.githrd.project3.util.MyCommon;
+import com.githrd.project3.util.Paging2;
 import com.githrd.project3.vo.ActorVo;
 import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
@@ -50,7 +51,8 @@ public class DetailPageController {
     ReviewScoreMapper review_score_mapper;
 
     @RequestMapping("detail.do")
-    public String detail_page(int performance_idx, Model model) {
+    public String detail_page(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+                               int performance_idx, Model model) {
 
         PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
         List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
@@ -76,6 +78,35 @@ public class DetailPageController {
 
         Double avgScore = review_score_mapper.avgScore(performance_idx);
         model.addAttribute("avgScore", avgScore);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
+		int end = start + MyCommon.Review.BLOCK_LIST - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+
+		// 전체 게시물 수
+		int rowTotal = review_mapper.review_row_total(map);
+
+		// pageMenu생성하기
+		String pageMenu = Paging2.getPaging(
+            "detail.do?performance_idx=" + performance_idx,
+            nowPage,
+            rowTotal,
+            MyCommon.Review.BLOCK_LIST,
+            MyCommon.Review.BLOCK_PAGE
+        );
+
+
+		// 게시판 목록가져오기
+		List<ReviewVo> review_row_list = review_mapper.review_page_list(map);
+
+		// DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+		// DS는 model에 저장된 데이터를 request binding시킨다
+		model.addAttribute("review_row_list", review_row_list);
+		model.addAttribute("pageMenu", pageMenu);
 
         return "detailpage/detail";
     }
