@@ -408,11 +408,14 @@
 																	<c:when test="${ avgScore >= i }">
 																		<li><i class="fa fa-star"></i></li>
 																	</c:when>
-																	<c:when test="${ avgScore >= i - 0.5 && avgScore < i }">
+																	<c:when
+																		test="${ avgScore >= i - 0.5 && avgScore < i }">
 																		<li><i class="fa fa-star-half-o"></i></li>
 																	</c:when>
 																	<c:otherwise>
-																		<li class="dark"><i class="fa fa-star-o" style="color: rgb(255,29,56) !important;"></i></li>
+																		<li class="dark"><i class="fa fa-star-o"
+																				style="color: rgb(255,29,56) !important;"></i>
+																		</li>
 																	</c:otherwise>
 																</c:choose>
 															</c:forEach>
@@ -658,7 +661,9 @@
 																			<h4>평점</h4>
 																			<form id="ratingForm" class="review-inner"
 																				method="POST" action="review_insert.do">
-																				<input type="hidden" name="performance_idx" id="performance_idx"
+																				<input type="hidden"
+																					name="performance_idx"
+																					id="performance_idx"
 																					value="${param.performance_idx}">
 																				<div class="ratings">
 																					<label>
@@ -805,22 +810,57 @@
 																						<div class="rating-tag"
 																							style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
 																							<ul class="rating">
-																								<c:forEach var="i" begin="1" end="${ review.review_score_point }">
-																									<li><i class="fa fa-star"></i></li>
+																								<c:forEach var="i"
+																									begin="1"
+																									end="${ review.review_score_point }">
+																									<li><i
+																											class="fa fa-star"></i>
+																									</li>
 																								</c:forEach>
-																								<c:forEach var="i" begin="1" end="${ 5 - review.review_score_point }">
-																									<li class="dark"><i class="fa fa-star-o"></i></li>
+																								<c:forEach var="i"
+																									begin="1"
+																									end="${ 5 - review.review_score_point }">
+																									<li class="dark"><i
+																											class="fa fa-star-o"></i>
+																									</li>
 																								</c:forEach>
 																							</ul>
 																							<!-- <h6 style="width: 200px;">${review.mem_nickname }</h6> -->
-																							<h6 style="width: 200px;">${fn:substring(review.mem_nickname, 0, fn:length(review.mem_nickname) - 2)}**</h6>
-																							<div class="reg-information" style="text-align: right;">
-																								${ review.review_regdate }
+																							<h6 style="width: 200px;">
+																								${fn:substring(review.mem_nickname,
+																								0,
+																								fn:length(review.mem_nickname)
+																								- 2)}**</h6>
+																							<div class="reg-information"
+																								style="text-align: right;">
+																								${ review.review_regdate
+																								}
 																							</div>
 																						</div>
 																					</div>
-																					<h6>${ review.review_title }</h6>
-																					<p>${ review.review_content }</p>
+																					<div class="review-container">
+																						<div class="review-list">
+																							<h6 class="toggle-btn review_title"
+																								onclick="toggleContent('review-${review.review_idx}')">
+																								${review.review_title}
+																							</h6>
+																							<p id="review-${review.review_idx}"
+																								class="review_content">
+																								${review.review_content}
+																							</p>
+																						</div>
+																					</div>
+
+																					<script type="text/javascript">
+																						function toggleContent(id) {
+																							var content = document.getElementById(id);
+																							if (content.classList.contains('show')) {
+																								content.classList.remove('show');
+																							} else {
+																								content.classList.add('show');
+																							}
+																						}
+																					</script>
 																				</div>
 																			</div>
 																		</c:forEach>

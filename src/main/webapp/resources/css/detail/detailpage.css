@@ -99,3 +99,40 @@ h6 {
     margin-left: auto;
     text-align: right;
 }
+
+/* 리뷰 */
+.review-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.review-list {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.toggle-btn {
+    cursor: pointer;
+}
+
+
+.review_title {
+    font-size: 20px;
+}
+
+
+.review_content {
+    display: none;
+    font-size: 14px;
+    background: #f3f3f3;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/* 'show' 클래스가 추가되면 후기 내용 보이기 */
+.review_content.show {
+    display: block;
+}
