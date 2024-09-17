@@ -812,7 +812,8 @@
 																									<li class="dark"><i class="fa fa-star-o"></i></li>
 																								</c:forEach>
 																							</ul>
-																							<h6 style="width: 200px;">${review.mem_nickname }</h6>
+																							<!-- <h6 style="width: 200px;">${review.mem_nickname }</h6> -->
+																							<h6 style="width: 200px;">${fn:substring(review.mem_nickname, 0, fn:length(review.mem_nickname) - 2)}**</h6>
 																							<div class="reg-information" style="text-align: right;">
 																								${ review.review_regdate }
 																							</div>
