@@ -769,9 +769,7 @@
 																	<c:forEach var="review" items="${list_review}">
 																	<div class="single-rating">
 																		<div class="rating-author">
-																			<!-- <img src="https://via.placeholder.com/200x200"
-																				alt="#"> -->
-																				${ memVo.mem_filename }
+																			<img src="../resources/images/${ review.mem_filename }">
 																		</div>
 																		<div class="rating-des">
 																			<div class="ratings">
