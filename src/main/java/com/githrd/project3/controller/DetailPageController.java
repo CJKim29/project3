@@ -20,6 +20,7 @@ import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging2;
 import com.githrd.project3.vo.ActorVo;
+import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
@@ -178,7 +179,64 @@ public class DetailPageController {
 
         review_mapper.insertReviewScore(reviewScoreVo);
 
-        return "redirect:detail.do?performance_idx=" + performance_idx + "&review_submitted=true";
+        return "redirect:detail.do?performance_idx=" + performance_idx;
+    }
+
+    @RequestMapping("review_modify_form.do")
+    public String review_modify_form(Integer performance_idx, Integer review_idx, Model model) {
+
+        PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+
+        model.addAttribute("vo", vo);
+
+        List<ReviewVo> list_review = review_mapper.selectReviewList(performance_idx);
+        model.addAttribute("list_review", list_review);
+
+        Double avgScore = review_score_mapper.avgScore(performance_idx);
+        model.addAttribute("avgScore", avgScore);
+
+        ReviewVo reviewVo = review_mapper.review_one_from_idx(review_idx);
+        String review_content = reviewVo.getReview_content().replaceAll("\n", "<br>");
+		reviewVo.setReview_content(review_content);
+
+		model.addAttribute("reviewVo", reviewVo);
+
+        return "detailpage/review_modify_form";
+    }
+
+    @RequestMapping("review_modify.do")
+    public String modify(ReviewVo vo, 
+                        @RequestParam("performance_idx") Integer performance_idx,
+                        @RequestParam("review_idx") Integer review_idx,
+                        @RequestParam("review_score_point") Integer review_score_point,
+                        RedirectAttributes ra) {
+
+        MemberVo user = (MemberVo) session.getAttribute("user");
+
+        if (user == null) {
+            ra.addAttribute("reason", "session_timeout");
+            return "redirect:../member/login_form.do";
+        }
+
+        vo.setReview_idx(review_idx);
+        String review_content = vo.getReview_content().replaceAll("\n", "<br>");
+        vo.setReview_content(review_content);
+
+        int res = review_mapper.review_update(vo);
+
+        // 리뷰 점수 업데이트
+        ReviewScoreVo reviewScoreVo = new ReviewScoreVo();
+        reviewScoreVo.setMem_idx(user.getMem_idx());
+        reviewScoreVo.setPerformance_idx(performance_idx);
+        reviewScoreVo.setReview_idx(review_idx);
+        reviewScoreVo.setReview_score_point(review_score_point);
+
+        // 점수 업데이트를 위한 mapper 호출
+        review_mapper.updateReviewScore(reviewScoreVo);
+
+        ra.addAttribute("performance_idx", reviewScoreVo.getPerformance_idx());
+
+        return "redirect:detail.do";
     }
 
     @PostMapping("/updateReadhit")
@@ -212,4 +270,5 @@ public class DetailPageController {
             response.put("message", "조회수가 성공적으로 업데이트되었습니다.");
             return response;
     }
+    
 }

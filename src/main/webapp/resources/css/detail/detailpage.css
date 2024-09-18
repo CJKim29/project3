@@ -136,3 +136,11 @@ h6 {
 .review_content.show {
     display: block;
 }
+
+.reviewModifyForm {
+    display: none;
+}
+
+.reviewModifyForm.show {
+    display: block;
+}

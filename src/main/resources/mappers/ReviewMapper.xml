@@ -39,6 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                       #{ review_score_point }
                                       );
   </insert>
+  <update id="updateReviewScore" parameterType="review_score">
+        UPDATE review_score
+        SET review_score_point = #{ review_score_point }
+        WHERE mem_idx = #{ mem_idx }
+        AND performance_idx = #{ performance_idx }
+        AND review_idx = #{ review_idx };
+    </update>
+ 
+
 
   <!-- 유저가 이미 조회수를 증가시킨 경우를 체크 -->
     <select id="checkUserReadhit" parameterType="map" resultType="boolean">
@@ -75,13 +84,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM (
             SELECT
                 RANK() OVER (ORDER BY r.review_idx DESC) AS no, -- 순위 매기기: review_idx를 기준으로 내림차순 정렬
-                r.*, -- review 테이블의 모든 컬럼 선택
-                (SELECT IFNULL(COUNT(*), 0) FROM comment_tb WHERE review_idx = r.review_idx) AS cmt_count -- 댓글 수 계산
+                r.*
             FROM
                 review r -- review 테이블
         ) ranked_reviews
         WHERE no BETWEEN #{start} AND #{end} -- 페이징 처리
     </select>
 
+    <!-- 수정 폼 review_idx에 해당되는 게시물 정보 -->
+    <select id="review_one_from_idx" parameterType="int" resultType="review">
+		SELECT *
+		FROM review
+		WHERE review_idx = #{ review_idx }
+	</select>
+
+    <update id="review_update" parameterType="review">
+		update review set review_title      = #{ review_title },
+					      review_content   = #{ review_content },					     
+					      review_regdate   = now()
+					      where review_idx = #{ review_idx }					     
+	</update>
 
 </mapper>
