@@ -422,44 +422,50 @@
 														</ul>
 														<a href="#" class="total-review" id="totalReviewLink">관람
 															후기(${fn:length(list_review)})</a>
-														<script>
-															$(document).ready(function () {
-																// '관람 후기' 탭을 활성화하고 표시하는 함수
-																function activateReviewTab() {
-																	// 탭 메뉴의 '관람 후기'를 활성화
-																	$('#toggleReview').removeClass('active'); // '관람 후기 작성' 버튼 비활성화
-																	$('a[href="#reviews"]').tab('show'); // '관람 후기' 탭 활성화
-																}
-
-																// '관람 후기 작성' 버튼 클릭 시
-																$('#toggleReview').on('click', function (e) {
-																	e.preventDefault(); // 링크의 기본 동작 방지
-																	// 로그인 여부 체크
-																	if ("${ empty user }" === "true") {
-																		if (
-																			confirm("관람 후기는 로그인 후 작성 가능합니다 \n 로그인 하시겠습니까?") ==
-																			false
-																		)
-																			return;
-
-																		location.href = "../member/login_form.do";
-
-																		return;
+															<script>
+																$(document).ready(function () {
+																	// '관람 후기' 작성 버튼 클릭 시 처리하는 함수
+																	$('#toggleReview').on('click', function (e) {
+																		e.preventDefault(); // 링크의 기본 동작 방지
+															
+																		// 로그인 여부 체크
+																		if ("${ empty user }" === "true") {
+																			// 로그인이 안된 경우
+																			if (confirm("관람 후기는 로그인 후 작성 가능합니다. \n 로그인 하시겠습니까?") == true) {
+																				// 로그인을 하겠다고 선택한 경우 로그인 페이지로 이동
+																				location.href = "../member/login_form.do";
+																			} else {
+																				// 로그인을 하지 않겠다고 선택한 경우 아무 일도 일어나지 않음
+																				return;
+																			}
+																		} else {
+																			// 로그인된 경우에만 토글 처리
+																			var reviewForm = document.getElementById("reviewForm");
+																			if (reviewForm.style.display === "none") {
+																				reviewForm.style.display = "block";
+																			} else {
+																				reviewForm.style.display = "none";
+																			}
+																		}
+																	});
+															
+																	// '총 리뷰' 링크 클릭 시
+																	$('#totalReviewLink').on('click', function (e) {
+																		e.preventDefault(); // 링크의 기본 동작 방지
+															
+																		// 로그인된 경우에만 관람 후기 탭 활성화
+																		activateReviewTab();
+																	});
+															
+																	// '관람 후기' 탭을 활성화하고 표시하는 함수
+																	function activateReviewTab() {
+																		// 탭 메뉴의 '관람 후기'를 활성화
+																		$('#toggleReview').removeClass('active'); // '관람 후기 작성' 버튼 비활성화
+																		$('a[href="#reviews"]').tab('show'); // '관람 후기' 탭 활성화
 																	}
-
-																	// 탭 상태 업데이트
-																	activateReviewTab();
 																});
-
-																// '총 리뷰' 링크 클릭 시
-																$('#totalReviewLink').on('click', function (e) {
-																	e.preventDefault(); // 링크의 기본 동작 방지
-
-																	// '관람 후기' 탭 활성화
-																	activateReviewTab();
-																});
-															});
-														</script>
+															</script>
+															
 													</div>
 													<p class="price"><span class="discount">장소</span> <a href="#"
 															onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i
@@ -622,7 +628,7 @@
 																			style="display: flex; justify-content: space-between; align-items: center;">
 																			<h6 style="width: 300px;"><span>&emsp;관람
 																					후기(${fn:length(list_review)})&emsp;</span>
-																				<fmt:formatNumber value="${avgScore}"
+																				<fmt:formatNumber value="${ avgScore }"
 																					type="number"
 																					maxFractionDigits="2" />/5
 																			</h6>
@@ -641,17 +647,6 @@
 																			</div>
 																		</div>
 																		<!-- Review -->
-																		<!-- <div class="review-inner">
-																		<div class="ratings">
-																			<ul class="rating">
-																				<li><i class="fa fa-star"></i></li>
-																				<li><i class="fa fa-star"></i></li>
-																				<li><i class="fa fa-star"></i></li>
-																				<li><i class="fa fa-star"></i></li>
-																				<li><i class="fa fa-star"></i></li>
-																			</ul>
-																		</div>
-																	</div> -->
 																		<div class="comment-review" id="reviewForm"
 																			style="display: none;">
 																			<div class="add-review">
@@ -746,17 +741,6 @@
 																			</form>
 																		</div>
 																		<!--/ End Form -->
-																		<!-- 리뷰 토글 -->
-																		<script>
-																			document.getElementById("toggleReview").addEventListener("click", function () {
-																				var reviewForm = document.getElementById("reviewForm");
-																				if (reviewForm.style.display === "none") {
-																					reviewForm.style.display = "block";
-																				} else {
-																					reviewForm.style.display = "none";
-																				}
-																			});
-																		</script>
 																		<!-- 후기 등록 -->
 																		<script type="text/javascript">
 																			function send(f) {
@@ -826,14 +810,58 @@
 																								</c:forEach>
 																							</ul>
 																							<!-- <h6 style="width: 200px;">${review.mem_nickname }</h6> -->
-																							<h6 style="width: 200px;">
+																							<h6 style="width: 120px;">
 																								${fn:substring(review.mem_nickname,
 																								0,
 																								fn:length(review.mem_nickname)
 																								- 2)}**</h6>
+																							<div class="nav-main">
+																								<ul class="nav nav-tabs"
+																									style="width: 100%;"
+																									id="myReviewInside"
+																									role="tablist">
+																									<li
+																										class="nav-item">
+																										<a class="nav-link"
+																											class="toggleReviewModify"
+																											href="javascript:void(0);">수정</a>
+																									</li>
+																									<li
+																										class="nav-item">
+																										<a class="nav-link"
+																											id="toggleReviewDelete"
+																											href="javascript:void(0);">삭제</a>
+																									</li>
+																								</ul>
+																							</div>
+
+																							<!-- 리뷰 토글 -->
+																							<script>
+																								// 클래스가 toggleReviewModify인 모든 요소를 가져옴
+																								var modifyButtons = document.querySelectorAll(".toggleReviewModify");
+																							
+																								// 각 버튼에 대해 이벤트 리스너 추가
+																								modifyButtons.forEach(function(button, index) {
+																									button.addEventListener("click", function () {
+																										// 같은 순서의 리뷰 폼을 가져옴
+																										var reviewForm = document.querySelectorAll(".reviewForm")[index];
+																							
+																										// 폼의 display 속성 토글
+																										if (reviewForm.style.display === "none" || reviewForm.style.display === "") {
+																											reviewForm.style.display = "block";
+																										} else {
+																											reviewForm.style.display = "none";
+																										}
+																									});
+																								});
+																							</script>
+																							
 																							<div class="reg-information"
 																								style="text-align: right;">
-																								조회&nbsp;${ review.review_readhit }&emsp;${ review.review_regdate }
+																								조회&nbsp;${
+																								review.review_readhit
+																								}&emsp;${
+																								review.review_regdate }
 																							</div>
 																						</div>
 																					</div>
@@ -882,8 +910,9 @@
 															</div>
 														</div>
 														<!-- Pagination -->
-															<div style="text-align: center; margin: auto">${ pageMenu }</div>
-														<!--/ End Pagination -->	
+														<div style="text-align: center; margin: auto">${ pageMenu }
+														</div>
+														<!--/ End Pagination -->
 													</div>
 													<!--/ End Reviews Tab -->
 												</div>
