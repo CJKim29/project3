@@ -871,9 +871,16 @@
 																									</li>
 																									<c:if test="${ review.mem_idx == user.mem_idx || user.mem_grade eq '관리자' }">
 																										<button type="button" onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">수정</button>
-																										<button type="button" onclick="window.location.href='review_delete.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }'">삭제</button>
+																										<button type="button" onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">삭제</button>
 																									</c:if>
-
+																									<script>
+																										function reviewDelete(performance_idx, review_idx) {
+																											
+																											if (confirm("정말 삭제하시겠습니까?") == false) return;
+																									
+																											location.href = "review_delete.do?performance_idx=" + performance_idx + "&review_idx=" + review_idx;
+																										}
+																									</script>
 																								</ul>
 																								<!-- Review Form -->
 																								<div class="comment-review"

@@ -253,7 +253,7 @@ public class DetailPageController {
     }
 
     @RequestMapping("review_delete.do")
-        public String delete(int review_idx,
+        public String delete(@RequestParam("review_idx") int review_idx,
                             @RequestParam("performance_idx") Integer performance_idx,
                             RedirectAttributes ra) {
 
