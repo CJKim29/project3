@@ -831,7 +831,10 @@
 																											id="toggleReviewDelete"
 																											href="javascript:void(0);">삭제</a>
 																									</li>
-																									<button type="button" onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">수정</button>
+																									<c:if test="${ review.mem_idx == user.mem_idx || user.mem_grade eq '관리자' }">
+																										<button type="button" onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">수정</button>
+																										<button type="button" onclick="window.location.href='review_delete.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }'">삭제</button>
+																									</c:if>
 
 																								</ul>
 																								<!-- Review Form -->

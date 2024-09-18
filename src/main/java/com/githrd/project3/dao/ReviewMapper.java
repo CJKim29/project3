@@ -36,4 +36,10 @@ public interface ReviewMapper {
 
     int review_update(ReviewVo vo);
 
+    int review_delete(int review_idx);
+
+    void delete_user_review_readhit(int review_idx);
+
+    void delete_review_score(int review_idx);
+
 }

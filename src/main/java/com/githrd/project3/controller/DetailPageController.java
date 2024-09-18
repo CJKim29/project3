@@ -239,6 +239,22 @@ public class DetailPageController {
         return "redirect:detail.do";
     }
 
+    @RequestMapping("review_delete.do")
+        public String delete(int review_idx,
+                            @RequestParam("performance_idx") Integer performance_idx,
+                            RedirectAttributes ra) {
+
+        review_mapper.delete_user_review_readhit(review_idx);
+
+        review_mapper.delete_review_score(review_idx);
+
+        review_mapper.review_delete(review_idx);
+
+        ra.addAttribute("performance_idx", performance_idx);
+
+        return "redirect:detail.do";
+    }
+
     @PostMapping("/updateReadhit")
     @ResponseBody
         public Map<String, Object> updateReadhit(@RequestParam("review_idx") int review_idx, HttpSession session) {
