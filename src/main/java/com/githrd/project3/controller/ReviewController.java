@@ -1,7 +1,5 @@
 package com.githrd.project3.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,10 +33,10 @@ public class ReviewController {
     public String list(Model model) {
 
         // 리뷰 목록 가져오기
-        List<ReviewVo> list = review_mapper.selectList();
+        //List<ReviewVo> list = review_mapper.selectList();
 
         // request binding
-        model.addAttribute("list", list);
+       //model.addAttribute("list", list);
 
         return "review/review_list";
     }
@@ -82,7 +80,7 @@ public class ReviewController {
 
         // ip 받기
         String review_ip = request.getRemoteAddr();
-        vo.setReview_ip(review_ip);
+        //vo.setReview_ip(review_ip);
 
         // DB insert
         int res = review_mapper.insert(vo);

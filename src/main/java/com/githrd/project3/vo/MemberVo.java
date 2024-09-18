@@ -20,6 +20,7 @@ public class MemberVo {
     String mem_filename;
 
     int mem_point;
+    public Object getMem_idx;
 
     // 기본생성자 만들기
     public MemberVo() {
