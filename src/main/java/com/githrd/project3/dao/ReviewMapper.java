@@ -42,4 +42,6 @@ public interface ReviewMapper {
 
     void delete_review_score(int review_idx);
 
+    int countReviewsByMemIdxAndPerformanceIdx(int mem_idx, int performance_idx);
+
 }

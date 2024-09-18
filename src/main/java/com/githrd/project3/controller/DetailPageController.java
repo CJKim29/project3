@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +22,6 @@ import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging2;
 import com.githrd.project3.vo.ActorVo;
-import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
@@ -143,6 +144,18 @@ public class DetailPageController {
 
         return "detailpage/actor_list";
     }
+
+    @GetMapping("/review_check.do")
+    public ResponseEntity<Boolean> checkReview(
+            @RequestParam(name = "mem_idx", defaultValue = "0") int mem_idx, 
+            @RequestParam(name = "performance_idx", defaultValue = "0") int performance_idx) {
+        
+        boolean hasReviewed = review_mapper.countReviewsByMemIdxAndPerformanceIdx(mem_idx, performance_idx) > 0;
+    
+        return ResponseEntity.ok(hasReviewed);
+    }
+    
+
 
     @RequestMapping(value = "review_insert.do", method = RequestMethod.POST)
     public String insertReview(

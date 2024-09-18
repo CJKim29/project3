@@ -17,6 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
 
   <!-- 리뷰 작성(insert) -->
+  <!-- 등록된 글이 있는지 체크 -->
+  <select id="countReviewsByMemIdxAndPerformanceIdx" resultType="int">
+        SELECT COUNT(*)
+        FROM review
+        WHERE mem_idx = #{mem_idx}
+        AND performance_idx = #{performance_idx}
+    </select>
   <!-- review_idx 받아오기 위해 useGenerateKeys와 keyProperty사용 -->
   <insert id="review_insert" parameterType="review"  useGeneratedKeys="true" keyProperty="review_idx">
      insert into review values(null,
