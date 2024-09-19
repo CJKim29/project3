@@ -316,6 +316,16 @@ public class PerformanceController {
 		return "redirect:list.do";
 	}
 
+	// 공연 삭제
+	@RequestMapping("delete.do")
+	public String delete(int performance_idx) {
+
+		// int res = qna_mapper.qna_delete(qna_idx);
+		int res = performance_mapper.delete(performance_idx);
+
+		return "redirect:list.do";
+	}
+
 	// 상세페이지 띄우기
 	@RequestMapping("performance_page.do")
 	public String Performance_page(int performance_idx, Model model) {
@@ -333,7 +343,7 @@ public class PerformanceController {
 		return "performance/performance_seat";
 	}
 
-	// 검색 기능 추가!!!
+	// 검색 기능
 	@RequestMapping("performance_search.do")
 	public String search(String search, Model model) {
 		// 검색어를 포함한 공연 목록 가져오기

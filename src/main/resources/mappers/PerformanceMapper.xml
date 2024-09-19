@@ -151,6 +151,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               where seat_idx=#{seat_idx} and performance_idx=#{performance_idx}
   </update>
 
+  <!-- 공연 삭제 -->
+  <delete id="delete" parameterType="int">
+  delete from performance where performance_idx=#{performance_idx}
+  </delete>
+
+
 
 
 

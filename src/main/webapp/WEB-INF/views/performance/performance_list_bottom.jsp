@@ -118,12 +118,17 @@
 						// 공연 수정
 						function modify_form(performance_idx) {
 							location.href = "modify_form.do?performance_idx=" + performance_idx;
-
 						}
 
 						// 공연 좌석 수정
 						function modify_form_seat(performance_idx) {
 							location.href = "modify_form_seat.do?performance_idx=" + performance_idx;
+						}
+
+						// 공연 삭제
+						function del(performance_idx) {
+							if (confirm("정말 삭제하시겠습니까?") == false) return;
+							location.href = "delete.do?performance_idx=" + performance_idx;
 						}
 					</script>
 
@@ -148,51 +153,54 @@
 									<!-- 공연 목록 출력 -->
 									<div id="performance_list">
 										<c:forEach var="vo" items="${ list }">
-											<div class="content_wrap">
-												<img class="performance_img"
-													src="../resources/images/${ vo.performance_image }"
-													onclick="location.href='detailpage.do?performance_idx=${vo.performance_idx}'">
+											<c:if test="${vo.performance_state ne 'f'}">
+												<div class="content_wrap">
+													<img class="performance_img"
+														src="../resources/images/${ vo.performance_image }"
+														onclick="location.href='../detail/detail.do?performance_idx=${vo.performance_idx}'">
 
+													<!-- <div>공연상태 : ${vo.performance_state}</div> -->
+													<div class="performance_cate">${
+														vo.performanceCateVo.performance_cate_name }
+														> ${ vo.performanceDetailCateVo.performance_detail_cate_name }
+													</div>
+													<div class="performance_name" title="${vo.performance_name}">${
+														vo.performance_name}</div>
 
-												<div class="performance_cate">${
-													vo.performanceCateVo.performance_cate_name }
-													> ${ vo.performanceDetailCateVo.performance_detail_cate_name }
+													<!-- 지역 정보 -->
+													<div class="area">
+														${vo.hallVo.hall_area} >
+														${vo.hallVo.hall_name}
+													</div>
+
+													<!-- 가격 정보 -->
+													<div class="performance_price">
+														<c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
+															<!-- 가격 표시 : 숫자 3자리마다 , 찍기 -->
+															<!-- <fmt:setLocale value="ko_KR" /> -->
+															<fmt:formatNumber type="number"
+																value="${seat.seat_price}" />원
+														</c:forEach>
+													</div>
+
+													<!-- 관리자 권한 버튼 -->
+													<div class="admin_btns">
+														<c:if test="${ user.mem_grade eq '관리자' }">
+															<input type="button" class="btn" value="좌석 등록"
+																onclick="insert_form_seat('${vo.performance_idx}');" />
+
+															<input type="button" class="btn" value="공연 수정"
+																onclick="modify_form('${vo.performance_idx}');" />
+
+															<input class="btn" type="button" value="좌석 수정"
+																onclick="location.href='modify_form_seat.do?performance_idx=${ vo.performance_idx }'">
+
+															<input type="button" class="btn" value="공연 삭제"
+																onclick="del('${vo.performance_idx}');" />
+														</c:if>
+													</div>
 												</div>
-												<div class="performance_name" title="${vo.performance_name}">${
-													vo.performance_name}</div>
-
-												<!-- 지역 정보 -->
-												<div class="area">
-													${vo.hallVo.hall_area} >
-													${vo.hallVo.hall_name}
-												</div>
-
-												<!-- 가격 정보 -->
-												<div class="performance_price">
-													<c:forEach var="seat" items="${vo.seatList}" begin="0" end="0">
-														<!-- 가격 표시 : 숫자 3자리마다 , 찍기 -->
-														<!-- <fmt:setLocale value="ko_KR" /> -->
-														<fmt:formatNumber type="number" value="${seat.seat_price}" />원
-													</c:forEach>
-												</div>
-
-												<!-- 관리자 권한 버튼 -->
-												<div class="admin_btns">
-													<c:if test="${ user.mem_grade eq '관리자' }">
-														<input type="button" class="btn" value="좌석 등록"
-															onclick="insert_form_seat('${vo.performance_idx}');" />
-
-														<input type="button" class="btn" value="공연 수정"
-															onclick="modify_form('${vo.performance_idx}');" />
-
-														<input class="btn" type="button" value="좌석 수정"
-															onclick="location.href='modify_form_seat.do?performance_idx=${ vo.performance_idx }'">
-
-														<input type="button" class="btn" value="공연 삭제"
-															onclick="del('${vo.performance_idx}');" />
-													</c:if>
-												</div>
-											</div>
+											</c:if>
 										</c:forEach>
 									</div>
 
