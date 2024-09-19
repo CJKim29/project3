@@ -68,38 +68,41 @@
                         $(document).ready(function () {
                             // 클릭된 좌석 정보를 저장할 객체
                             var clickedSeats = {};
-
                             // 좌석 클릭 이벤트 핸들러
-                            $('.seat').click(function () {
+                            $(".seat").click(function () {
+                                var selectedSeatCount = Object.keys(clickedSeats).length;
                                 // 클릭된 버튼의 행(row)과 열(column) 정보 추출
-                                var rowNo = $(this).data('row');
-                                var colNo = $(this).data('col');
-
+                                var rowNo = $(this).data("row");
+                                var colNo = $(this).data("col");
                                 // 좌석 정보 문자열 생성
-                                var seatInfo = rowNo + '열 ' + colNo + '석';
-                                var seatKey = rowNo + '-' + colNo;
-
-                                // 클릭 횟수 업데이트
-                                if (!clickedSeats[seatKey]) {
-                                    clickedSeats[seatKey] = 0;
-                                }
-                                clickedSeats[seatKey]++;
-
-                                // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
-                                if (clickedSeats[seatKey] % 2 === 1) {
-                                    // 홀수 클릭: 정보 추가
-                                    clickedSeats[seatKey] = seatInfo;
+                                var seatInfo = rowNo + "열 " + colNo + "석";
+                                var seatKey = rowNo + "-" + colNo;
+                                // 이미 선택된 좌석이거나, 4좌석 이하인 경우에만 처리
+                                if (clickedSeats[seatKey] || selectedSeatCount < 4) {
+                                    // 클릭 횟수 업데이트
+                                    if (!clickedSeats[seatKey]) {
+                                        clickedSeats[seatKey] = 0;
+                                    }
+                                    clickedSeats[seatKey]++;
+                                    // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
+                                    if (clickedSeats[seatKey] % 2 === 1) {
+                                        // 홀수 클릭: 정보 추가
+                                        clickedSeats[seatKey] = seatInfo;
+                                    } else {
+                                        // 짝수 클릭: 정보 제거
+                                        delete clickedSeats[seatKey];
+                                    }
+                                    // 결과를 출력할 HTML 요소에 추가
+                                    var resultHtml = "";
+                                    for (var key in clickedSeats) {
+                                        resultHtml += "<p>" + clickedSeats[key] + "</p>";
+                                    }
+                                    $(".seat-info-container").html(resultHtml);
                                 } else {
-                                    // 짝수 클릭: 정보 제거
-                                    delete clickedSeats[seatKey];
+                                    alert("최대 4좌석까지만 선택할 수 있습니다. 다시 선택해주세요.");
+                                    // 좌석다시선택
+                                    redirectToCurrentPage();
                                 }
-
-                                // 결과를 출력할 HTML 요소에 추가
-                                var resultHtml = '';
-                                for (var key in clickedSeats) {
-                                    resultHtml += '<p>' + clickedSeats[key] + '</p>';
-                                }
-                                $('.seat-info-container').html(resultHtml);
                             });
                             window.submitBookForm = function () {
                                 var form = $('#bookForm');
