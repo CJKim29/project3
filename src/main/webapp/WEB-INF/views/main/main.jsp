@@ -81,6 +81,7 @@
 													<div class="product-img">
 														<a href="">
 															<!-- 이미지 크기는 550x750  -->
+															<!-- 이미지 크기는 550x750  -->
 															<img class="default-img" src="/../resources/template/images/장르용 써니텐.png" alt="#">
 														</a>
 													</div>
