@@ -20,10 +20,11 @@
 						<thead>
 							<tr class="main-hading">
 								<!-- <th class="text-center">공연</th> -->
-								<th class="text-center">제목</th>
-								<th class="text-center">좌석번호</th>
-								<th class="text-center">수량</th>
-								<th class="text-center">금액</th>  
+								<th class="text-center">공연명</th>
+								<th class="text-center">공연장</th>
+								<th class="text-center">공연날짜</th>
+								<th class="text-center">예매 좌석정보</th> 
+								<th class="text-center">가격</th> 
 								<th class="text-center">취소</th>
 							</tr>
 						</thead>
@@ -32,12 +33,14 @@
 								<!-- <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td> -->
 								<!-- 제목 -->
 								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#">뮤지컬 제목</a></p>
+									<p class="product-name"><a href="#">뮤지컬 공연명</a></p>
 								</td>
-								<!-- 좌석번호 -->
-								<td class="price" data-title="Price"><span>좌석</span></td>
-								<!-- 수량 -->
-								<td class="total-amount" data-title="Total"><span>0</span></td>
+								<!-- 공연장 -->
+								<td class="price" data-title="Price"><span>공연장</span></td>
+								<!-- 공연날짜 -->
+								<td class="price" data-title="Price"><span>공연날짜</span></td>
+								<!-- 예매 좌석정보 -->
+								<td class="total-amount" data-title="Total"><span>????</span></td>
 								<!-- 금액 -->
 								<td class="action" data-title="checkout">금액</td>
 								<!-- 취소 -->
