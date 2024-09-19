@@ -54,7 +54,7 @@ public class DetailPageController {
 
     @RequestMapping("detail.do")
     public String detail_page(@RequestParam(name = "page", defaultValue = "1") int nowPage,
-                               int performance_idx, Model model) {
+            int performance_idx, Model model) {
 
         PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
         List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
@@ -75,40 +75,39 @@ public class DetailPageController {
             model.addAttribute("isLiked", isLiked);
         }
 
-        List<ReviewVo> list_review = review_mapper.selectReviewList(performance_idx);
-        model.addAttribute("list_review", list_review);
-
         Double avgScore = review_score_mapper.avgScore(performance_idx);
         model.addAttribute("avgScore", avgScore);
 
         Map<String, Object> map = new HashMap<String, Object>();
 
         int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
-		int end = start + MyCommon.Review.BLOCK_LIST - 1;
+        int end = start + MyCommon.Review.BLOCK_LIST - 1;
 
-		map.put("start", start);
-		map.put("end", end);
+        map.put("performance_idx", performance_idx);
+        map.put("start", start);
+        map.put("end", end);
 
-		// 전체 게시물 수
-		int rowTotal = review_mapper.review_row_total(map);
+        List<ReviewVo> list_review = review_mapper.selectReviewList(performance_idx);
+        model.addAttribute("list_review", list_review);
+        // 전체 게시물 수
+        int rowTotal = review_mapper.review_row_total(map);
 
-		// pageMenu생성하기
-		String pageMenu = Paging2.getPaging(
-            "detail.do?performance_idx=" + performance_idx,
-            nowPage,
-            rowTotal,
-            MyCommon.Review.BLOCK_LIST,
-            MyCommon.Review.BLOCK_PAGE
-        );
+        // pageMenu생성하기
+        String pageMenu = Paging2.getPaging(
+                "detail.do?performance_idx=" + performance_idx,
+                nowPage,
+                rowTotal,
+                MyCommon.Review.BLOCK_LIST,
+                MyCommon.Review.BLOCK_PAGE);
 
+        // 게시판 목록가져오기
+        List<ReviewVo> review_row_list = review_mapper.review_page_list(map);
 
-		// 게시판 목록가져오기
-		List<ReviewVo> review_row_list = review_mapper.review_page_list(map);
+        // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+        // DS는 model에 저장된 데이터를 request binding시킨다
 
-		// DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
-		// DS는 model에 저장된 데이터를 request binding시킨다
-		model.addAttribute("review_row_list", review_row_list);
-		model.addAttribute("pageMenu", pageMenu);
+        model.addAttribute("review_row_list", review_row_list);
+        model.addAttribute("pageMenu", pageMenu);
 
         return "detailpage/detail";
     }
@@ -145,43 +144,101 @@ public class DetailPageController {
         return "detailpage/actor_list";
     }
 
+    @RequestMapping("review_list.do")
+    public String review_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+            int performance_idx, Model model) {
+
+        PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+        List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+
+        model.addAttribute("vo", vo);
+        model.addAttribute("list", list);
+
+        MemberVo user = (MemberVo) session.getAttribute("user");
+
+        int likeCount = detail_mapper.getTotalLikeCount(performance_idx);
+
+        model.addAttribute("likeCount", likeCount);
+
+        if (user != null) {
+            // 로그인된 경우, 좋아요 여부를 가져오기
+            boolean isLiked = detail_mapper.findLike(performance_idx, user.getMem_idx());
+
+            model.addAttribute("isLiked", isLiked);
+        }
+
+        Double avgScore = review_score_mapper.avgScore(performance_idx);
+        model.addAttribute("avgScore", avgScore);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
+        int end = start + MyCommon.Review.BLOCK_LIST - 1;
+
+        map.put("performance_idx", performance_idx);
+        map.put("start", start);
+        map.put("end", end);
+
+        List<ReviewVo> list_review = review_mapper.selectReviewList(performance_idx);
+        model.addAttribute("list_review", list_review);
+        // 전체 게시물 수
+        int rowTotal = review_mapper.review_row_total(map);
+
+        // pageMenu생성하기
+        String pageMenu = Paging2.getPaging(
+                "detail.do?performance_idx=" + performance_idx,
+                nowPage,
+                rowTotal,
+                MyCommon.Review.BLOCK_LIST,
+                MyCommon.Review.BLOCK_PAGE);
+
+        // 게시판 목록가져오기
+        List<ReviewVo> review_row_list = review_mapper.review_page_list(map);
+
+        // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+        // DS는 model에 저장된 데이터를 request binding시킨다
+
+        model.addAttribute("review_row_list", review_row_list);
+        model.addAttribute("pageMenu", pageMenu);
+
+        return "detailpage/review";
+    }
+
     @GetMapping("/review_check.do")
     public ResponseEntity<Boolean> checkReview(
-            @RequestParam(name = "mem_idx", defaultValue = "0") int mem_idx, 
+            @RequestParam(name = "mem_idx", defaultValue = "0") int mem_idx,
             @RequestParam(name = "performance_idx", defaultValue = "0") int performance_idx) {
-        
+
         boolean hasReviewed = review_mapper.countReviewsByMemIdxAndPerformanceIdx(mem_idx, performance_idx) > 0;
-    
+
         return ResponseEntity.ok(hasReviewed);
     }
-    
-
 
     @RequestMapping(value = "review_insert.do", method = RequestMethod.POST)
     public String insertReview(
-        ReviewVo vo,
-        @RequestParam("performance_idx") int performance_idx,
-        @RequestParam("review_score_point") int review_score_point,
-        Model model, RedirectAttributes ra) {
+            ReviewVo vo,
+            @RequestParam("performance_idx") int performance_idx,
+            @RequestParam("review_score_point") int review_score_point,
+            Model model, RedirectAttributes ra) {
 
-            MemberVo user = (MemberVo) session.getAttribute("user");
+        MemberVo user = (MemberVo) session.getAttribute("user");
 
-		    if (user == null) {
+        if (user == null) {
 
-			ra.addAttribute("reason", "session_timeout");
+            ra.addAttribute("reason", "session_timeout");
 
-			return "redirect:../member/login_form.do";
-		}
+            return "redirect:../member/login_form.do";
+        }
 
         vo.setMem_idx(user.getMem_idx());
-		vo.setMem_nickname(user.getMem_nickname());
+        vo.setMem_nickname(user.getMem_nickname());
         vo.setPerformance_idx(performance_idx);
 
         String review_content = vo.getReview_content().replaceAll("\n", "<br>");
-		vo.setReview_content(review_content);
+        vo.setReview_content(review_content);
 
-		// DB insert
-		review_mapper.review_insert(vo); // review_idx가 vo 객체에 설정됩니다.
+        // DB insert
+        review_mapper.review_insert(vo); // review_idx가 vo 객체에 설정됩니다.
         int review_idx = vo.getReview_idx(); // review_idx를 가져옵니다.
 
         ReviewScoreVo reviewScoreVo = new ReviewScoreVo();
@@ -210,19 +267,19 @@ public class DetailPageController {
 
         ReviewVo reviewVo = review_mapper.review_one_from_idx(review_idx);
         String review_content = reviewVo.getReview_content().replaceAll("\n", "<br>");
-		reviewVo.setReview_content(review_content);
+        reviewVo.setReview_content(review_content);
 
-		model.addAttribute("reviewVo", reviewVo);
+        model.addAttribute("reviewVo", reviewVo);
 
         return "detailpage/review_modify_form";
     }
 
     @RequestMapping("review_modify.do")
-    public String modify(ReviewVo vo, 
-                        @RequestParam("performance_idx") Integer performance_idx,
-                        @RequestParam("review_idx") Integer review_idx,
-                        @RequestParam("review_score_point") Integer review_score_point,
-                        RedirectAttributes ra) {
+    public String modify(ReviewVo vo,
+            @RequestParam("performance_idx") Integer performance_idx,
+            @RequestParam("review_idx") Integer review_idx,
+            @RequestParam("review_score_point") Integer review_score_point,
+            RedirectAttributes ra) {
 
         MemberVo user = (MemberVo) session.getAttribute("user");
 
@@ -253,9 +310,9 @@ public class DetailPageController {
     }
 
     @RequestMapping("review_delete.do")
-        public String delete(@RequestParam("review_idx") int review_idx,
-                            @RequestParam("performance_idx") Integer performance_idx,
-                            RedirectAttributes ra) {
+    public String delete(@RequestParam("review_idx") int review_idx,
+            @RequestParam("performance_idx") Integer performance_idx,
+            RedirectAttributes ra) {
 
         review_mapper.delete_user_review_readhit(review_idx);
 
@@ -270,34 +327,34 @@ public class DetailPageController {
 
     @PostMapping("/updateReadhit")
     @ResponseBody
-        public Map<String, Object> updateReadhit(@RequestParam("review_idx") int review_idx, HttpSession session) {
-            Map<String, Object> response = new HashMap<>();
-            
-            // 로그인 여부 확인
-            Integer mem_idx = (Integer) session.getAttribute("mem_idx");
-            if (mem_idx == null) {
-                response.put("success", false);
-                response.put("message", "로그인 후에만 조회수를 증가시킬 수 있습니다.");
-                return response;
-            }
+    public Map<String, Object> updateReadhit(@RequestParam("review_idx") int review_idx, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
 
-            // 유저가 이미 조회수를 증가시킨 경우를 체크
-            boolean hasAlreadyRead = review_mapper.checkUserReadhit(mem_idx, review_idx);
-            if (hasAlreadyRead) {
-                response.put("success", false);
-                response.put("message", "이미 조회수가 증가된 항목입니다.");
-                return response;
-            }
-
-            // 조회수 증가
-            review_mapper.incrementReadhit(review_idx);
-
-            // 유저의 조회수 증가 기록 추가
-            review_mapper.insertUserReadhit(mem_idx, review_idx);
-
-            response.put("success", true);
-            response.put("message", "조회수가 성공적으로 업데이트되었습니다.");
+        // 로그인 여부 확인
+        Integer mem_idx = (Integer) session.getAttribute("mem_idx");
+        if (mem_idx == null) {
+            response.put("success", false);
+            response.put("message", "로그인 후에만 조회수를 증가시킬 수 있습니다.");
             return response;
+        }
+
+        // 유저가 이미 조회수를 증가시킨 경우를 체크
+        boolean hasAlreadyRead = review_mapper.checkUserReadhit(mem_idx, review_idx);
+        if (hasAlreadyRead) {
+            response.put("success", false);
+            response.put("message", "이미 조회수가 증가된 항목입니다.");
+            return response;
+        }
+
+        // 조회수 증가
+        review_mapper.incrementReadhit(review_idx);
+
+        // 유저의 조회수 증가 기록 추가
+        review_mapper.insertUserReadhit(mem_idx, review_idx);
+
+        response.put("success", true);
+        response.put("message", "조회수가 성공적으로 업데이트되었습니다.");
+        return response;
     }
-    
+
 }
