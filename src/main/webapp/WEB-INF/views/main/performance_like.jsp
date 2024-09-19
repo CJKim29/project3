@@ -19,27 +19,28 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
-								<th>공연</th>
-								<th>제목</th>
-								<th class="text-center">가격</th>
+								<!-- <th class="text-center">공연</th> -->
+								<th class="text-center">제목</th>
+								<th class="text-center">좌석번호</th>
 								<th class="text-center">수량</th>
-								<th class="text-center">금액</th> 
-								<th class="text-center">예매</th> 
-								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+								<th class="text-center">금액</th>  
+								<th class="text-center">취소</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
+								<!-- <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td> -->
+								<!-- 제목 -->
 								<td class="product-des" data-title="Description">
 									<p class="product-name"><a href="#">뮤지컬 제목</a></p>
-									<p class="product-des"></p>
 								</td>
-								<td class="price" data-title="Price"><span>가격 </span></td>
-								<!-- 금액 -->
+								<!-- 좌석번호 -->
+								<td class="price" data-title="Price"><span>좌석</span></td>
+								<!-- 수량 -->
 								<td class="total-amount" data-title="Total"><span>0</span></td>
-								<!-- 예매버튼 -->
-								<td class="action" data-title="checkout"><a href="#">예매하기</a></td>
+								<!-- 금액 -->
+								<td class="action" data-title="checkout">금액</td>
+								<!-- 취소 -->
 								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
 							</tr>
 						</tbody>
