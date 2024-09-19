@@ -26,7 +26,7 @@ body {
   display: inline-block;
   cursor: pointer;
   margin-left: 5px;
-  border-radius: 10px 0px 0px 0px;
+  border-radius: 3px 0px 0px 0px;
 }
 
 .seat2 {
@@ -184,6 +184,6 @@ body {
 }
 
 #seat-box-body-left-button {
-  margin-top: 19px;
+  margin-top: 1px;
   margin-left: 33px;
 }
