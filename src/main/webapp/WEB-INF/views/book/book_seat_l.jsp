@@ -524,64 +524,64 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       data-seat="${seat.l_hall_j}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_a == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_k == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_a"
-                      data-seat="${seat.l_hall_a}"
+                      data-col="l_hall_k"
+                      data-seat="${seat.l_hall_k}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_b == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_l == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_b"
-                      data-seat="${seat.l_hall_b}"
+                      data-col="l_hall_l"
+                      data-seat="${seat.l_hall_l}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_c == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_m == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_c"
-                      data-seat="${seat.l_hall_c}"
+                      data-col="l_hall_m"
+                      data-seat="${seat.l_hall_m}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_d == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_n == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_d"
-                      data-seat="${seat.l_hall_d}"
+                      data-col="l_hall_n"
+                      data-seat="${seat.l_hall_n}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_e == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_o == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_e"
-                      data-seat="${seat.l_hall_e}"
+                      data-col="l_hall_o"
+                      data-seat="${seat.l_hall_o}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_f == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_p == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_f"
-                      data-seat="${seat.l_hall_f}"
+                      data-col="l_hall_p"
+                      data-seat="${seat.l_hall_p}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_g == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_q == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_g"
-                      data-seat="${seat.l_hall_g}"
+                      data-col="l_hall_q"
+                      data-seat="${seat.l_hall_q}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_h == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_r == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_h"
-                      data-seat="${seat.l_hall_h}"
+                      data-col="l_hall_r"
+                      data-seat="${seat.l_hall_r}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_i == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_s == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_i"
-                      data-seat="${seat.l_hall_i}"
+                      data-col="l_hall_s"
+                      data-seat="${seat.l_hall_s}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_j == 0 ? 'available' : 'unavailable'}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l_hall_t == 0 ? 'available' : 'unavailable'}"
                       data-row="${seat.l_hall_row_no}"
-                      data-col="l_hall_j"
-                      data-seat="${seat.l_hall_j}"
+                      data-col="l_hall_t"
+                      data-seat="${seat.l_hall_t}"
                     ></div>
                     <strong>&nbsp;&nbsp;${seat.l_hall_row_no}</strong>
                   </c:otherwise>
