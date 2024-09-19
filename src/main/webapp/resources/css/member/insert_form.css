@@ -3,145 +3,185 @@
 /* @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css'); */
 
 @font-face {
-    font-family: 'Freesentation-9Black';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
+	font-family: 'Freesentation-9Black';
+	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
 }
 
 
 
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'Pretendard-Regular';
+	src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
-body{
-	background-color: #1F2128 !important; 
-	
+body {
+	background-color: white !important;
+
 }
-*{
+
+* {
 	color: #999999;
 	font-family: 'Pretendard-Regular';
 	/* font-weight: 500; */
-	
+
 }
-#box{
-	width: 500px;
+
+#logo {
+	width: 100%;
+	text-align: center;
+}
+
+#box {
+	width: 600px;
 	margin: auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
-   }
-   
-#id_msg, #nickname_msg{
+	margin-bottom: 20px;
+	border: 2px solid rgb(230, 151, 48);
+	border-radius: 15px;
+}
+
+#id_msg,
+#nickname_msg {
 	display: inline-block;
 	width: 300px;
 	height: 20px;
-	margin-left: 10px; 
+	margin-left: 150px;
 }
-.membership-btn input{
+
+.membership-btn {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.membership-btn input {
 	font-weight: bold;
 	/* border: 1px solid #2d2f35; */
-	margin-top: 50px;
-	margin-bottom: 30px;
-	
+	margin-bottom: 10px;
 }
 
 
-#box .form-group .form-group{
+#box .form-group .form-group {
 	margin-bottom: 30px;
-}  
-#box .form-group .addr{
+}
+
+#box .addr {
 	margin-bottom: 50px;
 }
-.form-group input{
-	width:50%;
+
+.form-group input {
+	width: 50%;
 }
 
-.text1{
-	margin-bottom: 10px;
+.text1 {
+	/* width: 80px; */
+	display: flex !important;
+	margin-bottom: 45px;
 	font-size: 20px;
 	color: #ac8d5a;
+	justify-content: center !important;
 }
 
-.addr_text{
-	float:left;
+.text-name {
+	margin-top: 40px;
 }
 
-.a_search{
+.text2 {
+	/* width: 80px; */
+	display: flex !important;
+	font-size: 20px;
+	color: #ac8d5a;
+	justify-content: center !important;
+}
+
+.form-control {
+	display: inline-block !important;
+	margin-bottom: 20px;
+}
+
+.addr_text {
+	float: left;
+}
+
+.a_search {
 	background-color: #2B2E36;
-	width:25% !important;
+	width: 25% !important;
 	height: 47px;
 	font-size: 17px !important;
 	font-weight: bold;
 	margin-left: 20px;
-} 
+}
 
-.form-group .text1 .addr_text .a_search:hover{
+.form-group .text1 .addr_text .a_search:hover {
 	background-color: #2B2E36;
-	width:25% !important;
-	height: 47px;
+	width: 25% !important;
+	height: 40px;
 	font-size: 17px !important;
 	font-weight: bold;
 	margin-left: 20px;
-	
-	background-image: rgba(0,0,0,.4) !important;
+
+	background-image: rgba(0, 0, 0, .4) !important;
 	color: white !important;
-} 
+}
 
 
 /* 버튼 기본 속성 제거 + 커스텀 */
-.btn:active, .btn:focus {
+.btn:active,
+.btn:focus {
 	outline: none !important;
 	box-shadow: none !important;
 	color: #999 !important;
-	}
-	
+}
+
 /* 자동완성 관련 커스텀 */
 input:autofill,
 input:autofill:hover,
 input:autofill:focus,
 input:autofill:active {
-	-webkit-text-fill-color: #999;		/* 글씨 색 */
-/*     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+	-webkit-text-fill-color: #999;
+	/* 글씨 색 */
+	/*     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     box-shadow: 0 0 0px 1000px #fff inset; */
-    transition: background-color 5000s ease-in-out 0s;
-}	
-.btn:hover{
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+.btn:hover {
 	color: white !important;
 	border: 1px solid #ac8d5a !important;
 }
 
-input{
-	background-color: #1D1F26 !important;
-	border: 0.5px solid #2D2F35 !important;
+input {
+	background-color: white !important;
+	border: 0.5px solid #9a9da3 !important;
 }
-input:active, input:focus {
-	border: 0.5px soild #575C6D !important; 
+
+input:active,
+input:focus {
+	border: 0.5px soild #575C6D !important;
 	box-shadow: none !important;
 }
 
-input:hover{
-	border: 0.5px soild #575C6D !important; 
+input:hover {
+	border: 0.5px soild #575C6D !important;
 }
-.addr{
+
+.addr {
 	margin-bottom: 50px;
 }
 
 hr {
-    background:#2D2F35 !important;
-    height:1px !important;
-    border:0 !important;
+	background: #2D2F35 !important;
+	height: 1px !important;
+	border: 0 !important;
 }
-.home a{
+
+.home a {
 	text-decoration: none !important;
 	color: #999999 !important;
 	font-size: 15px;
 	font-weight: 300 !important;
-	text-align: center !important;	/* 안 먹어서 태그에 직접 적용 */
-}
-.home a:hover{
-	color: white !important;
+	text-align: center !important;
+	/* 안 먹어서 태그에 직접 적용 */
 }

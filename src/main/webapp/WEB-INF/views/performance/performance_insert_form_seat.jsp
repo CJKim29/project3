@@ -32,8 +32,31 @@
                 margin-bottom: 40px !important;
             }
 
+            hr {
+                margin-top: 0px !important;
+            }
+
+            .btn {
+                width: 80px;
+                font-weight: bold;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .btn:hover {
+                background-color: #ff1d38;
+                color: #fff;
+                transition: 0.4s all ease-in-out;
+            }
+
+            /* 버튼 클릭 후 남아있는 효과 지우기 */
+            .btn:focus {
+                border: none;
+                outline: none;
+            }
+
             .btn_insert {
-                margin-left: 425px;
+                float: right;
             }
         </style>
 
@@ -48,13 +71,13 @@
                 let seat_price = f.seat_price.value.trim();
 
                 if (seat_grade == '') {
-                    alert("좌석 등급을 입력해주세요");
+                    alert("좌석 이름(등급)을 입력해주세요");
                     f.seat_grade.value = "";	/* 지우기 */
                     f.seat_grade.focus();
                     return;
                 }
                 if (seat_price == '') {
-                    alert("가격을 입력해주세요");
+                    alert("좌석 가격을 입력해주세요\n*숫자만 입력 가능");
                     f.seat_price.value = "";	/* 지우기 */
                     f.seat_price.focus();
                     return;
@@ -76,23 +99,24 @@
 
             <div id="box">
 
-                <div class="panel panel-success">
-                    <div class="panel-heading">공연 가격 등록</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 style="text-align: center;">공연 좌석 등록</h4>
+                    </div>
                     <div class="panel-body">
 
                         <div>
-                            <h4>좌석 등급</h4>
+                            <h4>좌석 이름(등급)</h4>
                             <div>*좌석 이름만 입력해주세요. ex) VIP석 -> VIP</div>
                             <input class="form-control content" rows="6" name="seat_grade">
 
-                            <h4>가격</h4>
+                            <h4>좌석 가격</h4>
                             <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
                             <input class="form-control content" type="number" name="seat_price">
 
 
-                            <input class="btn btn-success" type="button" value="이전" onclick="location.href='list.do'">
-                            <input class="btn btn-primary btn_insert" type="button" value="등록하기"
-                                onclick="send(this.form);">
+                            <input class="btn" type="button" value="이전" onclick="location.href='list.do'">
+                            <input class="btn btn_insert" type="button" value="등록하기" onclick="send(this.form);">
 
 
                         </div>

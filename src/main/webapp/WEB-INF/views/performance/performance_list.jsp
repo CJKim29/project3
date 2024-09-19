@@ -40,6 +40,49 @@
               float: right;
               margin-right: 10px;
             }
+
+            /* 라디오 버튼 스타일 */
+            .custom-radio-label {
+              margin-right: 20px;
+              /* 각 라디오 버튼 사이에 간격 추가 */
+              font-size: 16px;
+              /* 폰트 크기 조정 */
+              color: #333;
+              /* 텍스트 색상 */
+              padding: 5px 10px;
+              /* 동그란 배경을 위해 여백 추가 */
+              transition: background-color 0.3s ease;
+              /* 배경 변화 애니메이션 */
+            }
+
+            .custom-radio input[type="radio"] {
+              margin-right: 5px;
+              /* 버튼과 텍스트 사이 간격 */
+            }
+
+            .radio-group {
+              display: flex;
+              flex-wrap: wrap;
+
+            }
+
+            .radio-group input {
+              margin-right: 5px;
+            }
+
+            .custom-control-label:hover {
+              color: red;
+              cursor: pointer;
+              transition: 0.3s all ease-in-out;
+            }
+
+            label:checked {
+              color: red;
+            }
+
+            input[type="radio"]:checked+label {
+              color: red;
+            }
           </style>
 
           <script src="../resources/template/js/jquery.min.js"></script>
@@ -56,16 +99,6 @@
               ).click(function () {
                 search();
               });
-
-              // // sort_options_number 선택이 변경되면 search() 호출 => 정렬(몇개씩 볼건지 )
-              // $("#sort_options_number").change(function () {
-              // 	search();
-              // });
-
-              // // sort_options 선택이 변경되면 search() 호출 => 정렬(최신순, ㄱㄴㄷ순..)
-              // $("#sort_options").change(function () {
-              // 	search();
-              // });
             });
 
             function search() {
@@ -105,48 +138,6 @@
             }
           </script>
 
-          <script>
-            // function filtering(performance_detail_cate_idx) {
-            // 	// let performance_detail_cate_idx = $('#performance_detail_cate_idx').val() // performance_detail_cate_idx : <ul> id
-
-            // 	//"location.href='category.do?performance_detail_cate_idx=${vo.performance_detail_cate_idx}'"
-            // 	$.ajax({
-            // 		url: "category.do",		// controller
-            // 		data: { "performance_detail_cate_idx": performance_detail_cate_idx },	//paramter 전달  category.do?performance_detail_cate_idx="all"
-            // 		// dataType: "json",
-            // 		success: function (res_data) {
-
-            // 			$("#disp").html(res_data);
-
-            // 		},
-            // 		error: function (err) {
-            // 			alert(err.responseText);
-            // 		}
-            // 	});
-            // }// end : filtering()
-
-            // hall_idx를 통해 공연장 장소(hall_area) 사용
-            // function filtering_area(hall_idx) {
-
-            // 	let performance_detail_cate_idx = $('#performance_detail_cate_idx').val()
-
-            // 	$.ajax({
-            // 		url: "category_area.do",	// controller
-            // 		data: {
-            // 			"hall_idx": hall_idx,
-            // 			"performance_detail_cate_idx": performance_detail_cate_idx
-            // 		},				// 전달 할 parameter category_area.do?hall_idx=1
-            // 		success: function (res_data) {
-            // 			$("#disp").html(res_data);
-            // 		},
-            // 		error: function (err) {
-            // 			alert(err.responseText);
-            // 		}
-            // 	});
-
-            // }
-          </script>
-
           <!-- 공연 추가 -->
           <script>
             function insert_form() {
@@ -165,7 +156,88 @@
               <div class="row">
                 <div class="col-12">
                   <div class="bread-inner">
-                    <input type="radio" name="performance_detail_cate_idx" value="0" checked />전체
+
+                    <!-- 공연 종류 라디오 버튼 -->
+                    <div class="radio-group">
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="all" name="performance_detail_cate_idx" value="0"
+                          class="custom-control-input" checked />
+                        <label class="custom-control-label" for="all">전체</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="romantic_comedy" name="performance_detail_cate_idx" value="1"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="romantic_comedy">로맨틱코미디</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="drama" name="performance_detail_cate_idx" value="2"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="drama">드라마</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="comic" name="performance_detail_cate_idx" value="3"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="comic">코믹</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="thriller" name="performance_detail_cate_idx" value="4"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="thriller">공포/스릴러</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="performance" name="performance_detail_cate_idx" value="5"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="performance">퍼포먼스</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="kids" name="performance_detail_cate_idx" value="6"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="kids">어린이</label>
+                      </div>
+                    </div>
+
+                    <!-- 지역별 라디오 버튼 -->
+                    <div class="radio-group">
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="area_all" name="hall_area" value="all" class="custom-control-input"
+                          checked />
+                        <label class="custom-control-label" for="area_all">전체</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="seoul" name="hall_area" value="서울" class="custom-control-input" />
+                        <label class="custom-control-label" for="seoul">서울</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="gyeonggi_incheon" name="hall_area" value="경기/인천"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="gyeonggi_incheon">경기/인천</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="chungcheong_daejeon" name="hall_area" value="충청/대전"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="chungcheong_daejeon">충청/대전</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="gyeongsang_daegu_busan" name="hall_area" value="경상/대구/부산"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="gyeongsang_daegu_busan">경상/대구/부산</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="jeolla_gwangju" name="hall_area" value="전라/광주"
+                          class="custom-control-input" />
+                        <label class="custom-control-label" for="jeolla_gwangju">전라/광주</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="gangwon" name="hall_area" value="강원" class="custom-control-input" />
+                        <label class="custom-control-label" for="gangwon">강원</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="jeju" name="hall_area" value="제주" class="custom-control-input" />
+                        <label class="custom-control-label" for="jeju">제주</label>
+                      </div>
+                    </div>
+
+                    <!-- <input type="radio" name="performance_detail_cate_idx" value="0" checked />전체
                     <input type="radio" name="performance_detail_cate_idx" value="1" />로맨틱코미디
                     <input type="radio" name="performance_detail_cate_idx" value="2" />드라마
                     <input type="radio" name="performance_detail_cate_idx" value="3" />코믹
@@ -181,41 +253,8 @@
                     <input type="radio" name="hall_area" value="경상/대구/부산" />경상/대구/부산
                     <input type="radio" name="hall_area" value="전라/광주" />전라/광주
                     <input type="radio" name="hall_area" value="강원" />강원
-                    <input type="radio" name="hall_area" value="제주" />제주
-
-                    <!-- <ul id="performance_detail_cate_idx">
-											<li style="margin-left: 20px; font-weight: bold !important;" value=0>
-												<a onclick="filtering(0);">장르 전체</a>
-											</li>
-
-											<li value=1>
-												<a onclick="filtering(1);">
-													로맨틱코미디
-												</a>
-											</li>
-
-											<li value=2><a onclick="filtering(2);">드라마</a></li>
-											<li value=3><a onclick="filtering(3);">코믹</a></li>
-											<li value=4><a onclick="filtering(4);">공포/스릴러</a></li>
-											<li value=5><a onclick="filtering(5);">퍼포먼스</a></li>
-											<li value=6><a onclick="filtering(6);">어린이</a></li>
-											<li value=7><a onclick="filtering(7);">기타</a></li>
-										</ul> -->
+                    <input type="radio" name="hall_area" value="제주" />제주 -->
                   </div>
-
-                  <!-- <div class="bread-inner">
-										<ul id="hall_idx">
-											<li style="margin-left: 20px;"><a onclick="filtering_area(0);">지역 전체</a>
-											</li>
-											<li><a onclick="filtering_area(1);">서울</a></li>
-											<li><a onclick="filtering_area(2);">경기/인천</a></li>
-											<li><a onclick="filtering_area(3);">충청/대전</a></li>
-											<li><a onclick="filtering_area(4);">경상/대구/부산</a></li>
-											<li><a onclick="filtering_area(5);">전라/광주</a></li>
-											<li><a onclick="filtering_area(6);">강원</a></li>
-											<li><a onclick="filtering_area(7);">제주</a></li>
-										</ul>
-									</div> -->
                 </div>
               </div>
             </div>
@@ -247,11 +286,11 @@
                           <div class="single-shorter">
                             <label>Sort By :</label>
                             <select id="sort_options" onchange="search();">
-                              <option selected="selected" value="s_abc">
+                              <option value="s_best" selected="selected">인기순</option>
+                              <option value="s_abc">
                                 가나다순
                               </option>
                               <option value="s_new">최신순</option>
-                              <option value="s_best">인기순</option>
                             </select>
                           </div>
                         </div>

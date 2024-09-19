@@ -15,6 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
    </resultMap>
 
+   <resultMap id="castingMap" type="casting">
+      <result property="actor_idx" column="actor_idx" />
+
+      <association property="actorVo" column="actor_idx=actor_idx" select="actor_list" />
+   </resultMap>
+
    <select id="performance_cate_list" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
    </select>
@@ -24,6 +30,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="seat_list" resultType="seat">
        select * from seat where performance_idx=#{ performance_idx }
    </select>
+   <select id="actor_list" resultType="actor">
+      select * from actor where actor_idx=#{actor_idx}
+   </select>
+
 
 
    <!-- 전체조회 -->
@@ -61,4 +71,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE performance_idx = #{performance_idx}
    </select>
 
+   <!-- 배우 전체 조회 -->
+   <select id="selectActorList" resultType="actor">
+		select * from actor order by actor_idx
+   </select>
+
+   <!-- 배우 idx별 조회 -->
+   <select id="selectActorFromIdx" parameterType="int" resultType="actor">
+		select * from actor where actor_idx=#{ actor_idx }
+   </select>
+
+   <!-- 캐스팅 전체 조회 -->
+   <select id="selectCastingList" resultMap="castingMap">
+		select * from casting order by casting_idx
+   </select>
+
+   <!-- 공연 idx별 캐스팅 조회 -->
+   <select id="selectCastingFromIdx" parameterType="int" resultMap="castingMap">
+		select * from casting where performance_idx=#{ performance_idx }
+   </select>
 </mapper>

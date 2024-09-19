@@ -11,14 +11,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.util.MyCommon;
+import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.SeatVo;
+import com.githrd.project3.vo.X_PerformanceVo;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,13 +48,33 @@ public class PerformanceController {
 
 	// 공연 정보 전체 조회
 	@RequestMapping("list.do")
-	public String performance_grid(Model model) {
+	public String performance_list(@RequestParam(name = "page", defaultValue = "1") int nowPage, Model model) {
 
-		// 공연 정보 가져오기
-		List<PerformanceVo> list = performance_mapper.selectList();
+		// paging
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int start = (nowPage - 1) * MyCommon.Performance.BLOCK_LIST + 1;
+		int end = start + MyCommon.Performance.BLOCK_LIST - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+
+		// 전체 게시물 수
+		int rowTotal = performance_mapper.selectRowTotal(map);
+
+		// pageMenu생성하기
+		String pageMenu = Paging.getPaging("list.do",
+				nowPage,
+				rowTotal,
+				MyCommon.Performance.BLOCK_LIST,
+				MyCommon.Performance.BLOCK_PAGE);
+
+		// 전체 조회
+		List<PerformanceVo> list = performance_mapper.performancePageList(map);
 
 		// request binding
 		model.addAttribute("list", list);
+		model.addAttribute("pageMenu", pageMenu);
 
 		return "performance/performance_list";
 	}
@@ -66,7 +90,6 @@ public class PerformanceController {
 
 		// 파라미터 값 잘 받아와지나 확인
 		// System.out.println("sort_options : " + sort_options);
-		// System.out.println("sort_options_number : " + sort_options_number);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("performance_detail_cate_idx", performance_detail_cate_idx);
@@ -138,7 +161,7 @@ public class PerformanceController {
 		vo.setPerformance_name(performance_name);
 
 		// DB insert
-		int res = performance_mapper.performance_insert(vo);
+		int res = performance_mapper.insert(vo);
 
 		return "redirect:list.do";
 	}
@@ -173,7 +196,7 @@ public class PerformanceController {
 		vo.setSeat_grade(seat_grade);
 
 		// DB insert
-		int res = performance_mapper.performance_insert_seat(vo);
+		int res = performance_mapper.insertSeat(vo);
 
 		return "redirect:list.do";
 	}
@@ -196,7 +219,7 @@ public class PerformanceController {
 	// 공연 수정
 	@RequestMapping("modify.do")
 	// 파라미터 Vo로 포장해달라고 요청
-	public String modify(PerformanceVo vo, @RequestParam MultipartFile photo, RedirectAttributes ra)
+	public String modify(PerformanceVo vo, RedirectAttributes ra)
 			throws IllegalStateException, IOException {
 
 		// session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
@@ -210,8 +233,26 @@ public class PerformanceController {
 			return "redirect:../member/login_form.do";
 		}
 
+		// insert 문자형 자료 enter 처리
+		String performance_name = vo.getPerformance_name().replaceAll("\n", "<br>");
+		vo.setPerformance_name(performance_name);
+
+		// DB insert
+		int res = performance_mapper.update(vo);
+
+		return "redirect:list.do";
+	}
+
+	// 공연 수정 - 이미지 파일 업로드
+	@RequestMapping(value = "image_upload.do")
+	@ResponseBody // redirect할 때 사용해야하는 부분?
+	public Map<String, String> image_upload(int performance_idx, @RequestParam MultipartFile photo)
+			throws IllegalStateException, IOException {
+
 		// 파일 업로드 처리
-		String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
+		// String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로,
+		// 상대경로
+		String absPath = new File("src/main/webapp/resources/images/").getAbsolutePath();
 		String performance_image = "no_file";
 
 		if (!photo.isEmpty()) {
@@ -228,19 +269,80 @@ public class PerformanceController {
 
 				f = new File(absPath, performance_image);
 			}
-			// 임시 파일
+			// 임시 파일 => 내가 지정한 위치로 복사
 			photo.transferTo(f); // 예외 처리 넘기기
 
 		}
-		// 업로드 된 파일 이름 저장
-		vo.setPerformance_image(performance_image);
+		// 이전에 있던 파일 삭제
+		PerformanceVo vo = performance_mapper.selectOneFromIdx(performance_idx);
+		File delFile = new File(absPath, vo.getPerformance_image());
+		delFile.delete();
 
-		// insert 문자형 자료 enter 처리
-		String performance_name = vo.getPerformance_name().replaceAll("\n", "<br>");
-		vo.setPerformance_name(performance_name);
+		// update된 file 이름수정
+		vo.setPerformance_image(performance_image); // 새로 업로드 된 파일 이름?
 
-		// DB insert
-		int res = performance_mapper.performance_update(vo);
+		// DB 추가
+		int res = performance_mapper.updateImage(vo);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("performance_image", performance_image);
+
+		return map;
+	}
+
+	// 공연 좌석 수정 폼 띄우기
+	@RequestMapping("modify_form_seat.do")
+	public String modify_form_seat(int performance_idx, Model model) {
+
+		PerformanceVo vo = performance_mapper.selectOneFromIdx(performance_idx);
+
+		model.addAttribute("vo", vo);
+
+		return "performance/performance_modify_form_seat";
+	}
+
+	// 공연 좌석 수정
+	@RequestMapping("modify_seat.do")
+	// 파라미터 Vo로 포장해달라고 요청
+	public String modify_seat(@RequestParam("seat_idx[]") List<Integer> seat_idx_list,
+			@RequestParam("seat_grade[]") List<String> seat_grade_list,
+			@RequestParam("seat_price[]") List<Integer> seat_price_list,
+			int performance_idx,
+			RedirectAttributes ra)
+			throws IllegalStateException, IOException {
+
+		// session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
+		// 세션 정보 구하기 - 로그인 한 유저 정보
+		MemberVo user = (MemberVo) session.getAttribute("user");
+		if (user == null) {
+
+			// 사용자한테 로그아웃됐다고 알려주기 => member_login_form.jsp로 가서 안내멘트 작성
+			ra.addAttribute("reason", "session_timeout");
+
+			return "redirect:../member/login_form.do";
+		}
+
+		// 좌석 정보 수정 처리 - 여러 좌석 한 번에 수정하기 위해 배열로 받고 반복문 돌림
+		for (int i = 0; i < seat_idx_list.size(); i++) {
+			SeatVo vo = new SeatVo();
+			vo.setSeat_idx(seat_idx_list.get(i));
+			vo.setSeat_grade(seat_grade_list.get(i).replaceAll("\n", "<br>"));
+			vo.setSeat_price(seat_price_list.get(i));
+			vo.setPerformance_idx(performance_idx); // 이 부분 추가
+
+			// 각 좌석 업데이트
+			int res = performance_mapper.updateSeat(vo);
+		}
+
+		return "redirect:list.do";
+	}
+
+	// 공연 삭제
+	@RequestMapping("delete.do")
+	public String delete(int performance_idx) {
+
+		// int res = qna_mapper.qna_delete(qna_idx);
+		int res = performance_mapper.delete(performance_idx);
 
 		return "redirect:list.do";
 	}
@@ -262,7 +364,7 @@ public class PerformanceController {
 		return "performance/performance_seat";
 	}
 
-	// 검색 기능 추가!!!
+	// 검색 기능
 	@RequestMapping("performance_search.do")
 	public String search(String search, Model model) {
 		// 검색어를 포함한 공연 목록 가져오기

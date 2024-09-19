@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.githrd.project3.vo.ActorVo;
+import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
 
@@ -29,4 +31,16 @@ public interface DetailMapper {
 
     // 특정 공연의 전체 좋아요 수 조회
     int getTotalLikeCount(int performance_idx);
+
+    // 배우 전체 조회
+    List<ActorVo> selectActorList();
+
+    // 배우 idx별 조회
+    ActorVo selectActorFromIdx(int actor_idx);
+
+    // 캐스팅 전체 조회
+    List<CastingVo> selectCastingList();
+
+    // 공연 idx별 캐스팅 조회
+    List<CastingVo> selectCastingFromIdx(int performance_idx);
 }

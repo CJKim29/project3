@@ -2,46 +2,28 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.githrd.project3.dao.S_HallMapper">
+<mapper namespace="com.githrd.project3.dao.HallMapper">
 
-    <!-- 전체조회 -->
-    <select id="selectList" resultType="s_hall">
-		select * from s_hall order by s_hall_idx
+    <select id="hall_list" resultType="hall">
+        select * from hall order by hall_idx
     </select>
 
-    <!-- 특정 공연에 대한 좌석 조회 -->
-    <select id="selectSeatsByPerformance" parameterType="int" resultType="s_hall">
-        SELECT s.*
-        FROM s_hall s
-        JOIN performance_date cd ON s.performance_date_idx = cd.performance_date_idx
-        WHERE cd.performance_idx = #{performanceIdx}
+    <insert id="hall_insert" parameterType="hall">
+        insert into hall values(null,#{hall_name},#{hall_area},#{hall_addr},#{hall_tel},#{hall_site},#{hall_seat},#{hall_image})
+    </insert>
+
+    <select id="hall_one_from_idx" parameterType="int" resultType="hall">
+        select * from hall where hall_idx = ${hall_idx}
     </select>
 
-    <!-- 특정 공연 날짜에 대한 좌석 조회 -->
-    <select id="selectSeatsByPerformanceAndDate" parameterType="map" resultType="s_hall">
-        SELECT s.*
-        FROM s_hall s
-        JOIN performance_date cd ON s.performance_date_idx = cd.performance_date_idx
-        WHERE cd.performance_idx = #{performance_idx} AND SUBSTRING(cd.performance_date_date, 1, 10) = #{performance_date}
-    </select>
+    <delete id="hall_delete" parameterType="int">
+        delete from hall where hall_idx=#{hall_idx}
+    </delete>
 
-    <!-- VIP 좌석 수 조회 -->
-    <select id="countAvailableSeatsBySeatIdx" parameterType="int" resultType="int">
-        SELECT COUNT(*) 
-        FROM s_hall 
-        WHERE seat_idx = #{seatIdx} AND seat_status = 0
-    </select>
-
-    <select id="BookedSeatList" resultType="int">
-        select *
-        from s_hall
-        where s_hall_row_no = #{row}
-    </select>
-
-    <update id="updateSeatStatus" parameterType="map">
-        UPDATE s_hall
-        SET ${col} = 1
-        WHERE performance_date_idx = #{performance_date_idx}
-          AND s_hall_row_no = #{row}
+    <update id="hall_modify" parameterType="hall"> 
+        update hall set hall_name=#{hall_name},hall_area=#{hall_area},hall_addr=#{hall_addr},hall_tel=#{hall_tel},hall_site=#{hall_site},hall_seat=#{hall_seat},hall_image=#{hall_image}
+        where hall_idx = #{hall_idx}
     </update>
+
+
 </mapper>
