@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.githrd.project3.dao.BookMapper;
+import com.githrd.project3.dao.L_HallMapper;
+import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.S_HallMapper;
+import com.githrd.project3.vo.L_HallVo;
+import com.githrd.project3.vo.M_HallVo;
 import com.githrd.project3.vo.S_HallVo;
 import com.githrd.project3.vo.X_PerformanceVo;
 
@@ -37,6 +41,12 @@ public class BookController {
 
     @Autowired
     S_HallMapper s_hall_mapper;
+
+    @Autowired
+    M_HallMapper m_hall_mapper;
+
+    @Autowired
+    L_HallMapper l_hall_mapper;
 
     @RequestMapping("list.do")
     public String list(Model model) {
@@ -70,39 +80,111 @@ public class BookController {
         model.addAttribute("performance_idx", performance_idx);
         model.addAttribute("performance_date", performance_date);
 
-        List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
-
-        model.addAttribute("seats", seats);
-
         X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
+        // 뮤지컬(1)은 중극장 좌석(m_hall)으로 조회
+        if (vo.getPerformance_cate_idx() == 1) {
 
-        Integer performance_date_idx = book_mapper.selectPerformanceDateIdx(performance_date, performance_idx);
+            List<M_HallVo> seats = m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
 
-        if (performance_date_idx == null) {
-            // performance_date_idx가 null일 경우 처리
-            model.addAttribute("error", "Invalid performance date or performance ID.");
-            return "book/book_seat";
+            model.addAttribute("seats", seats);
+
+            Integer performance_date_idx = book_mapper.selectPerformanceDateIdx(performance_date, performance_idx);
+
+            if (performance_date_idx == null) {
+                // performance_date_idx가 null일 경우 처리
+                model.addAttribute("error", "Invalid performance date or performance ID.");
+                return "book/book_seat_m";
+            }
+
+            int zeroCount1 = book_mapper.selectRemainSeat_M(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
+            model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+
+            int zeroCount2 = book_mapper.selectRemainSeat_M(performance_date_idx, 2);
+            model.addAttribute("zeroCount2", zeroCount2);
+
+            int zeroCount3 = book_mapper.selectRemainSeat_M(performance_date_idx, 3);
+            model.addAttribute("zeroCount3", zeroCount3);
+
+            int zeroCount4 = book_mapper.selectRemainSeat_M(performance_date_idx, 4);
+            model.addAttribute("zeroCount4", zeroCount4);
+
+            int zeroCount5 = book_mapper.selectRemainSeat_M(performance_date_idx, 5);
+            model.addAttribute("zeroCount5", zeroCount5);
+
+            return "book/book_seat_m";
         }
 
-        int zeroCount1 = book_mapper.selectRemainSeat1(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
-        model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+        // 연극(2)은 소극장 좌석(s_hall)으로 조회
+        if (vo.getPerformance_cate_idx() == 2) {
 
-        int zeroCount2 = book_mapper.selectRemainSeat1(performance_date_idx, 2);
-        model.addAttribute("zeroCount2", zeroCount2);
+            List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
 
-        int zeroCount3 = book_mapper.selectRemainSeat1(performance_date_idx, 3);
-        model.addAttribute("zeroCount3", zeroCount3);
+            model.addAttribute("seats", seats);
 
-        int zeroCount4 = book_mapper.selectRemainSeat1(performance_date_idx, 4);
-        model.addAttribute("zeroCount4", zeroCount4);
+            Integer performance_date_idx = book_mapper.selectPerformanceDateIdx(performance_date, performance_idx);
 
-        int zeroCount5 = book_mapper.selectRemainSeat1(performance_date_idx, 5);
-        model.addAttribute("zeroCount5", zeroCount5);
+            if (performance_date_idx == null) {
+                // performance_date_idx가 null일 경우 처리
+                model.addAttribute("error", "Invalid performance date or performance ID.");
+                return "book/book_seat_s";
+            }
 
-        return "book/book_seat";
-    }
+            int zeroCount1 = book_mapper.selectRemainSeat_S(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
+            model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+
+            int zeroCount2 = book_mapper.selectRemainSeat_S(performance_date_idx, 2);
+            model.addAttribute("zeroCount2", zeroCount2);
+
+            int zeroCount3 = book_mapper.selectRemainSeat_S(performance_date_idx, 3);
+            model.addAttribute("zeroCount3", zeroCount3);
+
+            int zeroCount4 = book_mapper.selectRemainSeat_S(performance_date_idx, 4);
+            model.addAttribute("zeroCount4", zeroCount4);
+
+            int zeroCount5 = book_mapper.selectRemainSeat_S(performance_date_idx, 5);
+            model.addAttribute("zeroCount5", zeroCount5);
+
+            return "book/book_seat_s";
+        }
+
+        // 콘서트는 대극장 좌석으로 조회
+        if (vo.getPerformance_cate_idx() == 3) {
+
+            List<L_HallVo> seats = l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
+
+            model.addAttribute("seats", seats);
+
+            Integer performance_date_idx = book_mapper.selectPerformanceDateIdx(performance_date, performance_idx);
+
+            if (performance_date_idx == null) {
+                // performance_date_idx가 null일 경우 처리
+                model.addAttribute("error", "Invalid performance date or performance ID.");
+                return "book/book_seat_l";
+            }
+
+            int zeroCount1 = book_mapper.selectRemainSeat_L(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
+            model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+
+            int zeroCount2 = book_mapper.selectRemainSeat_L(performance_date_idx, 2);
+            model.addAttribute("zeroCount2", zeroCount2);
+
+            int zeroCount3 = book_mapper.selectRemainSeat_L(performance_date_idx, 3);
+            model.addAttribute("zeroCount3", zeroCount3);
+
+            int zeroCount4 = book_mapper.selectRemainSeat_L(performance_date_idx, 4);
+            model.addAttribute("zeroCount4", zeroCount4);
+
+            int zeroCount5 = book_mapper.selectRemainSeat_L(performance_date_idx, 5);
+            model.addAttribute("zeroCount5", zeroCount5);
+
+            return "book/book_seat_l";
+        }
+
+        return "book/book_list";
+
+    } // end - performance_seat
 
     @PostMapping("/reserve_seats.do")
     public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
@@ -126,12 +208,30 @@ public class BookController {
             e.printStackTrace();
             return "errorPage";
         }
-
-        // 선택된 좌석을 업데이트
-        for (Map<String, Object> seat : selectedSeats) {
-            int row = ((Number) seat.get("row")).intValue();
-            String col = (String) seat.get("col");
-            s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+        X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+        if (vo.getPerformance_cate_idx() == 1) {
+            // 선택된 좌석을 업데이트
+            for (Map<String, Object> seat : selectedSeats) {
+                int row = ((Number) seat.get("row")).intValue();
+                String col = (String) seat.get("col");
+                m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+            }
+        }
+        if (vo.getPerformance_cate_idx() == 2) {
+            // 선택된 좌석을 업데이트
+            for (Map<String, Object> seat : selectedSeats) {
+                int row = ((Number) seat.get("row")).intValue();
+                String col = (String) seat.get("col");
+                s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+            }
+        }
+        if (vo.getPerformance_cate_idx() == 3) {
+            // 선택된 좌석을 업데이트
+            for (Map<String, Object> seat : selectedSeats) {
+                int row = ((Number) seat.get("row")).intValue();
+                String col = (String) seat.get("col");
+                l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+            }
         }
 
         // 좌석 예약 페이지로 리다이렉트
@@ -143,14 +243,28 @@ public class BookController {
             @RequestParam("performance_idx") int performance_idx,
             @RequestParam("date") String performance_date, Model model) {
 
-        List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
-                performance_date);
-
-        model.addAttribute("seats", seats);
-
         X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
         model.addAttribute("vo", vo);
+
+        if (vo.getPerformance_cate_idx() == 1) {
+            List<M_HallVo> seats = m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+                    performance_date);
+
+            model.addAttribute("seats", seats);
+        }
+        if (vo.getPerformance_cate_idx() == 2) {
+            List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+                    performance_date);
+
+            model.addAttribute("seats", seats);
+        }
+        if (vo.getPerformance_cate_idx() == 3) {
+            List<L_HallVo> seats = l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+                    performance_date);
+
+            model.addAttribute("seats", seats);
+        }
 
         // 좌석 정보 처리
         model.addAttribute("seatInfo", seatInfo);

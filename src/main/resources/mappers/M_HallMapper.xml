@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.M_HallMapper">
+
+    <select id="selectSeatsByPerformanceAndDate" parameterType="map" resultType="m_hall">
+        select m.*
+        from m_hall m
+        join performance_date cd on m.performance_date_idx = cd.performance_date_idx
+        where cd.performance_idx = #{performance_idx} and substring(cd.performance_date_date, 1, 10) = #{performance_date}
+    </select>
+
+    <update id="updateSeatStatus" parameterType="map">
+        update m_hall
+        set ${col} = 1
+        where performance_date_idx = #{performance_date_idx}
+        and m_hall_row_no = #{row}
+    </update>
+
+</mapper>
