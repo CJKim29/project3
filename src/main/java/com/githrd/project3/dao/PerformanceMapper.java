@@ -44,6 +44,12 @@ public interface PerformanceMapper {
     // 공연 삭제
     int delete(int performance_idx);
 
+    // 페이징 처리
+    int selectRowTotal(Map<String, Object> map);
+
+    // 전체조회 +페이징 처리
+    List<PerformanceVo> performancePageList(Map<String, Object> map);
+
     // 검색어를 포함한 공연 목록 조회
     List<PerformanceVo> searchPerformances(String search);
 

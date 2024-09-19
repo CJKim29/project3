@@ -212,10 +212,8 @@
 										</div>
 									</c:if>
 
-
-
-
-
+									<!-- PageMenu -->
+									<div style="text-align: center; margin: auto">${ pageMenu }</div>
 
 									<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 				</body>
