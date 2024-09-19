@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.util.MyCommon;
+import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.BoardVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceVo;
@@ -46,13 +48,33 @@ public class PerformanceController {
 
 	// 공연 정보 전체 조회
 	@RequestMapping("list.do")
-	public String performance_grid(Model model) {
+	public String performance_list(@RequestParam(name = "page", defaultValue = "1") int nowPage, Model model) {
 
-		// 공연 정보 가져오기
-		List<PerformanceVo> list = performance_mapper.selectList();
+		// paging
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int start = (nowPage - 1) * MyCommon.Performance.BLOCK_LIST + 1;
+		int end = start + MyCommon.Performance.BLOCK_LIST - 1;
+
+		map.put("start", start);
+		map.put("end", end);
+
+		// 전체 게시물 수
+		int rowTotal = performance_mapper.selectRowTotal(map);
+
+		// pageMenu생성하기
+		String pageMenu = Paging.getPaging("list.do",
+				nowPage,
+				rowTotal,
+				MyCommon.Performance.BLOCK_LIST,
+				MyCommon.Performance.BLOCK_PAGE);
+
+		// 전체 조회
+		List<PerformanceVo> list = performance_mapper.performancePageList(map);
 
 		// request binding
 		model.addAttribute("list", list);
+		model.addAttribute("pageMenu", pageMenu);
 
 		return "performance/performance_list";
 	}
@@ -68,7 +90,6 @@ public class PerformanceController {
 
 		// 파라미터 값 잘 받아와지나 확인
 		// System.out.println("sort_options : " + sort_options);
-		// System.out.println("sort_options_number : " + sort_options_number);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("performance_detail_cate_idx", performance_detail_cate_idx);
@@ -316,6 +337,16 @@ public class PerformanceController {
 		return "redirect:list.do";
 	}
 
+	// 공연 삭제
+	@RequestMapping("delete.do")
+	public String delete(int performance_idx) {
+
+		// int res = qna_mapper.qna_delete(qna_idx);
+		int res = performance_mapper.delete(performance_idx);
+
+		return "redirect:list.do";
+	}
+
 	// 상세페이지 띄우기
 	@RequestMapping("performance_page.do")
 	public String Performance_page(int performance_idx, Model model) {
@@ -333,7 +364,7 @@ public class PerformanceController {
 		return "performance/performance_seat";
 	}
 
-	// 검색 기능 추가!!!
+	// 검색 기능
 	@RequestMapping("performance_search.do")
 	public String search(String search, Model model) {
 		// 검색어를 포함한 공연 목록 가져오기

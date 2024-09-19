@@ -151,6 +151,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               where seat_idx=#{seat_idx} and performance_idx=#{performance_idx}
   </update>
 
+  <!-- 공연 삭제 -->
+  <delete id="delete" parameterType="int">
+  delete from performance where performance_idx=#{performance_idx}
+  </delete>
+
+
+
+  <!-- 페이징 처리 -->
+  <select id="performancePageList" parameterType="Map" resultType="performance">
+    SELECT performance.* 
+    FROM (
+            SELECT
+                RANK() OVER (ORDER BY p.performance_idx DESC) AS no,
+                p.performance_idx,
+                p.performance_cate_idx,
+                p.performance_detail_cate_idx,
+                p.hall_idx,
+                p.performance_name,
+                p.performance_startday,
+                p.performance_endday,
+                p.performance_runtime,
+                p.performance_image,
+                p.performance_age,
+                p.performance_state,
+                p.performance_detail_info,
+                p.performance_al,
+                p.performance_detail_image
+            FROM
+                (
+                    SELECT *
+                    FROM performance p
+                    JOIN seat s 
+                    ON p.performance_idx = s.performance_idx 
+                )pfm
+        )performance
+        WHERE no BETWEEN #{start} AND #{end}
+  </select>
+
+  <select id="selectRowTotal" parameterType="Map" resultType="int">
+        select ifnull(count(*),0) from performance
+  </select>
 
 
 
