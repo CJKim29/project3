@@ -596,10 +596,6 @@
 															<a class="nav-link" id="reviews-tab" data-toggle="tab"
 																href="#reviews" role="tab">관람 후기</a>
 														</li>
-														<button type="button"
-															onclick="location.href='review_list.do?performance_idx=${param.performance_idx}'">ajax
-															테스트</button>
-
 													</ul>
 													<!--/ End Tab Nav -->
 												</div>
