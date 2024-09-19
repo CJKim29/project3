@@ -29,8 +29,8 @@ pageEncoding="UTF-8"%>
 								<li><a href="#">Q & A</a></li>
 								<li><a href="../faq/faq_list.do">FAQ</a></li>
 								<li><a href="#">게시판</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Help</a></li>
+								<li><a href="#">ddddddd</a></li>
+								<li><a href="#">도움</a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->
