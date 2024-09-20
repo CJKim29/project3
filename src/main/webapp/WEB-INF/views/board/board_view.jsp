@@ -161,8 +161,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<input class="btn" style="background: brown;" type="button" value="목록보기"
 						   onclick="location.href='list.do'"> 
 					
-					<!-- 글의 주인만 수정/삭제 -->
-					<c:if test="${ vo.mem_idx eq user.mem_idx }">
+					<c:if test="${ vo.mem_idx eq user.mem_idx or user.mem_grade eq '관리자' }">
 						<input class="btn" style="background: tomato;" type="button" value="수정하기"
 							   onclick="location.href='modify_form.do?board_idx=${ vo.board_idx }'">
 						<input class="btn btn-danger" type="button" value="삭제하기"
