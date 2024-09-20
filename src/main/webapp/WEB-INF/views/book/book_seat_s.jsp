@@ -144,39 +144,62 @@
                                 updateSeatInfo();
                             }
 
-                            function submitSeats() {
+                            window.submitSeats = function () {
+                                var form = $('#seatForm');
+
+                                // 이전에 추가된 좌석 정보를 제거
+                                form.find('input[name="seatInfo"]').remove();
+
+                                // 선택된 좌석을 hidden input으로 추가
+                                selectedSeats.forEach(seat => {
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        name: 'seatInfo',
+                                        value: seat // 좌석 정보 추가
+                                    }).appendTo(form);
+                                });
+
+                                // 선택된 좌석이 없으면 경고창 표시
                                 if (selectedSeats.length === 0) {
                                     alert('좌석을 선택해 주세요.');
                                     return;
                                 }
-                                // Serialize selectedSeats as JSON
-                                document.getElementById('selectedSeats').value = JSON.stringify(selectedSeats.map(seat => {
-                                    const [row, col] = seat.split('-');
-                                    return { row: parseInt(row), col: col };
-                                }));
-                                document.getElementById('seatForm').submit();
-                            }
 
+                                // 선택된 좌석 정보를 JSON 형식으로 hidden input에 저장
+                                document.getElementById('selectedSeats').value = JSON.stringify(
+                                    selectedSeats.map(seat => {
+                                        const [row, col] = seat.split('-');
+                                        return { row: parseInt(row), col: col };
+                                    })
+                                );
+
+                                // 폼 제출
+                                form.submit();
+                            };
+
+                            // 좌석 정보를 업데이트하는 함수
                             function updateSeatInfo() {
                                 const seatInfoContainer = document.querySelector('.seat-info-container');
-                                seatInfoContainer.innerHTML = '';
+                                seatInfoContainer.innerHTML = '';  // 이전 내용 제거
                                 selectedSeats.forEach(seatId => {
                                     const [row, col] = seatId.split('-');
                                     const div = document.createElement('div');
-                                    div.textContent = `Row: ${row}, Col: ${col}`;
+                                    div.textContent = `Row: ${row}, Col: ${col}`;  // 좌석 정보를 표시
                                     seatInfoContainer.appendChild(div);
                                 });
                             }
 
+                            // 좌석 클릭 이벤트 추가
                             document.querySelectorAll('.seat').forEach(seat => {
                                 seat.addEventListener('click', (event) => {
                                     const row = event.target.getAttribute('data-row');
                                     const col = event.target.getAttribute('data-col');
-                                    toggleSeat(row, col);
-                                    updateSeatInfo();
+                                    toggleSeat(row, col);  // 좌석 선택/해제 기능
+                                    updateSeatInfo();  // 선택된 좌석 정보 업데이트
                                 });
                             });
 
+                            // 예약 버튼 클릭 시 폼 제출 함수 실행
                             document.querySelector('.btn-success').addEventListener('click', submitSeats);
                         });
 
