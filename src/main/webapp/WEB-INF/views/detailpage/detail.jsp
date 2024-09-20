@@ -32,7 +32,7 @@
 					<!-- Font Awesome -->
 					<link rel="stylesheet" href="../resources/template/css/font-awesome.css">
 					<!-- Fancybox -->
-					<link rel="stylesheet" href="../resources/template/css/jquery.fancybox.min.css">
+					<!-- <link rel="stylesheet" href="../resources/template/css/jquery.fancybox.min.css"> -->
 					<!-- Themify Icons -->
 					<link rel="stylesheet" href="../resources/template/css/themify-icons.css">
 					<!-- Nice Select CSS -->
@@ -50,6 +50,48 @@
 					<link rel="stylesheet" href="../resources/template/css/reset.css">
 					<link rel="stylesheet" href="../resources/template/css/style.css">
 					<link rel="stylesheet" href="../resources/template/css/responsive.css">
+
+
+
+
+					<!-- Jquery -->
+					<script src="../resources/template/js/jquery.min.js"></script>
+					<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
+					<script src="../resources/template/js/jquery-ui.min.js"></script>
+					<!-- Popper JS -->
+					<script src="../resources/template/js/popper.min.js"></script>
+					<!-- Bootstrap JS -->
+					<script src="../resources/template/js/bootstrap.min.js"></script>
+					<!-- Color JS -->
+					<script src="../resources/template/js/colors.js"></script>
+					<!-- Slicknav JS -->
+					<script src="../resources/template/js/slicknav.min.js"></script>
+					<!-- Owl Carousel JS -->
+					<script src="../resources/template/js/owl-carousel.js"></script>
+					<!-- Magnific Popup JS -->
+					<script src="../resources/template/js/magnific-popup.js"></script>
+					<!-- Fancybox JS -->
+					<script src="../resources/template/js/facnybox.min.js"></script>
+					<!-- Waypoints JS -->
+					<script src="../resources/template/js/waypoints.min.js"></script>
+					<!-- Countdown JS -->
+					<script src="../resources/template/js/finalcountdown.min.js"></script>
+					<!-- Nice Select JS -->
+					<script src="../resources/template/js/nicesellect.js"></script>
+					<!-- Ytplayer JS -->
+					<!-- <script src="../resources/template/js/ytplayer.min.js"></script> -->
+					<!-- Flex Slider JS -->
+					<script src="../resources/template/js/flex-slider.js"></script>
+					<!-- ScrollUp JS -->
+					<script src="../resources/template/js/scrollup.js"></script>
+					<!-- Onepage Nav JS -->
+					<script src="../resources/template/js/onepage-nav.min.js"></script>
+					<!-- Easing JS -->
+					<script src="../resources/template/js/easing.js"></script>
+					<!-- Active JS -->
+					<script src="../resources/template/js/active.js"></script>
+
+
 
 					<!-- Color CSS -->
 					<!-- <link rel="stylesheet" href="../resources/template/css/color/color1.css"> -->
@@ -143,6 +185,8 @@
 						}
 					</style>
 
+
+
 					<script>
 						function showLoc(performance_idx) {
 							$("#myModal").modal({ backdrop: "static" });
@@ -184,10 +228,60 @@
 					<script type="text/javascript"
 						src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=nd1wf0zz1p&submodules=geocoder"></script>
 
-					<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+					<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 					<script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
 					<link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+
+					<script>
+						$(document).ready(function () {
+							var performance_idx = "${param.performance_idx}";
+							console.log("performance_idx:", performance_idx);  // performance_idx가 올바르게 출력되는지 확인
+
+							// AJAX 요청을 통해 서버에서 공연 날짜 데이터를 가져옴
+							$.ajax({
+								url: '/detail/getAvailableDates',  // 서버에 날짜 정보를 요청
+								type: 'GET',
+								data: { performance_idx: performance_idx },
+								success: function (response) {
+									console.log("서버로부터 날짜 데이터 수신:", response);
+
+									var availableDates = response.availableDates;
+									console.log("availableDates:", availableDates); // 여기에 추가
+
+									// 날짜 리스트를 HTML에 출력 (디버깅용)
+									var dateListHtml = "<ul>";
+									availableDates.forEach(function (date) {
+										dateListHtml += "<li>" + date + "</li>";
+									});
+									dateListHtml += "</ul>";
+									$("#dateList").html(dateListHtml);
+
+									// Datepicker 초기화 및 특정 날짜만 활성화
+									$my('#datepicker').datepicker({
+										beforeShowDay: function (date) {
+											var formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
+											console.log("formattedDate:", formattedDate); // 여기서 출력
+											if ($.inArray(formattedDate, availableDates) !== -1) {
+												return [true, "available", ""];
+											} else {
+												return [false, "unavailable", ""];
+											}
+										}
+									});
+
+								},
+								error: function (xhr, status, error) {
+									console.error("AJAX 호출 실패:", error);
+								}
+							});
+						});
+
+
+					</script>
 
 				</head>
 
@@ -607,18 +701,11 @@
 										</div>
 										<div class="col-lg-2 col-12" style="margin-top: 23px;">
 											<input id="datepicker" width="200" />
+											<div id="dateList"></div> <!-- 날짜 리스트를 표시할 요소 추가 -->
 										</div>
 
-										<script>
-											var $my = $.noConflict(true);
-											$my(document).ready(function () {
-												$my('#datepicker').each(function () {
-													$my(this).datepicker({
-														showOnFocus: false // 달력을 클릭할 때만 열리게 하지 않음
-													}).open();// 페이지 로드 시 바로 달력을 열기
-												});
-											});
-										</script>
+
+
 
 
 
@@ -792,42 +879,7 @@
 
 					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
-					<!-- Jquery -->
-					<script src="../resources/template/js/jquery.min.js"></script>
-					<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
-					<script src="../resources/template/js/jquery-ui.min.js"></script>
-					<!-- Popper JS -->
-					<script src="../resources/template/js/popper.min.js"></script>
-					<!-- Bootstrap JS -->
-					<script src="../resources/template/js/bootstrap.min.js"></script>
-					<!-- Color JS -->
-					<script src="../resources/template/js/colors.js"></script>
-					<!-- Slicknav JS -->
-					<script src="../resources/template/js/slicknav.min.js"></script>
-					<!-- Owl Carousel JS -->
-					<script src="../resources/template/js/owl-carousel.js"></script>
-					<!-- Magnific Popup JS -->
-					<script src="../resources/template/js/magnific-popup.js"></script>
-					<!-- Fancybox JS -->
-					<script src="../resources/template/js/facnybox.min.js"></script>
-					<!-- Waypoints JS -->
-					<script src="../resources/template/js/waypoints.min.js"></script>
-					<!-- Countdown JS -->
-					<script src="../resources/template/js/finalcountdown.min.js"></script>
-					<!-- Nice Select JS -->
-					<script src="../resources/template/js/nicesellect.js"></script>
-					<!-- Ytplayer JS -->
-					<script src="../resources/template/js/ytplayer.min.js"></script>
-					<!-- Flex Slider JS -->
-					<script src="../resources/template/js/flex-slider.js"></script>
-					<!-- ScrollUp JS -->
-					<script src="../resources/template/js/scrollup.js"></script>
-					<!-- Onepage Nav JS -->
-					<script src="../resources/template/js/onepage-nav.min.js"></script>
-					<!-- Easing JS -->
-					<script src="../resources/template/js/easing.js"></script>
-					<!-- Active JS -->
-					<script src="../resources/template/js/active.js"></script>
+
 
 				</body>
 

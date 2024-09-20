@@ -43,4 +43,6 @@ public interface DetailMapper {
 
     // 공연 idx별 캐스팅 조회
     List<CastingVo> selectCastingFromIdx(int performance_idx);
+
+    List<String> getPerformanceDates(int performance_idx);
 }
