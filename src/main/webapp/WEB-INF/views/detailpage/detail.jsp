@@ -563,7 +563,7 @@
 															// 자식 창 열기
 															var newWindow = window.open('/book/performance_seat.do?performance_idx=' + performance_idx + '&date=' + selected_date,
 																'performance_seat_window',
-																'width=800,height=630,location=no,status=no,scrollbars=yes');
+																'width=800,height=660,location=no,status=no,scrollbars=yes');
 
 															// 자식 창 핸들 저장
 															window.performance_seat_window = newWindow;
