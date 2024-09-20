@@ -18,11 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.githrd.project3.dao.PerformanceMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
-import com.githrd.project3.vo.BoardVo;
+import com.githrd.project3.util.PagingPList;
 import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.PerformanceCateVo;
 import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.SeatVo;
-import com.githrd.project3.vo.X_PerformanceVo;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,59 +48,69 @@ public class PerformanceController {
 
 	// 공연 정보 전체 조회
 	@RequestMapping("list.do")
-	public String performance_list(@RequestParam(name = "page", defaultValue = "1") int nowPage, Model model) {
+	public String performance_list(Model model) {
 
-		// paging
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		int start = (nowPage - 1) * MyCommon.Performance.BLOCK_LIST + 1;
-		int end = start + MyCommon.Performance.BLOCK_LIST - 1;
-
-		map.put("start", start);
-		map.put("end", end);
-
-		// 전체 게시물 수
-		int rowTotal = performance_mapper.selectRowTotal(map);
-
-		// pageMenu생성하기
-		String pageMenu = Paging.getPaging("list.do",
-				nowPage,
-				rowTotal,
-				MyCommon.Performance.BLOCK_LIST,
-				MyCommon.Performance.BLOCK_PAGE);
-
-		// 전체 조회
-		List<PerformanceVo> list = performance_mapper.performancePageList(map);
+		// List<PerformanceVo> list = performance_mapper.selectList();
 
 		// request binding
-		model.addAttribute("list", list);
-		model.addAttribute("pageMenu", pageMenu);
+		// model.addAttribute("list", list);
 
 		return "performance/performance_list";
 	}
 
 	// 카테고리 별 조회 및 정렬 기능
 	@RequestMapping("category.do")
-	public String category(int performance_detail_cate_idx, String hall_area, String sort_options,
-			int sort_options_number,
+	public String category(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+			int performance_detail_cate_idx, String hall_area, String sort_options,
+			@RequestParam(name = "sort_options_number", defaultValue = "9") int sort_options_number,
 			Model model) {
 
-		// 콘서트 목록 가져오기
-		List<PerformanceVo> list = null;
+		System.out.println("sort_options_number :" + sort_options_number);
+		System.out.println("sort_options :" + sort_options);
 
-		// 파라미터 값 잘 받아와지나 확인
-		// System.out.println("sort_options : " + sort_options);
-
+		// 목록 가져오기 위한 map
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("performance_detail_cate_idx", performance_detail_cate_idx);
 		map.put("hall_area", hall_area);
 		map.put("sort_options", sort_options);
-		map.put("sort_options_number", sort_options_number);
+		// map.put("sort_options_number", sort_options_number);
 
-		list = performance_mapper.selectCategoryList(map);
+		// paging
+		// Map<String, Object> paging_map = new HashMap<String, Object>();
+		// int start = (nowPage - 1) * MyCommon.Performance.BLOCK_LIST + 1;
+		// int end = start + MyCommon.Performance.BLOCK_LIST - 1;
+
+		int blockList = sort_options_number; // 선택된 값으로 게시물 수 설정
+		int start = (nowPage - 1) * blockList + 1;
+		int end = start + blockList - 1;
+
+		System.out.printf("start:%d end:%d blockList:%d\n", start, end, blockList);
+		map.put("start", start);
+		map.put("end", end);
+
+		// 콘서트 목록 가져오기
+		List<PerformanceVo> list = performance_mapper.selectCategoryList(map);
+
+		// 전체 게시물 수
+		int rowTotal = performance_mapper.selectRowTotal(map);
+
+		// System.out.printf("rowTotal:%d list.size():%d\n", rowTotal, list.size());
+
+		// pageMenu생성하기
+		String pageMenu = PagingPList.getPaging("category.do",
+				nowPage,
+				rowTotal,
+				blockList,
+				MyCommon.Performance.BLOCK_PAGE);
+
+		// 전체 조회 및 페이징 된 목록 가져오기
+		// List<PerformanceVo> paging_list =
+		// performance_mapper.performancePageList(paging_map);
 
 		// request binding
-		model.addAttribute("list", list);
+		model.addAttribute("performance_list", list);
+		// model.addAttribute("paging_list", paging_list);
+		model.addAttribute("pageMenu", pageMenu);
 
 		return "performance/performance_list_bottom";
 	}
@@ -273,10 +283,12 @@ public class PerformanceController {
 			photo.transferTo(f); // 예외 처리 넘기기
 
 		}
-		// 이전에 있던 파일 삭제
+
 		PerformanceVo vo = performance_mapper.selectOneFromIdx(performance_idx);
-		File delFile = new File(absPath, vo.getPerformance_image());
-		delFile.delete();
+
+		// 이전에 있던 파일 삭제
+		// File delFile = new File(absPath, vo.getPerformance_image());
+		// delFile.delete();
 
 		// update된 file 이름수정
 		vo.setPerformance_image(performance_image); // 새로 업로드 된 파일 이름?
