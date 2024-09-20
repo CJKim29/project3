@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+.review-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+}
+
+.rating-checkbox {
+    display: none; /* 체크박스를 숨김 */
+}
+
+label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.star {
+    font-size: 24px;
+    color: rgb(255,29,56); /* 별 색상 */
+    margin-right: 5px;
+}
+
+input[type="checkbox"]:checked ~ .star {
+    color: rgb(255,29,56); /* 선택된 별 색상 */
+}
+
+input[type="checkbox"]:checked ~ .star ~ .star {
+    color: rgb(255,29,56); /* 선택된 별 색상 */
+}
+
+/* .review-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+}
+
+.rating-radio {
+    display: none;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.star {
+    font-size: 24px;
+    color: #f1c40f;
+    margin-right: 5px;
+}
+
+.rating-radio:checked + .star {
+    color: #f39c12;
+} */
+
+.rating-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+}
+
+.rating {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 5px;
+}
+
+.rating li {
+    display: inline-block;
+}
+
+h6 {
+    margin: 0;
+    margin-left: 10px;
+}
+
+.reg-information {
+    margin-left: auto;
+    text-align: right;
+}
+
+/* 리뷰 */
+.review-container {
+    display: flex;
+    flex-direction: column; /* 1열로 정렬 */
+    margin-bottom: 20px;
+}
+
+.review-list {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.toggle-btn {
+    cursor: pointer;
+}
+
+
+.review_title {
+    font-size: 20px;
+}
+
+
+.review_content {
+    display: none;
+    font-size: 14px;
+    background: #f3f3f3;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/* 'show' 클래스가 추가되면 후기 내용 보이기 */
+.review_content.show {
+    display: block;
+}
+
+.reviewModifyForm {
+    display: none;
+}
+
+.reviewModifyForm.show {
+    display: block;
+}

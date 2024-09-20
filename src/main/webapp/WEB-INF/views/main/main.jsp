@@ -11,6 +11,7 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 	
 	
+	
 	<!-- Start Area 2 -->
 	<!-- 메인 슬라이드 부분 -->
 	<section class="hero-area4">
@@ -61,7 +62,7 @@
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#performance1" role="tab">로맨틱코미디</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance2" role="tab">드라마</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance3" role="tab">코믹</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance3" role="tab">퍼포먼스</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance4" role="tab">공포&스릴러</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#performance5" role="tab">어린이</a></li>
 								</ul>
@@ -71,7 +72,7 @@
 								<!-- Start Single Tab -->
 								 <!-- 뮤지컬 부분 -->
 								  <!-- 이미지 수정필요 -->
-								  <!-- 장르1 -->
+								  <!-- 로맨틱코미디장르1 -->
 								<div class="tab-pane fade show active" id="performance1" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
@@ -80,13 +81,14 @@
 													<div class="product-img">
 														<a href="">
 															<!-- 이미지 크기는 550x750  -->
-															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
+															<!-- 이미지 크기는 550x750  -->
+															<img class="default-img" src="/../resources/template/images/장르용 써니텐.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 시카고</a></h3>
+														<h3><a href="product-details.html">뮤지컬 써니텐</a></h3>
 														<div class="product-price">
-															<span>2024.06.07 ~ 2024.09.29</span>
+															<span>2022.07.08 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -99,9 +101,9 @@
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html"> 뮤지컬 김종욱 찾기</a></h3>
+														<h3><a href="product-details.html">뮤지컬 김종욱 찾기</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.01.01 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -110,13 +112,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 라면.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html"></a></h3>
+														<h3><a href="product-details.html">연극 라면</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2020.01.01 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -125,13 +127,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 은밀한연애.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">연극 은밀한 연애</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.06.15 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -141,7 +143,7 @@
 								</div>
 								<!--/ End Single Tab -->
 
-								<!-- 장르2 부분 -->
+								<!-- 드라마 장르2 부분 -->
 								<div class="tab-pane fade" id="performance2" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
@@ -149,13 +151,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="/../resources/template/images/장르용 스파이.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 스파이</a></h3>
+														<h3><a href="product-details.html">뮤지컬 시카고</a></h3>
 														<div class="product-price">
-															<span>2024.08.06 ~ 2024.10.27</span>
+															<span>2024.06.07 ~2024.09.29</span>
 														</div>
 													</div>
 												</div>
@@ -179,13 +181,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 썸데이.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">뮤지컬 썸데이</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2023.09.01 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -200,7 +202,7 @@
 													<div class="product-content">
 														<h3><a href="product-details.html">뮤지컬 베르사유의 장미</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.07.16 ~2024.10.13</span>
 														</div>
 													</div>
 												</div>
@@ -210,7 +212,7 @@
 								</div>
 								<!--/ End Single Tab -->
 
-								<!-- 장르3 부분 -->
+								<!-- 퍼포먼스 장르3 부분 -->
 								<div class="tab-pane fade" id="performance3" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
@@ -218,13 +220,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="/../resources/template/images/장르용 젠틀맨.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 스파이.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 젠틀맨스 가이드 : 사랑과 살인편</a></h3>
+														<h3><a href="product-details.html">뮤지컬 스파이</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.08.06 ~ 2024.10.27</span>
 														</div>
 													</div>
 												</div>
@@ -233,13 +235,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 애니.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">뮤지컬 애니</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.10.01 ~ 2024.10.27</span>
 														</div>
 													</div>
 												</div>
@@ -248,13 +250,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 난타.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">뮤지컬 난타</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2022.07.08 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -263,13 +265,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 페인터즈.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">뮤지컬 페인터즈</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.03.25 ~ 2024.10.31</span>
 														</div>
 													</div>
 												</div>
@@ -291,9 +293,9 @@
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 하데스</a></h3>
+														<h3><a href="product-details.html">뮤지컬 하데스타운</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>	2024.07.12 ~ 2024.10.06</span>
 														</div>
 													</div>
 												</div>
@@ -302,13 +304,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 그곳에.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">연극 그곳에 있었다</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2023.10.11 ~ 2024.09.30</span>
 														</div>
 													</div>
 												</div>
@@ -317,13 +319,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 크리미널.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">연극 크리미널 시즌4</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2023.06.14 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -332,13 +334,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 자취.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">연극 자취</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2020.02.28 ~ OPEN RUN</span>
 														</div>
 													</div>
 												</div>
@@ -357,13 +359,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="/../resources/template/images/장르용 애니.png" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 베베핀.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 애니</a></h3>
+														<h3><a href="product-details.html">뮤지컬 베베핀</a></h3>
 														<div class="product-price">
-															<span>2024.10.01 ~2024.10.27</span>
+															<span>2024.09.01 ~ 2024.09.22</span>
 														</div>
 													</div>
 												</div>
@@ -372,13 +374,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 아빠와난.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">연극 아빠와 난 초등 1학년</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.10.11 ~ 2024.10.13</span>
 														</div>
 													</div>
 												</div>
@@ -387,13 +389,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 어린왕자.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">공연제목</a></h3>
+														<h3><a href="product-details.html">뮤지컬 어린왕자</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.08.02 ~ 2024.09.29</span>
 														</div>
 													</div>
 												</div>
@@ -402,13 +404,13 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="">
-															<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
+															<img class="default-img" src="/../resources/template/images/장르용 어린이캣.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="">공연제목</a></h3>
+														<h3><a href="">뮤지컬 오리지널 어린이 캣</a></h3>
 														<div class="product-price">
-															<span>날짜</span>
+															<span>2024.10.30 ~ 2024.11.20</span>
 														</div>
 													</div>
 												</div>
@@ -442,20 +444,21 @@
             <div class="d-flex overflow-auto">
                 <!-- Start Single List -->
 				 <!-- 115x140 -->
+				 <!-- 210x320 -->
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/최신용 2호선.png" alt="#">
 								</a>
 								<!-- <a href="#" class="buy"></a> -->
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h4 class="title"><a href="#">NEW</a></h4>
-                                <p>제목</p>
+                                <h6 class="title">NEW</h6><br>
+                                <p style="font-size: 12px;">연극<br>2호선 세입자</p>
                             </div>
                         </div>
                     </div>
@@ -467,14 +470,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/최신용 프리즌.png" alt="#">
 								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">NEW</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">NEW</h6><br>
+                                <p style="font-size: 12px;">뮤지컬<br>프리즌</p>
                             </div>
                         </div>
                     </div>
@@ -486,14 +489,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/최신용 런투.png" alt="#">
 								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">NEW</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">NEW</h6><br>
+                                <p style="font-size: 12px;">연극<br>런투패밀리</p>
                             </div>
                         </div>
                     </div>
@@ -514,14 +517,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/랭킹용써니텐.png" alt="#">
 								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">1st</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">1st</h6><br>
+                                <p style="font-size: 12px;">뮤지컬<br>써니텐</p>
                             </div>
                         </div>
                     </div>
@@ -539,8 +542,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">2st</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">2st</h6><br>
+                                <p style="font-size: 12px;">뮤지컬<br>인사이드 미</p>
                             </div>
                         </div>
                     </div>
@@ -552,14 +555,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 								<a href="#">
-									<img class="default-img" src="https://via.placeholder.com/210x320" alt="#">
+									<img class="default-img" src="/../resources/template/images/랭킹용김종욱찾기.png" alt="#">
 								</a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                             <div class="content">
-                                <h5 class="title"><a href="#">3st</a></h5>
-                                <p>제목</p>
+                                <h6 class="title">3st</h6><br>
+                                <p style="font-size: 12px;">뮤지컬<br>김종욱 찾기</p>
                             </div>
                         </div>
                     </div>

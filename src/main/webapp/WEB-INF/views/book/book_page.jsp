@@ -92,21 +92,23 @@
 
                         // 좌석정보 버튼 클릭 시 선택된 날짜를 URL에 추가
                         $('input.reservation').click(function () {
-                            var selectedDate = $('#datepicker').val();
-                            var performanceIdx = $(this).data('performanceIdx'); // 버튼에 저장된 공연 번호 가져오기
+                            var selected_date = $('#datepicker').val();
+                            var performance_idx = $(this).data('performanceIdx');
 
-                            console.log('Selected Date:', selectedDate);
-
-                            if (!selectedDate || selectedDate.trim() === "") {
-                                alert('날짜를 선택해주세요.'); // 날짜 선택 안 된 경우 경고창 띄우기
-                                return; // 여기서 함수를 종료시킵니다.
+                            if (!selected_date || selected_date.trim() === "") {
+                                alert('날짜를 선택해주세요.');
+                                return;
                             }
 
-                            // 날짜가 선택된 경우에만 새 창을 엽니다.
-                            window.open('performance_seat.do?performance_idx=' + performanceIdx + '&date=' + selectedDate,
-                                'window_name',
-                                'width=800, height=600, location=no, status=no, scrollbars=yes, resizable=no');
+                            // 자식 창 열기
+                            var newWindow = window.open('performance_seat.do?performance_idx=' + performance_idx + '&date=' + selected_date,
+                                'performance_seat_window',
+                                'width=800,height=630,location=no,status=no,scrollbars=yes');
+
+                            // 자식 창 핸들 저장
+                            window.performance_seat_window = newWindow;
                         });
+
 
                     });
                 </script>
@@ -180,7 +182,7 @@
                             <td><input id="datepicker" width="276" />
                             </td>
                             <td><input class="reservation btn btn-success" type="button" value="좌석정보"
-                                    data-performance-idx="${ vo.performance_idx }" </td>
+                                    data-performance-idx="${ vo.performance_idx }"> </td>
                         </tr>
 
 

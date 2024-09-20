@@ -90,6 +90,7 @@ public class MemberController {
 
         // 로그인처리: 현재 로그인된 객체(user)정보를 session에 저장
         session.setAttribute("user", user);
+        session.setAttribute("mem_idx", user.getMem_idx()); // mem_idx 추가 저장
 
         // 이전 페이지 정보가 세션에 저장되어 있는지 확인
         String prevPage = (String) session.getAttribute("prevPage");
