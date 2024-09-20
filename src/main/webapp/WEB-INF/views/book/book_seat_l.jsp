@@ -88,8 +88,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           var rowNo = $(this).data("row");
           var colNo = $(this).data("col");
 
+          let index = colNo.lastIndexOf("_");
+          colNo = colNo.substring(index + 1).charCodeAt(0) - 96;
+
           // 좌석 정보 문자열 생성
-          var seatInfo = rowNo + "열 " + colNo + "석";
+          // var seatInfo = rowNo + "열 " + colNo + "석";
+          var seatInfo = rowNo + "/" + colNo;
           var seatKey = rowNo + "-" + colNo;
 
           // 이미 선택된 좌석이거나, 4좌석 이하인 경우에만 처리
@@ -123,7 +127,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         });
         window.submitBookForm = function () {
           var form = $("#bookForm");
+
           form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
+
+          // 선택된 좌석이 있는지 확인
+          if (Object.keys(clickedSeats).length === 0) {
+            alert("좌석을 선택해주세요.");
+            return; // 좌석을 선택하지 않으면 폼 제출을 막음
+          }
+
           for (var key in clickedSeats) {
             $("<input>")
               .attr({
@@ -798,13 +810,16 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               />
               <br /><br /><br />
               <!-- 장바구니 담기 폼 -->
-              <form id="bookForm" action="book_reservation.do" method="post">
+              <form id="bookForm" action="../cart/insert.do" method="post">
                 <input
                   type="hidden"
                   name="performance_idx"
                   value="${param.performance_idx}"
                 />
+                <input type="hidden" name="mem_idx" value="${user.mem_idx}" />
                 <input type="hidden" name="date" value="${param.date}" />
+
+                />
                 <input
                   type="button"
                   class="btn btn-danger"
