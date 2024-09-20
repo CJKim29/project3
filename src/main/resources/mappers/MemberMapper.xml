@@ -24,6 +24,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from member where mem_nickname=#{ mem_nickname }
   </select>
 
+  <!-- phone조회 -->
+  <select id="selectOne_phone" parameterType="String" resultType="member">
+		select * from member where mem_phone=#{ mem_phone }
+  </select>
+
+  <!-- email조회 -->
+  <select id="selectOne_email" parameterType="String" resultType="member">
+		select * from member where mem_email=#{ mem_email }
+  </select>
+
   <!-- insert -->
   <insert id="insert" parameterType="member">
         insert into member (
@@ -31,6 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             mem_id,
             mem_pwd,
             mem_nickname,
+            mem_birth,
+            mem_phone,
+            mem_email,
             mem_zipcode,
             mem_addr,
             mem_ip,
@@ -42,6 +55,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{ mem_id },
             #{ mem_pwd },
             #{ mem_nickname },
+            #{ mem_birth },
+            #{ mem_phone },
+            #{ mem_email },
             #{ mem_zipcode },
             #{ mem_addr },
             #{ mem_ip },       -- 클라이언트의 IP 주소를 받아와서 저장
@@ -58,7 +74,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- update -->
   <update id="update" parameterType="member">
-		update member set mem_name= #{ mem_name }, mem_pwd= #{ mem_pwd }, mem_nickname = #{ mem_nickname }, mem_zipcode= #{ mem_zipcode }, mem_addr= #{ mem_addr }, mem_ip= #{ mem_ip }, mem_grade= #{ mem_grade }
+		update member set mem_name= #{ mem_name }, mem_pwd= #{ mem_pwd }, mem_nickname = #{ mem_nickname },
+    mem_birth = #{ mem_birth }, mem_phone = #{ mem_phone }, mem_email = #{ mem_email }, mem_zipcode= #{ mem_zipcode }, mem_addr= #{ mem_addr }, mem_ip= #{ mem_ip }, mem_grade= #{ mem_grade }
 							where mem_idx= #{ mem_idx }
   </update>
 

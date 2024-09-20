@@ -231,6 +231,36 @@ public class MemberController {
         return map;
     }
 
+    @RequestMapping(value = "check_phone.do")
+    @ResponseBody
+    public Map<String, Boolean> check_phone(String mem_phone) {
+
+        // mem_id에 해당 되는 유저정보 검색
+        MemberVo vo = member_mapper.selectOne_phone(mem_phone);
+        // vo에 없다면 중복되는 id가 없다는 뜻
+        boolean bResult = (vo == null);
+
+        Map<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("result", bResult); // {"result" : true}
+
+        return map;
+    }
+
+    @RequestMapping(value = "check_email.do")
+    @ResponseBody
+    public Map<String, Boolean> check_email(String mem_email) {
+
+        // mem_id에 해당 되는 유저정보 검색
+        MemberVo vo = member_mapper.selectOne_email(mem_email);
+        // vo에 없다면 중복되는 id가 없다는 뜻
+        boolean bResult = (vo == null);
+
+        Map<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("result", bResult); // {"result" : true}
+
+        return map;
+    }
+
     // 회원 수정하기(프로필 이미지)
     @PostMapping(value = "/photo_modify.do")
     @ResponseBody
