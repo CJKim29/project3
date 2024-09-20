@@ -26,6 +26,7 @@
                         <th>공연날짜</th>
                         <th>예매 좌석정보</th>
                         <th>좌석가격</th>
+                        <th>결제</th>
                     </tr>
 
                     <tr>
@@ -41,6 +42,9 @@
                             <c:forEach var="seat" items="${vo.seatList}">
                                 ${seat.seat_grade} : ${seat.seat_price} <br>
                             </c:forEach>
+                        </td>
+                        <td>
+                            <input type="button" class="btn" value="결제하기">
                         </td>
                     </tr>
 
