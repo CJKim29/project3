@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.DetailMapper;
@@ -361,6 +362,7 @@ public class DetailPageController {
         return response;
     }
 
+
     @GetMapping("/getAvailableDates")
     @ResponseBody
     public Map<String, Object> getAvailableDates(@RequestParam("performance_idx") int performance_idx) {
@@ -374,5 +376,41 @@ public class DetailPageController {
         result.put("availableDates", availableDates); // 날짜 데이터를 JSON으로 반환
         return result;
     }
+
+
+    @RequestMapping("modify_form.do")
+    public String modify_form(int performance_idx, Model model) {
+
+        PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+
+        String performance_detail_info = vo.getPerformance_detail_info();
+        if (performance_detail_info != null) {
+            performance_detail_info = performance_detail_info.replaceAll("<br>", "\n");
+        } else {
+            performance_detail_info = "";
+        }
+
+        String performance_al = vo.getPerformance_al();
+        if (performance_al != null) {
+            performance_al = performance_al.replaceAll("<br>", "\n");
+        } else {
+            performance_al = ""; // null인 경우 기본 값 설정
+        }
+
+        vo.setPerformance_detail_info(performance_detail_info);
+        vo.setPerformance_al(performance_al);
+
+        model.addAttribute("vo", vo);
+
+        return "detailpage/detail_modify_form";
+    }
+
+    // @RequestMapping("detail_img_upload.do")
+    // @ResponseBody
+    // public Map<String, String> upload(MultipartFile photo, RedirectAttributes ra,
+    // int performance_idx){
+
+    // return map;
+    // }
 
 }
