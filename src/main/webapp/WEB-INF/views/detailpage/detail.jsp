@@ -484,6 +484,7 @@
 																	}
 																});
 
+
 																// 후기 작성 폼 토글 함수
 																function toggleReviewForm() {
 																	var reviewForm = document.getElementById("reviewForm");
