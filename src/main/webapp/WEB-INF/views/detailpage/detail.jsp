@@ -605,23 +605,28 @@
 															value="후기목록">
 														<script>
 															// review_list 함수 정의
+
+															// performance_info 함수 정의
 															function performance_info() {
 																// performance_idx를 JSP에서 받아오는 부분
-																var performanceIdx = "${param.performance_idx}";
+																var performance_idx = "${param.performance_idx}";
 
 																// AJAX 요청
 																$.ajax({
 																	url: "performance_info.do",  // 요청할 URL
-																	type: "GET",            // HTTP 메소드 (GET, POST)
+																	type: "GET",                 // HTTP 메소드 (GET, POST)
 																	data: {
-																		performance_idx: performanceIdx // 서버에 전달할 데이터
+																		performance_idx: performance_idx // 서버에 전달할 데이터
 																	},
 																	success: function (response) {
 																		// 성공적으로 데이터를 받아왔을 때 처리
 																		console.log("AJAX 성공:", response);
 
-																		// 응답 데이터를 특정 div에 출력 (예: #resultDiv)
+																		// 응답 데이터를 특정 div에 출력
 																		$("#resultDiv").html(response);
+
+																		// URL 업데이트
+																		window.history.pushState({ page: 'performance_info' }, 'Performance Info', 'performance_info.do?performance_idx=' + performance_idx);
 																	},
 																	error: function (xhr, status, error) {
 																		// 에러 발생 시 처리
@@ -629,6 +634,7 @@
 																	}
 																});
 															}
+
 														</script>
 														<script>
 															// review_list 함수 정의
