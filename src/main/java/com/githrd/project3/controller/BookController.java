@@ -189,7 +189,35 @@ public class BookController {
     @PostMapping("/reserve_seats.do")
     public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
             @RequestParam("date") String performance_date,
-            @RequestParam("selectedSeats") String selectedSeatsJson) {
+            @RequestParam("selectedSeats") String selectedSeatsJson,
+            @RequestParam("seatInfo") List<String> seatInfo,
+            Model model) {
+
+        // 공연 정보 조회
+        X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+        model.addAttribute("vo", vo);
+
+        if (vo.getPerformance_cate_idx() == 1) {
+            List<M_HallVo> seats = m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
+
+            model.addAttribute("seats", seats);
+        }
+        if (vo.getPerformance_cate_idx() == 2) {
+            List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+                    performance_date);
+
+            model.addAttribute("seats", seats);
+        }
+        if (vo.getPerformance_cate_idx() == 3) {
+            List<L_HallVo> seats = l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+                    performance_date);
+
+            model.addAttribute("seats", seats);
+        }
+
+        // 좌석 정보 model을 통해 jsp로 전달
+        model.addAttribute("seatInfo", seatInfo);
+
         // performance_date_idx를 구합니다.
         Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
 
@@ -208,7 +236,7 @@ public class BookController {
             e.printStackTrace();
             return "errorPage";
         }
-        X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+
         if (vo.getPerformance_cate_idx() == 1) {
             // 선택된 좌석을 업데이트
             for (Map<String, Object> seat : selectedSeats) {
@@ -234,8 +262,10 @@ public class BookController {
             }
         }
 
-        // 좌석 예약 페이지로 리다이렉트
-        return "redirect:/book/performance_seat.do?performance_idx=" + performance_idx + "&date=" + performance_date;
+        System.out.println("seatInfo = " + seatInfo);
+        System.out.println("performance_date = " + performance_date);
+
+        return "book/payment";
     }
 
     @PostMapping("/book_reservation.do")
