@@ -291,37 +291,38 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           function setActiveMenu() {
               let currentUrl = window.location.pathname; // 현재 페이지의 경로
 
-              // 모든 항목에서 'active' 클래스 제거
+              // 모든 'active' 클래스 제거
               $('.nav.main-menu.menu.navbar-nav li').removeClass('active');
 
-              // 현재 URL과 매칭되는 메뉴 항목에 'active' 클래스 추가
+              // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
               $('.nav.main-menu.menu.navbar-nav a').each(function() {
                   let linkUrl = $(this).attr('href');
 
-              // 상대 경로를 절대 경로로 변환
+              // 상대 경로= 절대 경로 변환
               let absoluteLinkUrl = new URL(linkUrl, window.location.origin).pathname;
 
-              // 현재 페이지 URL과 메뉴 링크가 일치하면
+              // 현재 페이지 URL과 메뉴 링크가 일치?
               if (currentUrl === absoluteLinkUrl) {
                    $(this).parent().addClass('active');
                   }
               });
           }
 
-          // 초기 로드 시 활성화된 메뉴 항목 설정
+          // 로드
           setActiveMenu();
 
           // 메뉴 항목 클릭 시
           $('.nav.main-menu.menu.navbar-nav a').click(function(event) {
-              event.preventDefault(); // 링크 기본 동작 방지
+              event.preventDefault();
 
-              // 모든 'active' 클래스 제거
+              //'active' 클래스 제거
               $('.nav.main-menu.menu.navbar-nav li').removeClass('active');
 
               // 클릭한 'active' 클래스 추가
               $(this).parent().addClass('active');
 
-              // 링크 이동
+              // 링크 이동 (정해진 링크이동)
+              // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
               window.location.href = $(this).attr('href');
           });
       });

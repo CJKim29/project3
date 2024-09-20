@@ -18,9 +18,15 @@ public interface BookMapper {
         Integer selectPerformanceDateIdx(@Param("performance_date") String performance_date,
                         @Param("performance_idx") int performance_idx);
 
-        // 남은 좌석 수를 performance_date_idx와 seat_idx를 이용해 조회
         // 이후 수정
-        Integer selectRemainSeat1(@Param("performance_date_idx") int performance_date_idx,
+        // 남은 좌석 수를 performance_date_idx와 seat_idx를 이용해 조회(S_hall/M_hall/L_hall)
+        Integer selectRemainSeat_S(@Param("performance_date_idx") int performance_date_idx,
+                        @Param("seat_idx") int seat_idx);
+
+        Integer selectRemainSeat_M(@Param("performance_date_idx") int performance_date_idx,
+                        @Param("seat_idx") int seat_idx);
+
+        Integer selectRemainSeat_L(@Param("performance_date_idx") int performance_date_idx,
                         @Param("seat_idx") int seat_idx);
 
         Integer getPerformanceDateIdx(@Param("performance_idx") int performance_idx,

@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 남은 좌석 수 조회 -->
-    <select id="selectRemainSeat1" resultType="int">
+    <select id="selectRemainSeat_S" resultType="int">
         SELECT 
             COALESCE(
                 (SUM(s_hall_a = 0) +
@@ -45,6 +45,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 SUM(s_hall_i = 0) +
                 SUM(s_hall_j = 0)), 0) AS zero_count
         FROM s_hall
+        WHERE performance_date_idx = #{performance_date_idx}
+        AND seat_idx = #{seat_idx};
+    </select>
+
+    <select id="selectRemainSeat_M" resultType="int">
+        select
+            COALESCE(
+                (sum(m_hall_a = 0) +
+                SUM(m_hall_b = 0) +
+                SUM(m_hall_c = 0) +
+                SUM(m_hall_d = 0) +
+                SUM(m_hall_e = 0) +
+                SUM(m_hall_f = 0) +
+                SUM(m_hall_g = 0) +
+                SUM(m_hall_h = 0) +
+                SUM(m_hall_i = 0) +
+                SUM(m_hall_j = 0) +
+                SUM(m_hall_k = 0) +
+                SUM(m_hall_l = 0) +
+                SUM(m_hall_m = 0) +
+                SUM(m_hall_n = 0) +
+                SUM(m_hall_o = 0)), 0) AS zero_count
+        FROM m_hall
+        WHERE performance_date_idx = #{performance_date_idx}
+        AND seat_idx = #{seat_idx};        
+    </select>
+
+    <select id="selectRemainSeat_L" resultType="int">
+        SELECT 
+            COALESCE(
+                (SUM(l_hall_a = 0) +
+                SUM(l_hall_b = 0) +
+                SUM(l_hall_c = 0) +
+                SUM(l_hall_d = 0) +
+                SUM(l_hall_e = 0) +
+                SUM(l_hall_f = 0) +
+                SUM(l_hall_g = 0) +
+                SUM(l_hall_h = 0) +
+                SUM(l_hall_i = 0) +
+                SUM(l_hall_j = 0) +
+                SUM(l_hall_k = 0) +
+                SUM(l_hall_l = 0) +
+                SUM(l_hall_m = 0) +
+                SUM(l_hall_n = 0) +
+                SUM(l_hall_o = 0) +
+                SUM(l_hall_p = 0) +
+                SUM(l_hall_q = 0) +
+                SUM(l_hall_r = 0) +
+                SUM(l_hall_s = 0) +
+                SUM(l_hall_t = 0)), 0) AS zero_count
+        FROM l_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};
     </select>
