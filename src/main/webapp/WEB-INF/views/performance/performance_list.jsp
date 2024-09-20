@@ -123,6 +123,7 @@
               $.ajax({
                 url: "category.do", // controller
                 data: {
+                  page: "${ empty param.page ? 1 : param.page }",
                   performance_detail_cate_idx: performance_detail_cate_idx,
                   hall_area: hall_area,
                   sort_options: sort_options,

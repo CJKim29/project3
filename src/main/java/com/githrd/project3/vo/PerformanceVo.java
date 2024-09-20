@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Alias("performance")
 public class PerformanceVo {
+
+    int no;
+
     int performance_idx;
     int performance_cate_idx;
     int performance_detail_cate_idx;

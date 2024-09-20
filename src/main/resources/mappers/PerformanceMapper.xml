@@ -61,21 +61,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 	   and hall_idx = #{hall_idx}
   </select>
 
+
   <!-- 장르별+지역별 조회 / 최신순 정렬 -->
   <!-- performance_detail_cate_idx=0 일 경우에 대한 처리를 어떻게 할지 -->
   <select id="selectCategoryList" parameterType="Map" resultMap="performanceMap">
-		select * from performance 
+		
+    select * from
+    (
+      select
+        RANK() OVER (ORDER BY p.performance_idx DESC) AS no,
+        p.*
+      from  
+      (
+        select * from performance 
     <trim prefix="where" prefixOverrides="and">
-
       <if test="performance_detail_cate_idx!=0">
-                 performance_detail_cate_idx = #{ performance_detail_cate_idx }
+                performance_detail_cate_idx = #{ performance_detail_cate_idx }
       </if>
       <if test="hall_area!='all'">
                  and (hall_idx in (select hall_idx from hall where  hall_area = #{hall_area}) )
       </if>
     </trim>
+      ) p
+    ) p2
+    WHERE no BETWEEN #{ start } AND #{ end }
 
-    <!-- 정렬 -->
+                <!-- 정렬 -->
     <choose>
       <when test='sort_options == "s_abc"'>
             order by performance_name asc 
@@ -88,20 +99,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       </otherwise>
     </choose>
 
-    <!-- 몇개씩 볼건지 -->
-    <choose>
-      <when test= 'sort_options_number == "9"'>
-            limit 9
-      </when>
-      <when test= 'sort_options_number == "15"'>
-            limit 15
-      </when>
-      <otherwise>
-            limit 21
-      </otherwise>
-    </choose>
-
   </select>
+
 
   <!-- 공연 정보 등록 -->
   <insert id="insert" parameterType="performance">
@@ -114,7 +113,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                    #{performance_endday},
 							                     #{performance_runtime},
                                    #{performance_image},
-                                   #{performance_age}							
+                                   #{performance_age},
+                                   default,
+                                   default,
+                                   default,
+                                   default
                                );
   </insert>
 
@@ -158,37 +161,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-  <!-- 페이징 처리 -->
+  <!-- 페이징 별 조회 -->
   <select id="performancePageList" parameterType="Map" resultType="performance">
-    SELECT performance.* 
-    FROM (
-            SELECT
-                RANK() OVER (ORDER BY p.performance_idx DESC) AS no,
-                p.performance_idx,
-                p.performance_cate_idx,
-                p.performance_detail_cate_idx,
-                p.hall_idx,
-                p.performance_name,
-                p.performance_startday,
-                p.performance_endday,
-                p.performance_runtime,
-                p.performance_image,
-                p.performance_age,
-                p.performance_state,
-                p.performance_detail_info,
-                p.performance_al,
-                p.performance_detail_image
-            FROM
-                (
-                    SELECT *
-                    FROM performance p
-                    JOIN seat s 
-                    ON p.performance_idx = s.performance_idx 
-                )pfm
-        )performance
-        WHERE no BETWEEN #{start} AND #{end}
+    SELECT pfm.* FROM 
+    (
+      SELECT
+          RANK() OVER (ORDER BY p.performance_idx DESC) AS no,
+          p.*
+      FROM
+          (
+           SELECT  
+              p.performance_cate_idx,
+              p.performance_detail_cate_idx,
+              p.hall_idx,
+              p.performance_name,
+              p.performance_image,
+              s.performance_idx,
+              s.seat_price
+           FROM performance p
+           JOIN seat s ON p.performance_idx = s.performance_idx 
+          )p
+  )pfm
+  WHERE no BETWEEN #{start} AND #{end}
   </select>
 
+  <!-- 전체 게시물 수 -->
   <select id="selectRowTotal" parameterType="Map" resultType="int">
         select ifnull(count(*),0) from performance
   </select>
