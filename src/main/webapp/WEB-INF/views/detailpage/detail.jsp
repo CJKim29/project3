@@ -577,7 +577,6 @@
 														});
 													});
 												</script>
-
 												<!-- Product Buy -->
 												<div class="product-buy">
 													<div class="add-to-cart">

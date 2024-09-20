@@ -72,11 +72,8 @@ body {
   vertical-align: top;
   margin-left: 60px;
   display: flex;
-  /* Flexbox를 사용하여 나란히 배치 */
   align-items: center;
-  /* 세로로 중앙 정렬 */
   gap: 20px;
-  /* 두 요소 사이에 간격을 추가 */
 }
 
 .seat-container {
