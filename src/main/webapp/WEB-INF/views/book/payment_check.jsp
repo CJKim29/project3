@@ -191,7 +191,8 @@
                                         <div>
                                             <input type="button" class="btn" value="이전"
                                                 onclick="location.href='performance_seat.do?performance_idx=${param.performance_idx}&date=${param.date}'">
-                                            <input type="button" class="btn" value="다음">
+                                            <input type="button" class="btn" value="다음"
+                                                onclick="location.href='payment.do?performance_idx=${param.performance_idx}&date=${param.date}'">
                                         </div>
                                     </div>
                                 </div>

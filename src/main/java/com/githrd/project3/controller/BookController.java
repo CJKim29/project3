@@ -265,7 +265,13 @@ public class BookController {
         System.out.println("seatInfo = " + seatInfo);
         System.out.println("performance_date = " + performance_date);
 
-        return "book/payment";
+        return "book/payment_check";
+    }
+
+    @RequestMapping("payment.do")
+    public String payment() {
+
+        return "/book/payment";
     }
 
     @PostMapping("/book_reservation.do")
