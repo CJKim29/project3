@@ -539,10 +539,50 @@
 										</ul>
 									</div> -->
 												<!--/ End Color -->
+												<script>
+													var $my = $.noConflict(true);
+
+													$my(document).ready(function () {
+														// datepicker 초기화
+														$my('#datepicker').datepicker({
+															showOn: "button",
+															buttonText: "Select date",
+															format: "yyyy-mm-dd"
+														});
+
+														// 좌석정보 버튼 클릭 시 선택된 날짜를 URL에 추가
+														$my('input.reservation1').click(function () {
+															var selected_date = $my('#datepicker').val();
+															var performance_idx = $my(this).data('performanceIdx');
+
+															if (!selected_date || selected_date.trim() === "") {
+																alert('날짜를 선택해주세요.');
+																return;
+															}
+
+															// 자식 창 열기
+															var newWindow = window.open('/book/performance_seat.do?performance_idx=' + performance_idx + '&date=' + selected_date,
+																'performance_seat_window',
+																'width=800,height=630,location=no,status=no,scrollbars=yes');
+
+															// 자식 창 핸들 저장
+															window.performance_seat_window = newWindow;
+														});
+
+														// page load 시 달력 열기
+														$my('#datepicker').each(function () {
+															$my(this).datepicker({
+																showOnFocus: false // 달력을 클릭할 때만 열리게 하지 않음
+															}).open(); // 페이지 로드 시 바로 달력을 열기
+														});
+													});
+												</script>
+
 												<!-- Product Buy -->
 												<div class="product-buy">
 													<div class="add-to-cart">
-														<a href="#" class="btn">예매하기</a>
+														<input class="reservation1 btn btn-success" type="button"
+															value="예매하기" data-performance-idx="${ vo.performance_idx }">
 														<c:choose>
 															<c:when test="${isLiked}">
 																<button type="button" id="love" class="btn min"
