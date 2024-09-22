@@ -370,11 +370,11 @@ public class DetailPageController {
  @GetMapping("/getAvailableDates")
  @ResponseBody
  public Map<String, Object> getAvailableDates(@RequestParam("performance_idx") int performance_idx) {
-  System.out.println("getAvailableDates 호출됨, performance_idx: " + performance_idx);
+  //System.out.println("getAvailableDates 호출됨, performance_idx: " + performance_idx);
 
   // 공연 날짜 리스트를 DB에서 가져옴
   List<String> availableDates = detail_mapper.getPerformanceDates(performance_idx);
-  System.out.println("availableDates: " + availableDates);
+  //System.out.println("availableDates: " + availableDates);
 
   Map<String, Object> result = new HashMap<>();
   result.put("availableDates", availableDates); // 날짜 데이터를 JSON으로 반환

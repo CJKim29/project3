@@ -319,6 +319,8 @@
 																					type="number"
 																					maxFractionDigits="2" />/5
 																			</h6>
+                   검색&emsp;
+                   정렬
 																			<div class="nav-main">
 																				<ul class="nav nav-tabs"
 																					style="width: 100%;" id="myReview"
