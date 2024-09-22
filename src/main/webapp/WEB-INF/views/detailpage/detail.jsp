@@ -761,7 +761,7 @@
 															}
 
 														</script>
-															// review_list 함수 정의
+														<!-- review_list 함수 정의 -->
 														<script>
                function review_list(page) {
                    var performance_idx = "${param.performance_idx}";
