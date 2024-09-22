@@ -731,8 +731,6 @@
 														<input class="btn" type="button" onclick="review_list();"
 															value="후기목록">
 														<script>
-															// review_list 함수 정의
-
 															// performance_info 함수 정의
 															function performance_info() {
 																// performance_idx를 JSP에서 받아오는 부분
@@ -763,37 +761,40 @@
 															}
 
 														</script>
-														<script>
 															// review_list 함수 정의
-															function review_list() {
-																// performance_idx를 JSP에서 받아오는 부분
-																var performance_idx = "${param.performance_idx}";
-
-																// AJAX 요청
-																$.ajax({
-																	url: "review_list.do",  // 요청할 URL
-																	type: "GET",            // HTTP 메소드 (GET, POST)
-																	data: {
-																		performance_idx: performance_idx // 서버에 전달할 데이터
-																	},
-																	success: function (response) {
-																		// 성공적으로 데이터를 받아왔을 때 처리
-																		console.log("AJAX 성공:", response);
-
-																		// 응답 데이터를 특정 div에 출력
-																		$("#resultDiv").html(response);
-
-																		// URL 업데이트
-																		window.history.pushState({ page: 'review_list' }, 'Review List', 'review_list.do?performance_idx=' + performance_idx);
-																	},
-																	error: function (xhr, status, error) {
-																		// 에러 발생 시 처리
-																		console.error("AJAX 호출 실패:", error);
-																	}
-																});
-															}
-
-														</script>
+														<script>
+               function review_list(page) {
+                   var performance_idx = "${param.performance_idx}";
+                   var nowPage = page || 1;
+           
+                   $.ajax({
+                       url: "review_list.do",
+                       type: "GET",
+                       data: {
+                           performance_idx: performance_idx,
+                           page: nowPage
+                       },
+                       success: function (response) {
+                           $("#resultDiv").html(response);
+                           window.history.pushState(
+                               { page: 'review_list', nowPage: nowPage },
+                               'Review List',
+                               'review_list.do?performance_idx=' + performance_idx + '&page=' + nowPage
+                           );
+                       },
+                       error: function (xhr, status, error) {
+                           console.error("AJAX 호출 실패:", error);
+                       }
+                   });
+               }
+           
+               $(document).on('click', '.paging-button', function (e) {
+                   e.preventDefault(); // 기본 링크 동작 방지
+                   var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                   review_list(page); // 해당 페이지로 AJAX 요청
+               });
+           </script>
+           
 														<!-- 결과가 출력될 div -->
 														<div id="resultDiv"></div>
 													</ul>

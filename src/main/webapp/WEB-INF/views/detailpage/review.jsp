@@ -737,8 +737,21 @@
 															</div>
 														</div>
 														<!-- Pagination -->
-														<div style="text-align: center; margin: auto">${ pageMenu }
-														</div>
+														<div class="pagination">
+               <c:if test="${currentPage > 1}">
+                   <a href="#" class="paging-button" data-page="${currentPage - 1}">←</a>
+               </c:if>
+           
+               <c:forEach var="i" begin="1" end="${totalPages}">
+                   <a href="#" class="paging-button" data-page="${i}">
+                       ${i}
+                   </a>
+               </c:forEach>
+           
+               <c:if test="${currentPage < totalPages}">
+                   <a href="#" class="paging-button" data-page="${currentPage + 1}">→</a>
+               </c:if>
+           </div>
 														<!--/ End Pagination -->
 													</div>
 													<!--/ End Reviews Tab -->
