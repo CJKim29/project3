@@ -90,3 +90,41 @@ pageEncoding="UTF-8"%>
 		</div>
 	</footer>
 	<!-- /End Footer Area -->
+
+
+						<!-- Jquery -->
+						<script src="../resources/template/js/jquery.min.js"></script>
+						<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
+						<script src="../resources/template/js/jquery-ui.min.js"></script>
+						<!-- Popper JS -->
+						<script src="../resources/template/js/popper.min.js"></script>
+						<!-- Bootstrap JS -->
+						<script src="../resources/template/js/bootstrap.min.js"></script>
+						<!-- Color JS -->
+						<script src="../resources/template/js/colors.js"></script>
+						<!-- Slicknav JS -->
+						<script src="../resources/template/js/slicknav.min.js"></script>
+						<!-- Owl Carousel JS -->
+						<script src="../resources/template/js/owl-carousel.js"></script>
+						<!-- Magnific Popup JS -->
+						<script src="../resources/template/js/magnific-popup.js"></script>
+						<!-- Fancybox JS -->
+						<script src="../resources/template/js/facnybox.min.js"></script>
+						<!-- Waypoints JS -->
+						<script src="../resources/template/js/waypoints.min.js"></script>
+						<!-- Countdown JS -->
+						<script src="../resources/template/js/finalcountdown.min.js"></script>
+						<!-- Nice Select JS -->
+						<script src="../resources/template/js/nicesellect.js"></script>
+						<!-- Ytplayer JS -->
+						<!-- <script src="../resources/template/js/ytplayer.min.js"></script> -->
+						<!-- Flex Slider JS -->
+						<script src="../resources/template/js/flex-slider.js"></script>
+						<!-- ScrollUp JS -->
+						<script src="../resources/template/js/scrollup.js"></script>
+						<!-- Onepage Nav JS -->
+						<script src="../resources/template/js/onepage-nav.min.js"></script>
+						<!-- Easing JS -->
+						<script src="../resources/template/js/easing.js"></script>
+						<!-- Active JS -->
+						<script src="../resources/template/js/active.js"></script>

@@ -174,13 +174,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <option>통합검색</option>
                   </select>
                   <!-- search 검색 -->
-                  <form id="searchForm" action="../performance/performance_search.do" method="GET">
+                  <form id="searchForm" action="../performance/performance_search.do" method="GET" onsubmit="return validateSearch()">
                     <input
                       id="searchInput"
                       name="search"
                       placeholder="찾으실 공연을 입력해주세요"
                       type="search"
-                      required
                     />
                     <button class="btnn" type="submit"><i class="ti-search"></i></button>
                   </form>
@@ -193,7 +192,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- 장바구니 버튼 부분 -->
                  <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
                 <div class="sinlge-bar shopping">
-                  <a href="../main/cart.do" class="single-icon"><i class="ti-bag"></i></a>
+
+                  <a href="../cart/list.do" class="single-icon"><i class="ti-bag"></i></a>
+
                   <!-- Shopping Item -->
                   <!-- 장바구니 부분 상세 삭제함 -->
                 </div>
@@ -247,42 +248,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     
 
-    <!-- Jquery -->
-    <script src="../resources/template/js/jquery.min.js"></script>
-    <script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
-    <script src="../resources/template/js/jquery-ui.min.js"></script>
-    <!-- Popper JS -->
-    <script src="../resources/template/js/popper.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="../resources/template/js/bootstrap.min.js"></script>
-    <!-- Color JS -->
-    <script src="../resources/template/js/colors.js"></script>
-    <!-- Slicknav JS -->
-    <script src="../resources/template/js/slicknav.min.js"></script>
-    <!-- Owl Carousel JS -->
-    <script src="../resources/template/js/owl-carousel.js"></script>
-    <!-- Magnific Popup JS -->
-    <script src="../resources/template/js/magnific-popup.js"></script>
-    <!-- Fancybox JS -->
-    <script src="../resources/template/js/facnybox.min.js"></script>
-    <!-- Waypoints JS -->
-    <script src="../resources/template/js/waypoints.min.js"></script>
-    <!-- Countdown JS -->
-    <script src="../resources/template/js/finalcountdown.min.js"></script>
-    <!-- Nice Select JS -->
-    <script src="../resources/template/js/nicesellect.js"></script>
-    <!-- Ytplayer JS -->
-    <script src="../resources/template/js/ytplayer.min.js"></script>
-    <!-- Flex Slider JS -->
-    <script src="../resources/template/js/flex-slider.js"></script>
-    <!-- ScrollUp JS -->
-    <script src="../resources/template/js/scrollup.js"></script>
-    <!-- Onepage Nav JS -->
-    <script src="../resources/template/js/onepage-nav.min.js"></script>
-    <!-- Easing JS -->
-    <script src="../resources/template/js/easing.js"></script>
-    <!-- Active JS -->
-    <script src="../resources/template/js/active.js"></script>
+
+
+
 
     <script>
 
@@ -330,6 +298,24 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     </script>
     
+
+    <!-- 메인 검색창 경고창 -->
+    <script>
+      function validateSearch() {
+        var searchInput = document.getElementById('searchInput');
+        
+        // 검색어가 입력되지 않았을 경우
+        if (searchInput.value.trim() === "") {
+          alert('공연 제목을 입력해주세요');
+          searchInput.value = ""; // 입력된 글자를 지움
+          searchInput.focus(); // 포커스를 입력 필드로 다시 설정
+          return false; // 폼 제출을 막음
+        }
+        
+        return true; // 검색어가 있을 경우 폼을 제출
+      }
+    </script>
+
 
   </body>
 </html>
