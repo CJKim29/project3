@@ -43,14 +43,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           var originalColor = $(this).css("background-color");
           $(this).data("originalColor", originalColor);
         });
-
         $(".seat").click(function () {
           // 저장된 원래 색상
           var originalColor = $(this).data("originalColor");
-
           // 현재 색상
           var currentColor = $(this).css("background-color");
-
           // 색상 토글
           if (currentColor === originalColor) {
             // 선택된 버튼의 색상을 회색으로 변경
@@ -62,7 +59,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         });
       });
     </script>
-
     <!-- 달력 -->
     <script>
       $(document).ready(function () {
@@ -74,66 +70,71 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         });
       });
     </script>
-
     <!-- 버튼 클릭시 선택좌석 띄우기 -->
     <script>
       $(document).ready(function () {
+        // 클릭된 좌석 정보를 저장할 객체
         var clickedSeats = {};
-
+        // 좌석 클릭 이벤트 핸들러
         $(".seat").click(function () {
-          var rowNo = $(this).data("row"); // 행(row) 정보
-          var colNo = $(this).data("col"); // 열(col) 정보 예시: a
-
-          // "a"에서 알파벳 'A' 추출
-          var alphabetCol = colNo.split("_").pop().toUpperCase(); // 대문자로 변환
-
-          // 좌석 정보 문자열 생성 (형식: "2열 A석")
-          var seatInfo = rowNo + "열 " + alphabetCol + "석";
-
-          // 좌석 정보 추가 및 제거 처리
-          if (clickedSeats[seatInfo]) {
-            delete clickedSeats[seatInfo];
+          var selectedSeatCount = Object.keys(clickedSeats).length;
+          // 클릭된 버튼의 행(row)과 열(column) 정보 추출
+          var rowNo = $(this).data("row");
+          var colNo = $(this).data("col").toUpperCase();
+          // let index = colNo.lastIndexOf("_");
+          // colNo = colNo.substring(index + 1).charCodeAt(0) - 96;
+          // 좌석 정보 문자열 생성
+          // var seatInfo = rowNo + "열 " + colNo + "석";
+          var seatInfo = rowNo + "열" + colNo + "석";
+          var seatKey = rowNo + "-" + colNo;
+          // 이미 선택된 좌석이거나, 4좌석 이하인 경우에만 처리
+          if (clickedSeats[seatKey] || selectedSeatCount < 4) {
+            // 클릭 횟수 업데이트
+            if (!clickedSeats[seatKey]) {
+              clickedSeats[seatKey] = 0;
+            }
+            clickedSeats[seatKey]++;
+            // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
+            if (clickedSeats[seatKey] % 2 === 1) {
+              // 홀수 클릭: 정보 추가
+              clickedSeats[seatKey] = seatInfo;
+            } else {
+              // 짝수 클릭: 정보 제거
+              delete clickedSeats[seatKey];
+            }
+            // 결과를 출력할 HTML 요소에 추가
+            var resultHtml = "";
+            for (var key in clickedSeats) {
+              resultHtml += "<p>" + clickedSeats[key] + "</p>";
+            }
+            $(".seat-info-container").html(resultHtml);
           } else {
-            clickedSeats[seatInfo] = seatInfo;
+            alert("최대 4좌석까지만 선택할 수 있습니다. 다시 선택해주세요.");
+            // 좌석다시선택
+            redirectToCurrentPage();
           }
-
-          // 선택된 좌석을 화면에 표시
-          var resultHtml = "";
-          for (var key in clickedSeats) {
-            resultHtml += "<p>" + clickedSeats[key] + "</p>";
-          }
-          $(".seat-info-container").html(resultHtml);
         });
-
-        window.submitSeats = function () {
-          var form = $("#seatForm");
+        window.submitBookForm = function () {
+          var form = $("#bookForm");
           form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
-
-          // 선택된 좌석이 없으면 경고창 표시
-          if (selectedSeats.length === 0) {
-            alert("좌석을 선택해 주세요.");
-            return;
+          // 선택된 좌석이 있는지 확인
+          if (Object.keys(clickedSeats).length === 0) {
+            alert("좌석을 선택해주세요.");
+            return; // 좌석을 선택하지 않으면 폼 제출을 막음
           }
-
-          // 선택된 좌석 정보를 hidden input으로 추가
-          selectedSeats.forEach((seat) => {
-            const [row, col] = seat.split("-");
-            const formattedSeat = row + "-" + col.toUpperCase(); // 열 정보를 대문자로 변환
+          for (var key in clickedSeats) {
             $("<input>")
               .attr({
                 type: "hidden",
                 name: "seatInfo",
-                value: formattedSeat, // 대문자로 변환한 좌석 정보 추가
+                value: clickedSeats[key],
               })
               .appendTo(form);
-          });
-
-          // 폼 제출
-          form.submit();
+          }
+          form.submit(); // 폼 제출
         };
       });
     </script>
-
     <!-- 좌석 다시 선택 -->
     <script>
       function redirectToCurrentPage() {
@@ -141,12 +142,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         window.location.href = window.location.href;
       }
     </script>
-
     <!-- 좌석 예약 반영 -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let selectedSeats = [];
-
         function toggleSeat(row, col) {
           const seatId = row + "-" + col.toUpperCase();
           const index = selectedSeats.indexOf(seatId);
@@ -158,19 +157,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           console.log("Selected Seats Updated:", selectedSeats);
           updateSeatInfo();
         }
-
         window.submitSeats = function () {
           var form = $("#seatForm");
-
           // 이전에 추가된 좌석 정보를 제거
           form.find('input[name="seatInfo"]').remove();
-
           // 선택된 좌석이 없으면 경고창 표시
           if (selectedSeats.length === 0) {
             alert("좌석을 선택해 주세요.");
             return;
           }
-
           // 선택된 좌석 정보를 JSON 형식으로 hidden input에 저장
           document.getElementById("selectedSeats").value = JSON.stringify(
             selectedSeats.map((seat) => {
@@ -178,7 +173,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               return { row: parseInt(row), col: col.toUpperCase() }; // 열 정보를 대문자로 변환
             })
           );
-
           // 선택된 좌석 정보를 hidden input으로 추가
           selectedSeats.forEach((seat) => {
             $("<input>")
@@ -189,11 +183,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               })
               .appendTo(form);
           });
-
           // 폼 제출
           form.submit();
         };
-
         // 좌석 정보를 업데이트하는 함수
         function updateSeatInfo() {
           const seatInfoContainer = document.querySelector(
@@ -207,7 +199,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             seatInfoContainer.appendChild(div);
           });
         }
-
         // 좌석 클릭 이벤트 추가
         document.querySelectorAll(".seat").forEach((seat) => {
           seat.addEventListener("click", (event) => {
@@ -217,7 +208,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             updateSeatInfo(); // 선택된 좌석 정보 업데이트
           });
         });
-
         // 예약 버튼 클릭 시 폼 제출 함수 실행
         document
           .querySelector(".btn-success")
@@ -282,129 +272,129 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             <c:forEach var="seat" items="${seats}">
               <div>
                 <c:choose>
-                  <c:when test="${seat.row_no <= 0}">
+                  <c:when test="${seat.l_hall_row_no <= 0}">
                     <!-- 기본 색상 클래스 유지 -->
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.a == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.a == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="a"
                       data-seat="${seat.a}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.b == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.b == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="b"
                       data-seat="${seat.b}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.c == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.c == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="c"
                       data-seat="${seat.c}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.d == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.d == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="d"
                       data-seat="${seat.d}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.e == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.e == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="e"
                       data-seat="${seat.e}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.f == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.f == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="f"
                       data-seat="${seat.f}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.g == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.g == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="g"
                       data-seat="${seat.g}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.h == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.h == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="h"
                       data-seat="${seat.h}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.i == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.i == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="i"
                       data-seat="${seat.i}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.j == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.j == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="j"
                       data-seat="${seat.j}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.k == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.k == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="k"
                       data-seat="${seat.k}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.l == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.l == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="l"
                       data-seat="${seat.l}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.m == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.m == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="m"
                       data-seat="${seat.m}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.n == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.n == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="n"
                       data-seat="${seat.n}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.o == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.o == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="o"
                       data-seat="${seat.o}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.p == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.p == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="p"
                       data-seat="${seat.p}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.q == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.q == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="q"
                       data-seat="${seat.q}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.r == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.r == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="r"
                       data-seat="${seat.r}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.s == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.s == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="s"
                       data-seat="${seat.s}"
                     ></div>
                     <div
-                      class="seat seat-row-${seat.row_no} ${seat.t == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat seat-row-${seat.l_hall_row_no} ${seat.t == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="t"
                       data-seat="${seat.t}"
                     ></div>
-                    <strong>&nbsp;&nbsp;${seat.row_no}열</strong>
+                    <strong>&nbsp;&nbsp;${seat.l_hall_row_no}열</strong>
                   </c:when>
                   <c:otherwise>
                     <c:choose>
@@ -414,7 +404,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       <c:when test="${fn:length(vo.seatList) == 2}">
                         <c:choose>
                           <c:when
-                            test="${seat.row_no == 1 || seat.row_no == 2 || seat.row_no == 3 || seat.row_no == 4 || seat.row_no == 5 || seat.row_no == 6 || seat.row_no == 7}"
+                            test="${seat.l_hall_row_no == 1 || seat.l_hall_row_no == 2 || seat.l_hall_row_no == 3 || seat.l_hall_row_no == 4 || seat.l_hall_row_no == 5 || seat.l_hall_row_no == 6 || seat.l_hall_row_no == 7}"
                           >
                             <c:set var="rowClass" value="seat-purple" />
                           </c:when>
@@ -426,12 +416,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       <c:when test="${fn:length(vo.seatList) == 3}">
                         <c:choose>
                           <c:when
-                            test="${seat.row_no == 1 || seat.row_no == 2 || seat.row_no == 3 || seat.row_no == 4}"
+                            test="${seat.l_hall_row_no == 1 || seat.l_hall_row_no == 2 || seat.l_hall_row_no == 3 || seat.l_hall_row_no == 4}"
                           >
                             <c:set var="rowClass" value="seat-purple" />
                           </c:when>
                           <c:when
-                            test="${seat.row_no == 5 || seat.row_no == 6 || seat.row_no == 7 || seat.row_no == 8 || seat.row_no == 9 || seat.row_no == 10}"
+                            test="${seat.l_hall_row_no == 5 || seat.l_hall_row_no == 6 || seat.l_hall_row_no == 7 || seat.l_hall_row_no == 8 || seat.l_hall_row_no == 9 || seat.l_hall_row_no == 10}"
                           >
                             <c:set var="rowClass" value="seat-green" />
                           </c:when>
@@ -443,22 +433,22 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       <c:when test="${fn:length(vo.seatList) == 5}">
                         <c:choose>
                           <c:when
-                            test="${seat.row_no == 1 || seat.row_no == 2 || seat.row_no == 3}"
+                            test="${seat.l_hall_row_no == 1 || seat.l_hall_row_no == 2 || seat.l_hall_row_no == 3}"
                           >
                             <c:set var="rowClass" value="seat-purple" />
                           </c:when>
                           <c:when
-                            test="${seat.row_no == 4 || seat.row_no == 5 || seat.row_no == 6 || seat.row_no == 7}"
+                            test="${seat.l_hall_row_no == 4 || seat.l_hall_row_no == 5 || seat.l_hall_row_no == 6 || seat.l_hall_row_no == 7}"
                           >
                             <c:set var="rowClass" value="seat-green" />
                           </c:when>
                           <c:when
-                            test="${seat.row_no == 8 || seat.row_no == 9 || seat.row_no == 10 || seat.row_no == 11}"
+                            test="${seat.l_hall_row_no == 8 || seat.l_hall_row_no == 9 || seat.l_hall_row_no == 10 || seat.l_hall_row_no == 11}"
                           >
                             <c:set var="rowClass" value="seat-blue" />
                           </c:when>
                           <c:when
-                            test="${seat.row_no == 12 || seat.row_no == 13 || seat.row_no == 14 || seat.row_no == 15}"
+                            test="${seat.l_hall_row_no == 12 || seat.l_hall_row_no == 13 || seat.l_hall_row_no == 14 || seat.l_hall_row_no == 15}"
                           >
                             <c:set var="rowClass" value="seat-orange" />
                           </c:when>
@@ -470,17 +460,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       <c:otherwise>
                         <c:choose>
                           <c:when
-                            test="${seat.row_no == 1 || seat.row_no == 2 || seat.row_no == 3 || seat.row_no == 4}"
+                            test="${seat.l_hall_row_no == 1 || seat.l_hall_row_no == 2 || seat.l_hall_row_no == 3 || seat.l_hall_row_no == 4}"
                           >
                             <c:set var="rowClass" value="seat-purple" />
                           </c:when>
                           <c:when
-                            test="${seat.row_no == 5 || seat.row_no == 6 || seat.row_no == 7 || seat.row_no == 8 || seat.row_no == 9}"
+                            test="${seat.l_hall_row_no == 5 || seat.l_hall_row_no == 6 || seat.l_hall_row_no == 7 || seat.l_hall_row_no == 8 || seat.l_hall_row_no == 9}"
                           >
                             <c:set var="rowClass" value="seat-green" />
                           </c:when>
                           <c:when
-                            test="${seat.row_no == 10 || seat.row_no == 11 || seat.row_no == 12 || seat.row_no == 13 || seat.row_no == 14}"
+                            test="${seat.l_hall_row_no == 10 || seat.l_hall_row_no == 11 || seat.l_hall_row_no == 12 || seat.l_hall_row_no == 13 || seat.l_hall_row_no == 14}"
                           >
                             <c:set var="rowClass" value="seat-blue" />
                           </c:when>
@@ -491,126 +481,126 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       </c:otherwise>
                     </c:choose>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.a == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.a == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="a"
                       data-seat="${seat.a}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.b == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.b == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="b"
                       data-seat="${seat.b}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.c == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.c == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="c"
                       data-seat="${seat.c}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.d == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.d == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="d"
                       data-seat="${seat.d}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.e == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.e == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="e"
                       data-seat="${seat.e}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.f == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.f == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="f"
                       data-seat="${seat.f}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.g == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.g == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="g"
                       data-seat="${seat.g}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.h == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.h == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="h"
                       data-seat="${seat.h}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.i == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.i == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="i"
                       data-seat="${seat.i}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.j == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.j == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="j"
                       data-seat="${seat.j}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.k == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.k == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="k"
                       data-seat="${seat.k}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.l == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.l == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="l"
                       data-seat="${seat.l}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.m == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.m == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="m"
                       data-seat="${seat.m}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.n == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.n == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="n"
                       data-seat="${seat.n}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.o == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.o == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="o"
                       data-seat="${seat.o}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.p == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.p == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="p"
                       data-seat="${seat.p}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.q == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.q == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="q"
                       data-seat="${seat.q}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.r == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.r == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="r"
                       data-seat="${seat.r}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.s == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.s == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="s"
                       data-seat="${seat.s}"
                     ></div>
                     <div
-                      class="seat ${rowClass} seat-row-${seat.row_no} ${seat.t == 0 ? 'available' : 'unavailable'}"
-                      data-row="${seat.row_no}"
+                      class="seat ${rowClass} seat-row-${seat.l_hall_row_no} ${seat.t == 0 ? 'available' : 'unavailable'}"
+                      data-row="${seat.l_hall_row_no}"
                       data-col="t"
                       data-seat="${seat.t}"
                     ></div>
-                    <strong>&nbsp;&nbsp;${seat.row_no}</strong>
+                    <strong>&nbsp;&nbsp;${seat.l_hall_row_no}</strong>
                   </c:otherwise>
                 </c:choose>
               </div>
@@ -824,9 +814,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   value="${param.performance_idx}"
                 />
                 <input type="hidden" name="mem_idx" value="${user.mem_idx}" />
-                <input type="hidden" name="date" value="${param.date}" />
-
+                <input
+                  type="hidden"
+                  name="reserved_performance_date"
+                  value="${param.date}"
                 />
+
                 <input
                   type="button"
                   class="btn btn-danger"

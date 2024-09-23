@@ -44,14 +44,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           var originalColor = $(this).css("background-color");
           $(this).data("originalColor", originalColor);
         });
-
         $(".seat").click(function () {
           // 저장된 원래 색상
           var originalColor = $(this).data("originalColor");
-
           // 현재 색상
           var currentColor = $(this).css("background-color");
-
           // 색상 토글
           if (currentColor === originalColor) {
             // 선택된 버튼의 색상을 회색으로 변경
@@ -63,7 +60,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         });
       });
     </script>
-
     <!-- 달력 -->
     <script>
       $(document).ready(function () {
@@ -75,66 +71,71 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         });
       });
     </script>
-
     <!-- 버튼 클릭시 선택좌석 띄우기 -->
     <script>
       $(document).ready(function () {
+        // 클릭된 좌석 정보를 저장할 객체
         var clickedSeats = {};
-
+        // 좌석 클릭 이벤트 핸들러
         $(".seat").click(function () {
-          var rowNo = $(this).data("row"); // 행(row) 정보
-          var colNo = $(this).data("col"); // 열(col) 정보 예시: a
-
-          // "a"에서 알파벳 'A' 추출
-          var alphabetCol = colNo.split("_").pop().toUpperCase(); // 대문자로 변환
-
-          // 좌석 정보 문자열 생성 (형식: "2열 A석")
-          var seatInfo = rowNo + "열 " + alphabetCol + "석";
-
-          // 좌석 정보 추가 및 제거 처리
-          if (clickedSeats[seatInfo]) {
-            delete clickedSeats[seatInfo];
+          var selectedSeatCount = Object.keys(clickedSeats).length;
+          // 클릭된 버튼의 행(row)과 열(column) 정보 추출
+          var rowNo = $(this).data("row");
+          var colNo = $(this).data("col").toUpperCase();
+          // let index = colNo.lastIndexOf("_");
+          // colNo = colNo.substring(index + 1).charCodeAt(0) - 96;
+          // 좌석 정보 문자열 생성
+          // var seatInfo = rowNo + "열 " + colNo + "석";
+          var seatInfo = rowNo + "열" + colNo + "석";
+          var seatKey = rowNo + "-" + colNo;
+          // 이미 선택된 좌석이거나, 4좌석 이하인 경우에만 처리
+          if (clickedSeats[seatKey] || selectedSeatCount < 4) {
+            // 클릭 횟수 업데이트
+            if (!clickedSeats[seatKey]) {
+              clickedSeats[seatKey] = 0;
+            }
+            clickedSeats[seatKey]++;
+            // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
+            if (clickedSeats[seatKey] % 2 === 1) {
+              // 홀수 클릭: 정보 추가
+              clickedSeats[seatKey] = seatInfo;
+            } else {
+              // 짝수 클릭: 정보 제거
+              delete clickedSeats[seatKey];
+            }
+            // 결과를 출력할 HTML 요소에 추가
+            var resultHtml = "";
+            for (var key in clickedSeats) {
+              resultHtml += "<p>" + clickedSeats[key] + "</p>";
+            }
+            $(".seat-info-container").html(resultHtml);
           } else {
-            clickedSeats[seatInfo] = seatInfo;
+            alert("최대 4좌석까지만 선택할 수 있습니다. 다시 선택해주세요.");
+            // 좌석다시선택
+            redirectToCurrentPage();
           }
-
-          // 선택된 좌석을 화면에 표시
-          var resultHtml = "";
-          for (var key in clickedSeats) {
-            resultHtml += "<p>" + clickedSeats[key] + "</p>";
-          }
-          $(".seat-info-container").html(resultHtml);
         });
-
-        window.submitSeats = function () {
-          var form = $("#seatForm");
+        window.submitBookForm = function () {
+          var form = $("#bookForm");
           form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
-
-          // 선택된 좌석이 없으면 경고창 표시
-          if (selectedSeats.length === 0) {
-            alert("좌석을 선택해 주세요.");
-            return;
+          // 선택된 좌석이 있는지 확인
+          if (Object.keys(clickedSeats).length === 0) {
+            alert("좌석을 선택해주세요.");
+            return; // 좌석을 선택하지 않으면 폼 제출을 막음
           }
-
-          // 선택된 좌석 정보를 hidden input으로 추가
-          selectedSeats.forEach((seat) => {
-            const [row, col] = seat.split("-");
-            const formattedSeat = row + "-" + col.toUpperCase(); // 열 정보를 대문자로 변환
+          for (var key in clickedSeats) {
             $("<input>")
               .attr({
                 type: "hidden",
                 name: "seatInfo",
-                value: formattedSeat, // 대문자로 변환한 좌석 정보 추가
+                value: clickedSeats[key],
               })
               .appendTo(form);
-          });
-
-          // 폼 제출
-          form.submit();
+          }
+          form.submit(); // 폼 제출
         };
       });
     </script>
-
     <!-- 좌석 다시 선택 -->
     <script>
       function redirectToCurrentPage() {
@@ -142,12 +143,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         window.location.href = window.location.href;
       }
     </script>
-
     <!-- 좌석 예약 반영 -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let selectedSeats = [];
-
         function toggleSeat(row, col) {
           const seatId = row + "-" + col.toUpperCase();
           const index = selectedSeats.indexOf(seatId);
@@ -159,19 +158,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           console.log("Selected Seats Updated:", selectedSeats);
           updateSeatInfo();
         }
-
         window.submitSeats = function () {
           var form = $("#seatForm");
-
           // 이전에 추가된 좌석 정보를 제거
           form.find('input[name="seatInfo"]').remove();
-
           // 선택된 좌석이 없으면 경고창 표시
           if (selectedSeats.length === 0) {
             alert("좌석을 선택해 주세요.");
             return;
           }
-
           // 선택된 좌석 정보를 JSON 형식으로 hidden input에 저장
           document.getElementById("selectedSeats").value = JSON.stringify(
             selectedSeats.map((seat) => {
@@ -179,7 +174,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               return { row: parseInt(row), col: col.toUpperCase() }; // 열 정보를 대문자로 변환
             })
           );
-
           // 선택된 좌석 정보를 hidden input으로 추가
           selectedSeats.forEach((seat) => {
             $("<input>")
@@ -190,11 +184,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               })
               .appendTo(form);
           });
-
           // 폼 제출
           form.submit();
         };
-
         // 좌석 정보를 업데이트하는 함수
         function updateSeatInfo() {
           const seatInfoContainer = document.querySelector(
@@ -208,7 +200,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             seatInfoContainer.appendChild(div);
           });
         }
-
         // 좌석 클릭 이벤트 추가
         document.querySelectorAll(".seat").forEach((seat) => {
           seat.addEventListener("click", (event) => {
@@ -218,7 +209,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             updateSeatInfo(); // 선택된 좌석 정보 업데이트
           });
         });
-
         // 예약 버튼 클릭 시 폼 제출 함수 실행
         document
           .querySelector(".btn-success")

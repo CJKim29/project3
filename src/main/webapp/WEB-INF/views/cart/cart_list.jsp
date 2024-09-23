@@ -18,7 +18,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             <table class="table shopping-summery">
               <thead>
                 <tr class="main-hading">
-                  <!-- <th class="text-center">공연</th> -->
+                   <th class="text-center">공연</th> 
                   <th class="text-center">공연명</th>
                   <th class="text-center">공연장</th>
                   <th class="text-center">공연날짜</th>
@@ -35,38 +35,41 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     </td>
                   </tr>
                 </c:if>
-                <c:forEach var="vo" items="${ list }">
+                 <c:forEach var="vo" items="${ list }">
                   <tr>
-                    <!-- <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td> -->
-                    <!-- 제목 -->
+                    <td class="image" data-title="No"><img src="../resources/images/${ vo.performance_image }" alt="#"></td> 
+                    <!-- 공연명 -->
                     <td class="product-des" data-title="Description">
                       <p class="product-name">
-                        <a>${ vo.performance_name }</a>
+                        ${ vo.performance_name }
+                        <!-- <a></a> -->
                       </p>
                     </td>
                     <!-- 공연장 -->
                     <td class="price" data-title="Price">
-                      <span>${ vo.hall_name }</span>
+                        ${ vo.hall_name }
+                      <!-- <span></span> -->
                     </td>
                     <!-- 공연날짜 -->
                     <td class="price" data-title="Price">
-                      <span>${ param.date }</span>
+                      ${ vo.reserved_performance_date }
+                      <!-- <span></span> -->
                     </td>
                     <!-- 예매 좌석정보 -->
                     <td class="total-amount" data-title="Total">
-                      <span
+                      <%-- <span
                         ><c:forEach var="info" items="${seatInfo}">
                           ${info}<br /> </c:forEach
-                      ></span>
+                      ></span> --%>
                     </td>
                     <!-- 금액 -->
-                    <td class="action" data-title="checkout">금액</td>
+                    <td class="action" data-title="checkout"></td>
                     <!-- 취소 -->
                     <td class="action" data-title="Remove">
                       <a href="#"><i class="ti-trash remove-icon"></i></a>
                     </td>
                   </tr>
-                </c:forEach>
+                </c:forEach> 
               </tbody>
             </table>
             <!--/ End Shopping Summery -->
