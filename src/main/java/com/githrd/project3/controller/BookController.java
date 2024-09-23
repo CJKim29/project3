@@ -186,7 +186,7 @@ public class BookController {
 
     } // end - performance_seat
 
-    @PostMapping("/reserve_seats.do")
+    @RequestMapping("/reserve_seats.do")
     public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
             @RequestParam("date") String performance_date,
             @RequestParam("selectedSeats") String selectedSeatsJson,
@@ -262,8 +262,8 @@ public class BookController {
             }
         }
 
-        System.out.println("seatInfo = " + seatInfo);
-        System.out.println("performance_date = " + performance_date);
+        // System.out.println("seatInfo = " + seatInfo);
+        // System.out.println("performance_date = " + performance_date);
 
         return "book/payment_check";
     }

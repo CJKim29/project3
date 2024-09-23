@@ -55,8 +55,8 @@ body {
   height: 500px;
   border-right: black 1px solid;
   background-color: #eeeeee !important;
-  padding: 30px;
- }
+  /* display: flex; */
+}
 
 #content_right {
   display: inline-block;
@@ -67,14 +67,37 @@ body {
   margin-left: 40px;
 }
 
-.content_title{
- font-size: 15px;
- font-weight: bold;
+table{
+  /* 테이블 수평 중앙 정렬 */
+  margin-right: auto !important;
+  margin-left: auto !important;
+  margin: 20px;
+  border: 1px solid #dddddd;
+}
+.title{
+  font-size: 18px;
+  border-top: none !important;
+  border-bottom: 2px solid #dc1717 !important;
+  width: 25%;
 }
 
-#agree{
-margin-top: 30px;
+.left{
+  /* background-color: rgb(221, 223, 225); */
 }
+
+/* input number 화살표 제거 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.message{
+ font-size: 12px;
+ color: indianred;
+ margin-top: 7px;
+}
+
 
 .btn{
   width: 100px;
