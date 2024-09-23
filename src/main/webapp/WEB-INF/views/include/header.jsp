@@ -192,7 +192,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- 장바구니 버튼 부분 -->
                  <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
                 <div class="sinlge-bar shopping">
+
                   <a href="../cart/list.do" class="single-icon"><i class="ti-bag"></i></a>
+
                   <!-- Shopping Item -->
                   <!-- 장바구니 부분 상세 삭제함 -->
                 </div>
@@ -296,6 +298,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     </script>
     
+
     <!-- 메인 검색창 경고창 -->
     <script>
       function validateSearch() {
@@ -312,6 +315,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         return true; // 검색어가 있을 경우 폼을 제출
       }
     </script>
+
 
   </body>
 </html>

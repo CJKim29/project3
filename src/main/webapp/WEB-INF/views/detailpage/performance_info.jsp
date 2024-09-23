@@ -181,6 +181,10 @@
 							location.href = "modify_form.do?performance_idx=${ vo.performance_idx }";
 						}
 
+						function modify_casting() {
+							location.href = "casting_modify_form.do?performance_idx=${vo.performance_idx}"
+						}
+
 					</script>
 
 					<script type="text/javascript"
@@ -233,14 +237,18 @@
 						<div class="col-12">
 							<div class="product-info">
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" onclick="modify_detail()"
-											role="tab">정보
-											수정</a></li>
-									<li class="nav-item">
-										<a class="nav-link" id="reviews-tab" data-toggle="tab" href="#" role="tab">캐스팅
-											수정</a>
-									</li>
+									<c:if test="${user.mem_grade == '관리자'}">
+										<li class="nav-item"><a class="nav-link" data-toggle="tab"
+												onclick="modify_detail()" role="tab">정보
+												수정</a></li>
+										<li class="nav-item">
+											<a class="nav-link" id="reviews-tab" data-toggle="tab"
+												onclick="modify_casting()" role="tab">캐스팅
+												수정</a>
+										</li>
+									</c:if>
 								</ul>
+
 								<div class="tab-content" id="myTabContent">
 									<!-- Description Tab -->
 									<div class="tab-pane fade show active" id="description" role="tabpanel">

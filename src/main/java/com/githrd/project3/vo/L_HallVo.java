@@ -10,31 +10,31 @@ import lombok.NoArgsConstructor;
 @Alias("l_hall")
 public class L_HallVo {
 
-    int l_hall_idx;
-    int performance_date_idx;
-    int seat_idx;
-    int l_hall_row_no;
-    int l_hall_a;
-    int l_hall_b;
-    int l_hall_c;
-    int l_hall_d;
-    int l_hall_e;
-    int l_hall_f;
-    int l_hall_g;
-    int l_hall_h;
-    int l_hall_i;
-    int l_hall_j;
-    int l_hall_k;
-    int l_hall_l;
-    int l_hall_m;
-    int l_hall_n;
-    int l_hall_o;
-    int l_hall_p;
-    int l_hall_q;
-    int l_hall_r;
-    int l_hall_s;
-    int l_hall_t;
+  int l_hall_idx;
+  int performance_date_idx;
+  int seat_idx;
+  int l_hall_row_no;
+  int a;
+  int b;
+  int c;
+  int d;
+  int e;
+  int f;
+  int g;
+  int h;
+  int i;
+  int j;
+  int k;
+  int l;
+  int m;
+  int n;
+  int o;
+  int p;
+  int q;
+  int r;
+  int s;
+  int t;
 
-    SeatVo seatVo;
-    PerformanceDateVo performanceDateVo;
+  SeatVo seatVo;
+  PerformanceDateVo performanceDateVo;
 }
