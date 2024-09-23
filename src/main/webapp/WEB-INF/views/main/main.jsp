@@ -180,12 +180,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=8">
+														<a href="../detail/detail.do?performance_idx=9">
 															<img class="default-img" src="/../resources/template/images/장르용 썸데이.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=8">뮤지컬 썸데이</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=9">뮤지컬 썸데이</a></h3>
 														<div class="product-price">
 															<span>2023.09.01 ~ OPEN RUN</span>
 														</div>

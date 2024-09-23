@@ -218,9 +218,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
                           <li class="active"><a href="../main/list.do">Home</a></li>
-                          <li><a href="../performance/list.do">뮤지컬</a></li>
-                          <li><a href="#">콘서트</a></li>
-                          <li><a href="#">연극</a></li>
+                          <li><a href="../performance/list.do">전체 공연</a></li>
+                          <li><a href="../performance/category.do?performance_detail_cate_idx=1">뮤지컬</a></li>
+                          <li><a href="../performance/category.do?performance_detail_cate_idx=2">콘서트</a></li>
+                          <li><a href="../performance/category.do?performance_detail_cate_idx=3">연극</a></li>
                           <li>
                             <a href="../faq/list.do">고객센터<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
