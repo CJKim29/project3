@@ -788,6 +788,32 @@
                }
 
               </script>
+              <!-- 검색 -->
+              <script>
+               function find() {
+                let search = $("#search").val();
+                let search_text = $("#search_text").val().trim();
+
+                // 전체보기일 때 검색어를 비우기
+                if (search === "all") {
+                 search_text = "";
+                }
+
+                // 전체검색이 아닌데 검색어가 비어있으면
+                if (search !== "all" && search_text === "") {
+                 alert("검색어를 입력하세요.");
+                 $("#search_text").val("");
+                 $("#search_text").focus();
+                 return;
+                }
+
+                //자바스크립트 이용해서 호출
+                location.href =
+                 "review_list.do?performance_idx=" + "${ param.performance_idx }" +
+                 "&search_text=" +
+                 encodeURIComponent(search_text, "utf-8")
+               }
+              </script>
               <!-- review_list 함수 정의 -->
               <script>
                function review_list(page) {
