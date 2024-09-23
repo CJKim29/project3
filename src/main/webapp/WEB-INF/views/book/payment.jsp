@@ -20,31 +20,6 @@
      <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
      <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-     <script type="text/javascript">
-
-      // 입력 확인
-      function send(f) {
-       let mem_phone = $("#mem_phone").val();
-       let mem_phone_check = /^\d{7,8}$/;
-
-       if (mem_phone == '') {
-        alert("핸드폰 번호를 입력해주세요");
-        f.mem_phone.focus();
-        return;
-       }
-
-       if (mem_phone_check.test(mem_phone) == false) {
-        alert("핸드폰 번호를 올바른 형식으로 입력해주세요\n * 7-8자리 숫자 입력");
-        f.mem_phone.value = '';
-        f.mem_phone.focus();
-        return;
-       }
-
-       f.action = "payment.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}";
-       f.submit();
-      }// end : send();
-     </script>
-
     </head>
 
     <body>
@@ -59,14 +34,15 @@
        <div id="seat-box-header">
         <div class="seat-title" title="${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
             &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name }">
-         ${ vo.performanceCateVo.performance_cate_name }&nbsp; 「${
-         vo.performance_name }」 &nbsp;&nbsp;&nbsp;&nbsp;${ vo.hallVo.hall_name
-         } <br />
+
+         ${ vo.performanceCateVo.performance_cate_name }&nbsp;
+         「${vo.performance_name }」 &nbsp;&nbsp;&nbsp;&nbsp;
+         ${ vo.hallVo.hall_name}
+         <br>
         </div>
        </div>
 
        <div id="content_left">
-
         <div id="payment">
          <div class="content_title">결제 수단 선택</div>
          <input type="radio" name="performance_detail_cate_idx" value="0" checked />신용카드
@@ -76,6 +52,22 @@
 
         <div id="agree">
          <div class="content_title">예매자 동의</div>
+         <table class="table table-sm member_info">
+
+          <tr>
+           <th class="title">취소일</th>
+           <th class="title">취소수수료</th>
+          </tr>
+          <tr>
+           <td class="left">예매 후 1~7일</td>
+           <td>없음</td>
+          </tr>
+          <tr>
+           <td class="left">관람일 </td>
+           <td>티켓 금액의 30%</td>
+          </tr>
+
+         </table>
         </div>
 
        </div>
