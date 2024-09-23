@@ -81,7 +81,7 @@
             </ul>
         </c:if>
         <c:if test="${empty list}">
-            <p style="text-align: center; font-size: 20px;">검색된 공연이 없습니다.</p>
+            <p style="text-align: center; font-size: 30px;">검색된 공연이 없습니다.</p>
         </c:if>
     </div>
 

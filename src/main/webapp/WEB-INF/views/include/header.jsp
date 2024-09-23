@@ -193,9 +193,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <!-- 장바구니 버튼 부분 -->
                  <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
                 <div class="sinlge-bar shopping">
-                  <a href="../main/performance_like.do" class="single-icon"
-                    ><i class="ti-bag"></i
-                  ></a>
+                  <a href="../main/cart.do" class="single-icon"><i class="ti-bag"></i></a>
                   <!-- Shopping Item -->
                   <!-- 장바구니 부분 상세 삭제함 -->
                 </div>
@@ -331,6 +329,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
 
     </script>
+    
 
   </body>
 </html>

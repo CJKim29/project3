@@ -40,9 +40,9 @@ public class MainController {
         return "main/main";
     }
 
-    @RequestMapping("performance_like.do")
+    @RequestMapping("cart.do")
     public String cart(Model model) {
-        return "main/performance_like"; // WEB-INF/views/main/performance_like.jsp로 매핑한다
+        return "main/cart"; // WEB-INF/views/main/cart.jsp로 매핑한다
     }
 
     @RequestMapping("mypage.do")
