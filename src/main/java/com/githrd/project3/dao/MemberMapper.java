@@ -24,4 +24,8 @@ public interface MemberMapper {
     int delete(int mem_idx);
 
     void updateFilename(MemberVo vo);
+
+    MemberVo selectOne_phone(String mem_phone);
+
+    MemberVo selectOne_email(String mem_email);
 }

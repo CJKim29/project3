@@ -83,39 +83,59 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 
         // 좌석 클릭 이벤트 핸들러
         $(".seat").click(function () {
+          var selectedSeatCount = Object.keys(clickedSeats).length;
           // 클릭된 버튼의 행(row)과 열(column) 정보 추출
           var rowNo = $(this).data("row");
           var colNo = $(this).data("col");
 
+          let index = colNo.lastIndexOf("_");
+          colNo = colNo.substring(index + 1).charCodeAt(0) - 96;
+
           // 좌석 정보 문자열 생성
-          var seatInfo = rowNo + "열 " + colNo + "석";
+          // var seatInfo = rowNo + "열 " + colNo + "석";
+          var seatInfo = rowNo + "/" + colNo;
           var seatKey = rowNo + "-" + colNo;
 
-          // 클릭 횟수 업데이트
-          if (!clickedSeats[seatKey]) {
-            clickedSeats[seatKey] = 0;
-          }
-          clickedSeats[seatKey]++;
+          // 이미 선택된 좌석이거나, 4좌석 이하인 경우에만 처리
+          if (clickedSeats[seatKey] || selectedSeatCount < 4) {
+            // 클릭 횟수 업데이트
+            if (!clickedSeats[seatKey]) {
+              clickedSeats[seatKey] = 0;
+            }
+            clickedSeats[seatKey]++;
 
-          // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
-          if (clickedSeats[seatKey] % 2 === 1) {
-            // 홀수 클릭: 정보 추가
-            clickedSeats[seatKey] = seatInfo;
+            // 홀수 클릭이면 정보 추가, 짝수 클릭이면 정보 제거
+            if (clickedSeats[seatKey] % 2 === 1) {
+              // 홀수 클릭: 정보 추가
+              clickedSeats[seatKey] = seatInfo;
+            } else {
+              // 짝수 클릭: 정보 제거
+              delete clickedSeats[seatKey];
+            }
+
+            // 결과를 출력할 HTML 요소에 추가
+            var resultHtml = "";
+            for (var key in clickedSeats) {
+              resultHtml += "<p>" + clickedSeats[key] + "</p>";
+            }
+            $(".seat-info-container").html(resultHtml);
           } else {
-            // 짝수 클릭: 정보 제거
-            delete clickedSeats[seatKey];
+            alert("최대 4좌석까지만 선택할 수 있습니다. 다시 선택해주세요.");
+            // 좌석다시선택
+            redirectToCurrentPage();
           }
-
-          // 결과를 출력할 HTML 요소에 추가
-          var resultHtml = "";
-          for (var key in clickedSeats) {
-            resultHtml += "<p>" + clickedSeats[key] + "</p>";
-          }
-          $(".seat-info-container").html(resultHtml);
         });
         window.submitBookForm = function () {
           var form = $("#bookForm");
+
           form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
+
+          // 선택된 좌석이 있는지 확인
+          if (Object.keys(clickedSeats).length === 0) {
+            alert("좌석을 선택해주세요.");
+            return; // 좌석을 선택하지 않으면 폼 제출을 막음
+          }
+
           for (var key in clickedSeats) {
             $("<input>")
               .attr({
@@ -790,13 +810,16 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               />
               <br /><br /><br />
               <!-- 장바구니 담기 폼 -->
-              <form id="bookForm" action="book_reservation.do" method="post">
+              <form id="bookForm" action="../cart/insert.do" method="post">
                 <input
                   type="hidden"
                   name="performance_idx"
                   value="${param.performance_idx}"
                 />
+                <input type="hidden" name="mem_idx" value="${user.mem_idx}" />
                 <input type="hidden" name="date" value="${param.date}" />
+
+                />
                 <input
                   type="button"
                   class="btn btn-danger"

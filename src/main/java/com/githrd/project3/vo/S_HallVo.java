@@ -13,16 +13,16 @@ public class S_HallVo {
     private int performance_date_idx;
     private int seat_idx;
     private int s_hall_row_no;
-    private int s_hall_a;
-    private int s_hall_b;
-    private int s_hall_c;
-    private int s_hall_d;
-    private int s_hall_e;
-    private int s_hall_f;
-    private int s_hall_g;
-    private int s_hall_h;
-    private int s_hall_i;
-    private int s_hall_j;
+    private int a;
+    private int b;
+    private int c;
+    private int d;
+    private int e;
+    private int f;
+    private int g;
+    private int h;
+    private int i;
+    private int j;
 
     SeatVo seatVo;
     PerformanceDateVo performanceDateVo;

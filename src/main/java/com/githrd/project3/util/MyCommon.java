@@ -23,20 +23,8 @@ public class MyCommon {
 	// 공연 목록 페이징
 	public static class Performance {
 
-		public static final int BLOCK_LIST = 9; // 한 화면에 보여질 게시물 수
+		// public static final int BLOCK_LIST = 9; // 한 화면에 보여질 게시물 수
 		public static final int BLOCK_PAGE = 3; // 한 화면에 보여질 페이지 수
 	}
-
-	// public static class Concert_15 {
-
-	// public static final int BLOCK_LIST = 15; // 한 화면에 보여질 게시물 수
-	// public static final int BLOCK_PAGE = 3; // 한 화면에 보여질 페이지 수
-	// }
-
-	// public static class Concert_21 {
-
-	// public static final int BLOCK_LIST = 21; // 한 화면에 보여질 게시물 수
-	// public static final int BLOCK_PAGE = 3; // 한 화면에 보여질 페이지 수
-	// }
 
 }

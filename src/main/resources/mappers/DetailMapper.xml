@@ -90,4 +90,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="selectCastingFromIdx" parameterType="int" resultMap="castingMap">
 		select * from casting where performance_idx=#{ performance_idx }
    </select>
+
+   <!-- 공연 날짜 가져오기 -->
+   <select id="getPerformanceDates" resultType="string">
+      SELECT DATE_FORMAT(performance_date_date, '%Y-%m-%d') 
+      FROM performance_date
+      WHERE performance_idx = #{performance_idx}
+   </select>
 </mapper>

@@ -104,6 +104,84 @@
 			}// end:check_nickname()
 		</script>
 
+		<script type="text/javascript">
+
+			// 핸드폰번호 체크
+			function check_phone() {
+
+				$("#btn_register").prop("disabled", true);
+
+				let mem_phone = $("#mem_phone").val();
+				let mem_phone_check = /^[0-9]{10,11}$/;
+
+				if (mem_phone.length == 0) {
+					$("#phone_msg").html("");
+					return;
+				}
+
+				if (mem_phone_check.test(mem_phone) == false) {
+					$("#phone_msg").html("핸드폰번호는 10~11자리 숫자만 사용가능합니다.").css("color", "IndianRed");
+					return;
+				}
+
+				$.ajax({
+					url: "check_phone.do",
+					data: { "mem_phone": mem_phone },
+					dataType: "json",
+					success: function (res_data) {
+						if (res_data.result) {
+							$("#phone_msg").html("사용가능한 핸드폰번호 입니다.").css("color", "black");
+							$("#btn_register").prop("disabled", false);
+						} else {
+							$("#phone_msg").html("이미 사용중인 핸드폰번호 입니다.").css("color", "IndianRed");
+						}
+					},
+					error: function (err) {
+						alert("현재, 요청이 지연되고 있습니다.");
+					}
+				});
+			}// end:check_phone()
+		</script>
+
+		<script type="text/javascript">
+
+			// 이메일 체크
+			function check_email() {
+
+				$("#btn_register").prop("disabled", true);
+
+				let mem_email = $("#mem_email").val();
+				let mem_email_check = /^[가-힣ㄱ-ㅎA-Za-z0-9@.]{3,25}$/;
+
+				if (mem_email.length == 0) {
+					$("#email_msg").html("");
+					return;
+				}
+
+				if (mem_email_check.test(mem_email) == false) {
+					$("#email_msg").html("이메일은 3~25자리 영문 한글만 사용가능합니다.").css("color", "IndianRed");
+					return;
+				}
+
+				$.ajax({
+					url: "check_email.do",
+					data: { "mem_email": mem_email },
+					dataType: "json",
+					success: function (res_data) {
+						if (res_data.result) {
+							$("#email_msg").html("사용가능한 이메일 입니다.").css("color", "black");
+							$("#btn_register").prop("disabled", false);
+						} else {
+							$("#email_msg").html("이미 사용중인 이메일 입니다.").css("color", "IndianRed");
+						}
+					},
+					error: function (err) {
+						alert("현재, 요청이 지연되고 있습니다.");
+					}
+				});
+			}// end:check_emailname()
+		</script>
+
 
 		<script type="text/javascript">
 			// 주소 찾기 -> API
@@ -217,6 +295,25 @@
 								placeholder="닉네임 입력" onkeyup="check_nickname();">
 						</div>
 						<span id="nickname_msg" style="display: block; min-height: 20px;"></span>
+					</div>
+					<div class="form-group">
+						<div class="text1">
+							<input type="text" class="form-control" name="mem_birth" placeholder="생년월일 입력">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="text2">
+							<input type="text" class="form-control" name="mem_phone" id="mem_phone"
+								placeholder="핸드폰번호 입력" onkeyup="check_phone();">
+						</div>
+						<span id="phone_msg" style="display: block; min-height: 20px;"></span>
+					</div>
+					<div class="form-group">
+						<div class="text2">
+							<input type="text" class="form-control" name="mem_email" id="mem_email" placeholder="이메일 입력"
+								onkeyup="check_email();">
+						</div>
+						<span id="email_msg" style="display: block; min-height: 20px;"></span>
 					</div>
 					<div class="form-group">
 						<div class="text1">

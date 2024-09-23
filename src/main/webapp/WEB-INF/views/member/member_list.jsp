@@ -109,6 +109,9 @@
 							<th>회원명</th>
 							<th>닉네임</th>
 							<th>아이디</th>
+							<th>생년월일</th>
+							<th>핸드폰번호</th>
+							<th>이메일</th>
 							<th>비밀번호</th>
 							<th>우편번호</th>
 							<th>주소</th>
@@ -127,6 +130,9 @@
 								<td>${ vo.mem_name }</td>
 								<td>${ vo.mem_nickname }</td>
 								<td>${ vo.mem_id }</td>
+								<td>${fn:substring(vo.mem_birth, 0, 10)}</td>
+								<td>${ vo.mem_phone }</td>
+								<td>${ vo.mem_email }</td>
 								<td>${ vo.mem_pwd }</td>
 								<td>${ vo.mem_zipcode }</td>
 								<td>${ vo.mem_addr }</td>
