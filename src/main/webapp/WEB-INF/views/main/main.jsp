@@ -21,15 +21,15 @@
 					<div class="home-slider-4">
 						<!-- url 이동 필요할듯 누르면 해당 상세 페이지로 -->
 						 <!-- 이미지 크기는 1160x560  -->
-						 <a href="">
+						 <a href="../detail/detail.do?performance_idx=4">
 							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드용시카고2.png');">
 							</div>
 						</a>
-						<a href="">
+						<a href="../detail/detail.do?performance_idx=8">
 							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드용킹키부츠2.png');">
 							</div>
 						</a>
-						<a href="">
+						<a href="../detail/detail.do?performance_idx=17">
 							<div class="big-content" style="background-image: url('/../resources/template/images/슬라이드바 애니2.png');">
 							</div>
 						</a>
@@ -79,14 +79,14 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="">
+														<a href="../detail/detail.do?performance_idx=1">
 															<!-- 이미지 크기는 550x750  -->
 															<!-- 이미지 크기는 550x750  -->
 															<img class="default-img" src="/../resources/template/images/장르용 써니텐.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 써니텐</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=1">뮤지컬 써니텐</a></h3>
 														<div class="product-price">
 															<span>2022.07.08 ~ OPEN RUN</span>
 														</div>
@@ -96,12 +96,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="">
+														<a href="../detail/detail.do?performance_idx=3">
 															<img class="default-img" src="/../resources/template/images/장르용 김종욱 찾기.jpg" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 김종욱 찾기</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=3">뮤지컬 김종욱 찾기</a></h3>
 														<div class="product-price">
 															<span>2024.01.01 ~ OPEN RUN</span>
 														</div>
@@ -111,12 +111,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=30">
 															<img class="default-img" src="/../resources/template/images/장르용 라면.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 라면</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=30">연극 라면</a></h3>
 														<div class="product-price">
 															<span>2020.01.01 ~ OPEN RUN</span>
 														</div>
@@ -126,12 +126,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=29">
 															<img class="default-img" src="/../resources/template/images/장르용 은밀한연애.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 은밀한 연애</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=29">연극 은밀한 연애</a></h3>
 														<div class="product-price">
 															<span>2024.06.15 ~ OPEN RUN</span>
 														</div>
@@ -150,12 +150,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=4">
 															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 시카고</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=4">뮤지컬 시카고</a></h3>
 														<div class="product-price">
 															<span>2024.06.07 ~2024.09.29</span>
 														</div>
@@ -165,12 +165,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=5">
 															<img class="default-img" src="/../resources/template/images/장르용 부치하난.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 부치하난</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=5">뮤지컬 부치하난</a></h3>
 														<div class="product-price">
 															<span>2024.09.17 ~2024.11.17</span>
 														</div>
@@ -180,12 +180,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=9">
 															<img class="default-img" src="/../resources/template/images/장르용 썸데이.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 썸데이</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=9">뮤지컬 썸데이</a></h3>
 														<div class="product-price">
 															<span>2023.09.01 ~ OPEN RUN</span>
 														</div>
@@ -195,12 +195,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=7">
 															<img class="default-img" src="/../resources/template/images/장르용 베르사유.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 베르사유의 장미</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=7">뮤지컬 베르사유의 장미</a></h3>
 														<div class="product-price">
 															<span>2024.07.16 ~2024.10.13</span>
 														</div>
@@ -219,12 +219,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=18">
 															<img class="default-img" src="/../resources/template/images/장르용 스파이.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 스파이</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=18">뮤지컬 스파이</a></h3>
 														<div class="product-price">
 															<span>2024.08.06 ~ 2024.10.27</span>
 														</div>
@@ -234,12 +234,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=17">
 															<img class="default-img" src="/../resources/template/images/장르용 애니.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 애니</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=17">뮤지컬 애니</a></h3>
 														<div class="product-price">
 															<span>2024.10.01 ~ 2024.10.27</span>
 														</div>
@@ -249,12 +249,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=19">
 															<img class="default-img" src="/../resources/template/images/장르용 난타.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 난타</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=19">뮤지컬 난타</a></h3>
 														<div class="product-price">
 															<span>2022.07.08 ~ OPEN RUN</span>
 														</div>
@@ -264,12 +264,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=21">
 															<img class="default-img" src="/../resources/template/images/장르용 페인터즈.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 페인터즈</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=21">뮤지컬 페인터즈</a></h3>
 														<div class="product-price">
 															<span>2024.03.25 ~ 2024.10.31</span>
 														</div>
@@ -288,12 +288,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=15">
 															<img class="default-img" src="/../resources/template/images/장르용 하데스.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 하데스타운</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=15">뮤지컬 하데스타운</a></h3>
 														<div class="product-price">
 															<span>	2024.07.12 ~ 2024.10.06</span>
 														</div>
@@ -303,12 +303,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=42">
 															<img class="default-img" src="/../resources/template/images/장르용 그곳에.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 그곳에 있었다</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=42">연극 그곳에 있었다</a></h3>
 														<div class="product-price">
 															<span>2023.10.11 ~ 2024.09.30</span>
 														</div>
@@ -318,12 +318,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=45">
 															<img class="default-img" src="/../resources/template/images/장르용 크리미널.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 크리미널 시즌4</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=45">연극 크리미널 시즌4</a></h3>
 														<div class="product-price">
 															<span>2023.06.14 ~ OPEN RUN</span>
 														</div>
@@ -333,12 +333,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=44">
 															<img class="default-img" src="/../resources/template/images/장르용 자취.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 자취</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=44">연극 자취</a></h3>
 														<div class="product-price">
 															<span>2020.02.28 ~ OPEN RUN</span>
 														</div>
@@ -358,12 +358,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=22">
 															<img class="default-img" src="/../resources/template/images/장르용 베베핀.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 베베핀</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=22">뮤지컬 베베핀</a></h3>
 														<div class="product-price">
 															<span>2024.09.01 ~ 2024.09.22</span>
 														</div>
@@ -373,12 +373,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=48">
 															<img class="default-img" src="/../resources/template/images/장르용 아빠와난.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">연극 아빠와 난 초등 1학년</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=48">연극 아빠와 난 초등 1학년</a></h3>
 														<div class="product-price">
 															<span>2024.10.11 ~ 2024.10.13</span>
 														</div>
@@ -388,12 +388,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="../detail/detail.do?performance_idx=23">
 															<img class="default-img" src="/../resources/template/images/장르용 어린왕자.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">뮤지컬 어린왕자</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=23">뮤지컬 어린왕자</a></h3>
 														<div class="product-price">
 															<span>2024.08.02 ~ 2024.09.29</span>
 														</div>
@@ -403,12 +403,12 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="">
+														<a href="../detail/detail.do?performance_idx=24">
 															<img class="default-img" src="/../resources/template/images/장르용 어린이캣.png" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="">뮤지컬 오리지널 어린이 캣</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=24">뮤지컬 오리지널 어린이 캣</a></h3>
 														<div class="product-price">
 															<span>2024.10.30 ~ 2024.11.20</span>
 														</div>
@@ -449,7 +449,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="#">
+								<a href="../detail/detail.do?performance_idx=37">
 									<img class="default-img" src="/../resources/template/images/최신용 2호선.png" alt="#">
 								</a>
 								<!-- <a href="#" class="buy"></a> -->
@@ -469,7 +469,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="#">
+								<a href="../detail/detail.do?performance_idx=13">
 									<img class="default-img" src="/../resources/template/images/최신용 프리즌.png" alt="#">
 								</a>
                             </div>
@@ -488,7 +488,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="#">
+								<a href="../detail/detail.do?performance_idx=38">
 									<img class="default-img" src="/../resources/template/images/최신용 런투.png" alt="#">
 								</a>
                             </div>
@@ -516,7 +516,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="#">
+								<a href="../detail/detail.do?performance_idx=1">
 									<img class="default-img" src="/../resources/template/images/랭킹용써니텐.png" alt="#">
 								</a>
                             </div>
@@ -535,7 +535,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="#">
+								<a href="../detail/detail.do?performance_idx=2">
 									<img class="default-img" src="/../resources/template/images/랭킹용 인사이드미.png" alt="#">
 								</a>
                             </div>
@@ -554,7 +554,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="#">
+								<a href="../detail/detail.do?performance_idx=3">
 									<img class="default-img" src="/../resources/template/images/랭킹용김종욱찾기.png" alt="#">
 								</a>
                             </div>
