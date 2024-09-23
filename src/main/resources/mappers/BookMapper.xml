@@ -34,16 +34,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectRemainSeat_S" resultType="int">
         SELECT 
             COALESCE(
-                (SUM(s_hall_a = 0) +
-                SUM(s_hall_b = 0) +
-                SUM(s_hall_c = 0) +
-                SUM(s_hall_d = 0) +
-                SUM(s_hall_e = 0) +
-                SUM(s_hall_f = 0) +
-                SUM(s_hall_g = 0) +
-                SUM(s_hall_h = 0) +
-                SUM(s_hall_i = 0) +
-                SUM(s_hall_j = 0)), 0) AS zero_count
+                (SUM(A = 0) +
+                SUM(B = 0) +
+                SUM(C = 0) +
+                SUM(D = 0) +
+                SUM(E = 0) +
+                SUM(F = 0) +
+                SUM(G = 0) +
+                SUM(H = 0) +
+                SUM(I = 0) +
+                SUM(J = 0)), 0) AS zero_count
         FROM s_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};
