@@ -174,13 +174,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <option>통합검색</option>
                   </select>
                   <!-- search 검색 -->
-                  <form id="searchForm" action="../performance/performance_search.do" method="GET">
+                  <form id="searchForm" action="../performance/performance_search.do" method="GET" onsubmit="return validateSearch()">
                     <input
                       id="searchInput"
                       name="search"
                       placeholder="찾으실 공연을 입력해주세요"
                       type="search"
-                      required
                     />
                     <button class="btnn" type="submit"><i class="ti-search"></i></button>
                   </form>
@@ -284,6 +283,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Active JS -->
     <script src="../resources/template/js/active.js"></script>
 
+
+
+
     <script>
 
       $(document).ready(function() {
@@ -330,6 +332,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     </script>
     
+    <!-- 메인 검색창 경고창 -->
+    <script>
+      function validateSearch() {
+        var searchInput = document.getElementById('searchInput');
+        
+        // 검색어가 입력되지 않았을 경우
+        if (searchInput.value.trim() === "") {
+          alert('공연 제목을 입력해주세요');
+          searchInput.value = ""; // 입력된 글자를 지움
+          searchInput.focus(); // 포커스를 입력 필드로 다시 설정
+          return false; // 폼 제출을 막음
+        }
+        
+        return true; // 검색어가 있을 경우 폼을 제출
+      }
+    </script>
 
   </body>
 </html>
