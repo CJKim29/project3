@@ -1,7 +1,6 @@
 package com.githrd.project3.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -475,6 +474,18 @@ public class DetailPageController {
     map.put("p_filename", p_filename);
 
     return map;
+  }
+
+  @RequestMapping("casting_modify_form.do")
+  public String casting_modify(@RequestParam(value = "performance_idx", required = false) Integer performance_idx,
+      Model model) {
+    PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+    List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+
+    model.addAttribute("vo", vo);
+    model.addAttribute("list", list);
+
+    return "detailpage/casting_modify_form";
   }
 
 }

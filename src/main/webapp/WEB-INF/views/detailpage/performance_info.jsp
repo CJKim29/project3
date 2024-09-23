@@ -181,6 +181,10 @@
 							location.href = "modify_form.do?performance_idx=${ vo.performance_idx }";
 						}
 
+						function modify_casting() {
+							location.href = "casting_modify_form.do?performance_idx=${vo.performance_idx}"
+						}
+
 					</script>
 
 					<script type="text/javascript"
@@ -238,8 +242,8 @@
 												onclick="modify_detail()" role="tab">정보
 												수정</a></li>
 										<li class="nav-item">
-											<a class="nav-link" id="reviews-tab" data-toggle="tab" href="#"
-												role="tab">캐스팅
+											<a class="nav-link" id="reviews-tab" data-toggle="tab"
+												onclick="modify_casting()" role="tab">캐스팅
 												수정</a>
 										</li>
 									</c:if>
