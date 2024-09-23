@@ -745,6 +745,18 @@
                테스트</button>
               <input class="btn" type="button" onclick="performance_info();" value="공연정보">
               <input class="btn" type="button" onclick="review_list();" value="후기목록">
+              <br /><br>
+              <input id="search_text" class="form-control" value="${param.search_text}" style="
+                  height: 40px;
+                  margin-right: 5px;
+                  font-size: 16px;
+                  width: 200px;
+                " />
+              <input id="search_btn" type="button" class="btn" value="검색" onclick="find();"
+               style="height: 40px; margin-right: 5px" />
+              <a href="#" onclick="review_list();">&emsp;최신순&emsp;</a>
+              <a href="#" onclick="review_old_list();">오래된순&emsp;</a>
+              <a href="#" onclick="review_star_list();">별점순&emsp;</a>
               <script>
                // performance_info 함수 정의
                function performance_info() {
@@ -807,6 +819,76 @@
                 e.preventDefault(); // 기본 링크 동작 방지
                 var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
                 review_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_old_list 함수 정의 -->
+              <script>
+               function review_old_list(page) {
+                var performance_idx = "${param.performance_idx}";
+                var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_old_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: nowPage
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                  window.history.pushState(
+                   { page: 'review_old_list', nowPage: nowPage }, // state에 review_old_list로 이름 설정
+                   'Review Old List',
+                   'review_old_list.do?performance_idx=' + performance_idx + '&page=' + nowPage  // URL 변경
+                  );
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_old_list로 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_old_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_star_list 함수 정의 -->
+              <script>
+               function review_star_list(page) {
+                var performance_idx = "${param.performance_idx}";
+                var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_star_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: nowPage
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                  window.history.pushState(
+                   { page: 'review_star_list', nowPage: nowPage }, // state에 review_star_list 이름 설정
+                   'Review Star List',
+                   'review_star_list.do?performance_idx=' + performance_idx + '&page=' + nowPage  // URL 변경
+                  );
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_star_list 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_star_list(page); // 해당 페이지로 AJAX 요청
                });
               </script>
 

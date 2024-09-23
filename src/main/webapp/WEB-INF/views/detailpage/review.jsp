@@ -311,8 +311,6 @@
                      후기(${fn:length(list_review)})&emsp;</span>
                     <fmt:formatNumber value="${ avgScore }" type="number" maxFractionDigits="2" />/5
                    </h6>
-                   검색&emsp;
-                   최신순&nbsp;오래된순&nbsp;별점순
                    <div class="nav-main">
                     <ul class="nav nav-tabs" style="width: 100%;" id="myReview" role="tablist">
                      <li class="nav-item">
