@@ -735,28 +735,31 @@
             <div class="nav-main">
              <!-- Tab Nav -->
              <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">공연정보</a>
-              </li>
               <li class="nav-item">
-               <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab">관람 후기</a>
+               <a class="nav-link btn active clicked" id="performance-tab" onclick="toggleClickedEffect();"
+                href="javascript:void(0);" role="button">공연정보</a>
               </li>
-              <button type="button"
-               onclick="location.href='review_list.do?performance_idx=${param.performance_idx}'">ajax
-               테스트</button>
-              <input class="btn" type="button" onclick="performance_info();" value="공연정보">
-              <input class="btn" type="button" onclick="review_list();" value="후기목록">
-              <br /><br>
-              <input id="search_text" class="form-control" value="${param.search_text}" style="
-                  height: 40px;
-                  margin-right: 5px;
-                  font-size: 16px;
-                  width: 200px;
-                " />
-              <input id="search_btn" type="button" class="btn" value="검색" onclick="find();"
-               style="height: 40px; margin-right: 5px" />
-              <a href="#" onclick="review_list();">&emsp;최신순&emsp;</a>
-              <a href="#" onclick="review_old_list();">오래된순&emsp;</a>
-              <a href="#" onclick="review_star_list();">별점순&emsp;</a>
+
+              <script>
+               // 페이지 로드 시 performance_info() 호출
+               window.onload = function () {
+                document.getElementById('performance-tab').classList.add('clicked');
+                performance_info(); // 페이지 로드 시 함수 호출
+               };
+
+               // 클릭했을 때 'clicked' 클래스 추가
+               function toggleClickedEffect() {
+                var element = document.getElementById('performance-tab');
+                element.classList.add('clicked');
+                performance_info(); // 클릭 시 기존 함수 호출
+               }
+              </script>
+
+              <li class="nav-item">
+               <a class="nav-link btn" id="reviews-tab" onclick="review_list();" href="javascript:void(0);"
+                role="button">관람 후기</a>
+              </li>
+
               <script>
                // performance_info 함수 정의
                function performance_info() {
@@ -777,8 +780,6 @@
                   // 응답 데이터를 특정 div에 출력
                   $("#resultDiv").html(response);
 
-                  // URL 업데이트
-                  window.history.pushState({ page: 'performance_info' }, 'Performance Info', 'performance_info.do?performance_idx=' + performance_idx);
                  },
                  error: function (xhr, status, error) {
                   // 에러 발생 시 처리
@@ -791,16 +792,9 @@
               <!-- 검색 -->
               <script>
                function find() {
-                let search = $("#search").val();
                 let search_text = $("#search_text").val().trim();
 
-                // 전체보기일 때 검색어를 비우기
-                if (search === "all") {
-                 search_text = "";
-                }
-
-                // 전체검색이 아닌데 검색어가 비어있으면
-                if (search !== "all" && search_text === "") {
+                if (search_text === "") {
                  alert("검색어를 입력하세요.");
                  $("#search_text").val("");
                  $("#search_text").focus();
@@ -814,6 +808,39 @@
                  encodeURIComponent(search_text, "utf-8")
                }
               </script>
+              <script>
+               function search() {
+                var performance_idx = "${param.performance_idx}";
+
+                let search_text = $("#search_text").val().trim();
+
+                // 검색어가 비어 있으면 경고 메시지 표시
+                if (search_text === "") {
+                 alert("검색어를 입력하세요.");
+                 $("#search_text").val("");
+                 $("#search_text").focus();
+                 return;
+                }
+
+                $.ajax({
+                 url: "review_list.do",
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  search_text: search_text,
+                  page: nowPage
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                  alert("검색 중 오류가 발생했습니다.");
+                 }
+                });
+               }
+              </script>
+
               <!-- review_list 함수 정의 -->
               <script>
                function review_list(page) {
@@ -829,11 +856,6 @@
                  },
                  success: function (response) {
                   $("#resultDiv").html(response);
-                  window.history.pushState(
-                   { page: 'review_list', nowPage: nowPage },
-                   'Review List',
-                   'review_list.do?performance_idx=' + performance_idx + '&page=' + nowPage
-                  );
                  },
                  error: function (xhr, status, error) {
                   console.error("AJAX 호출 실패:", error);
@@ -863,11 +885,6 @@
                  },
                  success: function (response) {
                   $("#resultDiv").html(response);
-                  window.history.pushState(
-                   { page: 'review_old_list', nowPage: nowPage }, // state에 review_old_list로 이름 설정
-                   'Review Old List',
-                   'review_old_list.do?performance_idx=' + performance_idx + '&page=' + nowPage  // URL 변경
-                  );
                  },
                  error: function (xhr, status, error) {
                   console.error("AJAX 호출 실패:", error);
@@ -898,11 +915,6 @@
                  },
                  success: function (response) {
                   $("#resultDiv").html(response);
-                  window.history.pushState(
-                   { page: 'review_star_list', nowPage: nowPage }, // state에 review_star_list 이름 설정
-                   'Review Star List',
-                   'review_star_list.do?performance_idx=' + performance_idx + '&page=' + nowPage  // URL 변경
-                  );
                  },
                  error: function (xhr, status, error) {
                   console.error("AJAX 호출 실패:", error);

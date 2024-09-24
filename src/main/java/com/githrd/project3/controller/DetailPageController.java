@@ -150,7 +150,7 @@ public class DetailPageController {
 
  @RequestMapping("review_list.do")
  public String review_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
-   int performance_idx, String search_text, Model model) {
+   int performance_idx, Model model) {
 
   PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
   List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
@@ -195,8 +195,6 @@ public class DetailPageController {
     rowTotal,
     MyCommon.Review.BLOCK_LIST,
     MyCommon.Review.BLOCK_PAGE);
-
-  map.put("search_text", search_text);
 
   // 게시판 목록가져오기
   List<ReviewVo> review_row_list = review_mapper.review_page_list(map);
