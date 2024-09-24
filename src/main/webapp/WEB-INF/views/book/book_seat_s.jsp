@@ -688,13 +688,18 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               />
               <br /><br /><br />
               <!-- 장바구니 담기 폼 -->
-              <form id="bookForm" action="book_reservation.do" method="post">
+              <form id="bookForm" action="../cart/insert.do" method="post">
                 <input
                   type="hidden"
                   name="performance_idx"
                   value="${param.performance_idx}"
                 />
-                <input type="hidden" name="date" value="${param.date}" />
+                <input type="hidden" name="mem_idx" value="${user.mem_idx}" />
+                <input
+                  type="hidden"
+                  name="reserved_performance_date"
+                  value="${param.date}"
+                />
                 <input
                   type="button"
                   class="btn btn-danger"

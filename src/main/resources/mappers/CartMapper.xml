@@ -42,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         cs.cart_seat_idx,
         cs.seat_idx,
         s.seat_grade,
-        s.seat_price
+        s.seat_price,
+        cs.cart_seat_name
     FROM cart_seat cs 
     INNER JOIN seat s ON cs.seat_idx = s.seat_idx
     WHERE cs.cart_idx = #{cart_idx}
