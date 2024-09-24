@@ -307,23 +307,25 @@
                 <div class="col-12">
                  <div class="ratting-main">
                   <div class="avg-ratting" style="display: flex; justify-content: space-between; align-items: center;">
-                   <h6 style="width: 300px;"><span>&emsp;관람
+                   <h6 style="width: 500px;"><span>&emsp;관람
                      후기(${fn:length(list_review)})&emsp;</span>
                     <fmt:formatNumber value="${ avgScore }" type="number" maxFractionDigits="2" />/5
                    </h6>
-                   <input id="search_text" class="form-control" value="${param.search_text}" style="
+                   <!-- <input id="search_text" class="form-control" value="${param.search_text}" style="
                   height: 40px;
                   margin-right: 5px;
                   font-size: 16px;
                   width: 200px;
-                " />
-                   <input id="search_btn" type="button" class="btn" value="검색1" onclick="search();"
-                    style="height: 40px; margin-right: 5px" />
-                   <input id="search_btn" type="button" class="btn" value="검색2" onclick="find();"
-                    style="height: 40px; margin-right: 5px" />
-                   <a href="#" onclick="review_list();">&emsp;최신순&emsp;</a>
-                   <a href="#" onclick="review_old_list();">오래된순&emsp;</a>
-                   <a href="#" onclick="review_star_list();">별점순&emsp;</a>
+                " /> -->
+                   <!-- <input id="search_btn" type="button" class="btn" value="검색1" onclick="search();"
+                    style="height: 40px; margin-right: 5px" /> -->
+                   <!-- <input id="search_btn" type="button" class="btn" value="검색2" onclick="find();"
+                    style="height: 40px; margin-right: 5px" /> -->
+                   <a href="#" onclick="review_list('${param.performance_idx}',1);">최신글순&emsp;</a>
+                   <a href="#" onclick="review_old_list('${param.performance_idx}',1);">오래된글순&emsp;</a>
+                   <a href="#" onclick="review_star_list('${param.performance_idx}',1);">별점높은순&emsp;</a>
+                   <a href="#" onclick="review_low_star_list('${param.performance_idx}',1);">별점낮은순&emsp;</a>
+                   <a href="#" onclick="review_readhit_list('${param.performance_idx}',1);">조회순&emsp;</a>
                    <div class="nav-main">
                     <ul class="nav nav-tabs" style="width: 100%;" id="myReview" role="tablist">
                      <li class="nav-item">
@@ -453,10 +455,7 @@
                        </ul>
                        <!-- <h6 style="width: 200px;">${review.mem_nickname }</h6> -->
                        <h6 style="width: 120px;">
-                        ${fn:substring(review.mem_nickname,
-                        0,
-                        fn:length(review.mem_nickname)
-                        - 2)}**</h6>
+                        &emsp;${fn:substring(review.mem_nickname, 0, fn:length(review.mem_nickname) - 2)}**</h6>
                        <div class="nav-main">
                         <ul class="nav nav-tabs" style="width: 100%;" id="myReviewInside" role="tablist">
                          <li class="nav-item">
@@ -613,22 +612,9 @@
                 </div>
                </div>
               </div>
+
               <!-- Pagination -->
-              <div class="pagination">
-               <c:if test="${currentPage > 1}">
-                <a href="#" class="paging-button" data-page="${currentPage - 1}">←</a>
-               </c:if>
-
-               <c:forEach var="i" begin="1" end="${totalPages}">
-                <a href="#" class="paging-button" data-page="${i}">
-                 ${i}
-                </a>
-               </c:forEach>
-
-               <c:if test="${currentPage < totalPages}">
-                <a href="#" class="paging-button" data-page="${currentPage + 1}">→</a>
-               </c:if>
-              </div>
+              <div style="text-align: center !important; margin: auto;">${ pageMenu }</div>
               <!--/ End Pagination -->
              </div>
              <!--/ End Reviews Tab -->

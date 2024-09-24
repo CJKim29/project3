@@ -736,8 +736,8 @@
              <!-- Tab Nav -->
              <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-               <a class="nav-link btn active clicked" id="performance-tab" onclick="toggleClickedEffect();"
-                href="javascript:void(0);" role="button">공연정보</a>
+               <a class="nav-link btn" id="performance-tab" onclick="toggleClickedEffect();" href="javascript:void(0);"
+                role="button">공연정보</a>
               </li>
 
               <script>
@@ -756,8 +756,8 @@
               </script>
 
               <li class="nav-item">
-               <a class="nav-link btn" id="reviews-tab" onclick="review_list();" href="javascript:void(0);"
-                role="button">관람 후기</a>
+               <a class="nav-link btn" id="reviews-tab" onclick="review_list('${param.performance_idx}',1);"
+                href="javascript:void(0);" role="button">관람 후기</a>
               </li>
 
               <script>
@@ -790,7 +790,7 @@
 
               </script>
               <!-- 검색 -->
-              <script>
+              <!-- <script>
                function find() {
                 let search_text = $("#search_text").val().trim();
 
@@ -839,20 +839,20 @@
                  }
                 });
                }
-              </script>
+              </script> -->
 
               <!-- review_list 함수 정의 -->
               <script>
-               function review_list(page) {
-                var performance_idx = "${param.performance_idx}";
-                var nowPage = page || 1;
+               function review_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
 
                 $.ajax({
                  url: "review_list.do",
                  type: "GET",
                  data: {
                   performance_idx: performance_idx,
-                  page: nowPage
+                  page: page
                  },
                  success: function (response) {
                   $("#resultDiv").html(response);
@@ -872,16 +872,16 @@
 
               <!-- review_old_list 함수 정의 -->
               <script>
-               function review_old_list(page) {
-                var performance_idx = "${param.performance_idx}";
-                var nowPage = page || 1;
+               function review_old_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
 
                 $.ajax({
                  url: "review_old_list.do",  // 요청할 URL 수정
                  type: "GET",
                  data: {
                   performance_idx: performance_idx,
-                  page: nowPage
+                  page: page
                  },
                  success: function (response) {
                   $("#resultDiv").html(response);
@@ -902,16 +902,76 @@
 
               <!-- review_star_list 함수 정의 -->
               <script>
-               function review_star_list(page) {
-                var performance_idx = "${param.performance_idx}";
-                var nowPage = page || 1;
+               function review_star_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
 
                 $.ajax({
                  url: "review_star_list.do",  // 요청할 URL 수정
                  type: "GET",
                  data: {
                   performance_idx: performance_idx,
-                  page: nowPage
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_star_list 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_star_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_low_star_list 함수 정의 -->
+              <script>
+               function review_low_star_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_low_star_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_star_list 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_star_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_readhit_list 함수 정의 -->
+              <script>
+               function review_readhit_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_readhit_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
                  },
                  success: function (response) {
                   $("#resultDiv").html(response);

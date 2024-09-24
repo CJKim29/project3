@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY r.review_idx desc;
  </select>
 
- <!-- 전체조회 오래된순 -->
+ <!-- 전체조회 오래된글순 -->
  <select id="selectReviewOldList" resultType="review">
     SELECT 
         r.review_idx, r.review_title, r.review_content,
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
 
- <!-- 전체조회 별점순 -->
+ <!-- 전체조회 별점높은순 -->
  <select id="selectReviewStarList" resultType="review">
 		SELECT r.review_idx, r.review_title, r.review_content,
            r.mem_nickname, r.review_regdate, r.review_readhit,
@@ -45,6 +45,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     LEFT JOIN review_score rs ON r.review_idx = rs.review_idx
     WHERE r.performance_idx = #{performance_idx}
     ORDER BY rs.review_score_point desc, review_score_idx desc;
+ </select>
+
+ <!-- 전체조회 별점높은순 -->
+ <select id="selectReviewLowStarList" resultType="review">
+		SELECT r.review_idx, r.review_title, r.review_content,
+           r.mem_nickname, r.review_regdate, r.review_readhit,
+           rs.review_score_point, m.mem_filename, m.mem_idx
+    FROM review r
+    JOIN member m ON r.mem_idx = m.mem_idx
+    LEFT JOIN review_score rs ON r.review_idx = rs.review_idx
+    WHERE r.performance_idx = #{performance_idx}
+    ORDER BY rs.review_score_point asc, review_score_idx desc;
+ </select>
+
+ <!-- 전체조회 조회순 -->
+ <select id="selectReviewReadHitList" resultType="review">
+		SELECT r.review_idx, r.review_title, r.review_content,
+           r.mem_nickname, r.review_regdate, r.review_readhit,
+           rs.review_score_point, m.mem_filename, m.mem_idx
+    FROM review r
+    JOIN member m ON r.mem_idx = m.mem_idx
+    LEFT JOIN review_score rs ON r.review_idx = rs.review_idx
+    WHERE r.performance_idx = #{performance_idx}
+    ORDER BY r.review_readhit desc, review_score_idx desc;
  </select>
 
  <!-- 리뷰 작성(insert) -->
@@ -116,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
- <!-- paging 별 조회 -->
+ <!-- paging 별 최신글순 조회 -->
  <select id="review_page_list" parameterType="Map" resultType="review">
     SELECT *
     FROM (
@@ -143,7 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
- <!-- paging 별 오래된 순 조회 -->
+ <!-- paging 별 오래된글순 조회 -->
  <select id="review_page_old_list" parameterType="Map" resultType="review">
     SELECT *
     FROM (
@@ -165,7 +189,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
 
- <!-- paging 별 별점 순 조회 -->
+ <!-- paging 별 별점높은순 조회 -->
  <select id="review_page_star_list" parameterType="Map" resultType="review">
     SELECT *
     FROM (
@@ -186,7 +210,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE no BETWEEN #{start} AND #{end};  -- 지정된 범위의 데이터만 반환
  </select>
 
+ <!-- paging 별 별점낮은순 조회 -->
+ <select id="review_page_low_star_list" parameterType="Map" resultType="review">
+    SELECT *
+    FROM (
+        SELECT 
+            r.review_idx, r.review_title, r.review_content,
+            r.mem_nickname, r.review_regdate, r.review_readhit,
+            rs.review_score_point, m.mem_filename, m.mem_idx,
+            ROW_NUMBER() OVER (ORDER BY rs.review_score_point ASC, r.review_idx DESC) AS no  -- 별점 순 정렬 후 행 번호 부여
+        FROM 
+            review r
+        JOIN 
+            member m ON r.mem_idx = m.mem_idx
+        LEFT JOIN 
+            review_score rs ON r.review_idx = rs.review_idx
+        WHERE 
+            r.performance_idx = #{performance_idx}
+    ) AS ranked_reviews
+    WHERE no BETWEEN #{start} AND #{end};  -- 지정된 범위의 데이터만 반환
+ </select>
 
+ <!-- paging 별 조회순 조회 -->
+ <select id="review_readhit_list" parameterType="Map" resultType="review">
+    SELECT *
+    FROM (
+        SELECT 
+            r.review_idx, r.review_title, r.review_content,
+            r.mem_nickname, r.review_regdate, r.review_readhit,
+            rs.review_score_point, m.mem_filename, m.mem_idx,
+            ROW_NUMBER() OVER (ORDER BY r.review_readhit DESC, r.review_idx DESC) AS no  -- 별점 순 정렬 후 행 번호 부여
+        FROM 
+            review r
+        JOIN 
+            member m ON r.mem_idx = m.mem_idx
+        LEFT JOIN 
+            review_score rs ON r.review_idx = rs.review_idx
+        WHERE 
+            r.performance_idx = #{performance_idx}
+    ) AS ranked_reviews
+    WHERE no BETWEEN #{start} AND #{end};  -- 지정된 범위의 데이터만 반환
+ </select>
 
  <!-- 수정 폼 review_idx에 해당되는 게시물 정보 -->
  <select id="review_one_from_idx" parameterType="int" resultType="review">

@@ -189,8 +189,8 @@ public class DetailPageController {
   int rowTotal = review_mapper.review_row_total(map);
 
   // pageMenu생성하기
-  String pageMenu = Paging3.getPaging(
-    "review_list.do?performance_idx=" + performance_idx,
+  String pageMenu = Paging3.getReviewPaging(
+    performance_idx,
     nowPage,
     rowTotal,
     MyCommon.Review.BLOCK_LIST,
@@ -211,6 +211,7 @@ public class DetailPageController {
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
 
+  System.out.println("rowtotal: " + rowTotal);
   return "detailpage/review";
  }
 
@@ -255,8 +256,8 @@ public class DetailPageController {
   int rowTotal = review_mapper.review_row_total(map);
 
   // pageMenu생성하기
-  String pageMenu = Paging3.getPaging(
-    "review_list.do?performance_idx=" + performance_idx,
+  String pageMenu = Paging3.getReviewOldPaging(
+    performance_idx,
     nowPage,
     rowTotal,
     MyCommon.Review.BLOCK_LIST,
@@ -321,8 +322,8 @@ public class DetailPageController {
   int rowTotal = review_mapper.review_row_total(map);
 
   // pageMenu생성하기
-  String pageMenu = Paging3.getPaging(
-    "review_list.do?performance_idx=" + performance_idx,
+  String pageMenu = Paging3.getReviewStarPaging(
+    performance_idx,
     nowPage,
     rowTotal,
     MyCommon.Review.BLOCK_LIST,
@@ -330,6 +331,138 @@ public class DetailPageController {
 
   // 게시판 목록가져오기
   List<ReviewVo> review_row_list = review_mapper.review_page_star_list(map);
+
+  // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+  // DS는 model에 저장된 데이터를 request binding시킨다
+
+  model.addAttribute("review_row_list", review_row_list);
+  model.addAttribute("pageMenu", pageMenu);
+
+  // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
+  int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.Review.BLOCK_LIST); // 전체 페이지 수
+
+  model.addAttribute("totalPages", totalPages);
+  model.addAttribute("currentPage", nowPage);
+
+  return "detailpage/review";
+ }
+
+ @RequestMapping("review_low_star_list.do")
+ public String review_low_star_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+   int performance_idx, Model model) {
+
+  PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+  List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+
+  model.addAttribute("vo", vo);
+  model.addAttribute("list", list);
+
+  MemberVo user = (MemberVo) session.getAttribute("user");
+
+  int likeCount = detail_mapper.getTotalLikeCount(performance_idx);
+
+  model.addAttribute("likeCount", likeCount);
+
+  if (user != null) {
+   // 로그인된 경우, 좋아요 여부를 가져오기
+   boolean isLiked = detail_mapper.findLike(performance_idx, user.getMem_idx());
+
+   model.addAttribute("isLiked", isLiked);
+  }
+
+  Double avgScore = review_score_mapper.avgScore(performance_idx);
+  model.addAttribute("avgScore", avgScore);
+
+  Map<String, Object> map = new HashMap<String, Object>();
+
+  int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
+  int end = start + MyCommon.Review.BLOCK_LIST - 1;
+
+  map.put("performance_idx", performance_idx);
+  map.put("start", start);
+  map.put("end", end);
+
+  List<ReviewVo> list_review = review_mapper.selectReviewLowStarList(performance_idx);
+  model.addAttribute("list_review", list_review);
+  // 전체 게시물 수
+  int rowTotal = review_mapper.review_row_total(map);
+
+  // pageMenu생성하기
+  String pageMenu = Paging3.getReviewLowStarPaging(
+    performance_idx,
+    nowPage,
+    rowTotal,
+    MyCommon.Review.BLOCK_LIST,
+    MyCommon.Review.BLOCK_PAGE);
+
+  // 게시판 목록가져오기
+  List<ReviewVo> review_row_list = review_mapper.review_page_low_star_list(map);
+
+  // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+  // DS는 model에 저장된 데이터를 request binding시킨다
+
+  model.addAttribute("review_row_list", review_row_list);
+  model.addAttribute("pageMenu", pageMenu);
+
+  // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
+  int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.Review.BLOCK_LIST); // 전체 페이지 수
+
+  model.addAttribute("totalPages", totalPages);
+  model.addAttribute("currentPage", nowPage);
+
+  return "detailpage/review";
+ }
+
+ @RequestMapping("review_readhit_list.do")
+ public String review_readhit_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+   int performance_idx, Model model) {
+
+  PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+  List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+
+  model.addAttribute("vo", vo);
+  model.addAttribute("list", list);
+
+  MemberVo user = (MemberVo) session.getAttribute("user");
+
+  int likeCount = detail_mapper.getTotalLikeCount(performance_idx);
+
+  model.addAttribute("likeCount", likeCount);
+
+  if (user != null) {
+   // 로그인된 경우, 좋아요 여부를 가져오기
+   boolean isLiked = detail_mapper.findLike(performance_idx, user.getMem_idx());
+
+   model.addAttribute("isLiked", isLiked);
+  }
+
+  Double avgScore = review_score_mapper.avgScore(performance_idx);
+  model.addAttribute("avgScore", avgScore);
+
+  Map<String, Object> map = new HashMap<String, Object>();
+
+  int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
+  int end = start + MyCommon.Review.BLOCK_LIST - 1;
+
+  map.put("performance_idx", performance_idx);
+  map.put("start", start);
+  map.put("end", end);
+
+  List<ReviewVo> list_review = review_mapper.selectReviewReadHitList(performance_idx);
+  model.addAttribute("list_review", list_review);
+  // 전체 게시물 수
+  int rowTotal = review_mapper.review_row_total(map);
+
+  // pageMenu생성하기
+  String pageMenu = Paging3.getReviewReadHitPaging(
+    performance_idx,
+    nowPage,
+    rowTotal,
+    MyCommon.Review.BLOCK_LIST,
+    MyCommon.Review.BLOCK_PAGE);
+
+  // 게시판 목록가져오기
+  List<ReviewVo> review_row_list = review_mapper.review_readhit_list(map);
 
   // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
   // DS는 model에 저장된 데이터를 request binding시킨다

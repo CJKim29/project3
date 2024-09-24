@@ -55,4 +55,12 @@ public interface ReviewMapper {
 
  List<ReviewVo> selectReviewStarList(int performance_idx);
 
+ List<ReviewVo> selectReviewLowStarList(int performance_idx);
+
+ List<ReviewVo> selectReviewReadHitList(int performance_idx);
+
+ List<ReviewVo> review_page_low_star_list(Map<String, Object> map);
+
+ List<ReviewVo> review_readhit_list(Map<String, Object> map);
+
 }
