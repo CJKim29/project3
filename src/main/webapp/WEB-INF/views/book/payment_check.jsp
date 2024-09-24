@@ -46,7 +46,7 @@
 
        // "&selectedSeats=" + "${param.selectedSeats}" => 이거 넣을 시 row 관련해서 오류남
        //f.action = "payment.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&selectedSeats=" + "${param.selectedSeats}" + "&seatInfo=" + "${param.seatInfo}";
-       f.action = "payment.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
+       f.action = "payment_agree.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
 
        alert(f.action); // 이 부분 추가하여 URL 확인
 
@@ -67,9 +67,11 @@
 
      <!-- 포인트 관련 함수 -->
      <script type="text/javascript">
+
       document.addEventListener('DOMContentLoaded', function () {
 
        //DOMContentLoaded 이벤트 핸들러 안에 있는 usePointAll 함수를 전역 스코프에 다시 정의하여 HTML에서 직접 호출할 수 있도록 함
+       // 모두 사용 버튼
        window.usePointAll = function () {
 
         // 보유 포인트를 JSP에서 가져와 숫자로 변환
@@ -80,12 +82,12 @@
 
         document.getElementById('used_point').value = formattedPoints;
 
-        // 보유 포인트 업데이트
+        // 사용 포인트 업데이트
+        updateUsedPoints(formattedPoints);
         updateAvailablePoints(availablePoints);
-
        }// end : usePointAll()
 
-
+       // 취소 버튼
        window.cancle = function () {
 
         // 'used_point' 필드의 값을 '0'으로 설정
@@ -93,53 +95,47 @@
 
         // '0'으로 설정된 값을 반영하여 보유 포인트 업데이트
         const totalPoints = parseInt("${user.mem_point}", 10);
-        updateAvailablePoints(totalPoints);
 
+        updateUsedPoints('0');
+        updateAvailablePoints(totalPoints);
        }
 
+       // 사용 포인트와 남은 포인트 업데이트 함수
+       function updateUsedPoints(usedPoints) {
+        document.getElementById('used_point2').textContent = usedPoints;
+       }
 
        function updateAvailablePoints(totalPoints) {
         // 사용자가 입력한 포인트 값을 숫자로 변환 (쉼표 제거)
         const usedPoints = parseInt(document.getElementById('used_point').value.replace(/,/g, ''), 10) || 0;
-
         // 남은 포인트 계산
         const remainingPoints = totalPoints - usedPoints;
 
         // 남은 포인트를 포맷팅하여 표시
         document.getElementById('available_points').textContent = remainingPoints.toLocaleString() + "P";
+
        }// end : updateAvailablePoints()
 
        // 'used_point' input 필드에 'input' 이벤트 추가
        document.getElementById('used_point').addEventListener('input', function () {
-
         // 보유 포인트를 서버에서 받아옴
         const totalPoints = parseInt("${user.mem_point}", 10);
-        //let usedPoints = parseInt(this.value.replace(/,/g, ''), 10) || 0;
         let usedPoints = this.value.replace(/[^0-9]/g, ''); // 숫자 이외의 모든 문자를 제거
 
-        // 입력 값이 비어 있을 경우 '0'으로 설정
-        // if (this.value.trim() === '') {
-        //  usedPoints = 0;
-        //  this.value = '0';
-        // }
-
-        // // 보유 포인트를 초과하는 경우 보유 포인트로 제한
-        // if (usedPoints > totalPoints) {
-        //  usedPoints = totalPoints;
-        //  this.value = usedPoints.toLocaleString(); // 입력 필드 값을 보유 포인트로 수정
-        // }
         if (usedPoints === '') {
          usedPoints = 0; // 입력 값이 없으면 0으로 설정
         }
 
-        this.value = usedPoints.toLocaleString(); // 필드에 숫자만 입력되도록 반영
+        //this.value = usedPoints.toLocaleString(); // 필드에 숫자만 입력되도록 반영
 
         if (parseInt(usedPoints, 10) > totalPoints) {
-         this.value = totalPoints.toLocaleString(); // 보유 포인트를 초과하면 보유 포인트로 제한
+         usedPoints = totalPoints; // 보유 포인트를 초과하면 보유 포인트로 제한
         }
 
-        //console.log("사용 포인트: " + this.value); // 디버깅용 콘솔 로그
+        this.value = parseInt(usedPoints, 10).toLocaleString(); // 포맷팅
 
+        // 사용 포인트 업데이트
+        updateUsedPoints(this.value);
         updateAvailablePoints(totalPoints);
 
        });
@@ -149,17 +145,85 @@
         if (this.value === '0') {
          this.value = '';
         }
-        document.getElementById('used_point').addEventListener('blur', function () {
-         // 입력 필드가 포커스를 잃을 때, 값이 비어있다면 '0'을 설정
-         if (this.value.trim() === '') {
-          this.value = '0';
-         }
-         updateAvailablePoints(parseInt("${user.mem_point}", 10));
-        });
        });
 
+       document.getElementById('used_point').addEventListener('blur', function () {
+        // 입력 필드가 포커스를 잃을 때, 값이 비어있다면 '0'을 설정
+        if (this.value.trim() === '') {
+         this.value = '0';
+        }
+        // 사용 포인트 업데이트
+        updateUsedPoints(this.value);
+        updateAvailablePoints(parseInt("${user.mem_point}", 10));
+       });
+
+       function TotalPayment() {
+        // 티켓 금액 합산
+        let ticketAmount = 0;
+        const seatPricesElement = document.querySelector('#ticket_amount');
+
+        // seatPrices에서 각 가격을 추출
+        // seatPrices.forEach(function (seatPrice) {
+        //  const prices = seatPrice.textContent.match(/\d+/g); // 모든 숫자 추출
+        //  if (prices) {
+        //   prices.forEach(function (price) {
+        //    ticketAmount += parseInt(price.replace(/,/g, ''), 10); // 각 가격을 정수로 변환하여 합산
+        //   });
+        //  }
+        // });
 
 
+        // 요소 존재하는지 확인
+        if (!seatPricesElement) {
+         console.error("티켓 금액 요소를 찾을 수 없습니다.");
+         return; // 함수 종료
+        }
+
+        // 모든 가격을 추출
+        const prices = seatPricesElement.innerHTML.match(/\d+/g); // 모든 숫자 추출
+
+        if (prices) {
+         prices.forEach(function (price) {
+          ticketAmount += parseInt(price.replace(/,/g, ''), 10); // 각 가격을 정수로 변환하여 합산
+         });
+        }
+
+        // 사용 포인트 값 가져오기
+        let usedPoints = parseInt(document.getElementById('used_point2').textContent.replace(/[^0-9]/g, ''), 10) || 0;
+
+        // 총 결제 금액 계산
+        let totalPayment = ticketAmount - usedPoints;
+
+        // 총 결제 금액이 음수가 되지 않도록 처리
+        if (totalPayment < 0) totalPayment = 0;
+
+        // 총 결제 금액을 HTML에 반영
+        document.getElementById('total_payment').textContent = totalPayment.toLocaleString() + "원";
+
+        console.log("티켓 금액:", ticketAmount);
+        console.log("사용 포인트:", usedPoints);
+        console.log("총 결제 금액:", totalPayment);
+       }
+
+       // 페이지 로드 시 초기 계산
+       TotalPayment();
+
+       // MutationObserver를 사용하여 'used_point2'의 변화를 감지
+       const targetNode = document.getElementById('used_point2');
+       const config = { characterData: true, childList: true, subtree: true };
+
+       const callback = function (mutationsList) {
+        // 각 mutation에 대해 처리
+        for (let mutation of mutationsList) {
+         if (mutation.type === 'childList' || mutation.type === 'characterData') {
+          TotalPayment(); // 변화가 있을 때마다 총 결제 금액을 재계산
+          break; // 여러 mutation을 처리할 필요가 없으므로 한 번만 재계산
+         }
+        }
+       };
+
+       const observer = new MutationObserver(callback);
+       observer.observe(targetNode, config);
       });
      </script>
 
@@ -221,9 +285,9 @@
           <td class="left">포인트</td>
           <td>
            <!-- 숫자 fomatting 하기 위해 text로 사용(쉼표 때문에) -->
-           <input type="text" id="used_point" class="form-control use_point" value="0">
+           <input type="text" id="used_point" class="form-control" value="0">
 
-           <input type="button" class="btn" value="X" onclick="cancle();">
+           <input type="button" class="btn X_btn" value="X" onclick="cancle();">
            <input type="button" class="btn btn-warning" value="모두 사용" onclick="usePointAll()">
 
            <div class="point_state">
@@ -231,8 +295,8 @@
              <fmt:formatNumber type="number" value="${user.mem_point}" />P/
             </span>
 
+            <span>보유</span>
             <span id="available_points">
-             보유
              <fmt:formatNumber type="number" value="${user.mem_point}" />P
             </span>
            </div>
@@ -259,29 +323,30 @@
            <td>선택 좌석</td>
            <td>
             <c:forEach var="info" items="${seatInfo}">
-             ${info}석<br />
+             ${info}석<br>
             </c:forEach>
            </td>
           </tr>
 
           <tr>
            <td>티켓 금액</td>
-           <td>
-            <c:forEach var="seat" items="${vo.seatList}">
+           <td id="ticket_amount">
+            40000
+            <!-- <c:forEach var="seat" items="${vo.seatList}">
              <fmt:formatNumber type="number" value="${seat.seat_price}" />원
              <br>
-            </c:forEach>
+            </c:forEach> -->
            </td>
           </tr>
 
           <tr>
            <td>포인트 사용</td>
-           <td>???</td>
+           <td><span id="used_point2">0</span></td>
           </tr>
 
           <tr>
            <td>총 결제 금액</td>
-           <td>0원</td>
+           <td><span id="total_payment">0원</span></td>
           </tr>
          </table>
 

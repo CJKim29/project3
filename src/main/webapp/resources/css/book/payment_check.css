@@ -83,6 +83,16 @@ table{
 
 .left{
   /* background-color: rgb(221, 223, 225); */
+  
+}
+
+.X_btn{
+ width:40px !important;
+ /* height: 30px !important;
+ border-radius:60px !important;
+ text-align: center !important;
+ vertical-align: middle !important;
+ font-size: 15px; */
 }
 
 /* input number 화살표 제거 */
@@ -98,7 +108,7 @@ input::-webkit-inner-spin-button {
  margin-top: 7px;
 }
 
-.use_point{
+#used_point{
  width:70px !important; 
  display: inline !important;
 }

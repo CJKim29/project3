@@ -56,6 +56,8 @@ body {
   border-right: black 1px solid;
   /* background-color: #eeeeee !important; */
   padding: 30px;
+  overflow: scroll;
+  overflow-x: hidden;
  }
 
 #content_right {
@@ -68,15 +70,31 @@ body {
 }
 
 .content_title{
+ display: inline-block;
  font-size: 15px;
  font-weight: bold;
  margin-bottom: 10px;
 }
 
+.title2{
+ font-size: 15px;
+ font-weight: bold;
+ margin-bottom: 10px;
+}
 #agree{
 margin-top: 30px;
 }
 
+.checkbox{
+ display: inline-block !important;
+}
+.personal_info{
+ width: 410px;
+ height: 150px;
+ border: 1px solid black;
+ overflow: scroll;
+ overflow-x: hidden; /*가로스크롤 제거*/
+}
 .btn{
   width: 100px;
 }

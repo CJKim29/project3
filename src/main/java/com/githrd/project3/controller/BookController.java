@@ -7,9 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +23,10 @@ import com.githrd.project3.vo.L_HallVo;
 import com.githrd.project3.vo.M_HallVo;
 import com.githrd.project3.vo.S_HallVo;
 import com.githrd.project3.vo.X_PerformanceVo;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -47,6 +53,8 @@ public class BookController {
 
  @Autowired
  L_HallMapper l_hall_mapper;
+
+ // private final IamportClient iamportClient;
 
  @RequestMapping("list.do")
  public String list(Model model) {
@@ -268,8 +276,8 @@ public class BookController {
   return "book/payment_check";
  }
 
- @RequestMapping("payment.do")
- public String payment(@RequestParam("performance_idx") int performance_idx,
+ @RequestMapping("payment_agree.do")
+ public String payment_agree(@RequestParam("performance_idx") int performance_idx,
    @RequestParam("date") String performance_date,
    @RequestParam("selectedSeats") String selectedSeatsJson,
    @RequestParam("seatInfo") List<String> seatInfo,
@@ -282,7 +290,7 @@ public class BookController {
   model.addAttribute("selectedSeats", selectedSeatsJson);
   model.addAttribute("seatInfo", seatInfo);
 
-  return "/book/payment";
+  return "/book/payment_agree";
  }
 
  @PostMapping("/book_reservation.do")
@@ -317,4 +325,25 @@ public class BookController {
   model.addAttribute("seatInfo", seatInfo);
   return "/mypage/my_reservation"; // book_result.jsp로 이동
  }
+
+ @RequestMapping("payment.do")
+ public String payment() {
+
+  return "/book/payment";
+ }
+
+ // 아임포트 결제 요청
+ // public PaymentController() {
+ // this.iamportClient = new IamportClient("REST_API_KEY",
+ // "REST_API_SECRET");
+ // }
+
+ // @ResponseBody
+ // @RequestMapping("/verify/{imp_uid}")
+ // public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid")
+ // String imp_uid)
+ // throws IamportResponseException, IOException {
+ // return iamportClient.paymentByImpUid(imp_uid);
+ // }
+
 }
