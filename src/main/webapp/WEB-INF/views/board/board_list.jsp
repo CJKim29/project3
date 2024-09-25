@@ -134,7 +134,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <!-- Start Blog Grid -->
     <div class="blog-single shop-blog grid section" style="padding-top: 30px">
       <div class="container">
-        <h3 id="title" style="margin-bottom: 20px">::::게시판::::</h3>
+        <h3 id="title" style="margin-bottom: 20px">게시판</h3>
         <div class="row">
           <!-- 검색메뉴 -->
           <div style="text-align: right; margin-bottom: 5px">

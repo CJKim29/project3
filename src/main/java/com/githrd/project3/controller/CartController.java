@@ -1,83 +1,83 @@
 package com.githrd.project3.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.CartMapper;
+import com.githrd.project3.dao.Cart_seatMapper;
 import com.githrd.project3.dao.L_HallMapper;
 import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.vo.CartVo;
-import com.githrd.project3.vo.L_HallVo;
-import com.githrd.project3.vo.M_HallVo;
-import com.githrd.project3.vo.PerformanceVo;
-import com.githrd.project3.vo.S_HallVo;
-import com.githrd.project3.vo.X_PerformanceVo;
-
+import com.githrd.project3.vo.Cart_seatVo;
+import com.githrd.project3.vo.MemberVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/cart/")
 public class CartController {
+  @Autowired
+  HttpServletRequest request;
+  @Autowired
+  HttpSession session;
+  @Autowired
+  CartMapper cart_mapper;
+  @Autowired
+  Cart_seatMapper cart_seat_mapper;
+  @Autowired
+  BookMapper book_mapper;
+  @Autowired
+  S_HallMapper s_hall_mapper;
+  @Autowired
+  M_HallMapper m_hall_mapper;
+  @Autowired
+  L_HallMapper l_hall_mapper;
 
-    @Autowired
-    HttpServletRequest request;
+  @RequestMapping("list.do")
+  public String list(Model model) {
+    MemberVo user = (MemberVo) session.getAttribute("user");
+    // 회원 별 장바구니 목록 가져오기
+    List<CartVo> list = cart_mapper.cart_list(user.getMem_idx());
+    model.addAttribute("list", list);
+    return "cart/cart_list";
+  }
 
-    @Autowired
-    HttpSession session;
+  @RequestMapping("insert.do")
+  public String insert(@RequestParam("seatInfo") List<String> seatInfo, CartVo cartVo) {
+    // 장바구니 정보 먼저 등록(유저, 공연 정보)
+    int res = cart_mapper.cart_insert(cartVo);
+    // 최근장바구니 번호 얻어오기
+    int cart_idx = cart_mapper.cart_recent_idx();
+    // 좌석등록(반복문)
+    for (String seat : seatInfo) {
+      // "x열x석" 형식에서 "열"과 "석"으로 분리
+      String[] seatParts = seat.split("열|석");
 
-    @Autowired
-    CartMapper cart_mapper;
+      int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
 
-    @Autowired
-    BookMapper book_mapper;
+      int seat_idx = cart_mapper.selectOne_seat_idx(cartVo.getPerformance_idx(), row);
 
-    @Autowired
-    S_HallMapper s_hall_mapper;
+      Cart_seatVo vo = new Cart_seatVo();
+      vo.setCart_idx(cart_idx); // 최근 등록된 cart_idx 사용
+      vo.setSeat_idx(seat_idx);
+      vo.setCart_seat_name(seat);
 
-    @Autowired
-    M_HallMapper m_hall_mapper;
-
-    @Autowired
-    L_HallMapper l_hall_mapper;
-
-    @RequestMapping("list.do")
-    public String list(Model model) {
-
-        // 장바구니 목록 가져오기
-        List<CartVo> list = cart_mapper.cart_list();
-
-        model.addAttribute("list", list);
-
-        return "cart/cart_list";
+      // 좌석 정보 삽입
+      cart_seat_mapper.cart_seat_insert(vo);
     }
+    return "redirect:list.do";
+  }
 
-    @RequestMapping("insert.do")
-    public String insert(@RequestParam("seatInfo") List<String> seatInfo,
-            @RequestParam("date") String performance_date, Model model, CartVo cartVo) {
-        System.out.println("--------------");
-        System.out.println(cartVo);
-        System.out.println("--------------");
+  @RequestMapping("delete.do")
+  public String delete(int cart_idx) {
 
-        System.out.println("--------------");
-        for (String seat : seatInfo) {
-            System.out.println(seat);
-        }
-        System.out.println("--------------");
+    int res = cart_mapper.cart_delete(cart_idx);
 
-        int res = cart_mapper.cart_insert(cartVo);
-
-        // 최근장바구니 번호 얻어오기 select max(c_idx) from cart
-
-        // 좌석등록(반복문)
-
-        return "redirect:list.do";
-    }
+    return "redirect:list.do";
+  }
 }

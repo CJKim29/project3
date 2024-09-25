@@ -45,4 +45,10 @@ public interface DetailMapper {
     List<CastingVo> selectCastingFromIdx(int performance_idx);
 
     List<String> getPerformanceDates(int performance_idx);
+
+    // 파일이름 변경
+    int updateFilename(PerformanceVo vo);
+
+    // 수정
+    int update(PerformanceVo vo);
 }

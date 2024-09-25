@@ -6,6 +6,14 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="zxx">
   <head>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
+    <script>
+      function cart_delete(cart_idx) {
+        
+        if(confirm("정말 삭제하시겠습니까?")==false)return;
+
+        location.href= "delete.do?cart_idx="+cart_idx;
+      }
+     </script> 
   </head>
   <body class="js">
     <!-- Shopping Cart -->
@@ -18,13 +26,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             <table class="table shopping-summery">
               <thead>
                 <tr class="main-hading">
-                  <!-- <th class="text-center">공연</th> -->
+                   <th class="text-center">공연</th> 
                   <th class="text-center">공연명</th>
                   <th class="text-center">공연장</th>
                   <th class="text-center">공연날짜</th>
                   <th class="text-center">예매 좌석정보</th>
                   <th class="text-center">가격</th>
-                  <th class="text-center">취소</th>
+                  <th class="text-center">결제/삭제</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,38 +43,45 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     </td>
                   </tr>
                 </c:if>
-                <c:forEach var="vo" items="${ list }">
+                 <c:forEach var="vo" items="${ list }">
                   <tr>
-                    <!-- <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td> -->
-                    <!-- 제목 -->
+                    <td class="image" data-title="No"><img src="../resources/images/${ vo.performance_image }" alt="#"></td> 
+                    <!-- 공연명 -->
                     <td class="product-des" data-title="Description">
                       <p class="product-name">
-                        <a>${ vo.performance_name }</a>
+                        ${ vo.performance_name }
+                        <!-- <a></a> -->
                       </p>
                     </td>
                     <!-- 공연장 -->
                     <td class="price" data-title="Price">
-                      <span>${ vo.hall_name }</span>
+                        ${ vo.hall_name }
+                      <!-- <span></span> -->
                     </td>
                     <!-- 공연날짜 -->
                     <td class="price" data-title="Price">
-                      <span>${ param.date }</span>
+                      ${ vo.reserved_performance_date }
+                      <!-- <span></span> -->
                     </td>
                     <!-- 예매 좌석정보 -->
                     <td class="total-amount" data-title="Total">
-                      <span
-                        ><c:forEach var="info" items="${seatInfo}">
-                          ${info}<br /> </c:forEach
-                      ></span>
+                      <c:forEach var="seat" items="${vo.seatList}">
+                           ${seat.cart_seat_name} <br />
+                      </c:forEach>
                     </td>
                     <!-- 금액 -->
-                    <td class="action" data-title="checkout">금액</td>
-                    <!-- 취소 -->
+                    <td class="action" data-title="checkout">
+                      <span><c:forEach var="seat" items="${vo.seatList}">
+                        ${seat.seat_grade}석 / ${seat.seat_price}원<br />
+                      </c:forEach></span>
+                    </td>
+                    <!-- 결제/취소 -->
                     <td class="action" data-title="Remove">
-                      <a href="#"><i class="ti-trash remove-icon"></i></a>
+                      <input type="button" value="결제">
+                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }');">
                     </td>
                   </tr>
-                </c:forEach>
+                </c:forEach> 
               </tbody>
             </table>
             <!--/ End Shopping Summery -->
@@ -75,7 +90,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       </div>
     </div>
     <!--/ End Shopping Cart -->
-
     <jsp:include page="/WEB-INF/views/include/footer.jsp" />
   </body>
 </html>

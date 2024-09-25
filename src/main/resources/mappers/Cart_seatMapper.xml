@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.Cart_seatMapper">
+
+  <insert id="cart_seat_insert" parameterType="cart_seat">
+    INSERT INTO cart_seat (
+        cart_idx,
+        seat_idx,
+        cart_seat_name) values (#{cart_idx}, #{seat_idx}, #{cart_seat_name});
+  </insert>
+</mapper>

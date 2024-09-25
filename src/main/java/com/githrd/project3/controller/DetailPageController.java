@@ -1,5 +1,6 @@
 package com.githrd.project3.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.DetailMapper;
@@ -29,6 +31,7 @@ import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.ReviewScoreVo;
 import com.githrd.project3.vo.ReviewVo;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -51,6 +54,9 @@ public class DetailPageController {
 
  @Autowired
  ReviewScoreMapper review_score_mapper;
+
+ @Autowired
+ ServletContext application;
 
  @RequestMapping("detail.do")
  public String detail_page(@RequestParam(name = "page", defaultValue = "1") int nowPage,
@@ -211,7 +217,6 @@ public class DetailPageController {
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
 
-  System.out.println("rowtotal: " + rowTotal);
   return "detailpage/review";
  }
 
@@ -674,12 +679,77 @@ public class DetailPageController {
   return "detailpage/detail_modify_form";
  }
 
- // @RequestMapping("detail_img_upload.do")
- // @ResponseBody
- // public Map<String, String> upload(MultipartFile photo, RedirectAttributes ra,
- // int performance_idx){
+ @RequestMapping("modify.do")
+ public String modify2(int performance_idx, String performance_detail_info, String performance_al, PerformanceVo vo) {
 
- // return map;
- // }
+  // 빈 문자열을 null로 변환
+  if (performance_detail_info != null && performance_detail_info.trim().isEmpty()) {
+   performance_detail_info = null;
+  } else {
+   performance_detail_info = performance_detail_info.replaceAll("\n", "<br>");
+  }
+
+  if (performance_al != null && performance_al.trim().isEmpty()) {
+   performance_al = null;
+  } else {
+   performance_al = performance_al.replaceAll("\n", "<br>");
+  }
+
+  vo.setPerformance_idx(performance_idx);
+  vo.setPerformance_detail_info(performance_detail_info);
+  vo.setPerformance_al(performance_al);
+
+  detail_mapper.update(vo);
+
+  return "redirect:detail.do?performance_idx=" + performance_idx;
+ }
+
+ @RequestMapping("detail_img_upload.do")
+ @ResponseBody
+ public Map<String, String> upload(MultipartFile photo, RedirectAttributes ra,
+   int performance_idx) throws Exception {
+
+  String absPath = application.getRealPath("/resources/images/");
+
+  String p_filename = "no_file";
+
+  if (!photo.isEmpty()) {
+   p_filename = photo.getOriginalFilename();
+
+   File f = new File(absPath, p_filename);
+
+   if (f.exists()) {
+    long tm = System.currentTimeMillis();
+    p_filename = String.format("%d_%s", tm, p_filename);
+
+    f = new File(absPath, p_filename);
+   }
+
+   photo.transferTo(f);
+  }
+
+  PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+  File delFile = new File(absPath, vo.getPerformance_detail_image());
+  delFile.delete();
+
+  vo.setPerformance_detail_image(p_filename);
+  detail_mapper.updateFilename(vo);
+  Map<String, String> map = new HashMap<String, String>();
+  map.put("p_filename", p_filename);
+
+  return map;
+ }
+
+  @RequestMapping("casting_modify_form.do")
+  public String casting_modify(@RequestParam(value = "performance_idx", required = false) Integer performance_idx,
+      Model model) {
+    PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+    List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+
+    model.addAttribute("vo", vo);
+    model.addAttribute("list", list);
+
+    return "detailpage/casting_modify_form";
+  }
 
 }
