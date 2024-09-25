@@ -153,6 +153,11 @@
 							loadMap();
 						}
 
+						function showSaram(actor_idx) {
+							$("#MyModal").modal({ backdrop: "static" });
+
+						}
+
 						function handleLikeClick() {
 
 							//로그인 상태 체크
@@ -199,6 +204,12 @@
 					<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 					<script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
 					<link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+					<!-- Popper.js (Bootstrap 4의 tooltips, popovers에 필요) -->
+					<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+					<!-- Bootstrap 4 JavaScript -->
+					<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 
 				</head>
@@ -266,7 +277,8 @@
 																<c:forEach var="castingVo" items="${ list }">
 																	<div id="casting_list">
 																		<div id="actor_box">
-																			<a href="#">
+																			<a href="#"
+																				onclick="showSaram(`${castingVo.actor_idx}`)">
 																				<img id="actor_pic"
 																					src="../resources/images/${castingVo.actorVo.actor_pic}">
 																			</a>
@@ -765,6 +777,31 @@
 								</div>
 							</div>
 
+						</div>
+					</div>
+
+					<!-- The Modal -->
+					<div class="modal" id="MyModal">
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h4 class="modal-title">Modal Heading</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+
+								<!-- Modal body -->
+								<div class="modal-body">
+									Modal body..
+								</div>
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								</div>
+
+							</div>
 						</div>
 					</div>
 
