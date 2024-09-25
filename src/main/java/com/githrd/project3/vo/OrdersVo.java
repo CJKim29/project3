@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Alias("order")
+@Alias("orders")
 public class OrdersVo {
 
  int order_idx; // 주문번호

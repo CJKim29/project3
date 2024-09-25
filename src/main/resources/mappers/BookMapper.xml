@@ -4,34 +4,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.BookMapper">
 
-    <resultMap id="performanceListMap" type="x_performance">
-        <result property="hall_idx" column="hall_idx"/>
-        <result property="performance_cate_idx" column="performance_cate_idx"/>
+ <resultMap id="performanceListMap" type="x_performance">
+  <result property="hall_idx" column="hall_idx"/>
+  <result property="performance_cate_idx" column="performance_cate_idx"/>
 
-        <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list_listmap" />
-        <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_listmap" />
-    </resultMap>
+  <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list_listmap" />
+  <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_listmap" />
+ </resultMap>
 
-    <!-- 전체조회 -->
-    <select id="selectList" resultMap="performanceListMap">
+ <!-- 전체조회 -->
+ <select id="selectList" resultMap="performanceListMap">
 		select * from performance order by performance_idx
-    </select>
+ </select>
 
-    <!-- idx조회 -->
-    <select id="selectOneFromIdx" resultMap="performanceOneMap">
+ <!-- idx조회 -->
+ <select id="selectOneFromIdx" resultMap="performanceOneMap">
 		select * from performance where performance_idx=#{ performance_idx }
-    </select>
+ </select>
 
-    <!-- performance_date_idx 조회 -->
-    <select id="selectPerformanceDateIdx" resultType="int">
+ <!-- performance_date_idx 조회 -->
+ <select id="selectPerformanceDateIdx" resultType="int">
         SELECT performance_date_idx 
         FROM performance_date 
         WHERE SUBSTRING(performance_date_date, 1, 10) = #{performance_date} 
         AND performance_idx = #{performance_idx};
-    </select>
+ </select>
 
-    <!-- 남은 좌석 수 조회 -->
-    <select id="selectRemainSeat_S" resultType="int">
+ <!-- 남은 좌석 수 조회 -->
+ <select id="selectRemainSeat_S" resultType="int">
         SELECT 
             COALESCE(
                 (SUM(A = 0) +
@@ -47,9 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM s_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};
-    </select>
+ </select>
 
-    <select id="selectRemainSeat_M" resultType="int">
+ <select id="selectRemainSeat_M" resultType="int">
         select
             COALESCE(
                 (sum(m_hall_a = 0) +
@@ -70,9 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM m_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};        
-    </select>
+ </select>
 
-    <select id="selectRemainSeat_L" resultType="int">
+ <select id="selectRemainSeat_L" resultType="int">
         SELECT 
             COALESCE(
                 (SUM(l_hall_a = 0) +
@@ -98,47 +98,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM l_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};
-    </select>
+ </select>
 
-    <select id="getPerformanceDateIdx" parameterType="map" resultType="int">
+ <select id="getPerformanceDateIdx" parameterType="map" resultType="int">
         SELECT performance_date_idx
         FROM performance_date
         WHERE performance_idx = #{performance_idx}
         AND SUBSTRING(performance_date_date, 1, 10) = #{performance_date}
-    </select>
+ </select>
 
 
-    <resultMap id="performanceOneMap" type="x_performance">
-        <result property="hall_idx" column="hall_idx"/>
-        <result property="performance_cate_idx" column="performance_cate_idx"/>
-        <result property="performance_idx" column="performance_idx"/>
-        <result property="seat_idx" column="seat_idx"/>
+ <resultMap id="performanceOneMap" type="x_performance">
+  <result property="hall_idx" column="hall_idx"/>
+  <result property="performance_cate_idx" column="performance_cate_idx"/>
+  <result property="performance_idx" column="performance_idx"/>
+  <result property="seat_idx" column="seat_idx"/>
 
-        <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list_onemap" />
-        <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_onemap" />
-        <collection property="seatList" column="performance_idx=performance_idx" select="seat_list_onemap" />
-    </resultMap>
+  <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list_onemap" />
+  <association property="hallVo" column="hall_idx=hall_idx" select="hall_list_onemap" />
+  <collection property="seatList" column="performance_idx=performance_idx" select="seat_list_onemap" />
+ </resultMap>
 
 
-    <select id="performance_cate_list_onemap" resultType="performance_cate">
+ <select id="performance_cate_list_onemap" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
-    </select>
-    <select id="hall_list_onemap" resultType="hall">
+ </select>
+ <select id="hall_list_onemap" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-    </select>
-    <select id="seat_list_onemap" resultType="seat">
+ </select>
+ <select id="seat_list_onemap" resultType="seat">
        select * from seat where performance_idx=#{ performance_idx }
-    </select>
-    <select id="performance_cate_list_listmap" resultType="performance_cate">
+ </select>
+ <select id="performance_cate_list_listmap" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
-    </select>
-    <select id="hall_list_listmap" resultType="hall">
+ </select>
+ <select id="hall_list_listmap" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-    </select>
-    <!-- 안쓰는 코드들 -->
+ </select>
 
-    <!-- 잔여좌석 조회 -->
-    <!-- <select id="selectRemainSeat" resultType="int" parameterType="map">
+
+
+
+ <!-- 주문 테이블에 정보 추가 -->
+ <insert id="ordersInsert" parameterType="orders">
+    insert into orders values( null,
+                              #{performance_idx},
+                              #{member_idx},
+                              #{seat_idx},
+                              #{order_date},
+                              #{order_amount}
+                            );
+ </insert>
+
+ <select id="selectOneFromOrderIdx" parameterType="int" resultType="orders">
+  select * from orders where order_idx = #{order_idx};
+ </select>
+
+
+
+
+
+
+
+ <!-- 안쓰는 코드들 -->
+
+ <!-- 잔여좌석 조회 -->
+ <!-- <select id="selectRemainSeat" resultType="int" parameterType="map">
     SELECT
         COALESCE(
             (SUM(s_hall_a = 0) +
@@ -158,8 +183,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND performance_date_idx = 6;
     </select> -->
 
-    <!-- performance_date를 performance_date_idx로 변환 -->
-    <!-- <select id="getPerformanceDateIdxByDate" resultType="int">
+ <!-- performance_date를 performance_date_idx로 변환 -->
+ <!-- <select id="getPerformanceDateIdxByDate" resultType="int">
     SELECT performance_date_idx
     FROM performance_date
     WHERE performance_date_date = #{performanceDate}

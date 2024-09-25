@@ -3,25 +3,34 @@ package com.githrd.project3.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.siot.IamportRestClient.IamportClient;
+import java.io.IOException;
 
+import com.githrd.project3.dao.BookMapper;
+import com.githrd.project3.vo.OrdersVo;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
+
+// service : 비즈니스 로직을 처리함 -> 실제 결제 검증이나 추가 작업 처리
 @Service
 public class PaymentService {
 
  @Autowired
- private IamportClient iamportClient;
+ BookMapper book_mapper;
 
- public String createPayment(String merchantUid, int amount) {
-  // 결제 요청 생성 및 API 호출
-  // 필요한 데이터에 맞게 메소드 작성
-  // 예시: iamportClient.payment().ready(...)
-  return "결제 요청 성공";
+ private final IamportClient iamportClient;
+
+ @Autowired
+ public PaymentService(IamportClient iamportClient) {
+  this.iamportClient = iamportClient;
  }
 
- public String getPayment(String impUid) {
-  // 결제 확인 요청 및 API 호출
-  // 예시: iamportClient.payment().get(impUid)
-  return "결제 확인 성공";
+ public IamportResponse<Payment> getPaymentInfo(String impUid) throws IamportResponseException, IOException {
+  return iamportClient.paymentByImpUid(impUid);
  }
 
+ public OrdersVo getOrderByIdx(int orderIdx) {
+  return book_mapper.selectOneFromOrderIdx(orderIdx);
+ }
 }
