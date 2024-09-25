@@ -21,9 +21,17 @@
 
 
   <script type="text/javascript">
+   // 페이지가 로드될 때 실행
+   document.addEventListener("DOMContentLoaded", function () {
+    // 쿠키에서 아이디를 가져와서 input 필드에 채운다
+    var savedId = getCookie("savedId");
+    if (savedId) {
+     document.getElementsByName("mem_id")[0].value = savedId; // 아이디 입력 필드에 채움
+     document.getElementById("saveId").checked = true; // 체크박스 체크
+    }
+   });
 
    function send(f) {
-
     let mem_id = f.mem_id.value.trim();
     let mem_pwd = f.mem_pwd.value.trim();
 
@@ -41,12 +49,41 @@
      return;
     }
 
-    f.action = "login.do";	// 누구한테 보낼거냐 -> MemberLoginAction 만들어야 됨 
+    // 체크박스가 체크되어 있으면 쿠키에 저장
+    if (document.getElementById("saveId").checked) {
+     setCookie("savedId", mem_id, 30); // 30일 동안 저장
+    } else {
+     setCookie("savedId", "", -1); // 쿠키 삭제
+    }
+
+    f.action = "login.do"; // 로그인 처리 URL
     f.submit();
+   }
 
-   }// end: send()
+   // 쿠키를 설정하는 함수
+   function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+     var date = new Date();
+     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+     expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+   }
 
+   // 쿠키를 가져오는 함수
+   function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+     var c = ca[i];
+     while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+     if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+   }
   </script>
+
 
   <script>
    // 페이지가 로드되면 이벤트 리스너 추가
@@ -122,7 +159,7 @@
      </div>
 
      <div class="checkbox">
-      &nbsp;<label><input type="checkbox">아이디 저장</label> <!-- 기능 구현은 아직.. -->
+      &nbsp;<label><input type="checkbox" id="saveId"> 아이디 저장</label>
      </div>
      <div class="login-btn" style="border-radius: 15px !important;">
       <input id="loginButton"
