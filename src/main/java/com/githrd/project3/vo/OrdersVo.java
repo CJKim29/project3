@@ -12,7 +12,7 @@ public class OrdersVo {
 
  int order_idx; // 주문번호
  int performance_idx; // 공연번호
- int member_idx; // 회원번호
+ int mem_idx; // 회원번호
  int seat_idx; // 좌석번호
 
  String order_date; // 주문일시

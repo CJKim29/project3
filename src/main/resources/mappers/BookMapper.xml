@@ -147,7 +147,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
  <!-- 주문 테이블에 정보 추가 -->
- <insert id="ordersInsert" parameterType="orders">
+ <!-- MyBatis에서 INSERT 후 자동 생성된 기본키(order_idx)를 받아오려면 @Options를 사용하여 자동 생성된 키를 매핑해야 합니다. -->
+ <insert id="ordersInsert" parameterType="orders" useGeneratedKeys="true" keyProperty="order_idx">
     insert into orders values( null,
                               #{performance_idx},
                               #{member_idx},
@@ -156,6 +157,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                               #{order_amount}
                             );
  </insert>
+ <!-- 이렇게 하면 ordersVo 객체의 order_idx 필드에 자동 생성된 키가 저장됩니다. -->
+
 
  <select id="selectOneFromOrderIdx" parameterType="int" resultType="orders">
   select * from orders where order_idx = #{order_idx};
