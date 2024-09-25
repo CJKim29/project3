@@ -145,6 +145,12 @@
 						.single-des {
 							width: 880px;
 						}
+
+						.modal-body ul {
+							display: inline-block;
+							margin-left: 80px;
+							font-size: 20px;
+						}
 					</style>
 
 					<script>
@@ -158,13 +164,41 @@
 							$("#MyModal").modal({ backdrop: "static" });
 
 							$.ajax({
-								url: ""
+								url: "actor_one.do",
+								data: { "actor_idx": actor_idx },
+								dataType: "json",
+								success: function (res_data) {
+									console.log(res_data);
+
+									$("#modal-img").attr("src", "../resources/images/" + res_data.actor_pic);
+									$("#modal-actor-name").html("배우명 : " + res_data.actor_name);
+									if (res_data.actor_job != null) {
+										$("#modal-actor-job").html("직업 : " + res_data.actor_job);
+									} else {
+										$("#modal-actor-job").html("");
+									}
+									if (res_data.actor_body != null) {
+										$("#modal-actor-body").html("신체조건 : " + res_data.actor_body);
+									} else {
+										$("#modal-actor-body").html("");
+									}
+									if (res_data.actor_company != null) {
+										$("#modal-actor-company").html("소속사 : " + res_data.actor_company);
+									} else {
+										$("#modal-actor-company").html("");
+									}
+									if (res_data.actor_group != null) {
+										$("#modal-actor-group").html("소속그룹 : " + res_data.actor_group);
+									} else {
+										$("#modal-actor-group").html("");
+									}
+								},
+								error: function (err) {
+									alert(err.responseText)
+								}
 							})
 
 							// Ajax통해서 casting_idx의 배우정보를 얻어온다->출력
-
-							$("#modal-img").attr("src", "../resources/images/유영재.gif");
-							$("#modal-actor-name").html("배우명 : 유영재");
 
 
 
@@ -808,9 +842,14 @@
 								</div>
 								<!-- Modal body -->
 								<div class="modal-body" style="padding: 16px 25px 25px;">
-									<img id="modal-img" src="../resources/images/${castingVo.actorVo.actor_pic}">
-									<p id="modal-actor-name">배우이름:</p>
-									<p>출연작:</p>
+									<img id="modal-img">
+									<ul>
+										<li id="modal-actor-name"></li>
+										<li id="modal-actor-job"></li>
+										<li id="modal-actor-body"></li>
+										<li id="modal-actor-company"></li>
+										<li id="modal-actor-group"></li>
+									</ul>
 								</div>
 
 							</div>
