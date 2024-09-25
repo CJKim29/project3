@@ -97,4 +97,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       FROM performance_date
       WHERE performance_idx = #{performance_idx}
    </select>
+
+   <!-- 파일이름 변경 -->
+   <update id="updateFilename" parameterType="performance">
+      update performance set performance_detail_image=#{performance_detail_image} where performance_idx=#{performance_idx}
+   </update>
+
+   <!-- 수정 -->
+   <update id="update" parameterType="performance">
+      update performance set performance_detail_info=#{performance_detail_info}, performance_al=#{performance_al} where performance_idx=#{performance_idx}
+   </update>
 </mapper>
