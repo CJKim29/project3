@@ -153,6 +153,23 @@
 							loadMap();
 						}
 
+						function showSaram(actor_idx) {
+
+							$("#MyModal").modal({ backdrop: "static" });
+
+							$.ajax({
+								url: ""
+							})
+
+							// Ajax통해서 casting_idx의 배우정보를 얻어온다->출력
+
+							$("#modal-img").attr("src", "../resources/images/유영재.gif");
+							$("#modal-actor-name").html("배우명 : 유영재");
+
+
+
+						}
+
 						function handleLikeClick() {
 
 							//로그인 상태 체크
@@ -199,6 +216,12 @@
 					<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 					<script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
 					<link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+					<!-- Popper.js (Bootstrap 4의 tooltips, popovers에 필요) -->
+					<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+					<!-- Bootstrap 4 JavaScript -->
+					<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 
 				</head>
@@ -266,7 +289,8 @@
 																<c:forEach var="castingVo" items="${ list }">
 																	<div id="casting_list">
 																		<div id="actor_box">
-																			<a href="#">
+																			<a href="#"
+																				onclick="showSaram(`${castingVo.actor_idx}`)">
 																				<img id="actor_pic"
 																					src="../resources/images/${castingVo.actorVo.actor_pic}">
 																			</a>
@@ -768,42 +792,31 @@
 						</div>
 					</div>
 
-					<!-- Jquery -->
-					<script src="../resources/template/js/jquery.min.js"></script>
-					<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
-					<script src="../resources/template/js/jquery-ui.min.js"></script>
-					<!-- Popper JS -->
-					<script src="../resources/template/js/popper.min.js"></script>
-					<!-- Bootstrap JS -->
-					<script src="../resources/template/js/bootstrap.min.js"></script>
-					<!-- Color JS -->
-					<script src="../resources/template/js/colors.js"></script>
-					<!-- Slicknav JS -->
-					<script src="../resources/template/js/slicknav.min.js"></script>
-					<!-- Owl Carousel JS -->
-					<script src="../resources/template/js/owl-carousel.js"></script>
-					<!-- Magnific Popup JS -->
-					<script src="../resources/template/js/magnific-popup.js"></script>
-					<!-- Fancybox JS -->
-					<script src="../resources/template/js/facnybox.min.js"></script>
-					<!-- Waypoints JS -->
-					<script src="../resources/template/js/waypoints.min.js"></script>
-					<!-- Countdown JS -->
-					<script src="../resources/template/js/finalcountdown.min.js"></script>
-					<!-- Nice Select JS -->
-					<script src="../resources/template/js/nicesellect.js"></script>
-					<!-- Ytplayer JS -->
-					<script src="../resources/template/js/ytplayer.min.js"></script>
-					<!-- Flex Slider JS -->
-					<script src="../resources/template/js/flex-slider.js"></script>
-					<!-- ScrollUp JS -->
-					<script src="../resources/template/js/scrollup.js"></script>
-					<!-- Onepage Nav JS -->
-					<script src="../resources/template/js/onepage-nav.min.js"></script>
-					<!-- Easing JS -->
-					<script src="../resources/template/js/easing.js"></script>
-					<!-- Active JS -->
-					<script src="../resources/template/js/active.js"></script>
+					<!-- The Modal -->
+					<div class="modal" id="MyModal">
+						<div class="modal-dialog" style="display: flex; align-items: center; justify-content: center;">
+							<div class="modal-content" style="border-radius: 16px; width: 710px; height: 655px;">
+
+								<!-- Modal Header -->
+								<div class="myModal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										style="padding: 0 20px; margin-top: 18px;">X</button>
+									<div style="top: 0; left: 0; padding: 0 20px; text-align: left; border-bottom: 1px solid #dde4ec; height: 50px;
+				margin-top: 15px;">
+										<h4 class="modal-title">배우 정보</h4>
+									</div>
+								</div>
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 16px 25px 25px;">
+									<img id="modal-img" src="../resources/images/${castingVo.actorVo.actor_pic}">
+									<p id="modal-actor-name">배우이름:</p>
+									<p>출연작:</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
 
 				</body>
 
