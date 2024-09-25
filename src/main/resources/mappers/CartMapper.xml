@@ -49,8 +49,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE cs.cart_idx = #{cart_idx}
   </select>
 
-  <select id="select_one_from_idx" parameterType="int" resultType="cart">
+  <select id="select_one_cart" parameterType="int" resultType="cart">
         select * from cart where cart_idx = #{cart_idx}
+  </select>
+
+  <select id="selectOne_seat_idx" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartlistviewm where performance_idx = #{performance_idx} and m_hall_row_no = #{row};
   </select>
 
   <insert id="cart_insert" parameterType="cart">

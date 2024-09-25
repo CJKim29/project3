@@ -617,22 +617,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   <th colspan="4">&emsp;&emsp;&nbsp;&nbsp;좌석등급/잔여석</th>
                 </tr>
                 <tr>
-                  <c:forEach
-                    var="seat"
-                    items="${vo.seatList}"
-                    begin="0"
-                    end="0"
-                  >
+                  <c:forEach var="seat" items="${seatList}" begin="0" end="0">
                     <td>
-                      <div
-                        class="seat2 seat-purple"
-                        data-color="purple"
-                        id="seat${i}"
-                      ></div>
+                      <div class="seat2 seat-purple" data-color="purple"></div>
                     </td>
                     <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
                     <td style="text-align: right">
-                      ${zeroCount1}석&nbsp;&nbsp;
+                      ${seat.remaining_seats}석&nbsp;&nbsp;
                     </td>
                     <td style="text-align: right">
                       <fmt:formatNumber
@@ -643,22 +634,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   </c:forEach>
                 </tr>
                 <tr>
-                  <c:forEach
-                    var="seat"
-                    items="${vo.seatList}"
-                    begin="1"
-                    end="1"
-                  >
+                  <c:forEach var="seat" items="${seatList}" begin="1" end="1">
                     <td>
-                      <div
-                        class="seat2 seat-green"
-                        data-color="green"
-                        id="seat${i}"
-                      ></div>
+                      <div class="seat2 seat-green" data-color="green"></div>
                     </td>
                     <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
                     <td style="text-align: right">
-                      ${zeroCount2}석&nbsp;&nbsp;
+                      ${seat.remaining_seats}석&nbsp;&nbsp;
                     </td>
                     <td style="text-align: right">
                       <fmt:formatNumber
@@ -669,22 +651,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   </c:forEach>
                 </tr>
                 <tr>
-                  <c:forEach
-                    var="seat"
-                    items="${vo.seatList}"
-                    begin="2"
-                    end="2"
-                  >
+                  <c:forEach var="seat" items="${seatList}" begin="2" end="2">
                     <td>
-                      <div
-                        class="seat2 seat-blue"
-                        data-color="blue"
-                        id="seat${i}"
-                      ></div>
+                      <div class="seat2 seat-blue" data-color="blue"></div>
                     </td>
                     <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
                     <td style="text-align: right">
-                      ${zeroCount3}석&nbsp;&nbsp;
+                      ${seat.remaining_seats}석&nbsp;&nbsp;
                     </td>
                     <td style="text-align: right">
                       <fmt:formatNumber
@@ -695,22 +668,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   </c:forEach>
                 </tr>
                 <tr>
-                  <c:forEach
-                    var="seat"
-                    items="${vo.seatList}"
-                    begin="3"
-                    end="3"
-                  >
+                  <c:forEach var="seat" items="${seatList}" begin="3" end="3">
                     <td>
-                      <div
-                        class="seat2 seat-orange"
-                        data-color="orange"
-                        id="seat${i}"
-                      ></div>
+                      <div class="seat2 seat-orange" data-color="orange"></div>
                     </td>
                     <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
                     <td style="text-align: right">
-                      ${zeroCount4}석&nbsp;&nbsp;
+                      ${seat.remaining_seats}석&nbsp;&nbsp;
                     </td>
                     <td style="text-align: right">
                       <fmt:formatNumber
@@ -721,22 +685,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   </c:forEach>
                 </tr>
                 <tr>
-                  <c:forEach
-                    var="seat"
-                    items="${vo.seatList}"
-                    begin="4"
-                    end="4"
-                  >
+                  <c:forEach var="seat" items="${seatList}" begin="4" end="4">
                     <td>
-                      <div
-                        class="seat2 seat-navy"
-                        data-color="navy"
-                        id="seat${i}"
-                      ></div>
+                      <div class="seat2 seat-navy" data-color="navy"></div>
                     </td>
                     <td>&nbsp;${seat.seat_grade}석&nbsp;&nbsp;</td>
                     <td style="text-align: right">
-                      ${zeroCount5}석&nbsp;&nbsp;
+                      ${seat.remaining_seats}석&nbsp;&nbsp;
                     </td>
                     <td style="text-align: right">
                       <fmt:formatNumber
@@ -762,10 +717,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               원하시는 좌석 위치를 선택해주세요.
             </div>
             <br />
+
             <div class="seat-container3">
               <p style="background-color: aquamarine; text-align: center">
                 선택좌석
               </p>
+
               <!-- 예약 폼 -->
               <form id="seatForm" action="reserve_seats.do" method="post">
                 <div
@@ -791,8 +748,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   <input
                     type="button"
                     class="btn btn-success"
-                    value="예약"
-                    style="width: 100px"
+                    value="좌석선택완료"
+                    style="width: 110px"
                     onclick="submitSeats()"
                   />
                 </div>
@@ -819,7 +776,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   name="reserved_performance_date"
                   value="${param.date}"
                 />
-
                 <input
                   type="button"
                   class="btn btn-danger"
@@ -830,6 +786,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             </div>
           </div>
         </div>
+        <c:forEach var="seat" items="${seatList}">
+    좌석번호: ${seat.seat_idx}<br>
+    좌석등급: ${seat.seat_grade}<br>
+    좌석가격: ${seat.seat_price}<br>
+    남은 좌석: ${seat.remaining_seats}<br><br>
+</c:forEach>
       </div>
     </div>
   </body>

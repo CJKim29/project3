@@ -100,9 +100,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
     <div class="blog-single shop-blog grid section" style="padding-top: 30px">
       <div class="container">
-        <h3 id="title" style="margin-bottom: 5px">
-          ::::고객센터 - Q&A페이지::::
-        </h3>
+        <h3 id="title" style="margin-bottom: 5px">Q&A</h3>
 
         <div class="row">
           <div style="text-align: right; margin-bottom: 10px">

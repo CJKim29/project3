@@ -17,6 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from performance order by performance_idx
   </select>
 
+  <!-- 공연별 좌석번호, 등급, 가격 조회 -->
+  <select id="countSeatIdx" resultType="map">
+    SELECT seat_idx, seat_grade, seat_price 
+    FROM seat 
+    WHERE performance_idx = #{performance_idx};
+  </select>
+
   <!-- idx조회 -->
   <select id="selectOneFromIdx" resultMap="performanceOneMap">
 		select * from performance where performance_idx=#{ performance_idx }

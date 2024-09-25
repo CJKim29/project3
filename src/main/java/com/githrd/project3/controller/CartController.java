@@ -49,16 +49,24 @@ public class CartController {
 
   @RequestMapping("insert.do")
   public String insert(@RequestParam("seatInfo") List<String> seatInfo, CartVo cartVo) {
+    // 장바구니 정보 먼저 등록(유저, 공연 정보)
     int res = cart_mapper.cart_insert(cartVo);
     // 최근장바구니 번호 얻어오기
     int cart_idx = cart_mapper.cart_recent_idx();
-    System.out.println(cart_idx);
     // 좌석등록(반복문)
     for (String seat : seatInfo) {
+      // "x열x석" 형식에서 "열"과 "석"으로 분리
+      String[] seatParts = seat.split("열|석");
+
+      int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
+
+      int seat_idx = cart_mapper.selectOne_seat_idx(cartVo.getPerformance_idx(), row);
+
       Cart_seatVo vo = new Cart_seatVo();
       vo.setCart_idx(cart_idx); // 최근 등록된 cart_idx 사용
-      vo.setSeat_idx(1); // seat_idx 설정 (필요 시 파싱)
+      vo.setSeat_idx(seat_idx);
       vo.setCart_seat_name(seat);
+
       // 좌석 정보 삽입
       cart_seat_mapper.cart_seat_insert(vo);
     }

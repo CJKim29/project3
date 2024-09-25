@@ -85,7 +85,7 @@
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 	<div class="blog-single shop-blog grid section" style="padding-top: 50px">
 		<div class="container">
-			<h3 id="title" >::::고객센터 - FAQ페이지::::</h3>
+			<h3 id="title" >자주 찾는 질문</h3>
 	
 		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
             <c:if test="${ user.mem_grade eq '관리자' }">     

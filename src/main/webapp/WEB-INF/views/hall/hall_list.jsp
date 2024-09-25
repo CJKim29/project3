@@ -4,27 +4,24 @@
 
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>티모아</title>
+  <head>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>   
 
     <style type="text/css">
         #box {
             width: 1700px;
             margin: auto;
-            margin-top: 50px;
+            margin-top: 10px;
         }
 
         #title {
             text-align: center;
             font-weight: bold;
             font-size: 32px;
-            color: #9dd9ff;
+            color: #ff1d38;
             text-shadow: 1px 1px 1px black;
         }
 
@@ -57,37 +54,23 @@
 
 
 <body>
+  <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 
     <div id="box">
-        <h1 id="title">:::: 공연장목록 ::::</h1>
+        <h1 id="title"> 공연장목록 </h1>
 
-        <div style="margin-top:50px; text-align: left; float:right;">
-
-            <!-- 로그인이 안된경우 -->
-            <c:if test="${ empty user }">
-                <input class="btn btn-warning" type="button" value="로그인"
-                    onclick="location.href='../member/login_form.do'">
-                <input class="btn btn-primary" type="button" value="회원가입"
-                    onclick="location.href='../member/insert_form.do'">
-            </c:if>
-
-            <!-- 로그인이 된경우 -->
-            <c:if test="${ not empty user }">
-                <b>${ user.mem_nickname }</b>님 환영합니다
-                <input class="btn btn-danger" type="button" value="로그아웃"
-                    onclick="location.href='../member/logout.do'">
-            </c:if>
+        <div style="margin-top:20px; text-align: left; float:right;">
             
             <!-- 관리자만 추가 기능 -->
             <c:if test="${ user.mem_grade eq '관리자' }">
-                <input class="btn btn-primary" type="button" value="추가" style=" color: white;"
+                <input class="btn" type="button" value="등록" style=" color: white; background: #337ab7;"
                 onclick="location.href='insert_form.do'">
             </c:if>
         </div>
 
 
         <table class="table">
-            <tr class="info">
+            <tr style="background: #ff1d38">
                 <th>번호</th>
                 <th>공연장</th>
                 <th>지역</th>
@@ -108,7 +91,10 @@
                     <td>${ vo.hall_area }</td>
                     <td>${ vo.hall_addr }</td>
                     <td>${ vo.hall_tel }</td>
-                    <td>${ vo.hall_site }</td>
+                    <td>
+                       <a href="${vo.hall_site}">사이트로이동</a>
+                    </td>
+                    
                     <td>${ vo.hall_seat }</td>
                     <td><img class="hall_img" src="../resources/images/${ vo.hall_image }"></td>
                     <td>
@@ -125,12 +111,13 @@
 
         </table>
 
-
         <!-- Data가 없는 경우 -->
         <c:if test="${ empty requestScope.list }">
             <div id="empty_msg">등록된 공연장정보가 없습니다</div>
         </c:if>
     </div>
+
+    <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 
 </body>
 

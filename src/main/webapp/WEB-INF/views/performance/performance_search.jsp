@@ -70,7 +70,7 @@
             <ul class="performance_list">
                 <c:forEach var="performance" items="${list}">
                     <li class="content_wrap">
-                        <a href="../performance/performance_page.do?performance_idx=${performance.performance_idx}">
+                        <a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
                             <img class="performance_img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="performance_name">
                             <div class="performance_name">${performance.performance_name}</div>
                             <div class="performance_cate">${performance.performanceCateVo.performance_cate_name}</div>

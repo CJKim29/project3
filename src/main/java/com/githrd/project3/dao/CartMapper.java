@@ -12,7 +12,7 @@ public interface CartMapper {
   // 장바구니 목록 조회
   List<CartVo> cart_list(int mem_idx);
 
-  CartVo select_one_from_idx(int cart_idx);
+  CartVo select_one_cart(int cart_idx);
 
   // 장바구니 등록
   int cart_insert(CartVo vo);
@@ -22,5 +22,8 @@ public interface CartMapper {
 
   // 장바구니 삭제
   int cart_delete(int cart_idx);
+
+  // seat_idx값 조회
+  int selectOne_seat_idx(int performance_idx, int row);
 
 }
