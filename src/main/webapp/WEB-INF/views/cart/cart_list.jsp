@@ -13,6 +13,26 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
         location.href= "delete.do?cart_idx="+cart_idx;
       }
+
+        // 결제 전에 좌석 예약 여부를 체크하는 함수
+  function check_seat(cart_idx) {
+    $.ajax({
+      url: '/cart/check_seat.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
+      type: 'GET',
+      data: { cart_idx: cart_idx },
+      success: function(result) {
+        if (result === 'reserved') {
+          alert("이미 예매된 좌석이 포함되어 있습니다. 해당 항목을 삭제합니다.");
+          cart_delete(cart_idx);  // 예매된 좌석이 있을 경우 해당 장바구니 삭제
+        } else {
+          location.href = "/cart/payment.do?cart_idx=" + cart_idx;  // 결제 페이지로 이동
+        }
+      },
+      error: function() {
+        alert("좌석 예약 여부를 확인하는 중 오류가 발생했습니다.");
+      }
+    });
+  }
      </script> 
   </head>
   <body class="js">
@@ -77,7 +97,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     </td>
                     <!-- 결제/취소 -->
                     <td class="action" data-title="Remove">
-                      <input type="button" value="결제">
+                      <input type="button" value="결제" onclick="check_seat('${ vo.cart_idx }');">
                       <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }');">
                     </td>
                   </tr>
