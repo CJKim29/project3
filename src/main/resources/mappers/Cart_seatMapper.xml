@@ -8,6 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     INSERT INTO cart_seat (
         cart_idx,
         seat_idx,
-        cart_seat_name) values (#{cart_idx}, #{seat_idx}, #{cart_seat_name});
+        cart_seat_name,
+        reserved) values (#{cart_idx}, #{seat_idx}, #{cart_seat_name}, 0);
   </insert>
+
+  <!-- 좌석 검증 -->
+<select id="cart_seat_reserved_check" parameterType="int" resultType="cart_seat">
+    SELECT cs.*, cs.reserved 
+    FROM cart_seat cs 
+    WHERE cs.cart_idx = #{cart_idx}
+</select>
 </mapper>
