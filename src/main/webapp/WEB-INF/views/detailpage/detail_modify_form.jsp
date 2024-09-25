@@ -49,26 +49,13 @@
                         vertical-align: top;
                         background-color: #333;
                         color: #fff;
-                        padding: 7px 9px;
+                        padding: 5px 9px;
                         border: 0;
                         border-radius: 3%;
-                        font-weight: bold;
                     }
 
                     input:hover {
                         background-color: #FF1D38;
-                        color: #fff;
-                        outline: none;
-                    }
-
-                    .click {
-                        padding: 10px 10px;
-                        background-color: #fff;
-                        color: #333;
-                        border: 1px solid #eee;
-                        font-weight: bold;
-                        border-radius: 3%;
-                        outline: none;
                     }
                 </style>
 
@@ -108,7 +95,7 @@
 
                             dataType: 'json',
                             success: function (res_data) {
-                                //res_data = {"p_filename":"aaa.jpg"}
+                                //res_data = {"p_filename":"aaa.jpb"}
 
                                 //location.href=''; //자신의 페이지를 리로드(refresh)
 
@@ -122,21 +109,6 @@
                         });
 
                     }
-
-                    function send(f) {
-                        var performance_detail_info = f.performance_detail_info.value.trim();
-                        var performance_al = f.performance_al.value.trim();
-
-                        if (performance_detail_info == '') {
-                            f.performance_detail_info.value = null;
-                        }
-                        if (performance_al == '') {
-                            f.performance_al.value = null;
-                        }
-
-                        f.action = "modify.do";
-                        f.submit();
-                    }
                 </script>
             </head>
 
@@ -146,49 +118,39 @@
                     <input id="ajaxFile" type="file" style="display:none;" onChange="ajaxFileChange();">
                 </form>
 
-                <form>
-                    <input type="hidden" name="performance_idx" value="${vo.performance_idx}">
+                <input type="hidden" name="performance_idx" value="${vo.performance_idx}">
 
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h4>정보 수정</h4>
-                        </div>
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td colspan="2" align="right">
-                                        <input class="click" type="button" value="수정하기" onclick="send(this.form);">
-                                        <input class="click" type="button" value="돌아가기"
-                                            onclick="location.href='detail.do?performance_idx=${vo.performance_idx}'">
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>상세 정보</th>
-                                    <td>
-                                        <textarea name="performance_detail_info"
-                                            rows="6">${vo.performance_detail_info}</textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>공지사항</th>
-                                    <td>
-                                        <textarea name="performance_al" rows="6">${vo.performance_al}</textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>상세 정보 이미지</th>
-                                    <td>
-                                        <c:if test="${vo.performance_detail_image != null}">
-                                            <img src="../resources/images/${vo.performance_detail_image}" id="my_img">
-                                        </c:if>
-                                        <input id="ajaxFile" type="button" value="이미지 편집" onclick="img_upload()">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4>정보 수정</h4>
                     </div>
-                </form>
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <th>상세 정보</th>
+                                <td>
+                                    <textarea name="performance_detail_info"
+                                        rows="6">${vo.performance_detail_info}</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>공지사항</th>
+                                <td>
+                                    <textarea name="performance_al" rows="6">${vo.performance_al}</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>상세 정보 이미지</th>
+                                <td>
+                                    <c:if test="${vo.performance_detail_image != null}">
+                                        <img src="../resources/images/${vo.performance_detail_image}" id="my_img">
+                                    </c:if>
+                                    <input id="ajaxFile" type="button" value="이미지 편집" onclick="img_upload()">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </body>
 
             </html>
