@@ -16,11 +16,11 @@
    function requestPay() {
 
     IMP.request_pay({
-     pg: "{html5_inicis}.{INIpayTest}",     //{PG사코드}.{MID} 
+     pg: "{html5_inicis}.{INIpayTest}",      //{PG사코드}.{MID} 
      pay_method: "card",                     // 결제 방법
-     merchant_uid: "ORD20180131-0000011",    // 주문번호
-     name: "${performance_name}",              // 상품명
-     amount: "${payment_amount}",                         // 금액 -> 변수화?
+     merchant_uid: "${order_idx}",    // 주문번호
+     name: "${performance_name}",            // 상품명
+     amount: "${payment_amount}",            // 결제금액 
      buyer_email: "${mem_email}",
      buyer_name: "${mem_name}",
      buyer_tel: "${mem_phone}",
