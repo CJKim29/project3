@@ -7,8 +7,18 @@
             <meta charset="UTF-8">
             <title>Insert title here</title>
 
+            <link rel='stylesheet'
+                href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+
             <style>
-                #actor_pic {
+                body {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0;
+                }
+
+                .actor_pic {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
@@ -22,10 +32,14 @@
                     display: inline-block;
                 }
 
-                #casting_list {
+                .casting_list {
                     display: inline-block;
                     margin: 0 36px 40px 0;
                     text-align: center;
+                }
+
+                #moreText {
+                    width: 890px;
                 }
             </style>
         </head>
@@ -33,20 +47,23 @@
         <body>
             <input type="hidden" name="performance_idx" value="${vo.performance_idx}">
             <div id="moreText" class="collapsed">
-                <h4>캐스팅</h4>
+                <h2>캐스팅 수정</h2>
                 <c:forEach var="castingVo" items="${ list }">
-                    <div id="casting_list">
+                    <div class="casting_list">
                         <div id="actor_box">
-                            <a href="#">
-                                <img id="actor_pic" src="../resources/images/${castingVo.actorVo.actor_pic}">
-                            </a>
+                            <img class="actor_pic" src="../resources/images/${castingVo.actorVo.actor_pic}">
                         </div>
-                        <h6>${castingVo.casting_name}</h6>
+                        <h4>${castingVo.casting_name}</h4>
                         <p style="color: #666666;">
                             ${castingVo.actorVo.actor_name}
                         </p>
                     </div>
                 </c:forEach>
+                <div id="insert">
+                    <div class="casting_list">
+                        <i class="fi fi-rs-user-add"></i>
+                    </div>
+                </div>
             </div>
         </body>
 
