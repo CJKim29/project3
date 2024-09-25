@@ -649,6 +649,12 @@ public class DetailPageController {
 
   Map<String, Object> result = new HashMap<>();
   result.put("availableDates", availableDates); // 날짜 데이터를 JSON으로 반환
+
+  String first_date = detail_mapper.getFirstDate(performance_idx);
+  String last_date = detail_mapper.getLastDate(performance_idx);
+
+  result.put("first_date", first_date);
+  result.put("last_date", last_date);
   return result;
  }
 
@@ -740,16 +746,16 @@ public class DetailPageController {
   return map;
  }
 
-  @RequestMapping("casting_modify_form.do")
-  public String casting_modify(@RequestParam(value = "performance_idx", required = false) Integer performance_idx,
-      Model model) {
-    PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
-    List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+ @RequestMapping("casting_modify_form.do")
+ public String casting_modify(@RequestParam(value = "performance_idx", required = false) Integer performance_idx,
+   Model model) {
+  PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+  List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
 
-    model.addAttribute("vo", vo);
-    model.addAttribute("list", list);
+  model.addAttribute("vo", vo);
+  model.addAttribute("list", list);
 
-    return "detailpage/casting_modify_form";
-  }
+  return "detailpage/casting_modify_form";
+ }
 
 }
