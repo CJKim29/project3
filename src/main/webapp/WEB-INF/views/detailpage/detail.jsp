@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 			<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -609,6 +610,7 @@
 												<!--/ End Description -->
 												<!-- Color -->
 												<!-- <div class="color">
+
 										<h4>Available Options <span>Color</span></h4>
 										<ul>
 											<li><a href="#" class="one"><i class="ti-check"></i></a></li>
@@ -617,256 +619,390 @@
 											<li><a href="#" class="four"><i class="ti-check"></i></a></li>
 										</ul>
 									</div> -->
-												<!--/ End Color -->
-												<script>
-													var $my = $.noConflict(true);
-
-													$my(document).ready(function () {
-														// datepicker 초기화
-														$my('#datepicker').datepicker({
-															showOn: "button",
-															buttonText: "Select date",
-															format: "yyyy-mm-dd"
-														});
-
-														// 좌석정보 버튼 클릭 시 선택된 날짜를 URL에 추가
-														$my('input.reservation1').click(function () {
-															var selected_date = $my('#datepicker').val();
-															var performance_idx = $my(this).data('performanceIdx');
-
-															if (!selected_date || selected_date.trim() === "") {
-																alert('날짜를 선택해주세요.');
-																return;
-															}
-
-															// 자식 창 열기
-															var newWindow = window.open('/book/performance_seat.do?performance_idx=' + performance_idx + '&date=' + selected_date,
-																'performance_seat_window',
-																'width=800,height=660,location=no,status=no,scrollbars=yes');
-
-															// 자식 창 핸들 저장
-															window.performance_seat_window = newWindow;
-														});
-
-														// page load 시 달력 열기
-														$my('#datepicker').each(function () {
-															$my(this).datepicker({
-																showOnFocus: false // 달력을 클릭할 때만 열리게 하지 않음
-															}).open(); // 페이지 로드 시 바로 달력을 열기
-														});
-													});
-												</script>
-												<!-- Product Buy -->
-												<div class="product-buy">
-													<div class="add-to-cart">
-														<input class="reservation1 btn btn-success" type="button"
-															value="예매하기" data-performance-idx="${ vo.performance_idx }">
-														<c:choose>
-															<c:when test="${isLiked}">
-																<button type="button" id="love" class="btn min"
-																	style="background-color: #ff1d38;"
-																	onclick="handleLikeClick();">
-																	<i class="ti-heart"></i> &nbsp;
-																	<span>${ likeCount }</span>
-																</button>
-															</c:when>
-															<c:otherwise>
-																<button type="button" id="love" class="btn min"
-																	onclick="handleLikeClick();">
-																	<i class="ti-heart"></i> &nbsp;
-																	<span>${ likeCount }</span>
-																</button>
-															</c:otherwise>
-														</c:choose>
-														<!-- <i class="ti-heart"></i> -->
-													</div>
-												</div>
-												<!--/ End Product Buy -->
-											</div>
-										</div>
-										<div class="col-lg-2 col-12" style="margin-top: 23px;">
-											<input id="datepicker" width="200" />
-											<div id="dateList"></div> <!-- 날짜 리스트를 표시할 요소 추가 -->
-										</div>
+            <!--/ End Color -->
+            <!-- Product Buy -->
+            <div class="product-buy">
+             <div class="add-to-cart">
+              <input class="reservation1 btn btn-success" type="button" value="예매하기"
+               data-performance-idx="${ vo.performance_idx }">
+              <c:choose>
+               <c:when test="${isLiked}">
+                <button type="button" id="love" class="btn min" style="background-color: #ff1d38;"
+                 onclick="handleLikeClick();">
+                 <i class="ti-heart"></i> &nbsp;
+                 <span>${ likeCount }</span>
+                </button>
+               </c:when>
+               <c:otherwise>
+                <button type="button" id="love" class="btn min" onclick="handleLikeClick();">
+                 <i class="ti-heart"></i> &nbsp;
+                 <span>${ likeCount }</span>
+                </button>
+               </c:otherwise>
+              </c:choose>
+              <!-- <i class="ti-heart"></i> -->
+             </div>
+            </div>
+            <!--/ End Product Buy -->
+           </div>
+          </div>
+          <div class="col-lg-2 col-12" style="margin-top: 23px;">
+           <input id="datepicker" width="200" />
+           <div id="dateList"></div> <!-- 날짜 리스트를 표시할 요소 추가 -->
+          </div>
 
 
 
 
 
 
-									</div>
-									<div class="row">
-										<div class="col-12">
-											<div class="product-info">
-												<div class="nav-main">
-													<!-- Tab Nav -->
-													<ul class="nav nav-tabs" id="myTab" role="tablist">
-														<li class="nav-item"><a class="nav-link active"
-																data-toggle="tab" href="#description"
-																role="tab">공연정보</a></li>
-														<li class="nav-item">
-															<a class="nav-link" id="reviews-tab" data-toggle="tab"
-																href="#reviews" role="tab">관람 후기</a>
-														</li>
-														<button type="button"
-															onclick="location.href='review_list.do?performance_idx=${param.performance_idx}'">ajax
-															테스트</button>
-														<input class="btn" type="button" onclick="performance_info();"
-															value="공연정보">
-														<input class="btn" type="button" onclick="review_list();"
-															value="후기목록">
-														<script>
-															// performance_info 함수 정의
-															function performance_info() {
-																// performance_idx를 JSP에서 받아오는 부분
-																var performance_idx = "${param.performance_idx}";
+         </div>
+         <div class="row">
+          <div class="col-12">
+           <div class="product-info">
+            <div class="nav-main">
+             <!-- Tab Nav -->
+             <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+               <a class="nav-link btn" id="performance-tab" onclick="toggleClickedEffect();" href="javascript:void(0);"
+                role="button">공연정보</a>
+              </li>
 
-																// AJAX 요청
-																$.ajax({
-																	url: "performance_info.do",  // 요청할 URL
-																	type: "GET",                 // HTTP 메소드 (GET, POST)
-																	data: {
-																		performance_idx: performance_idx // 서버에 전달할 데이터
-																	},
-																	success: function (response) {
-																		// 성공적으로 데이터를 받아왔을 때 처리
-																		console.log("AJAX 성공:", response);
+              <script>
+               // 페이지 로드 시 performance_info() 호출
+               window.onload = function () {
+                document.getElementById('performance-tab').classList.add('clicked');
+                performance_info(); // 페이지 로드 시 함수 호출
+               };
 
-																		// 응답 데이터를 특정 div에 출력
-																		$("#resultDiv").html(response);
-
-																		// URL 업데이트
-																		window.history.pushState({ page: 'performance_info' }, 'Performance Info', 'performance_info.do?performance_idx=' + performance_idx);
-																	},
-																	error: function (xhr, status, error) {
-																		// 에러 발생 시 처리
-																		console.error("AJAX 호출 실패:", error);
-																	}
-																});
-															}
-
-														</script>
-														<!-- review_list 함수 정의 -->
-														<script>
-               function review_list(page) {
-                   var performance_idx = "${param.performance_idx}";
-                   var nowPage = page || 1;
-           
-                   $.ajax({
-                       url: "review_list.do",
-                       type: "GET",
-                       data: {
-                           performance_idx: performance_idx,
-                           page: nowPage
-                       },
-                       success: function (response) {
-                           $("#resultDiv").html(response);
-                           window.history.pushState(
-                               { page: 'review_list', nowPage: nowPage },
-                               'Review List',
-                               'review_list.do?performance_idx=' + performance_idx + '&page=' + nowPage
-                           );
-                       },
-                       error: function (xhr, status, error) {
-                           console.error("AJAX 호출 실패:", error);
-                       }
-                   });
+               // 클릭했을 때 'clicked' 클래스 추가
+               function toggleClickedEffect() {
+                var element = document.getElementById('performance-tab');
+                element.classList.add('clicked');
+                performance_info(); // 클릭 시 기존 함수 호출
                }
-           
+              </script>
+
+              <li class="nav-item">
+               <a class="nav-link btn" id="reviews-tab" onclick="review_list('${param.performance_idx}',1);"
+                href="javascript:void(0);" role="button">관람 후기</a>
+              </li>
+
+              <script>
+               // performance_info 함수 정의
+               function performance_info() {
+                // performance_idx를 JSP에서 받아오는 부분
+                var performance_idx = "${param.performance_idx}";
+
+                // AJAX 요청
+                $.ajax({
+                 url: "performance_info.do",  // 요청할 URL
+                 type: "GET",                 // HTTP 메소드 (GET, POST)
+                 data: {
+                  performance_idx: performance_idx // 서버에 전달할 데이터
+                 },
+                 success: function (response) {
+                  // 성공적으로 데이터를 받아왔을 때 처리
+                  console.log("AJAX 성공:", response);
+
+                  // 응답 데이터를 특정 div에 출력
+                  $("#resultDiv").html(response);
+
+                 },
+                 error: function (xhr, status, error) {
+                  // 에러 발생 시 처리
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+              </script>
+              <!-- 검색 -->
+              <!-- <script>
+               function find() {
+                let search_text = $("#search_text").val().trim();
+
+                if (search_text === "") {
+                 alert("검색어를 입력하세요.");
+                 $("#search_text").val("");
+                 $("#search_text").focus();
+                 return;
+                }
+
+                //자바스크립트 이용해서 호출
+                location.href =
+                 "review_list.do?performance_idx=" + "${ param.performance_idx }" +
+                 "&search_text=" +
+                 encodeURIComponent(search_text, "utf-8")
+               }
+              </script>
+              <script>
+               function search() {
+                var performance_idx = "${param.performance_idx}";
+
+                let search_text = $("#search_text").val().trim();
+
+                // 검색어가 비어 있으면 경고 메시지 표시
+                if (search_text === "") {
+                 alert("검색어를 입력하세요.");
+                 $("#search_text").val("");
+                 $("#search_text").focus();
+                 return;
+                }
+
+                $.ajax({
+                 url: "review_list.do",
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  search_text: search_text,
+                  page: nowPage
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                  alert("검색 중 오류가 발생했습니다.");
+                 }
+                });
+               }
+              </script> -->
+
+              <!-- review_list 함수 정의 -->
+              <script>
+               function review_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_list.do",
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
                $(document).on('click', '.paging-button', function (e) {
-                   e.preventDefault(); // 기본 링크 동작 방지
-                   var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
-                   review_list(page); // 해당 페이지로 AJAX 요청
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_list(page); // 해당 페이지로 AJAX 요청
                });
-           </script>
-           
-														<!-- 결과가 출력될 div -->
-														<div id="resultDiv"></div>
-													</ul>
-													<!--/ End Tab Nav -->
-												</div>
+              </script>
 
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-					<!--/ End Shop Single -->
+              <!-- review_old_list 함수 정의 -->
+              <script>
+               function review_old_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
 
-					<!-- Modal -->
-					<div id="myModal" class="modal fade" role="dialog">
-						<div class="modal-dialog" style="display: flex; align-items: center; justify-content: center;">
+                $.ajax({
+                 url: "review_old_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
 
-							<!-- Modal content-->
-							<div class="modal-content" style="border-radius: 16px; width: 710px; height: 655px;">
-								<div class="myModal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										style="padding: 0 20px; margin-top: 18px;">X</button>
-									<div style="top: 0; left: 0; padding: 0 20px; text-align: left; border-bottom: 1px solid #dde4ec; height: 50px;
+               // 기존에 review_list로 호출하던 부분을 review_old_list로 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_old_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_star_list 함수 정의 -->
+              <script>
+               function review_star_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_star_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_star_list 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_star_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_low_star_list 함수 정의 -->
+              <script>
+               function review_low_star_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_low_star_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_star_list 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_star_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- review_readhit_list 함수 정의 -->
+              <script>
+               function review_readhit_list(performance_idx, page) {
+                //var performance_idx = "${param.performance_idx}";
+                //var nowPage = page || 1;
+
+                $.ajax({
+                 url: "review_readhit_list.do",  // 요청할 URL 수정
+                 type: "GET",
+                 data: {
+                  performance_idx: performance_idx,
+                  page: page
+                 },
+                 success: function (response) {
+                  $("#resultDiv").html(response);
+                 },
+                 error: function (xhr, status, error) {
+                  console.error("AJAX 호출 실패:", error);
+                 }
+                });
+               }
+
+               // 기존에 review_list로 호출하던 부분을 review_star_list 변경
+               $(document).on('click', '.paging-button', function (e) {
+                e.preventDefault(); // 기본 링크 동작 방지
+                var page = $(this).data('page'); // 클릭한 페이지 번호를 가져옴
+                review_star_list(page); // 해당 페이지로 AJAX 요청
+               });
+              </script>
+
+              <!-- 결과가 출력될 div -->
+              <div id="resultDiv"></div>
+             </ul>
+             <!--/ End Tab Nav -->
+            </div>
+
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!--/ End Shop Single -->
+
+     <!-- Modal -->
+     <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog" style="display: flex; align-items: center; justify-content: center;">
+
+       <!-- Modal content-->
+       <div class="modal-content" style="border-radius: 16px; width: 710px; height: 655px;">
+        <div class="myModal-header">
+         <button type="button" class="close" data-dismiss="modal" style="padding: 0 20px; margin-top: 18px;">X</button>
+         <div style="top: 0; left: 0; padding: 0 20px; text-align: left; border-bottom: 1px solid #dde4ec; height: 50px;
 				margin-top: 15px;">
-										<h4 class="modal-title">공연장 정보</h4>
-									</div>
-								</div>
-								<!-- 본문 -->
-								<div class="modal-body" style="padding: 16px 25px 25px;">
-									<div style="margin-bottom: 8px; font-weight: bold; font-size: 20px;">
-										${vo.hallVo.hall_name}
-									</div>
-									<div style="color: #666; font-size: 15px;">전화번호 : ${vo.hallVo.hall_tel}</div>
-									<div style="color: #666; font-size: 15px;">주소 : ${vo.hallVo.hall_addr}</div>
-									<div style="color: #666; font-size: 15px;"><a href="${vo.hallVo.hall_site}"
-											target="_blank">홈페이지
-											: ${vo.hallVo.hall_site}<i class="fi fi-sr-caret-right"
-												style="display: inline-block; position: relative; top: 3px;"></i></a>
-									</div>
-									<div style="margin-top: 23px; border: 1px solid #ccc;">
-										<div id="map" style="width:656px; height:339px;"></div>
-										<input type="hidden" id="address" value="${vo.hallVo.hall_addr}">
+          <h4 class="modal-title">공연장 정보</h4>
+         </div>
+        </div>
+        <!-- 본문 -->
+        <div class="modal-body" style="padding: 16px 25px 25px;">
+         <div style="margin-bottom: 8px; font-weight: bold; font-size: 20px;">
+          ${vo.hallVo.hall_name}
+         </div>
+         <div style="color: #666; font-size: 15px;">전화번호 : ${vo.hallVo.hall_tel}</div>
+         <div style="color: #666; font-size: 15px;">주소 : ${vo.hallVo.hall_addr}</div>
+         <div style="color: #666; font-size: 15px;"><a href="${vo.hallVo.hall_site}" target="_blank">홈페이지
+           : ${vo.hallVo.hall_site}<i class="fi fi-sr-caret-right"
+            style="display: inline-block; position: relative; top: 3px;"></i></a>
+         </div>
+         <div style="margin-top: 23px; border: 1px solid #ccc;">
+          <div id="map" style="width:656px; height:339px;"></div>
+          <input type="hidden" id="address" value="${vo.hallVo.hall_addr}">
 
-										<script>
-											function loadMap() {
-												var address = document.getElementById('address').value;
+          <script>
+           function loadMap() {
+            var address = document.getElementById('address').value;
 
-												naver.maps.Service.geocode({
-													query: address
-												}, function (status, response) {
-													if (status !== naver.maps.Service.Status.OK) {
-														return alert('지도 위치를 찾을 수 없습니다.');
-													}
+            naver.maps.Service.geocode({
+             query: address
+            }, function (status, response) {
+             if (status !== naver.maps.Service.Status.OK) {
+              return alert('지도 위치를 찾을 수 없습니다.');
+             }
 
-													var result = response.v2.addresses[0];
-													var latitude = result.y;
-													var longitude = result.x;
+             var result = response.v2.addresses[0];
+             var latitude = result.y;
+             var longitude = result.x;
 
-													var mapOptions = {
-														center: new naver.maps.LatLng(latitude, longitude),
-														zoom: 17
-													};
+             var mapOptions = {
+              center: new naver.maps.LatLng(latitude, longitude),
+              zoom: 17
+             };
 
-													var map = new naver.maps.Map('map', mapOptions);
+             var map = new naver.maps.Map('map', mapOptions);
 
-													var marker = new naver.maps.Marker({
-														position: new naver.maps.LatLng(latitude, longitude),
-														map: map
-													});
-												});
-											}
+             var marker = new naver.maps.Marker({
+              position: new naver.maps.LatLng(latitude, longitude),
+              map: map
+             });
+            });
+           }
 
-										</script>
-									</div>
-								</div>
-							</div>
+          </script>
+         </div>
+        </div>
+       </div>
 
-						</div>
-					</div>
-
-
-					<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+      </div>
+     </div>
 
 
+     <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
-				</body>
 
-				</html>
+
+    </body>
+
+    </html>
