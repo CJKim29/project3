@@ -23,6 +23,7 @@ public class BoardVo {
   String board_use;
   String mem_nickname;
 
+  // 댓글 구현되고 만들기
   int board_no;
   int cmt_count;
 

@@ -1,4 +1,5 @@
 package com.githrd.project3.util;
+
 /*
         nowPage:현재페이지
         rowTotal:전체데이터갯수
@@ -6,234 +7,634 @@ package com.githrd.project3.util;
         blockPage:한화면에 나타낼 페이지 목록수
  */
 public class Paging3 {
-	public static String getPaging(String pageURL,int nowPage, int rowTotal,int blockList, int blockPage){
-		
-		int totalPage/*전체페이지수*/,
-            startPage/*시작페이지번호*/,
-            endPage;/*마지막페이지번호*/
+ public static String getPaging(String pageURL, int nowPage, int rowTotal, int blockList, int blockPage) {
 
-		boolean  isPrevPage,isNextPage;
-		StringBuffer sb; //모든 상황을 판단하여 HTML코드를 저장할 곳
-		
-		
-		isPrevPage=isNextPage=false;
-		//입력된 전체 자원을 통해 전체 페이지 수를 구한다..
-		totalPage = rowTotal/blockList;
-		if(rowTotal%blockList!=0)totalPage++;
-		
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
 
-		//만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
-		//넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
-		if(nowPage > totalPage)nowPage = totalPage;
-		
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
 
-		//시작 페이지와 마지막 페이지를 구함.
-		startPage = ((nowPage-1)/blockPage)*blockPage+1;
-		endPage = startPage + blockPage - 1; //
-		
-		//마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
-		if(endPage > totalPage)endPage = totalPage;
-		
-		//마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
-		//boolean형 변수의 값을 설정
-		if(endPage < totalPage) isNextPage = true;
-		//시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
-		if(startPage > 1)isPrevPage = true;
-		
-		//HTML코드를 저장할 StringBuffer생성=>코드생성
-		sb = new StringBuffer("<ul class='pagination'>");
-//-----그룹페이지처리 이전 --------------------------------------------------------------------------------------------		
-		if(isPrevPage){
-			
-			sb.append(String.format("<li><a href='%s&page=%d'>←</a></li>", pageURL, startPage-1));
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
 
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
 
-		}
-		else
-			sb.append("<li><a href='#'>←</a></li>");
-		
-//------페이지 목록 출력 -------------------------------------------------------------------------------------------------
-		
-		
-		for(int i=startPage; i<= endPage ;i++){
-			
-			if(i == nowPage){ //현재 있는 페이지
-				sb.append(String.format("<li class='active'><a href='#'>%d</a></li>", i));
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
 
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
 
-			}
-			else{//현재 페이지가 아니면
-				sb.append(String.format("<li><a href='%s&page=%d'>%d</a></li>", pageURL, i, i));
-			}
-		}// end for
-		
-//-----그룹페이지처리 다음 ----------------------------------------------------------------------------------------------
-		if(isNextPage){
-			sb.append(String.format("<li><a href='%s&page=%d'>→</a></li>", pageURL, endPage+1));
-		}
-		else
-			sb.append("<li><a href='#'>→</a></li>");
-//---------------------------------------------------------------------------------------------------------------------	    
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
 
-		sb.append("</ul>");
-		return sb.toString();
-	}
-	
-public static String getPaging(String pageURL,String filter,int nowPage, int rowTotal,int blockList, int blockPage){
-		
-		int totalPage/*전체페이지수*/,
-            startPage/*시작페이지번호*/,
-            endPage;/*마지막페이지번호*/
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
 
-		boolean  isPrevPage,isNextPage;
-		StringBuffer sb; //모든 상황을 판단하여 HTML코드를 저장할 곳
-		
-		
-		isPrevPage=isNextPage=false;
-		//입력된 전체 자원을 통해 전체 페이지 수를 구한다..
-		totalPage = rowTotal/blockList;   
-		if(rowTotal%blockList!=0)totalPage++;
-		
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='%s&page=%d'>←</a></li>", pageURL, startPage - 1));
 
-		//만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
-		//넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
-		if(nowPage > totalPage)nowPage = totalPage;
-		
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>←</a></li>");
 
-		//시작 페이지와 마지막 페이지를 구함.
-		startPage = ((nowPage-1)/blockPage) * blockPage + 1;
-		endPage   = startPage + blockPage - 1; //
-		
-		
-		//마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
-		if(endPage > totalPage)endPage = totalPage;
-		
-		//마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
-		//boolean형 변수의 값을 설정
-		if(endPage < totalPage) isNextPage = true;
-		
-		//시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
-		if(startPage > 1)isPrevPage = true;
-		
-		// 페이지가 없을 시 ◀, ▶ 버튼 없애기
-		if(totalPage==0) {
-			return "";
-		}
-		//HTML코드를 저장할 StringBuffer생성=>코드생성
-		sb = new StringBuffer("<ul class='pagination'>");
-		
-//-----그룹페이지처리 이전 --------------------------------------------------------------------------------------------		
-		if(isPrevPage){
-			
-			sb.append(String.format("<li><a href='review_list.do?page=%d&%s'>◀</a></li>", startPage-1, filter));
-		}
-		else
-			sb.append("<li><a href='#'>◀</a></li>");
-		
-//------페이지 목록 출력 -------------------------------------------------------------------------------------------------
-		
-		
-		for(int i=startPage; i<= endPage ;i++){
-			
-			if(i == nowPage){ //현재 있는 페이지
-				sb.append(String.format("<li class='active'><a href='#'>%d</a></li>", i));
-			}
-			else{//현재 페이지가 아니면
-				sb.append(String.format("<li><a href='review_list.do?page=%d&%s'>%d</a></li>", i, filter ,i));
-			}
-		}// end for
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
 
-//-----그룹페이지처리 다음 ----------------------------------------------------------------------------------------------
-		
-		if(isNextPage){
-			sb.append(String.format("<li><a href='review_list.do?page=%d&%s'>▶</a></li>", endPage+1, filter ));
-		}
-		else
-			sb.append("<li><a href='#'>▶</a></li>");
-		
-//---------------------------------------------------------------------------------------------------------------------	    
+  for (int i = startPage; i <= endPage; i++) {
 
-	    sb.append("</ul>");
-		
-		return sb.toString();
-	}
-	
-public static String getCommentPaging(int nowPage, int rowTotal,int blockList, int blockPage){
-		
-		int totalPage/*전체페이지수*/,
-            startPage/*시작페이지번호*/,
-            endPage;/*마지막페이지번호*/
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
 
-		boolean  isPrevPage,isNextPage;
-		StringBuffer sb; //모든 상황을 판단하여 HTML코드를 저장할 곳
-		
-		
-		isPrevPage=isNextPage=false;
-		//입력된 전체 자원을 통해 전체 페이지 수를 구한다..
-		totalPage = rowTotal/blockList;   
-		if(rowTotal%blockList!=0)totalPage++;
-		
+   } else {// 현재 페이지가 아니면
+    sb.append(String.format("<li class='page-item'><a class='page-link' href='%s&page=%d'>%d</a></li>", pageURL, i, i));
+   }
+  } // end for
 
-		//만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
-		//넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
-		if(nowPage > totalPage)nowPage = totalPage;
-		
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='%s&page=%d'>→</a></li>", pageURL, endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>→</a></li>");
+  // ---------------------------------------------------------------------------------------------------------------------
 
-		//시작 페이지와 마지막 페이지를 구함.
-		startPage = ((nowPage-1)/blockPage) * blockPage + 1;
-		endPage   = startPage + blockPage - 1; //
-		
-		
-		//마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
-		if(endPage > totalPage)endPage = totalPage;
-		
-		//마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
-		//boolean형 변수의 값을 설정
-		if(endPage < totalPage) isNextPage = true;
-		
-		//시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
-		if(startPage > 1)isPrevPage = true;
-		
-		
-		//HTML코드를 저장할 StringBuffer생성=>코드생성
-		sb = new StringBuffer("<ul class='pagination'>");
-		
-		
-//-----그룹페이지처리 이전 --------------------------------------------------------------------------------------------		
-		if(isPrevPage){
-			
-			sb.append(String.format("<li><a href='#' onclick='comment_list(%d);'>◀</a></li>", startPage-1));
-		}
-		else
-			sb.append("<li><a href='#'>◀</a></li>");
-		
-//------페이지 목록 출력 -------------------------------------------------------------------------------------------------
-		
-		
-		for(int i=startPage; i<= endPage ;i++){
-			
-			if(i == nowPage){ //현재 있는 페이지
-				sb.append(String.format("<li class='active'><a href='#'>%d</a></li>", i));
-			}
-			else{//현재 페이지가 아니면
-				sb.append(String.format("<li><a href='#' onclick='comment_list(%d);'>%d</a></li>", i, i));
-			}
-		}// end for
-		
-		
-		
-//-----그룹페이지처리 다음 ----------------------------------------------------------------------------------------------
-		if(isNextPage){
-			sb.append(String.format("<li><a href='#' onclick='comment_list(%d);'>▶</a></li>", endPage+1));
-		}
-		else
-			sb.append("<li><a href='#'>▶</a></li>");
-		
-//---------------------------------------------------------------------------------------------------------------------	    
+  sb.append("</ul>");
+  return sb.toString();
+ }
 
-	    sb.append("</ul>");
-		
-		return sb.toString();
-	}
+ public static String getPaging(String pageURL, String filter, int nowPage, int rowTotal, int blockList,
+   int blockPage) {
+
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // 페이지가 없을 시 ◀, ▶ 버튼 없애기
+  if (totalPage == 0) {
+   return "";
+  }
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(String.format("<li class='page-item'><a class='page-link' href='review_list.do?page=%d&%s'>◀</a></li>",
+     startPage - 1, filter));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>◀</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+   } else {// 현재 페이지가 아니면
+    sb.append(String.format("<li class='page-item'><a class='page-link' href='review_list.do?page=%d&%s'>%d</a></li>",
+      i, filter, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+
+  if (isNextPage) {
+   sb.append(String.format("<li class='page-item'><a class='page-link' href='review_list.do?page=%d&%s'>▶</a></li>",
+     endPage + 1, filter));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>▶</a></li>");
+
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+
+  return sb.toString();
+ }
+
+ public static String getCommentPaging(int nowPage, int rowTotal, int blockList, int blockPage) {
+
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(String.format("<li class='page-item'><a class='page-link' href='#' onclick='comment_list(%d);'>◀</a></li>",
+     startPage - 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>◀</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+   } else {// 현재 페이지가 아니면
+    sb.append(String
+      .format("<li class='page-item'><a class='page-link' href='#' onclick='comment_list(%d);'>%d</a></li>", i, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(String.format("<li class='page-item'><a class='page-link' href='#' onclick='comment_list(%d);'>▶</a></li>",
+     endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>▶</a></li>");
+
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+
+  return sb.toString();
+ }
+
+ public static String getReviewPaging(int performance_idx, int nowPage, int rowTotal, int blockList, int blockPage) {
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_list(%d,%d);' >←</a></li>",
+       performance_idx, startPage - 1));
+
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>←</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+
+   } else {// 현재 페이지가 아니면
+    sb.append(
+      String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_list(%d,%d);' >%d</a></li>",
+        performance_idx, i, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_list(%d,%d);' >→</a></li>",
+       performance_idx, endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>→</a></li>");
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+  return sb.toString();
+ }
+
+ public static String getReviewOldPaging(int performance_idx, int nowPage, int rowTotal, int blockList, int blockPage) {
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_old_list(%d,%d);' >←</a></li>",
+       performance_idx, startPage - 1));
+
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>←</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+
+   } else {// 현재 페이지가 아니면
+    sb.append(String.format(
+      "<li class='page-item'><a class='page-link' href='#' onclick='review_old_list(%d,%d);' >%d</a></li>",
+      performance_idx, i, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_old_list(%d,%d);' >→</a></li>",
+       performance_idx, endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>→</a></li>");
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+  return sb.toString();
+ }
+
+ public static String getReviewStarPaging(int performance_idx, int nowPage, int rowTotal, int blockList,
+   int blockPage) {
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_star_list(%d,%d);' >←</a></li>",
+       performance_idx, startPage - 1));
+
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>←</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+
+   } else {// 현재 페이지가 아니면
+    sb.append(String.format(
+      "<li class='page-item'><a class='page-link' href='#' onclick='review_star_list(%d,%d);' >%d</a></li>",
+      performance_idx, i, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(
+     String.format("<li class='page-item'><a class='page-link' href='#' onclick='review_star_list(%d,%d);' >→</a></li>",
+       performance_idx, endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>→</a></li>");
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+  return sb.toString();
+ }
+
+ public static String getReviewLowStarPaging(int performance_idx, int nowPage, int rowTotal, int blockList,
+   int blockPage) {
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(
+     String.format(
+       "<li class='page-item' ><a class='page-link' href='#' onclick='review_low_star_list(%d,%d);' >←</a></li>",
+       performance_idx,
+       startPage - 1));
+
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>←</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+
+   } else {// 현재 페이지가 아니면
+    sb.append(
+      String.format(
+        "<li class='page-item'><a class='page-link' href='#' onclick='review_low_star_list(%d,%d);' >%d</a></li>",
+        performance_idx, i, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(
+     String.format(
+       "<li class='page-item'><a class='page-link' href='#' onclick='review_low_star_list(%d,%d);' >→</a></li>",
+       performance_idx, endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>→</a></li>");
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+  return sb.toString();
+ }
+
+ public static String getReviewReadHitPaging(int performance_idx, int nowPage, int rowTotal, int blockList,
+   int blockPage) {
+  int totalPage/* 전체페이지수 */,
+    startPage/* 시작페이지번호 */,
+    endPage;/* 마지막페이지번호 */
+
+  boolean isPrevPage, isNextPage;
+  StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+  isPrevPage = isNextPage = false;
+  // 입력된 전체 자원을 통해 전체 페이지 수를 구한다..
+  totalPage = rowTotal / blockList;
+  if (rowTotal % blockList != 0)
+   totalPage++;
+
+  // 만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
+  // 넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
+  if (nowPage > totalPage)
+   nowPage = totalPage;
+
+  // 시작 페이지와 마지막 페이지를 구함.
+  startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+  endPage = startPage + blockPage - 1; //
+
+  // 마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
+  if (endPage > totalPage)
+   endPage = totalPage;
+
+  // 마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+  // boolean형 변수의 값을 설정
+  if (endPage < totalPage)
+   isNextPage = true;
+  // 시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
+  if (startPage > 1)
+   isPrevPage = true;
+
+  // HTML코드를 저장할 StringBuffer생성=>코드생성
+  sb = new StringBuffer("<ul class='pagination'>");
+  // -----그룹페이지처리 이전
+  // --------------------------------------------------------------------------------------------
+  if (isPrevPage) {
+
+   sb.append(
+     String.format(
+       "<li class='page-item'><a class='page-link' href='#' onclick='review_readhit_list(%d,%d);' >←</a></li>",
+       performance_idx,
+       startPage - 1));
+
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>←</a></li>");
+
+  // ------페이지 목록 출력
+  // -------------------------------------------------------------------------------------------------
+
+  for (int i = startPage; i <= endPage; i++) {
+
+   if (i == nowPage) { // 현재 있는 페이지
+    sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+
+   } else {// 현재 페이지가 아니면
+    sb.append(
+      String.format(
+        "<li class='page-item'><a class='page-link' href='#' onclick='review_readhit_list(%d,%d);' >%d</a></li>",
+        performance_idx, i, i));
+   }
+  } // end for
+
+  // -----그룹페이지처리 다음
+  // ----------------------------------------------------------------------------------------------
+  if (isNextPage) {
+   sb.append(
+     String.format(
+       "<li class='page-item'><a class='page-link' href='#' onclick='review_readhit_list(%d,%d);' >→</a></li>",
+       performance_idx, endPage + 1));
+  } else
+   sb.append("<li class='page-item'><a class='page-link' href='#'>→</a></li>");
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  sb.append("</ul>");
+  return sb.toString();
+ }
 
 }

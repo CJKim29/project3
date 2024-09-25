@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.CartMapper">
+
+    <select id="cart_list" resultType="cart">
+        SELECT * from cart order by cart_idx
+    </select>
+
+    <select id="select_one_from_idx" parameterType="int" resultType="cart">
+        select * from cart where cart_idx = #{cart_idx}
+    </select>
+
+    <insert id="cart_insert" parameterType="cart">
+        INSERT INTO cart (
+            mem_idx,
+            performance_idx) values (#{mem_idx}, #{performance_idx});
+    </insert>
+
+    <!-- 장바구니 삭제 -->
+    <delete id="cart_delete" parameterType="int">
+        DELETE FROM cart WHERE cart_idx = #{cart_idx}
+    </delete>
+
+    <!-- 장바구니 등록 시 예약 여부를 '1'로 변경 -->
+    <update id="cart_update_use" parameterType="int">
+        UPDATE cart SET reserved = 1 WHERE cart_idx = #{cart_idx}
+    </update>
+
+</mapper>
