@@ -231,6 +231,10 @@
          console.log("first_date :", first_date);
          console.log("last_date :", last_date);
 
+         var firstDateObj = new Date(first_date); // first_date를 Date 객체로 변환
+
+         var today = new Date(); // 오늘 날짜
+
          // 날짜 리스트를 HTML에 출력 (디버깅용)
          var dateListHtml = "<ul>";
          availableDates.forEach(function (date) {
@@ -240,7 +244,7 @@
          $("#dateList").html(dateListHtml);
 
          // minDate와 maxDate 계산
-         min_date = new Date(first_date);
+         min_date = (firstDateObj > today) ? firstDateObj : today;
          //min_date = availableDates[0];
          console.log(typeof (min_date));
          console.log(min_date);
