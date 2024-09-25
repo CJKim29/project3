@@ -479,25 +479,11 @@
                           <button type="button"
                            onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">수정</button>
                            <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0);" onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">찐삭제</a>
+                            <a class="nav-link" href="javascript:void(0);" onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">삭제</a>
                           </li>
                           
                          </c:if>
                          <script>
-                          // DOM이 완전히 로드된 후 스크립트 실행
-                          document.addEventListener('DOMContentLoaded', function() {
-                            // 모든 삭제 링크에 대해 이벤트 리스너 추가
-                            document.querySelectorAll('.deleteReviewLink').forEach(function(link) {
-                              link.addEventListener('click', function() {
-                                var performance_idx = link.getAttribute('data-performance-idx');
-                                var review_idx = link.getAttribute('data-review-idx');
-                                
-                                // reviewDelete 함수 호출
-                                reviewDelete(performance_idx, review_idx);
-                              });
-                            });
-                          });
-                        
                           function reviewDelete(performance_idx, review_idx) {
                             if (confirm("정말 삭제하시겠습니까?") == false) return;
                             

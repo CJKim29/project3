@@ -20,6 +20,8 @@ pageEncoding="UTF-8"%>
         location.href = "../member/modify_form.do?mem_idx=" + `${user.mem_idx}`;
       }
       function member_delete() {
+       if (confirm("정말 탈퇴하시겠습니까?") == false) return;
+
         alert("회원 탈퇴가 완료되었습니다.");
         location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
       }
