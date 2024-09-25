@@ -26,9 +26,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
       rel="stylesheet"
     />
-
     <!-- StyleSheet -->
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../resources/template/css/bootstrap.css" />
     <!-- Magnific Popup -->
@@ -58,12 +56,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="../resources/template/css/owl-carousel.css" />
     <!-- Slicknav -->
     <link rel="stylesheet" href="../resources/template/css/slicknav.min.css" />
-
     <!-- Eshop StyleSheet -->
     <link rel="stylesheet" href="../resources/template/css/reset.css" />
     <link rel="stylesheet" href="../resources/template/css/style.css" />
     <link rel="stylesheet" href="../resources/template/css/responsive.css" />
-
     <!-- Color CSS -->
     <!-- <link rel="stylesheet" href="../resources/template/css/color/color1.css"> -->
     <!--<link rel="stylesheet" href="../resources/template/css/color/color2.css">-->
@@ -77,16 +73,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!--<link rel="stylesheet" href="../resources/template/css/color/color10.css">-->
     <!--<link rel="stylesheet" href="../resources/template/css/color/color11.css">-->
     <link rel="stylesheet" href="../resources/template/css/color/color12.css" />
-
     <link rel="stylesheet" href="#" id="colors" />
-
-
   </head>
   <body class="js">
-
-
     <!-- Header -->
-
     <!-- 상단 위의 로그인, 마이페이지 버튼 부분  -->
     <header class="header shop">
       <!-- Topbar -->
@@ -121,7 +111,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <b>${ user.mem_nickname }님</b>
                       <a href="../member/logout.do">로그아웃</a>
                     </li>
-                    <li><i class="ti-user"></i> <a href="../mypage/mypage.do">마이페이지</a></li>
+                    <li>
+                      <i class="ti-user"></i>
+                      <a href="../mypage/mypage.do">마이페이지</a>
+                    </li>
                   </c:if>
                 </ul>
               </div>
@@ -149,7 +142,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <a href=""><i class="ti-search"></i></a>
                 </div>
                 <!-- Search Form -->
-                 <!-- 헤더메인검색창부분 -->
+                <!-- 헤더메인검색창부분 -->
                 <div class="search-top">
                   <form class="search-form" action="" method="get">
                     <input
@@ -174,7 +167,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <option>통합검색</option>
                   </select>
                   <!-- search 검색 -->
-                  <form id="searchForm" action="../performance/performance_search.do" method="GET">
+                  <form
+                    id="searchForm"
+                    action="../performance/performance_search.do"
+                    method="GET"
+                  >
                     <input
                       id="searchInput"
                       name="search"
@@ -182,7 +179,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       type="search"
                       required
                     />
-                    <button class="btnn" type="submit"><i class="ti-search"></i></button>
+                    <button class="btnn" type="submit">
+                      <i class="ti-search"></i>
+                    </button>
                   </form>
                 </div>
               </div>
@@ -191,11 +190,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <div class="right-bar">
                 <!-- Search Form -->
                 <!-- 장바구니 버튼 부분 -->
-                 <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
+                <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
                 <div class="sinlge-bar shopping">
-                  <a href="../cart/list.do" class="single-icon"><i class="ti-bag"></i></a>
-                  <!-- Shopping Item -->
-                  <!-- 장바구니 부분 상세 삭제함 -->
+                  <a class="single-icon" onclick="checkLogin();">
+                    <i class="ti-bag"></i>
+                  </a>
                 </div>
               </div>
             </div>
@@ -215,19 +214,37 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li class="active"><a href="../main/list.do">Home</a></li>
-                          <li><a href="../performance/list.do">전체 공연</a></li>
-                          <li><a href="../performance/category.do?performance_detail_cate_idx=1">뮤지컬</a></li>
-                          <li><a href="../performance/category.do?performance_detail_cate_idx=2">콘서트</a></li>
-                          <li><a href="../performance/category.do?performance_detail_cate_idx=3">연극</a></li>
+                          <li class="active">
+                            <a href="../main/list.do">Home</a>
+                          </li>
                           <li>
-                            <a href="../faq/list.do">고객센터<i class="ti-angle-down"></i></a>
+                            <a href="../performance/list.do">전체 공연</a>
+                          </li>
+                          <li>
+                            <a
+                              href="../performance/list.do?performance_cate_idx=1"
+                              >뮤지컬</a>
+                          </li>
+                          <li>
+                            <a
+                              href="../performance/list.do?performance_cate_idx=2"
+                              >콘서트</a>
+                          </li>
+                          <li>
+                            <a
+                              href="../performance/list.do?performance_cate_idx=3"
+                              >연극</a>
+                          </li>
+                          <li>
+                            <a href="../faq/list.do"
+                              >고객센터<i class="ti-angle-down"></i
+                            ></a>
                             <ul class="dropdown">
                               <li><a href="../qna/list.do">Q&A</a></li>
                               <li><a href="../faq/list.do">FAQ</a></li>
                               <li>
                                 <a href="../board/list.do">게시판 리스트</a>
-                              </li>                              
+                              </li>
                             </ul>
                           </li>
                         </ul>
@@ -244,71 +261,69 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!--/ End Header Inner -->
     </header>
     <!--/ End Header -->
-
     
-
     <script>
-
-      $(document).ready(function() {
-          function setActiveMenu() {
-              let currentUrl = window.location.pathname; // 현재 페이지의 경로
-
-              // 모든 'active' 클래스 제거
-              $('.nav.main-menu.menu.navbar-nav li').removeClass('active');
-
-              // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
-              $('.nav.main-menu.menu.navbar-nav a').each(function() {
-                  let linkUrl = $(this).attr('href');
-
-              // 상대 경로= 절대 경로 변환
-              let absoluteLinkUrl = new URL(linkUrl, window.location.origin).pathname;
-
-              // 현재 페이지 URL과 메뉴 링크가 일치?
-              if (currentUrl === absoluteLinkUrl) {
-                   $(this).parent().addClass('active');
-                  }
-              });
-          }
-
-          // 로드
-          setActiveMenu();
-
-          // 메뉴 항목 클릭 시
-          $('.nav.main-menu.menu.navbar-nav a').click(function(event) {
-              event.preventDefault();
-
-              //'active' 클래스 제거
-              $('.nav.main-menu.menu.navbar-nav li').removeClass('active');
-
-              // 클릭한 'active' 클래스 추가
-              $(this).parent().addClass('active');
-
-              // 링크 이동 (정해진 링크이동)
-              // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
-              window.location.href = $(this).attr('href');
+      $(document).ready(function () {
+        function setActiveMenu() {
+          let currentUrl = window.location.pathname; // 현재 페이지의 경로
+          // 모든 'active' 클래스 제거
+          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
+          // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
+          $(".nav.main-menu.menu.navbar-nav a").each(function () {
+            let linkUrl = $(this).attr("href");
+            // 상대 경로= 절대 경로 변환
+            let absoluteLinkUrl = new URL(linkUrl, window.location.origin)
+              .pathname;
+            // 현재 페이지 URL과 메뉴 링크가 일치?
+            if (currentUrl === absoluteLinkUrl) {
+              $(this).parent().addClass("active");
+            }
           });
+        }
+        // 로드
+        setActiveMenu();
+        // 메뉴 항목 클릭 시
+        $(".nav.main-menu.menu.navbar-nav a").click(function (event) {
+          event.preventDefault();
+          //'active' 클래스 제거
+          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
+          // 클릭한 'active' 클래스 추가
+          $(this).parent().addClass("active");
+          // 링크 이동 (정해진 링크이동)
+          // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
+          window.location.href = $(this).attr("href");
+        });
       });
-
-
-
     </script>
-    
     <!-- 메인 검색창 경고창 -->
     <script>
       function validateSearch() {
-        var searchInput = document.getElementById('searchInput');
-        
+        var searchInput = document.getElementById("searchInput");
         // 검색어가 입력되지 않았을 경우
         if (searchInput.value.trim() === "") {
-          alert('공연 제목을 입력해주세요');
+          alert("공연 제목을 입력해주세요");
           searchInput.value = ""; // 입력된 글자를 지움
           searchInput.focus(); // 포커스를 입력 필드로 다시 설정
           return false; // 폼 제출을 막음
         }
-        
         return true; // 검색어가 있을 경우 폼을 제출
       }
     </script>
-
+    <script type="text/javascript">
+      function checkLogin() {
+        // 로그인 여부 체크
+        if ("${ empty user }" == "true") {
+          if (
+            confirm(
+              "장바구니 조회는 로그인 후 가능합니다 \n 로그인 하시겠습니까?"
+            ) == false
+          )
+            return;
+          location.href = "../member/login_form.do";
+          return;
+        }
+        location.href = "../cart/list.do";
+      }
+    </script>
   </body>
 </html>

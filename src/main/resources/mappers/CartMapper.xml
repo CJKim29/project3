@@ -4,28 +4,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.CartMapper">
 
-    <select id="cart_list" resultType="cart">
-        SELECT * from cart order by cart_idx
-    </select>
+  <resultMap id="cartMap" type="cart">
+    <result property="cart_idx" column="cart_idx" />
+    <!-- 좌석 정보를 담기위한 list -->
+    <collection property="seatList" column="cart_idx=cart_idx" select="cart_seat_list" />
+  </resultMap>
 
-    <select id="select_one_from_idx" parameterType="int" resultType="cart">
+  <!-- 회원별 장바구니목록 조회(공연이미지, 공연명, 공연장명) -->
+  <select id="cart_list" parameterType="int" resultMap="cartMap">
+      SELECT 
+          c.cart_idx,
+          p.performance_name,
+          p.performance_image,
+          c.reserved_performance_date,
+          h.hall_name
+      FROM cart c 
+      INNER JOIN performance p ON c.performance_idx = p.performance_idx
+      INNER JOIN hall h ON p.hall_idx = h.hall_idx
+      WHERE c.mem_idx = #{mem_idx} 
+      ORDER BY c.cart_idx
+  </select>
+
+  <!-- 장바구니 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
+  <select id="cart_seat_list" resultType="cart_seat">
+    SELECT 
+        cs.cart_seat_idx,
+        cs.seat_idx,
+        s.seat_grade,
+        s.seat_price,
+        cs.cart_seat_name
+    FROM cart_seat cs 
+    INNER JOIN seat s ON cs.seat_idx = s.seat_idx
+    WHERE cs.cart_idx = #{cart_idx}
+  </select>
+
+  <select id="select_one_cart" parameterType="int" resultType="cart">
         select * from cart where cart_idx = #{cart_idx}
-    </select>
+  </select>
 
-    <insert id="cart_insert" parameterType="cart">
-        INSERT INTO cart (
-            mem_idx,
-            performance_idx) values (#{mem_idx}, #{performance_idx});
-    </insert>
+  <select id="select_performance_cate_idx" parameterType="int" resultType="int">
+    SELECT performance_cate_idx 
+    FROM performance 
+    WHERE performance_idx = #{performance_idx};
+  </select>
 
-    <!-- 장바구니 삭제 -->
-    <delete id="cart_delete" parameterType="int">
+  <select id="selectOne_seat_idx_m" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartlistviewm where performance_idx = #{performance_idx} and m_hall_row_no = #{row};
+  </select>
+  <select id="selectOne_seat_idx_s" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartlistviews where performance_idx = #{performance_idx} and s_hall_row_no = #{row};
+  </select>
+  <select id="selectOne_seat_idx_l" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartlistviewl where performance_idx = #{performance_idx} and l_hall_row_no = #{row};
+  </select>
+
+  <insert id="cart_insert" parameterType="cart">
+      INSERT INTO cart ( mem_idx,performance_idx, reserved_performance_date) values (
+            #{mem_idx}, 
+            #{performance_idx}, 
+            #{ reserved_performance_date } )
+  </insert>
+
+  <select id="cart_recent_idx" resultType="int">
+        select max(cart_idx) from cart
+  </select>
+
+  <!-- 장바구니 삭제 -->
+  <delete id="cart_delete" parameterType="int">
         DELETE FROM cart WHERE cart_idx = #{cart_idx}
-    </delete>
-
-    <!-- 장바구니 등록 시 예약 여부를 '1'로 변경 -->
-    <update id="cart_update_use" parameterType="int">
-        UPDATE cart SET reserved = 1 WHERE cart_idx = #{cart_idx}
-    </update>
+  </delete>
 
 </mapper>

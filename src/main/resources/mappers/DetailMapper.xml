@@ -4,107 +4,126 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.DetailMapper">
 
-   <resultMap id="performanceMap" type="performance">
-      <result property="hall_idx" column="hall_idx"/>
-      <result property="performance_cate_idx" column="performance_cate_idx"/>
-      <result property="performance_idx" column="performance_idx"/>
-      <result property="seat_idx" column="seat_idx"/>
+ <resultMap id="performanceMap" type="performance">
+  <result property="hall_idx" column="hall_idx"/>
+  <result property="performance_cate_idx" column="performance_cate_idx"/>
+  <result property="performance_idx" column="performance_idx"/>
+  <result property="seat_idx" column="seat_idx"/>
 
-      <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
-      <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
-      <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
-   </resultMap>
+  <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
+  <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+  <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
+ </resultMap>
 
-   <resultMap id="castingMap" type="casting">
-      <result property="actor_idx" column="actor_idx" />
+ <resultMap id="castingMap" type="casting">
+  <result property="actor_idx" column="actor_idx" />
 
-      <association property="actorVo" column="actor_idx=actor_idx" select="actor_list" />
-   </resultMap>
+  <association property="actorVo" column="actor_idx=actor_idx" select="actor_list" />
+ </resultMap>
 
-   <select id="performance_cate_list" resultType="performance_cate">
+ <select id="performance_cate_list" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
-   </select>
-   <select id="hall_list" resultType="hall">
+ </select>
+ <select id="hall_list" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-   </select>
-   <select id="seat_list" resultType="seat">
+ </select>
+ <select id="seat_list" resultType="seat">
        select * from seat where performance_idx=#{ performance_idx }
-   </select>
-   <select id="actor_list" resultType="actor">
+ </select>
+ <select id="actor_list" resultType="actor">
       select * from actor where actor_idx=#{actor_idx}
-   </select>
+ </select>
 
 
 
-   <!-- 전체조회 -->
-   <select id="selectList" resultMap="performanceMap">
+ <!-- 전체조회 -->
+ <select id="selectList" resultMap="performanceMap">
 		select * from performance order by performance_idx
-   </select>
+ </select>
 
-   <!-- idx조회 -->
-   <select id="selectOneFromIdx" resultMap="performanceMap">
+ <!-- idx조회 -->
+ <select id="selectOneFromIdx" resultMap="performanceMap">
 		select * from performance where performance_idx=#{ performance_idx }
-   </select>
+ </select>
 
-   <!-- 좋아요 유무 -->
-   <select id="findLike" resultType="Boolean">
+ <!-- 좋아요 유무 -->
+ <select id="findLike" resultType="Boolean">
 		select count(*) from performance_ex_like where performance_idx=#{performance_idx} and mem_idx=#{mem_idx}
-   </select>
+ </select>
 
-   <!-- 좋아요 추가 -->
-   <insert id="likeUp">
+ <!-- 좋아요 추가 -->
+ <insert id="likeUp">
 		INSERT INTO performance_ex_like (performance_idx, mem_idx, like_number)
         VALUES (#{performance_idx}, #{mem_idx}, 1)
-   </insert>
+ </insert>
 
-   <!-- 좋아요 취소 -->
-   <delete id="likeDown">
+ <!-- 좋아요 취소 -->
+ <delete id="likeDown">
 		delete from performance_ex_like 
 			where performance_idx = #{performance_idx} and 
 					mem_idx = #{mem_idx}
-   </delete>
+ </delete>
 
-   <!-- 좋아요 수 -->
-   <select id="getTotalLikeCount" parameterType="int" resultType="int">
+ <!-- 좋아요 수 -->
+ <select id="getTotalLikeCount" parameterType="int" resultType="int">
         SELECT ifnull(sum(like_number),0)
         FROM performance_ex_like
         WHERE performance_idx = #{performance_idx}
-   </select>
+ </select>
 
-   <!-- 배우 전체 조회 -->
-   <select id="selectActorList" resultType="actor">
+ <!-- 배우 전체 조회 -->
+ <select id="selectActorList" resultType="actor">
 		select * from actor order by actor_idx
-   </select>
+ </select>
 
-   <!-- 배우 idx별 조회 -->
-   <select id="selectActorFromIdx" parameterType="int" resultType="actor">
+ <!-- 배우 idx별 조회 -->
+ <select id="selectActorFromIdx" parameterType="int" resultType="actor">
 		select * from actor where actor_idx=#{ actor_idx }
-   </select>
+ </select>
 
-   <!-- 캐스팅 전체 조회 -->
-   <select id="selectCastingList" resultMap="castingMap">
+ <!-- 캐스팅 전체 조회 -->
+ <select id="selectCastingList" resultMap="castingMap">
 		select * from casting order by casting_idx
-   </select>
+ </select>
 
-   <!-- 공연 idx별 캐스팅 조회 -->
-   <select id="selectCastingFromIdx" parameterType="int" resultMap="castingMap">
+ <!-- 공연 idx별 캐스팅 조회 -->
+ <select id="selectCastingFromIdx" parameterType="int" resultMap="castingMap">
 		select * from casting where performance_idx=#{ performance_idx }
-   </select>
+ </select>
 
-   <!-- 공연 날짜 가져오기 -->
-   <select id="getPerformanceDates" resultType="string">
+ <!-- 공연 날짜 가져오기 -->
+ <select id="getPerformanceDates" resultType="string">
       SELECT DATE_FORMAT(performance_date_date, '%Y-%m-%d') 
       FROM performance_date
       WHERE performance_idx = #{performance_idx}
-   </select>
+ </select>
 
-   <!-- 파일이름 변경 -->
-   <update id="updateFilename" parameterType="performance">
+ <!-- 공연 첫째날 가져오기 -->
+ <select id="getFirstDate" resultType="string">
+      SELECT DATE_FORMAT(performance_startday, '%Y-%m-%d') 
+      FROM performance
+      WHERE performance_idx = #{performance_idx}
+ </select>
+
+ <!-- 공연 마지막날 가져오기 -->
+ <select id="getLastDate" resultType="string">
+      SELECT DATE_FORMAT(performance_endday, '%Y-%m-%d') 
+      FROM performance
+      WHERE performance_idx = #{performance_idx}
+ </select>
+
+ <!-- 파일이름 변경 -->
+ <update id="updateFilename" parameterType="performance">
       update performance set performance_detail_image=#{performance_detail_image} where performance_idx=#{performance_idx}
-   </update>
+ </update>
 
-   <!-- 수정 -->
-   <update id="update" parameterType="performance">
+ <!-- 수정 -->
+ <update id="update" parameterType="performance">
       update performance set performance_detail_info=#{performance_detail_info}, performance_al=#{performance_al} where performance_idx=#{performance_idx}
-   </update>
+ </update>
+
+ <!-- 캐스팅 추가 -->
+ <insert id="casting_insert">
+      insert casting
+ </insert>
 </mapper>

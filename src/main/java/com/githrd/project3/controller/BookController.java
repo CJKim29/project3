@@ -1,6 +1,7 @@
 package com.githrd.project3.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -101,20 +102,14 @@ public class BookController {
     return "book/book_seat_m";
    }
 
-   int zeroCount1 = book_mapper.selectRemainSeat_M(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
-   model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+   List<Map<String, Object>> seatList = book_mapper.countSeatIdx(performance_idx);
+   for (Map<String, Object> seat : seatList) {
+    int seat_idx = (int) seat.get("seat_idx");
+    int zeroCount = book_mapper.selectRemainSeat_M(performance_date_idx, seat_idx);
 
-   int zeroCount2 = book_mapper.selectRemainSeat_M(performance_date_idx, 2);
-   model.addAttribute("zeroCount2", zeroCount2);
-
-   int zeroCount3 = book_mapper.selectRemainSeat_M(performance_date_idx, 3);
-   model.addAttribute("zeroCount3", zeroCount3);
-
-   int zeroCount4 = book_mapper.selectRemainSeat_M(performance_date_idx, 4);
-   model.addAttribute("zeroCount4", zeroCount4);
-
-   int zeroCount5 = book_mapper.selectRemainSeat_M(performance_date_idx, 5);
-   model.addAttribute("zeroCount5", zeroCount5);
+    seat.put("remaining_seats", zeroCount); // 남은 좌석 수 추가
+   }
+   model.addAttribute("seatList", seatList);
 
    return "book/book_seat_m";
   }
@@ -134,20 +129,14 @@ public class BookController {
     return "book/book_seat_s";
    }
 
-   int zeroCount1 = book_mapper.selectRemainSeat_S(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
-   model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+   List<Map<String, Object>> seatList = book_mapper.countSeatIdx(performance_idx);
+   for (Map<String, Object> seat : seatList) {
+    int seat_idx = (int) seat.get("seat_idx");
+    int zeroCount = book_mapper.selectRemainSeat_S(performance_date_idx, seat_idx);
 
-   int zeroCount2 = book_mapper.selectRemainSeat_S(performance_date_idx, 2);
-   model.addAttribute("zeroCount2", zeroCount2);
-
-   int zeroCount3 = book_mapper.selectRemainSeat_S(performance_date_idx, 3);
-   model.addAttribute("zeroCount3", zeroCount3);
-
-   int zeroCount4 = book_mapper.selectRemainSeat_S(performance_date_idx, 4);
-   model.addAttribute("zeroCount4", zeroCount4);
-
-   int zeroCount5 = book_mapper.selectRemainSeat_S(performance_date_idx, 5);
-   model.addAttribute("zeroCount5", zeroCount5);
+    seat.put("remaining_seats", zeroCount); // 남은 좌석 수 추가
+   }
+   model.addAttribute("seatList", seatList);
 
    return "book/book_seat_s";
   }
@@ -167,20 +156,14 @@ public class BookController {
     return "book/book_seat_l";
    }
 
-   int zeroCount1 = book_mapper.selectRemainSeat_L(performance_date_idx, 1); // 변경: 반환 값을 int로 받음
-   model.addAttribute("zeroCount1", zeroCount1); // zeroCount를 모델에 추가
+   List<Map<String, Object>> seatList = book_mapper.countSeatIdx(performance_idx);
+   for (Map<String, Object> seat : seatList) {
+    int seat_idx = (int) seat.get("seat_idx");
+    int zeroCount = book_mapper.selectRemainSeat_L(performance_date_idx, seat_idx);
 
-   int zeroCount2 = book_mapper.selectRemainSeat_L(performance_date_idx, 2);
-   model.addAttribute("zeroCount2", zeroCount2);
-
-   int zeroCount3 = book_mapper.selectRemainSeat_L(performance_date_idx, 3);
-   model.addAttribute("zeroCount3", zeroCount3);
-
-   int zeroCount4 = book_mapper.selectRemainSeat_L(performance_date_idx, 4);
-   model.addAttribute("zeroCount4", zeroCount4);
-
-   int zeroCount5 = book_mapper.selectRemainSeat_L(performance_date_idx, 5);
-   model.addAttribute("zeroCount5", zeroCount5);
+    seat.put("remaining_seats", zeroCount); // 남은 좌석 수 추가
+   }
+   model.addAttribute("seatList", seatList);
 
    return "book/book_seat_l";
   }
@@ -189,21 +172,12 @@ public class BookController {
 
  } // end - performance_seat
 
- @RequestMapping("/reserve_seats.do")
+ @PostMapping("/reserve_seats.do")
  public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
    @RequestParam("date") String performance_date,
    @RequestParam("selectedSeats") String selectedSeatsJson,
    @RequestParam("seatInfo") List<String> seatInfo,
-   Model model, RedirectAttributes ra) {
-
-  // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
-  MemberVo user = (MemberVo) session.getAttribute("user");
-  if (user == null) {
-
-   ra.addAttribute("reason", "session_timeout");
-
-   return "redirect:../member/login_form.do";
-  }
+   Model model) {
 
   // 공연 정보 조회
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
@@ -274,10 +248,48 @@ public class BookController {
    }
   }
 
-  // System.out.println("seatInfo = " + seatInfo);
-  // System.out.println("performance_date = " + performance_date);
+  System.out.println("seatInfo = " + seatInfo);
+  System.out.println("performance_date = " + performance_date);
 
-  return "payment/payment_check";
+  return "book/payment_check";
+ }
+
+ @RequestMapping("payment.do")
+ public String payment() {
+
+ } // end - performance_seat
+
+ @PostMapping("/book_reservation.do")
+ public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
+   @RequestParam("performance_idx") int performance_idx,
+   @RequestParam("date") String performance_date, Model model) {
+
+  X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+
+  model.addAttribute("vo", vo);
+
+  if (vo.getPerformance_cate_idx() == 1) {
+   List<M_HallVo> seats = m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+     performance_date);
+
+   model.addAttribute("seats", seats);
+  }
+  if (vo.getPerformance_cate_idx() == 2) {
+   List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+     performance_date);
+
+   model.addAttribute("seats", seats);
+  }
+  if (vo.getPerformance_cate_idx() == 3) {
+   List<L_HallVo> seats = l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+     performance_date);
+
+   model.addAttribute("seats", seats);
+  }
+
+  // 좌석 정보 처리
+  model.addAttribute("seatInfo", seatInfo);
+  return "/mypage/my_reservation"; // book_result.jsp로 이동
  }
 
  @RequestMapping("payment_agree.do")
@@ -322,39 +334,6 @@ public class BookController {
   // model.addAttribute("order_idx", order_idx); // JSP에서 사용할 수 있도록 모델에 추가
 
   return "/payment/payment_agree";
- }
-
- @PostMapping("/book_reservation.do")
- public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
-   @RequestParam("performance_idx") int performance_idx,
-   @RequestParam("date") String performance_date, Model model) {
-
-  X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
-
-  model.addAttribute("vo", vo);
-
-  if (vo.getPerformance_cate_idx() == 1) {
-   List<M_HallVo> seats = m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
-     performance_date);
-
-   model.addAttribute("seats", seats);
-  }
-  if (vo.getPerformance_cate_idx() == 2) {
-   List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
-     performance_date);
-
-   model.addAttribute("seats", seats);
-  }
-  if (vo.getPerformance_cate_idx() == 3) {
-   List<L_HallVo> seats = l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
-     performance_date);
-
-   model.addAttribute("seats", seats);
-  }
-
-  // 좌석 정보 처리
-  model.addAttribute("seatInfo", seatInfo);
-  return "/mypage/my_reservation"; // book_result.jsp로 이동
  }
 
  // 결체창 띄우기

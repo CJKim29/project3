@@ -1,6 +1,7 @@
 package com.githrd.project3.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,6 +33,11 @@ public interface BookMapper {
 
  Integer getPerformanceDateIdx(@Param("performance_idx") int performance_idx,
    @Param("performance_date") String performance_date);
+
+
+   int countSeatGarde(int performance_idx);
+
+   List<Map<String, Object>> countSeatIdx(int performance_idx);
 
  // 주문 정보 insert
  void ordersInsert(OrdersVo ordersVo);

@@ -442,6 +442,8 @@
                 </div>
             </div>
             <div class="d-flex overflow-auto">
+				<c:forEach var="performance" items="${newPerformances}" varStatus="status">
+				<c:if test="${status.index < 3}"> <!-- 3개만 출력 -->
                 <!-- Start Single List -->
 				 <!-- 115x140 -->
 				 <!-- 210x320 -->
@@ -449,60 +451,23 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="../detail/detail.do?performance_idx=37">
-									<img class="default-img" src="/../resources/template/images/최신용 2호선.png" alt="#">
+	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#" style="width: 210px; height: 320px;">
 								</a>
-								<!-- <a href="#" class="buy"></a> -->
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h6 class="title">NEW</h6><br>
-                                <p style="font-size: 12px;">연극<br>2호선 세입자</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-12 no-padding">
+							<div class="content">
+								<h6 class="title">NEW</h6><br>
+								<p style="font-size: 12px;">${performance.performance_name}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
                 <!-- End Single List -->
-                <!-- Start Single List -->
-                <div class="single-list me-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="product-content">
-								<a href="../detail/detail.do?performance_idx=13">
-									<img class="default-img" src="/../resources/template/images/최신용 프리즌.png" alt="#">
-								</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h6 class="title">NEW</h6><br>
-                                <p style="font-size: 12px;">뮤지컬<br>프리즌</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List -->
-                <!-- Start Single List -->
-                <div class="single-list me-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="product-content">
-								<a href="../detail/detail.do?performance_idx=38">
-									<img class="default-img" src="/../resources/template/images/최신용 런투.png" alt="#">
-								</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h6 class="title">NEW</h6><br>
-                                <p style="font-size: 12px;">연극<br>런투패밀리</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List -->
-            </div>
+	 </div>
             <!-- 랭킹 섹션 -->
             <div class="col-lg-12 mt-4">
                 <div class="shop-section-title">
@@ -510,68 +475,32 @@
                 </div>
             </div>
             <div class="d-flex overflow-auto">
+				<c:forEach var="performance" items="${rankingPerformances}" varStatus="status">
+				<c:if test="${status.index < 3}"> <!-- 3개만 출력 -->
 				<!-- 가로형 -->
                 <!-- Start Single List -->
                 <div class="single-list me-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
-								<a href="../detail/detail.do?performance_idx=1">
-									<img class="default-img" src="/../resources/template/images/랭킹용써니텐.png" alt="#">
+	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#">
 								</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h6 class="title">1st</h6><br>
-                                <p style="font-size: 12px;">뮤지컬<br>써니텐</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List -->
-                <!-- Start Single List -->
-                <div class="single-list me-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="product-content">
-								<a href="../detail/detail.do?performance_idx=2">
-									<img class="default-img" src="/../resources/template/images/랭킹용 인사이드미.png" alt="#">
-								</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h6 class="title">2st</h6><br>
-                                <p style="font-size: 12px;">뮤지컬<br>인사이드 미</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List -->
-                <!-- Start Single List -->
-                <div class="single-list me-3">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="product-content">
-								<a href="../detail/detail.do?performance_idx=3">
-									<img class="default-img" src="/../resources/template/images/랭킹용김종욱찾기.png" alt="#">
-								</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h6 class="title">3st</h6><br>
-                                <p style="font-size: 12px;">뮤지컬<br>김종욱 찾기</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List -->
-            </div>
-        </div>
-    </div>
-</section>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-12 no-padding">
+							<div class="content">
+								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}st</h6><br>
+								<p style="font-size: 12px;">${performance.performance_name}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				</c:if>
+				</c:forEach>
+       	 </div>
+   		 </div>
+	</section>
 <!-- End Shop Home List -->
 
 	

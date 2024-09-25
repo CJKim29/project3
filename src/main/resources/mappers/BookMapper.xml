@@ -17,6 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from performance order by performance_idx
  </select>
 
+ <!-- 공연별 좌석번호, 등급, 가격 조회 -->
+ <select id="countSeatIdx" resultType="map">
+    SELECT seat_idx, seat_grade, seat_price 
+    FROM seat 
+    WHERE performance_idx = #{performance_idx};
+ </select>
+
  <!-- idx조회 -->
  <select id="selectOneFromIdx" resultMap="performanceOneMap">
 		select * from performance where performance_idx=#{ performance_idx }
@@ -52,21 +59,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="selectRemainSeat_M" resultType="int">
         select
             COALESCE(
-                (sum(m_hall_a = 0) +
-                SUM(m_hall_b = 0) +
-                SUM(m_hall_c = 0) +
-                SUM(m_hall_d = 0) +
-                SUM(m_hall_e = 0) +
-                SUM(m_hall_f = 0) +
-                SUM(m_hall_g = 0) +
-                SUM(m_hall_h = 0) +
-                SUM(m_hall_i = 0) +
-                SUM(m_hall_j = 0) +
-                SUM(m_hall_k = 0) +
-                SUM(m_hall_l = 0) +
-                SUM(m_hall_m = 0) +
-                SUM(m_hall_n = 0) +
-                SUM(m_hall_o = 0)), 0) AS zero_count
+                (SUM(A = 0) +
+                SUM(B = 0) +
+                SUM(C = 0) +
+                SUM(D = 0) +
+                SUM(E = 0) +
+                SUM(F = 0) +
+                SUM(G = 0) +
+                SUM(H = 0) +
+                SUM(I = 0) +
+                SUM(J = 0) +
+                SUM(K = 0) +
+                SUM(L = 0) +
+                SUM(M = 0) +
+                SUM(N = 0) +
+                SUM(O = 0)), 0) AS zero_count
         FROM m_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};        
@@ -75,26 +82,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="selectRemainSeat_L" resultType="int">
         SELECT 
             COALESCE(
-                (SUM(l_hall_a = 0) +
-                SUM(l_hall_b = 0) +
-                SUM(l_hall_c = 0) +
-                SUM(l_hall_d = 0) +
-                SUM(l_hall_e = 0) +
-                SUM(l_hall_f = 0) +
-                SUM(l_hall_g = 0) +
-                SUM(l_hall_h = 0) +
-                SUM(l_hall_i = 0) +
-                SUM(l_hall_j = 0) +
-                SUM(l_hall_k = 0) +
-                SUM(l_hall_l = 0) +
-                SUM(l_hall_m = 0) +
-                SUM(l_hall_n = 0) +
-                SUM(l_hall_o = 0) +
-                SUM(l_hall_p = 0) +
-                SUM(l_hall_q = 0) +
-                SUM(l_hall_r = 0) +
-                SUM(l_hall_s = 0) +
-                SUM(l_hall_t = 0)), 0) AS zero_count
+                (SUM(A = 0) +
+                SUM(B = 0) +
+                SUM(C = 0) +
+                SUM(D = 0) +
+                SUM(E = 0) +
+                SUM(F = 0) +
+                SUM(G = 0) +
+                SUM(H = 0) +
+                SUM(I = 0) +
+                SUM(J = 0) +
+                SUM(K = 0) +
+                SUM(L = 0) +
+                SUM(M = 0) +
+                SUM(N = 0) +
+                SUM(O = 0) +
+                SUM(P = 0) +
+                SUM(Q = 0) +
+                SUM(R = 0) +
+                SUM(S = 0) +
+                SUM(T = 0)), 0) AS zero_count
         FROM l_hall
         WHERE performance_date_idx = #{performance_date_idx}
         AND seat_idx = #{seat_idx};

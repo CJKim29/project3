@@ -204,6 +204,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where performance_name like #{search}
   </select>
 
+  <!-- 최신 공연 정보 조회 (최신순) -->
+  <select id="selectNewPerformances" resultMap="performanceMap">
+
+      select * from performance order by performance_idx desc limit 3
+
+
+  <!-- 랭킹 공연 정보 조회 (좋아요 순) -->
+  <select id="selectRankingPerformances" resultMap="performanceMap">
+      select p.*, ifnull(l.like_number, 0) as like_number
+      from performance p
+      left join performance_ex_like l
+      on p.performance_idx = l.performance_idx
+      order by like_number desc limit 3
+  </select>
+
+
+
   <!--parameterType = 전달인자타입
 		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
 

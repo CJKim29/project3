@@ -53,4 +53,10 @@ public interface PerformanceMapper {
     // 검색어를 포함한 공연 목록 조회
     List<PerformanceVo> searchPerformances(String search);
 
+    // 최신 공연 정보 조회
+    List<PerformanceVo> selectNewPerformances();
+
+    // 랭킹 공연 정보 조회
+    List<PerformanceVo> selectRankingPerformances();
+
 }
