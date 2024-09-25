@@ -123,6 +123,17 @@
        height: 230px;
        overflow: hidden;
       }
+
+      #pageMenuContainer {
+       display: flex;
+       justify-content: center;
+       /* 수평 중앙 정렬 */
+       align-items: center;
+       /* 수직 중앙 정렬 (필요 시 사용) */
+       margin: 0 auto;
+       /* 전체 화면 기준으로 중앙 정렬 */
+       padding: 0;
+      }
      </style>
 
      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -614,7 +625,7 @@
               </div>
 
               <!-- Pagination -->
-              <div style="text-align: center !important; margin: auto;">${ pageMenu }</div>
+              <div id="pageMenuContainer">${ pageMenu }</div>
               <!--/ End Pagination -->
              </div>
              <!--/ End Reviews Tab -->
