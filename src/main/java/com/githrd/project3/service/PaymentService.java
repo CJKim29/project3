@@ -16,21 +16,22 @@ import com.siot.IamportRestClient.response.Payment;
 @Service
 public class PaymentService {
 
- @Autowired
- BookMapper book_mapper;
+  @Autowired
+  BookMapper book_mapper;
 
- private final IamportClient iamportClient;
+  private final IamportClient iamportClient;
 
- @Autowired
- public PaymentService(IamportClient iamportClient) {
-  this.iamportClient = iamportClient;
- }
+  @Autowired
+  public PaymentService(IamportClient iamportClient) {
+    this.iamportClient = iamportClient;
+  }
 
- public IamportResponse<Payment> getPaymentInfo(String impUid) throws IamportResponseException, IOException {
-  return iamportClient.paymentByImpUid(impUid);
- }
+  public IamportResponse<Payment> getPaymentInfo(String impUid) throws IamportResponseException, IOException {
+    return iamportClient.paymentByImpUid(impUid);
+  }
 
- public OrdersVo getOrderByIdx(int orderIdx) {
-  return book_mapper.selectOneFromOrderIdx(orderIdx);
- }
+  // 작업중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // public OrdersVo getOrderByIdx(int orderIdx) {
+  // return book_mapper.selectOneFromOrderIdx(orderIdx);
+  // }
 }
