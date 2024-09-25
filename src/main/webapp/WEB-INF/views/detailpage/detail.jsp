@@ -54,44 +54,6 @@
 
 
 
-					<!-- Jquery -->
-					<script src="../resources/template/js/jquery.min.js"></script>
-					<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
-					<script src="../resources/template/js/jquery-ui.min.js"></script>
-					<!-- Popper JS -->
-					<script src="../resources/template/js/popper.min.js"></script>
-					<!-- Bootstrap JS -->
-					<script src="../resources/template/js/bootstrap.min.js"></script>
-					<!-- Color JS -->
-					<script src="../resources/template/js/colors.js"></script>
-					<!-- Slicknav JS -->
-					<script src="../resources/template/js/slicknav.min.js"></script>
-					<!-- Owl Carousel JS -->
-					<script src="../resources/template/js/owl-carousel.js"></script>
-					<!-- Magnific Popup JS -->
-					<script src="../resources/template/js/magnific-popup.js"></script>
-					<!-- Fancybox JS -->
-					<script src="../resources/template/js/facnybox.min.js"></script>
-					<!-- Waypoints JS -->
-					<script src="../resources/template/js/waypoints.min.js"></script>
-					<!-- Countdown JS -->
-					<script src="../resources/template/js/finalcountdown.min.js"></script>
-					<!-- Nice Select JS -->
-					<script src="../resources/template/js/nicesellect.js"></script>
-					<!-- Ytplayer JS -->
-					<!-- <script src="../resources/template/js/ytplayer.min.js"></script> -->
-					<!-- Flex Slider JS -->
-					<script src="../resources/template/js/flex-slider.js"></script>
-					<!-- ScrollUp JS -->
-					<script src="../resources/template/js/scrollup.js"></script>
-					<!-- Onepage Nav JS -->
-					<script src="../resources/template/js/onepage-nav.min.js"></script>
-					<!-- Easing JS -->
-					<script src="../resources/template/js/easing.js"></script>
-					<!-- Active JS -->
-					<script src="../resources/template/js/active.js"></script>
-
-
 
 					<!-- Color CSS -->
 					<!-- <link rel="stylesheet" href="../resources/template/css/color/color1.css"> -->
@@ -377,13 +339,12 @@
 									<option>통합검색</option>
 									</select>
 									<!-- search 검색 -->
-									<form id="searchForm" action="../performance/performance_search.do" method="GET">
+									<form id="searchForm" action="../performance/performance_search.do" method="GET" onsubmit="return validateSearch()">
 									<input
 										id="searchInput"
 										name="search"
 										placeholder="찾으실 공연을 입력해주세요"
 										type="search"
-										required
 									/>
 									<button class="btnn" type="submit"><i class="ti-search"></i></button>
 									</form>
@@ -396,9 +357,7 @@
 								<!-- 장바구니 버튼 부분 -->
 								<!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
 								<div class="sinlge-bar shopping">
-									<a href="../main/performance_like.do" class="single-icon"
-									><i class="ti-bag"></i
-									></a>
+									<a href="../cart/list.do" class="single-icon"><i class="ti-bag"></i></a>
 									<!-- Shopping Item -->
 									<!-- 장바구니 부분 상세 삭제함 -->
 								</div>
@@ -421,9 +380,10 @@
 										<div class="nav-inner">
 										<ul class="nav main-menu menu navbar-nav">
 											<li class="active"><a href="../main/list.do">Home</a></li>
-											<li><a href="../performance/list.do">뮤지컬</a></li>
-											<li><a href="#">콘서트</a></li>
-											<li><a href="#">연극</a></li>
+											<li><a href="../performance/list.do">전체 공연</a></li>
+											<li><a href="../performance/category.do?performance_detail_cate_idx=1">뮤지컬</a></li>
+											<li><a href="../performance/category.do?performance_detail_cate_idx=2">콘서트</a></li>
+											<li><a href="../performance/category.do?performance_detail_cate_idx=3">연극</a></li>
 											<li>
 											<a href="../faq/list.do">고객센터<i class="ti-angle-down"></i></a>
 											<ul class="dropdown">
