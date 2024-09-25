@@ -17,6 +17,6 @@ public class PaymentVo {
  int order_idx; // 주문번호
  int payment_amount; // 결제값
  String payment_date; // 결제날짜
- String payment_state; // 결제상태
+ String payment_state; // 결제상태 - 결제 됐나 안 됐나
 
 }

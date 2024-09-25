@@ -10,6 +10,7 @@
      <title>결제</title>
      <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png" />
 
+     <!-- CSS 연결 -->
      <link rel="stylesheet" href="../resources/css/book/payment_agree.css" />
 
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
@@ -20,6 +21,73 @@
      <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
      <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+     <!-- jQuery -->
+     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+     <!-- iamport.payment.js -->
+     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+     <script>
+      var IMP = window.IMP;
+      IMP.init("imp15578583"); // 가맹점 식별 코드
+
+      function requestPay() {
+
+       IMP.request_pay({
+        // 결제 시 사용할 정보 입력
+        pg: "{html5_inicis}.{INIpayTest}",      //{PG사코드}.{MID} 
+        pay_method: "card",                     // 결제 방법
+        merchant_uid: "${order_idx}",           // 주문번호 'p' + new Date().getTime()+'_'+memberId
+        name: "${performance_name}",            // 상품명
+        amount: "${order_amount}",            // 결제금액 
+        buyer_email: "${mem_email}",            // 구매자 정보 필드는 필요에 따라 생략 가능
+        buyer_name: "${mem_name}",
+        buyer_tel: "${mem_phone}",
+        buyer_addr: "${mem_addr}",
+        buyer_postcode: "${mem_zipcode}"
+       },
+        function (rsp) { // callback
+         $.ajax({
+          type: 'POST',
+          url: "/payment/payment.do",  //결제 금액을 보낼 url 설정 ex) "/user/mypage/charge/point"
+          data: {
+           test: "test"
+           // imp_uid: rsp.imp_uid, // 아임포트 결제 완료 후 응답 받은 imp_uid
+           // order_idx: rsp.merchant_uid, // 주문번호
+           // order_amount: rsp.paid_amount // 결제된 금액
+          },
+          success: function (res_data) {
+
+           console.log("서버 응답 데이터:", res_data); // 응답 전체를 출력
+           // 필요한 데이터가 어디에 있는지 확인
+
+           // rsp.paid_amount: 아임포트에서 받은 응답. 실제 결제된 금액
+           // res_data.response.amount: 서버에서 받은 응답 데이터. 결제 요청을 처리한 결과에서 사용자가 요청한 금액이 저장된 부분
+           // if (res_data && res_data.response && res_data.response.amount) {
+           //  if (rsp.paid_amount === res_data.response.amount) {
+           //   alert("결제 성공");
+           //   //결제 성공 후 이동할 페이지
+           //   location.href = "/payment/success";
+
+           //  } else {
+           //   alert("결제 금액 불일치");
+           //  }
+           // }
+           // else {
+           //  console.error("응답 데이터가 예상과 다릅니다.");
+           //  alert("결제 실패!!!");
+           // }
+          },
+          error: function (err) {
+           console.error("AJAX 요청 실패: ", err);
+           alert("결제 실패");
+          }
+         });
+
+        }
+
+       );
+      }
+     </script>
 
     </head>
 
@@ -159,7 +227,7 @@
          <div>
           <input type="button" class="btn" value="이전"
            onclick="location.href='performance_seat.do?performance_idx=${param.performance_idx}&date=${param.date}'">
-          <input type="button" id="next_btn" class="btn" value="다음" onclick="location.href='payment.do'">
+          <input type="button" id="next_btn" class="btn" value="결제하기" onclick="requestPay();">
          </div>
         </div>
        </div>
