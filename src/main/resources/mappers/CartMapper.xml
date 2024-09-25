@@ -4,17 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.CartMapper">
 
-  <!-- 부하를 줄이기 위해 사용안함! (테이블 조인 활용) -->
-  <!-- <resultMap id="cartMap2" type="cart">
-    <result property="performance_idx" column="performance_idx"/>
-    <association property="performanceVo" column="performance_idx=performance_idx" select="cart_performance_list" />
-  </resultMap>
-
-  <select id="cart_performance_list" resultType="performance">
-      select * from performance where performance_idx=#{ performance_idx}
-  </select>
--->
-
   <resultMap id="cartMap" type="cart">
     <result property="cart_idx" column="cart_idx" />
     <!-- 좌석 정보를 담기위한 list -->
@@ -53,8 +42,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from cart where cart_idx = #{cart_idx}
   </select>
 
-  <select id="selectOne_seat_idx" parameterType="map" resultType="int">
+  <select id="select_performance_cate_idx" parameterType="int" resultType="int">
+    SELECT performance_cate_idx 
+    FROM performance 
+    WHERE performance_idx = #{performance_idx};
+  </select>
+
+  <select id="selectOne_seat_idx_m" parameterType="map" resultType="int">
         SELECT seat_idx FROM cartlistviewm where performance_idx = #{performance_idx} and m_hall_row_no = #{row};
+  </select>
+  <select id="selectOne_seat_idx_s" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartlistviews where performance_idx = #{performance_idx} and s_hall_row_no = #{row};
+  </select>
+  <select id="selectOne_seat_idx_l" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartlistviewl where performance_idx = #{performance_idx} and l_hall_row_no = #{row};
   </select>
 
   <insert id="cart_insert" parameterType="cart">
@@ -67,7 +68,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="cart_recent_idx" resultType="int">
         select max(cart_idx) from cart
   </select>
-
 
   <!-- 장바구니 삭제 -->
   <delete id="cart_delete" parameterType="int">
