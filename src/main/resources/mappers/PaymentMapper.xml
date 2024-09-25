@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.PaymentMapper">
+
+ <!--parameterType = 전달인자타입
+		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
+
+ <!-- 결제 정보 삽입 -->
+ <insert id="insertPayment">
+        insert into payment (merchant_uid, product_name, amount, buyer_email, buyer_name, buyer_tel, buyer_addr, buyer_postcode)
+        values (#{merchantUid}, #{productName}, #{amount}, #{buyerEmail}, #{buyerName}, #{buyerTel}, #{buyerAddr}, #{buyerPostcode})
+ </insert>
+
+ <!-- 주문번호로 결제 정보 조회 -->
+ <select id="getPaymentByMerchantUid" resultType="payment">
+        selcet * from payment WHERE merchant_uid = #{merchantUid}
+ </select>
+
+</mapper>

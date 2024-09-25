@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Alias("payment")
 public class PaymentVo {
 
- private String merchantUid;
- private int amount;
+ // private String merchantUid;
+ // private int amount;
 
  int payment_idx; // 결제번호
  int order_idx; // 주문번호
