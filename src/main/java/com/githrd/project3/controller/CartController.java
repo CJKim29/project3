@@ -53,6 +53,9 @@ public class CartController {
     int res = cart_mapper.cart_insert(cartVo);
     // 최근장바구니 번호 얻어오기
     int cart_idx = cart_mapper.cart_recent_idx();
+
+    // 공연 카테고리 인덱스 조회
+    int performance_cate_idx = cart_mapper.select_performance_cate_idx(cartVo.getPerformance_idx());
     // 좌석등록(반복문)
     for (String seat : seatInfo) {
       // "x열x석" 형식에서 "열"과 "석"으로 분리
@@ -60,7 +63,20 @@ public class CartController {
 
       int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
 
-      int seat_idx = cart_mapper.selectOne_seat_idx(cartVo.getPerformance_idx(), row);
+      int seat_idx = 0;
+
+      // 카테고리에 따라 다른 메서드 호출
+      switch (performance_cate_idx) {
+        case 1:
+          seat_idx = cart_mapper.selectOne_seat_idx_m(cartVo.getPerformance_idx(), row);
+          break;
+        case 2:
+          seat_idx = cart_mapper.selectOne_seat_idx_s(cartVo.getPerformance_idx(), row);
+          break;
+        case 3:
+          seat_idx = cart_mapper.selectOne_seat_idx_l(cartVo.getPerformance_idx(), row);
+          break;
+      }
 
       Cart_seatVo vo = new Cart_seatVo();
       vo.setCart_idx(cart_idx); // 최근 등록된 cart_idx 사용
