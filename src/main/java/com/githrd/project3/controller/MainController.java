@@ -34,8 +34,17 @@ public class MainController {
         // 공연 정보 가져오기
         List<PerformanceVo> list = performance_mapper.selectList();
 
+        // 최신 공연 정보 가져오기
+        List<PerformanceVo> newPerformances = performance_mapper.selectNewPerformances();
+
+        // 랭킹 공연 정보 가져오기
+        List<PerformanceVo> rankingPerformances = performance_mapper.selectRankingPerformances();
+        
+        
         // request binding
         model.addAttribute("list", list);
+        model.addAttribute("newPerformances", newPerformances);
+        model.addAttribute("rankingPerformances", rankingPerformances);
 
         return "main/main";
     }
