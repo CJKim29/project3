@@ -15,7 +15,8 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    margin: 0;
+                    margin: auto;
+                    margin-top: 50px;
                 }
 
                 .actor_pic {
@@ -24,7 +25,7 @@
                     object-fit: cover;
                 }
 
-                #actor_box {
+                .actor_box {
                     width: 105px;
                     height: 110px;
                     border-radius: 70%;
@@ -41,6 +42,11 @@
                 #moreText {
                     width: 890px;
                 }
+
+                #insert {
+                    display: inline-block;
+                    vertical-align: top;
+                }
             </style>
         </head>
 
@@ -50,7 +56,7 @@
                 <h2>캐스팅 수정</h2>
                 <c:forEach var="castingVo" items="${ list }">
                     <div class="casting_list">
-                        <div id="actor_box">
+                        <div class="actor_box">
                             <img class="actor_pic" src="../resources/images/${castingVo.actorVo.actor_pic}">
                         </div>
                         <h4>${castingVo.casting_name}</h4>
@@ -61,7 +67,11 @@
                 </c:forEach>
                 <div id="insert">
                     <div class="casting_list">
-                        <i class="fi fi-rs-user-add"></i>
+                        <a href="#">
+                            <div class="actor_box">
+                                <img class="actor_pic" src="../resources/images/insert.png">
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
