@@ -107,4 +107,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <update id="update" parameterType="performance">
       update performance set performance_detail_info=#{performance_detail_info}, performance_al=#{performance_al} where performance_idx=#{performance_idx}
    </update>
+
+   <!-- 캐스팅 추가 -->
+   <insert id="casting_insert">
+      insert casting
+   </insert>
 </mapper>

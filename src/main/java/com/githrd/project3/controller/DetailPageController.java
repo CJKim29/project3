@@ -741,4 +741,16 @@ public class DetailPageController {
     return map;
   }
 
+  @RequestMapping("casting_modify_form.do")
+  public String casting_modify(@RequestParam(value = "performance_idx", required = false) Integer performance_idx,
+      Model model) {
+    PerformanceVo vo = detail_mapper.selectOneFromIdx(performance_idx);
+    List<CastingVo> list = (List<CastingVo>) detail_mapper.selectCastingFromIdx(performance_idx);
+
+    model.addAttribute("vo", vo);
+    model.addAttribute("list", list);
+
+    return "detailpage/casting_modify_form";
+  }
+
 }
