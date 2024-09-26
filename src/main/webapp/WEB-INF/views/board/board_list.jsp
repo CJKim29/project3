@@ -32,6 +32,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       }
       th {
         color: black;
+        margin: 0 !important;
+      }
+
+      table{
+        width: 1125px !important;
       }
 
       a {
@@ -53,14 +58,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         word-break: break-all;
 
         /* ellipsi 속성 */
-      }
-
-      #category-select{
-        width: 80px; 
-        padding: 0 5px; 
-        border-radius: 5px; 
-        color: #333; 
-        font-size: 16px; 
       }
     </style>
 
@@ -132,37 +129,15 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
     <!-- Start Blog Grid -->
-    <div class="blog-single shop-blog grid section" style="padding-top: 30px">
+    <div class="blog-single shop-blog grid section" style="padding-top: 30px; padding-left: 15px;">
       <div class="container">
         <h3 id="title" style="margin-bottom: 20px">게시판</h3>
         <div class="row">
           <!-- 검색메뉴 -->
-          <div style="text-align: right; margin-bottom: 5px">
-            <form class="form-inline">
-              <input
-                id="board_readhit"
-                type="button"
-                class="btn"
-                value="조회순"
-                onclick="setSort('board_readhit');"
-                style="
-                  height: 40px;
-                  margin-left: 378px;
-                  margin-right: 5px;
-                  background: #337ab7;
-                "
-              />
-              <input
-                id="board_idx"
-                type="button"
-                class="btn"
-                value="등록일순"
-                onclick="setSort('board_idx');"
-                style="height: 40px; margin-right: 5px; background: #f0ad4e"
-              />
+           <span style="display: inline-block; width: 350px;"></span>
+            <form style="height:50px;">
               <select
                 id="search"
-                class="form-control"
                 style="height: 40px; font-size: 16px; margin-right: 5px"
               >
                 <option value="all">전체보기</option>
@@ -173,11 +148,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
               <input
                 id="search_text"
-                class="form-control"
                 value="${param.search_text}"
                 style="
                   height: 40px;
-                  margin-right: 5px;
+                  margin-right:3px;
+                  margin-left:6px;
                   font-size: 16px;
                   width: 200px;
                 "
@@ -189,8 +164,29 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 class="btn"
                 value="검색"
                 onclick="find();"
-                style="height: 40px; margin-right: 5px"
+                style="height: 40px; margin-right: 3px"
               />
+
+              <input
+              id="board_readhit"
+              type="button"
+              class="btn"
+              value="조회순"
+              onclick="setSort('board_readhit');"
+              style="
+                height: 40px;
+                margin-right: 3px;
+                background: #337ab7;
+              "
+            />
+            <input
+              id="board_idx"
+              type="button"
+              class="btn"
+              value="등록일순"
+              onclick="setSort('board_idx');"
+              style="height: 40px; margin-right: 3px; background: #f0ad4e"
+            />
 
               <input
                 class="btn"
@@ -200,11 +196,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 onclick="insert_form();"
               />
             </form>
-          </div>
           <!-- 게시판 테이블 구성하기  -->
-          <table class="table" style="margin-bottom: 0">
+          <table class="table" style="margin: 0;">
             <tr style="background: #ff1d38">
-              <th>
+              <th style="width: 6%">
                 <select id="category-select" onchange="filterByCategory()">
                   <option value="all" ${param.cate eq 'all' ? 'selected' : ''}>전체</option>
                   <option value="1" ${param.cate eq '1' ? 'selected' : ''}>뮤지컬</option>
@@ -212,10 +207,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                   <option value="3" ${param.cate eq '3' ? 'selected' : ''}>콘서트</option>
                 </select>
               </th>
-              <th style="width: 50%">제목</th>
-              <th>작성자</th>
-              <th>작성일자</th>
-              <th>조회수</th>
+              <th>제목</th>
+              <th style="width: 10%">작성자</th>
+              <th style="width: 15%">작성일자</th>
+              <th style="width: 6%">조회수</th>
             </tr>
 
             <tr>
@@ -258,7 +253,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
                   <td>${ vo.mem_nickname }</td>
                   <td>${ vo.board_regdate }</td>
-                  <td>${ vo.board_readhit }</td>
+                  <td style="text-align: center;">${ vo.board_readhit }</td>
                 </tr>
               </c:forEach>
             </tr>

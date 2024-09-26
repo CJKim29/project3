@@ -87,12 +87,13 @@
 		<div class="container">
 			<h3 id="title" >자주 찾는 질문</h3>
 	
-		<div class="row" style="margin-top: 30px; margin-bottom: 10px;">
-            <c:if test="${ user.mem_grade eq '관리자' }">     
-				<input class="btn" style="background: #ff1d38; color: white;" type="button" value="등록"
-					   onclick="insert_form();">                     
-            </c:if>
-	
+      <div class="row" style="margin-top: 30px; margin-bottom: 10px; ">
+
+        <c:if test="${ user.mem_grade eq '관리자' }">     
+    <input class="btn" style="background: #337ab7; color: white;" type="button" value="등록"
+          onclick="insert_form();">                     
+        </c:if>
+
 		<table class="table" style="margin-bottom: 0">		
 			<!-- 데이터가 없는 경우 -->
 			 <tr>

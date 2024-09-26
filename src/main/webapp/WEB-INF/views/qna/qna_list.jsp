@@ -100,58 +100,48 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
     <div class="blog-single shop-blog grid section" style="padding-top: 30px">
       <div class="container">
-        <h3 id="title" style="margin-bottom: 5px">Q&A</h3>
+        <h3 id="title" style="margin-bottom: 20px">Q&A</h3>
 
         <div class="row">
-          <div style="text-align: right; margin-bottom: 10px">
-            <form class="form-inline">
-              <select
-                id="search"
-                class="form-control"
-                style="
-                  height: 40px;
-                  font-size: 16px;
-                  margin-right: 5px;
-                  margin-left: 510px;
-                "
-              >
-                <option value="all">전체보기</option>
-                <option value="qna_title">제목</option>
-                <option value="mem_nickname">작성자</option>
-                <option value="name_content">제목+작성자</option>
-                <option value="use_y">답변 완료된 게시물만 보기</option>
-              </select>
+          <span style="display: inline-block; width: 624px"></span>
 
-              <input
-                id="search_text"
-                class="form-control"
-                value="${ param.search_text }"
-                style="
-                  height: 40px;
-                  margin-right: 5px;
-                  font-size: 16px;
-                  width: 200px;
-                "
-              />
+          <form style="height: 50px">
+            <select id="search">
+              <option value="all">전체보기</option>
+              <option value="qna_title">제목</option>
+              <option value="mem_nickname">작성자</option>
+              <option value="name_content">제목+작성자</option>
+              <option value="use_y">답변 완료된 게시물만 보기</option>
+            </select>
+            <input
+              id="search_text"
+              value="${ param.search_text }"
+              style="
+                height: 40px;
+                margin-right: 3px;
+                margin-left: 6px;
+                font-size: 16px;
+                width: 200px;
+              "
+            />
 
-              <input
-                id="search_btn"
-                type="button"
-                class="btn"
-                value="검색"
-                onclick="find();"
-                style="height: 40px; margin-right: 5px"
-              />
+            <input
+              id="search_btn"
+              type="button"
+              class="btn"
+              value="검색"
+              onclick="find();"
+              style="height: 40px; margin-right: 3px"
+            />
 
-              <input
-                class="btn"
-                style="background: #ff1d38; color: white"
-                type="button"
-                value="질문하기"
-                onclick="insert_form();"
-              />
-            </form>
-          </div>
+            <input
+              class="btn"
+              style="background: #ff1d38; color: white"
+              type="button"
+              value="질문하기"
+              onclick="insert_form();"
+            />
+          </form>
 
           <table class="table" style="margin-bottom: 0">
             <tr style="background: #ff1d38">

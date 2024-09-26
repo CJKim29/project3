@@ -5,22 +5,16 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
-    <style>
-      #title {
-        text-align: center;
-        font-weight: bold;
-        font-size: 26px;
-        text-shadow: 1px 1px 1px black;
-        color: #ff1d38;
-      }
-    </style>
-    <script type="text/javascript">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="../resources/css/mypage.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- <script type="text/javascript">
       function member_modify() {
         location.href = "../member/modify_form.do?mem_idx=" + `${user.mem_idx}`;
       }
       function member_delete() {
-       if (confirm("정말 탈퇴하시겠습니까?") == false) return;
+        if (confirm("정말 탈퇴하시겠습니까?") == false) return;
 
         alert("회원 탈퇴가 완료되었습니다.");
         location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
@@ -28,66 +22,72 @@ pageEncoding="UTF-8"%>
       function cart_list() {
         location.href = "../cart/list.do";
       }
-    </script>
+    </script> -->
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
-    <!-- Start MyPage Section -->
-    <div class="blog-single shop-blog grid section" style="padding-top: 30px">
-      <div class="container">
-        <h3 id="title" style="margin-bottom: 20px">마이페이지</h3>
-        <div class="row">
-          <!-- User Info -->
-          <div class="col-12">
-            <p>
-              <b>${user.mem_nickname}</b>님의 보유 포인트는
-              <b>${user.mem_point}P</b>입니다.
-            </p>
-          </div>
-          <!-- Action Buttons -->
-          <div class="col-12" style="margin-bottom: 20px">
-            <input
-              type="button"
-              class="btn btn-primary"
-              value="회원정보수정"
-              onclick="member_modify();"
-            />
-            <input
-              type="button"
-              class="btn btn-danger"
-              value="회원탈퇴"
-              onclick="member_delete();"
-            />
-            <input
-              type="button"
-              class="btn btn-secondary"
-              value="장바구니"
-              onclick="cart_list();"
-            />
-            <input
-              type="button"
-              class="btn btn-secondary"
-              value="구매내역"
-              onclick=""
-            />
-            <input
-              type="button"
-              class="btn btn-secondary"
-              value="나의 후기 목록"
-              onclick=""
-            />
-            <input
-              type="button"
-              class="btn btn-secondary"
-              value="좋아요한 공연 목록"
-              onclick=""
-            />
-          </div>
+    <div class="custom-header" style="margin-top: 30px">
+      <div class="header-container">
+        <div class="logo-section">
+          <img
+            src="../resources/template/images/logo_TIMOA1.png"
+            alt="logo"
+            class="logo-img"
+          />
+        </div>
+        <div class="welcome-section">
+          <span style="font-weight: bold">티모아 마이페이지</span>
+        </div>
+        <div class="points-section">
+          <span style="font-size: 17px">
+            <b>${user.mem_nickname}</b>님의 보유 포인트:
+            <b style="color: gold">${user.mem_point}P</b>
+          </span>
         </div>
       </div>
     </div>
-    <!-- End MyPage Section -->
+
+    <main>
+      <div class="sidebar">
+        <ul>
+          <li><a href="#" data-content="member-info">회원정보 수정</a></li>
+          <li><a href="#" data-content="delete-account">회원 탈퇴</a></li>
+        </ul>
+        <hr />
+        <ul>
+          <li><a href="#" data-content="cart">장바구니</a></li>
+          <li><a href="#" data-content="purchase-history">구매 내역</a></li>
+        </ul>
+        <hr />
+        <ul>
+          <li><a href="#" data-content="my-reviews">나의 후기 목록</a></li>
+          <li>
+            <a href="#" data-content="liked-performances">좋아요한 공연 목록</a>
+          </li>
+        </ul>
+        <hr />
+        <ul>
+          <li><a href="#" data-content="qna">Q&A</a></li>
+          <li><a href="#" data-content="bulletin-board">게시판</a></li>
+          <li><a href="#" data-content="faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="content"></div>
+    </main>
+
+    <script>
+      $(document).ready(function () {
+        $("a").on("click", function (e) {
+          e.preventDefault();
+          const content = $(this).data("content");
+
+          // Ajax로 각 메뉴 클릭 시 해당 페이지를 불러오는 부분
+          $(".content").load(content + ".html");
+        });
+      });
+    </script>
 
     <jsp:include page="/WEB-INF/views/include/footer.jsp" />
   </body>
