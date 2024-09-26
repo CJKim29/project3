@@ -1,6 +1,8 @@
 package com.githrd.project3.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -171,7 +173,7 @@ public class BookController {
 
  } // end - performance_seat
 
- @PostMapping("/reserve_seats.do")
+ @RequestMapping("/reserve_seats.do")
  public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
    @RequestParam("date") String performance_date,
    @RequestParam("selectedSeats") String selectedSeatsJson,
@@ -294,16 +296,14 @@ public class BookController {
    @RequestParam("seatInfo") List<String> seatInfo,
    Model model, RedirectAttributes ra) {
 
-  // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
+  // session에서 사용자 정보 가져오기
   MemberVo user = (MemberVo) session.getAttribute("user");
   if (user == null) {
-
    ra.addAttribute("reason", "session_timeout");
-
    return "redirect:../member/login_form.do";
   }
 
-  // 공연 정보 조회
+  // 공연 정보 가져오기
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
   model.addAttribute("vo", vo);
@@ -315,10 +315,12 @@ public class BookController {
 
   // 주문 정보를 담기 위한 OrdersVo 객체 생성
   OrdersVo ordersVo = new OrdersVo();
-
   ordersVo.setPerformance_idx(performance_idx);
   ordersVo.setMem_idx(user.getMem_idx());
-  // ordersVo.setOrder_date(new Timestamp(System.currentTimeMillis()));
+  // Timestamp String으로 변환 (order_date가 string이므로)
+  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  String formattedDate = sdf.format(new Timestamp(System.currentTimeMillis()));
+  ordersVo.setOrder_date(formattedDate); // 변환된 문자열을 저장
   // ordersVo.setOrder_amount( /* 금액 계산 로직을 여기에 추가하세요 */ );
 
   // 여기서 seat_idx는 반드시 세팅되어야 합니다. 여러 좌석이 있다면 이를 처리하는 로직이 필요합니다.
