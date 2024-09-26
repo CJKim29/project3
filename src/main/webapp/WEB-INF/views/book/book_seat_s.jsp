@@ -136,7 +136,7 @@
        function toggleSeat(row, col) {
 
         const seatId = row + "-" + col.toUpperCase();
-         
+
         const index = selectedSeats.indexOf(seatId);
         if (index === -1) {
          selectedSeats.push(seatId);
@@ -475,7 +475,8 @@
                     height: 120px;
                     max-height: 150px;
                     overflow-y: auto;
-                  "></div>
+                  ">
+           </div>
            <input type="hidden" name="performance_idx" value="${param.performance_idx}" />
            <input type="hidden" name="date" value="${param.date}" />
            <input type="hidden" id="seat_row" name="row" />
