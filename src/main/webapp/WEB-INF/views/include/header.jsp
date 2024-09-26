@@ -170,13 +170,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     id="searchForm"
                     action="../performance/performance_search.do"
                     method="GET"
+                    onsubmit="return validateSearch();"
                   >
                     <input
                       id="searchInput"
                       name="search"
                       placeholder="찾으실 공연 또는 공연장을 입력해주세요"
                       type="search"
-                      required
                     />
                     <button class="btnn" type="submit">
                       <i class="ti-search"></i>
@@ -294,7 +294,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         var searchInput = document.getElementById("searchInput");
         // 검색어가 입력되지 않았을 경우
         if (searchInput.value.trim() === "") {
-          alert("공연 제목을 입력해주세요");
+          alert("공연 제목 또는 공연장을 입력해주세요");
           searchInput.value = ""; // 입력된 글자를 지움
           searchInput.focus(); // 포커스를 입력 필드로 다시 설정
           return false; // 폼 제출을 막음

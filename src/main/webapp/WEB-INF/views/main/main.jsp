@@ -5,6 +5,22 @@
 <html lang="zxx">
 <head>
 
+<style>
+
+.admin-btns {
+    display: flex; /* 버튼들을 가로로 배치 */
+    gap: 0px; /* 버튼 사이의 간격 */
+}
+
+.admin-btns .btn {
+    font-size: 12px; /* 버튼 글자 크기 조정 */
+    padding: 5px 10px; /* 버튼 안쪽 여백 조정 */
+    height: 25px; /* 버튼 높이 조정 */
+    line-height: 1; /* 줄 높이 조정 */
+}
+
+</style>
+
 	
 </head>
 <body class="js">
@@ -78,6 +94,11 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
+														<!-- 관리자 수정, 삭제 버튼 -->
+														<div class="admin-btns">
+															<a href="main_performance_modi.jsp?performance_idx=1" class="btn btn-warning btn-sm">수정</a>
+															<button onclick="deletePerformance(1)" class="btn btn-danger btn-sm">삭제</button>
+														</div>						
 														<a href="../detail/detail.do?performance_idx=1">
 															<!-- 이미지 크기는 550x750  -->
 															<!-- 이미지 크기는 550x750  -->
