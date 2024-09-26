@@ -46,7 +46,7 @@
 
        // "&selectedSeats=" + "${param.selectedSeats}" => 이거 넣을 시 row 관련해서 오류남
        //f.action = "payment.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&selectedSeats=" + "${param.selectedSeats}" + "&seatInfo=" + "${param.seatInfo}";
-       f.action = "payment_agree.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
+       f.action = "order_insert.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
 
        alert(f.action); // 이 부분 추가하여 URL 확인
 
@@ -236,6 +236,7 @@
       <input type="hidden" name="date" value="${param.date}">
       <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
       <input type="hidden" name="seatInfo" value="${param.seatInfo}">
+      <input type="hidden" name="mem_idx" value="${user.mem_idx}">
 
       <div id="seat-box">
 
