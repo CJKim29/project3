@@ -145,6 +145,12 @@
 						.single-des {
 							width: 880px;
 						}
+
+						.modal-body ul {
+							display: inline-block;
+							margin-left: 80px;
+							font-size: 20px;
+						}
 					</style>
 
 					<script>
@@ -154,7 +160,47 @@
 						}
 
 						function showSaram(actor_idx) {
+
 							$("#MyModal").modal({ backdrop: "static" });
+
+							$.ajax({
+								url: "actor_one.do",
+								data: { "actor_idx": actor_idx },
+								dataType: "json",
+								success: function (res_data) {
+									console.log(res_data);
+
+									$("#modal-img").attr("src", "../resources/images/" + res_data.actor_pic);
+									$("#modal-actor-name").html("배우명 : " + res_data.actor_name);
+									if (res_data.actor_job != null) {
+										$("#modal-actor-job").html("직업 : " + res_data.actor_job);
+									} else {
+										$("#modal-actor-job").html("");
+									}
+									if (res_data.actor_body != null) {
+										$("#modal-actor-body").html("신체조건 : " + res_data.actor_body);
+									} else {
+										$("#modal-actor-body").html("");
+									}
+									if (res_data.actor_company != null) {
+										$("#modal-actor-company").html("소속사 : " + res_data.actor_company);
+									} else {
+										$("#modal-actor-company").html("");
+									}
+									if (res_data.actor_group != null) {
+										$("#modal-actor-group").html("소속그룹 : " + res_data.actor_group);
+									} else {
+										$("#modal-actor-group").html("");
+									}
+								},
+								error: function (err) {
+									alert(err.responseText)
+								}
+							})
+
+							// Ajax통해서 casting_idx의 배우정보를 얻어온다->출력
+
+
 
 						}
 
@@ -782,65 +828,34 @@
 
 					<!-- The Modal -->
 					<div class="modal" id="MyModal">
-						<div class="modal-dialog">
-							<div class="modal-content">
+						<div class="modal-dialog" style="display: flex; align-items: center; justify-content: center;">
+							<div class="modal-content" style="border-radius: 16px; width: 710px; height: 655px;">
 
 								<!-- Modal Header -->
-								<div class="modal-header">
-									<h4 class="modal-title">Modal Heading</h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<div class="myModal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										style="padding: 0 20px; margin-top: 18px;">X</button>
+									<div style="top: 0; left: 0; padding: 0 20px; text-align: left; border-bottom: 1px solid #dde4ec; height: 50px;
+				margin-top: 15px;">
+										<h4 class="modal-title">배우 정보</h4>
+									</div>
 								</div>
-
 								<!-- Modal body -->
-								<div class="modal-body">
-									Modal body..
-								</div>
-
-								<!-- Modal footer -->
-								<div class="modal-footer">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								<div class="modal-body" style="padding: 16px 25px 25px;">
+									<img id="modal-img">
+									<ul>
+										<li id="modal-actor-name"></li>
+										<li id="modal-actor-job"></li>
+										<li id="modal-actor-body"></li>
+										<li id="modal-actor-company"></li>
+										<li id="modal-actor-group"></li>
+									</ul>
 								</div>
 
 							</div>
 						</div>
 					</div>
 
-					<!-- Jquery -->
-					<script src="../resources/template/js/jquery.min.js"></script>
-					<script src="../resources/template/js/jquery-migrate-3.0.0.js"></script>
-					<script src="../resources/template/js/jquery-ui.min.js"></script>
-					<!-- Popper JS -->
-					<script src="../resources/template/js/popper.min.js"></script>
-					<!-- Bootstrap JS -->
-					<script src="../resources/template/js/bootstrap.min.js"></script>
-					<!-- Color JS -->
-					<script src="../resources/template/js/colors.js"></script>
-					<!-- Slicknav JS -->
-					<script src="../resources/template/js/slicknav.min.js"></script>
-					<!-- Owl Carousel JS -->
-					<script src="../resources/template/js/owl-carousel.js"></script>
-					<!-- Magnific Popup JS -->
-					<script src="../resources/template/js/magnific-popup.js"></script>
-					<!-- Fancybox JS -->
-					<script src="../resources/template/js/facnybox.min.js"></script>
-					<!-- Waypoints JS -->
-					<script src="../resources/template/js/waypoints.min.js"></script>
-					<!-- Countdown JS -->
-					<script src="../resources/template/js/finalcountdown.min.js"></script>
-					<!-- Nice Select JS -->
-					<script src="../resources/template/js/nicesellect.js"></script>
-					<!-- Ytplayer JS -->
-					<script src="../resources/template/js/ytplayer.min.js"></script>
-					<!-- Flex Slider JS -->
-					<script src="../resources/template/js/flex-slider.js"></script>
-					<!-- ScrollUp JS -->
-					<script src="../resources/template/js/scrollup.js"></script>
-					<!-- Onepage Nav JS -->
-					<script src="../resources/template/js/onepage-nav.min.js"></script>
-					<!-- Easing JS -->
-					<script src="../resources/template/js/easing.js"></script>
-					<!-- Active JS -->
-					<script src="../resources/template/js/active.js"></script>
 
 				</body>
 

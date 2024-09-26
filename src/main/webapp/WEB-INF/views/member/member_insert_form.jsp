@@ -112,7 +112,7 @@
 				$("#btn_register").prop("disabled", true);
 
 				let mem_phone = $("#mem_phone").val();
-				let mem_phone_check = /^[0-9]{10,11}$/;
+				let mem_phone_check = /^[0-9]{8}$/;
 
 				if (mem_phone.length == 0) {
 					$("#phone_msg").html("");
@@ -120,7 +120,7 @@
 				}
 
 				if (mem_phone_check.test(mem_phone) == false) {
-					$("#phone_msg").html("핸드폰번호는 10~11자리 숫자만 사용가능합니다.").css("color", "IndianRed");
+					$("#phone_msg").html("핸드폰번호는 숫자 8자리를 입력해주세요.").css("color", "IndianRed");
 					return;
 				}
 
@@ -214,6 +214,10 @@
 				let mem_pwd = f.mem_pwd.value.trim();
 				let mem_nickname = f.mem_nickname.value.trim();
 
+				let mem_birth = f.mem_birth.value.trim();
+				let mem_phone = f.mem_phone.value.trim();
+				let mem_email = f.mem_email.value.trim();
+
 				let mem_zipcode = f.mem_zipcode.value.trim();
 				let mem_addr = f.mem_addr.value.trim();
 
@@ -239,6 +243,27 @@
 					alert("닉네임을 입력하세요");
 					f.mem_nickname.value = '';
 					f.mem_nickname.focus();
+					return;
+				}
+
+    if (mem_birth == '') {
+					alert("생년월일을 입력하세요");
+					f.mem_birth.value = '';
+					f.mem_birth.focus();
+					return;
+				}
+
+    if (mem_phone == '') {
+					alert("핸드폰번호를 입력하세요");
+					f.mem_phone.value = '';
+					f.mem_phone.focus();
+					return;
+				}
+
+    if (mem_email == '') {
+					alert("이메일을 입력하세요");
+					f.mem_email.value = '';
+					f.mem_email.focus();
 					return;
 				}
 
@@ -297,14 +322,15 @@
 						<span id="nickname_msg" style="display: block; min-height: 20px;"></span>
 					</div>
 					<div class="form-group">
-						<div class="text1">
-							<input type="text" class="form-control" name="mem_birth" placeholder="생년월일 입력">
+						<div class="text1">							
+       <input type="text" class="form-control" name="mem_birth" id="mem_birth" placeholder="생년월일 입력">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="text2">
+       <input type="text" class="form-control" placeholder="010" readonly style="width: 65px;">
 							<input type="text" class="form-control" name="mem_phone" id="mem_phone"
-								placeholder="핸드폰번호 입력" onkeyup="check_phone();">
+								placeholder="핸드폰번호 입력(숫자 8자리)" style="width: 235px;" onkeyup="check_phone();">
 						</div>
 						<span id="phone_msg" style="display: block; min-height: 20px;"></span>
 					</div>

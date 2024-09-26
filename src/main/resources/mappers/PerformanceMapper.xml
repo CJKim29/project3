@@ -86,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ) p2
     WHERE no BETWEEN #{ start } AND #{ end }
 
-                <!-- 정렬 -->
+                    <!-- 정렬 -->
     <choose>
       <when test='sort_options == "s_abc"'>
             order by performance_name asc 
@@ -206,8 +206,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 최신 공연 정보 조회 (최신순) -->
   <select id="selectNewPerformances" resultMap="performanceMap">
-      select * from performance order by performance_startday desc limit 3
+
+      select * from performance order by performance_idx desc limit 3
   </select>
+
 
   <!-- 랭킹 공연 정보 조회 (좋아요 순) -->
   <select id="selectRankingPerformances" resultMap="performanceMap">

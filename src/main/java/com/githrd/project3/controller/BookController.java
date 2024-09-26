@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,8 @@ import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.vo.L_HallVo;
 import com.githrd.project3.vo.M_HallVo;
+import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.OrdersVo;
 import com.githrd.project3.vo.S_HallVo;
 import com.githrd.project3.vo.X_PerformanceVo;
 
@@ -251,12 +254,6 @@ public class BookController {
     return "book/payment_check";
   }
 
-  @RequestMapping("payment.do")
-  public String payment() {
-
-    return "/book/payment";
-  }
-
   @PostMapping("/book_reservation.do")
   public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
       @RequestParam("performance_idx") int performance_idx,
@@ -289,4 +286,59 @@ public class BookController {
     model.addAttribute("seatInfo", seatInfo);
     return "/mypage/my_reservation"; // book_result.jsp로 이동
   }
+
+  // 작업중!!!!!!!!!!!!!!!!!!!
+  // 작업중!!!!!!!!!!!!!!!!!!!
+  // 작업중!!!!!!!!!!!!!!!!!!!
+  @RequestMapping("payment_agree.do")
+  public String payment_agree(@RequestParam("performance_idx") int performance_idx,
+      @RequestParam("date") String performance_date,
+      @RequestParam("selectedSeats") String selectedSeatsJson,
+      @RequestParam("seatInfo") List<String> seatInfo,
+      Model model, RedirectAttributes ra) {
+
+    // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
+    MemberVo user = (MemberVo) session.getAttribute("user");
+    if (user == null) {
+
+      ra.addAttribute("reason", "session_timeout");
+
+      return "redirect:../member/login_form.do";
+    }
+
+    // 공연 정보 조회
+    X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+    model.addAttribute("vo", vo);
+    // 이거 써야 좌석 정보 가져와짐
+    model.addAttribute("selectedSeats", selectedSeatsJson);
+    model.addAttribute("seatInfo", seatInfo);
+
+    // ----------------------- 주문 정보 관련----------------------------
+
+    // 주문 정보를 담기 위한 OrdersVo 객체 생성
+    OrdersVo ordersVo = new OrdersVo();
+
+    // 주문 정보 DB insert
+    // book_mapper.ordersInsert(ordersVo); 주석 풀어 누나!!
+
+    // 방금 생성된 주문 번호 가져오기
+    int order_idx = ordersVo.getOrder_idx(); // 이 값을 얻기 위해 ordersVo의 getter를 사용
+    // 주문 정보를 가져오기
+    // OrdersVo orderInfo = book_mapper.selectOneFromOrderIdx(order_idx); 주석 풀어 누나!!
+    // model.addAttribute("orderInfo", orderInfo); 주석 풀어 누나!!
+
+    // 주문 정보 insert 후 생성된 order_idx 가져오기
+    // int order_idx = book_mapper.selectOneFromOrderIdx(int order_idx);
+    // model.addAttribute("order_idx", order_idx); // JSP에서 사용할 수 있도록 모델에 추가
+
+    return "/payment/payment_agree";
+  }
+
+  // 결체창 띄우기
+  // @RequestMapping("payment.do")
+  // public String payment() {
+
+  // return "/payment/payment";
+  // }
+
 }

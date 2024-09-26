@@ -49,21 +49,39 @@ public class CartController {
 
   @RequestMapping("insert.do")
   public String insert(@RequestParam("seatInfo") List<String> seatInfo, CartVo cartVo) {
-    // 장바구니 정보 먼저 등록(유저, 공연 정보)
+    // 장바구니 정보 먼저 등록(유저, 공연 정보 - 1차 등록)
     int res = cart_mapper.cart_insert(cartVo);
+
     // 최근장바구니 번호 얻어오기
     int cart_idx = cart_mapper.cart_recent_idx();
-    // 좌석등록(반복문)
+
+    // 공연 카테고리 인덱스 조회
+    int performance_cate_idx = cart_mapper.select_performance_cate_idx(cartVo.getPerformance_idx());
+
+    // 좌석등록(반복문 - 최대 4좌석 등록을 위함 - 2차 등록)
     for (String seat : seatInfo) {
       // "x열x석" 형식에서 "열"과 "석"으로 분리
       String[] seatParts = seat.split("열|석");
 
       int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
 
-      int seat_idx = cart_mapper.selectOne_seat_idx(cartVo.getPerformance_idx(), row);
+      int seat_idx = 0;
+
+      // 카테고리에 따라 다른 메서드 호출
+      switch (performance_cate_idx) {
+        case 1: // 중형(뮤지컬)
+          seat_idx = cart_mapper.selectOne_seat_idx_m(cartVo.getPerformance_idx(), row);
+          break;
+        case 2: // 소형(연극)
+          seat_idx = cart_mapper.selectOne_seat_idx_s(cartVo.getPerformance_idx(), row);
+          break;
+        case 3: // 대형(콘서트)
+          seat_idx = cart_mapper.selectOne_seat_idx_l(cartVo.getPerformance_idx(), row);
+          break;
+      }
 
       Cart_seatVo vo = new Cart_seatVo();
-      vo.setCart_idx(cart_idx); // 최근 등록된 cart_idx 사용
+      vo.setCart_idx(cart_idx);
       vo.setSeat_idx(seat_idx);
       vo.setCart_seat_name(seat);
 

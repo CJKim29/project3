@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.githrd.project3.vo.OrdersVo;
 import com.githrd.project3.vo.X_PerformanceVo;
 
 @Mapper
@@ -36,6 +37,12 @@ public interface BookMapper {
   int countSeatGarde(int performance_idx);
 
   List<Map<String, Object>> countSeatIdx(int performance_idx);
+
+  // 주문 정보 insert(작업중!!)
+  // void ordersInsert(OrdersVo ordersVo);
+
+  // OrdersVo vo = book_mapper.selectOneFromOrderIdx(int order_idx); // 메서드 선언
+  // void ordersInsert(OrdersVo order); // 삽입 메서드 선언
 
   // 안쓰는 코드들
   // Integer selectRemainSeat(@Param("performance_date") String performance_date,

@@ -1,44 +1,57 @@
 package com.githrd.project3.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.io.IOException;
 import com.githrd.project3.service.PaymentService;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
+
+import java.math.BigDecimal;
 
 @Controller
+@RequestMapping("/payment/")
 public class PaymentController {
 
+ private final PaymentService paymentService;
+ private final IamportClient iamportClient;
+
  @Autowired
- private PaymentService paymentService;
+ public PaymentController(PaymentService paymentService, IamportClient iamportClient) {
+  this.paymentService = paymentService;
+  this.iamportClient = iamportClient;
+ }
 
- // private final IamportClient iamportClient;
+ @RequestMapping("payment.do")
+ public ResponseEntity<Map<String, Object>> processPayment(
+   @RequestParam("imp_uid") String impUid,
+   @RequestParam("order_idx") String merchantUid,
+   @RequestParam("order_amount") int paidAmount) throws IamportResponseException, IOException {
 
- // @PostMapping("/payment")
- // public String payment(@RequestBody PaymentVo request) {
+  // 결제 정보 조회
+  IamportResponse<Payment> paymentResponse = iamportClient.paymentByImpUid(impUid);
+  Payment paymentData = paymentResponse.getResponse();
 
- // // 결제 요청 처리
- // return paymentService.createPayment(request.getMerchantUid(),
- // request.getAmount());
- // }
+  Map<String, Object> result = new HashMap<>();
 
- // // 결제 확인 메소드 추가
- // @PostMapping("/payment/confirm")
- // public String confirmPayment(@RequestBody String impUid) {
- // return paymentService.getPayment(impUid);
- // }
+  if (paymentData != null && paymentData.getAmount().equals(BigDecimal.valueOf(paidAmount))) {
+   // 결제 금액 일치
+   result.put("amount", paymentData.getAmount());
+   return ResponseEntity.ok(result); // ResponseEntity로 결과를 JSON 형태로 반환
 
- // 아임포트 결제 요청
- // public PaymentController() {
- // this.iamportClient = new IamportClient("REST_API_KEY",
- // "REST_API_SECRET");
- // }
-
- // @ResponseBody
- // @RequestMapping("/verify/{imp_uid}")
- // public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid")
- // String imp_uid)
- // throws IamportResponseException, IOException {
- // return iamportClient.paymentByImpUid(imp_uid);
- // }
+  } else {
+   // 금액 불일치 또는 결제 실패
+   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+  }
+ }
 
 }

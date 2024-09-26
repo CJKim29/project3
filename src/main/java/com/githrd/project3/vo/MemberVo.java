@@ -16,7 +16,7 @@ public class MemberVo {
     String mem_pwd;
     String mem_nickname;
     String mem_birth;
-    int mem_phone;
+    String mem_phone;
     String mem_email;
 
     String mem_zipcode;
