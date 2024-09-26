@@ -206,8 +206,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 최신 공연 정보 조회 (최신순) -->
   <select id="selectNewPerformances" resultMap="performanceMap">
+
       select * from performance order by performance_idx desc limit 3
-  </select>
+
 
   <!-- 랭킹 공연 정보 조회 (좋아요 순) -->
   <select id="selectRankingPerformances" resultMap="performanceMap">

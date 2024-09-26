@@ -14,7 +14,7 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <!-- Title Tag  -->
-     <title>${vo.performance_name}</title>
+     <title>TIMOA - ${vo.performance_name}</title>
      <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
      <!-- Favicon -->
      <link rel="icon" type="image/png" href="../resources/template/images/favicon.png">
@@ -226,6 +226,15 @@
          var availableDates = response.availableDates;
          console.log("availableDates:", availableDates); // 여기에 추가
 
+         var first_date = response.first_date;
+         var last_date = response.last_date;
+         console.log("first_date :", first_date);
+         console.log("last_date :", last_date);
+
+         var firstDateObj = new Date(first_date); // first_date를 Date 객체로 변환
+
+         var today = new Date(); // 오늘 날짜
+
          // 날짜 리스트를 HTML에 출력 (디버깅용)
          var dateListHtml = "<ul>";
          availableDates.forEach(function (date) {
@@ -235,12 +244,12 @@
          $("#dateList").html(dateListHtml);
 
          // minDate와 maxDate 계산
-         min_date = new Date(Math.min(...availableDates.map(date => new Date(date))));
+         min_date = (firstDateObj > today) ? firstDateObj : today;
          //min_date = availableDates[0];
          console.log(typeof (min_date));
          console.log(min_date);
 
-         max_date = new Date(Math.max(...availableDates.map(date => new Date(date))));
+         max_date = new Date(last_date);
          //console.log("가장 빠른 날짜 (min_date):", min_date.toISOString().split('T')[0]);
          console.log("가장 빠른 날짜 (min_date):", min_date);
          console.log("가장 늦은 날짜 (max_date):", max_date.toISOString().split('T')[0]);
@@ -568,8 +577,15 @@
                 </c:choose>
                </c:forEach>
               </ul>
-              <a href="#" class="total-review" id="totalReviewLink">관람
-               후기(${fn:length(list_review)})</a>
+              <a href="#" class="total-review" id="totalReviewLink">관람 후기(${fn:length(list_review)})</a>
+              <script type="text/javascript">
+               // 첫 번째 링크 클릭 이벤트 리스너
+               document.getElementById("totalReviewLink").addEventListener("click", function (event) {
+                event.preventDefault(); // 링크 기본 동작 방지
+                // 두 번째 링크 클릭 효과 호출
+                document.getElementById("reviews-tab").click();
+               });
+              </script>
               <script>
                $(document).ready(function () {
                 // '관람 후기' 작성 버튼 클릭 시 처리하는 함수
@@ -657,9 +673,6 @@
              <p class="price"><span class="discount">장소</span> <a href="#"
                onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i class="fi fi-sr-caret-right"></i></a>
              </p>
-             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-              ${vo.hallVo.hall_name}
-             </button>
              <p class="price"><span class="discount">공연기간</span>${fn:substringBefore(vo.performance_startday,
               ' ')}~${fn:substringBefore(vo.performance_endday, ' ')}
              </p>
@@ -715,7 +728,8 @@
           </div>
           <div class="col-lg-2 col-12" style="margin-top: 23px;">
            <input id="datepicker" width="200" />
-           <div id="dateList"></div> <!-- 날짜 리스트를 표시할 요소 추가 -->
+           <!-- 더미데이터 날짜 리스트 표시 -->
+           <!-- <div id="dateList"></div> -->
           </div>
 
 

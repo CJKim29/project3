@@ -26,4 +26,12 @@ public interface CartMapper {
   // seat_idx값 조회
   int selectOne_seat_idx(int performance_idx, int row);
 
+  int select_performance_cate_idx(int performance_idx);
+
+  int selectOne_seat_idx_m(int performance_idx, int row);
+
+  int selectOne_seat_idx_s(int performance_idx, int row);
+
+  int selectOne_seat_idx_l(int performance_idx, int row);
+
 }
