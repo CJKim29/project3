@@ -214,27 +214,38 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
 
-                          <li>
+                          <li class="active">
                             <a href="../main/list.do">Home</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do">뮤지컬</a>li
+                            <a href="../performance/list.do">전체 공연</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do">콘서트</a>
+                            <a
+                              href="../performance/list.do?performance_cate_idx=1"
+                              >뮤지컬</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do">연극</a>
+                            <a
+                              href="../performance/list.do?performance_cate_idx=2"
+                              >콘서트</a>
                           </li>
                           <li>
-                            <a href="../faq/list.do">고객센터 <i class="ti-angle-down"></i></a>
+                            <a
+                              href="../performance/list.do?performance_cate_idx=3"
+                              >연극</a>
+                          </li>
+                          <li>
+                            <a href="../faq/list.do"
+                              >고객센터<i class="ti-angle-down"></i
+                            ></a>
                             <ul class="dropdown">
                               <li><a href="../qna/list.do">Q&A</a></li>
                               <li><a href="../faq/list.do">FAQ</a></li>
-                              <li><a href="../board/list.do">게시판 리스트</a></li>
+                              <li>
+                                <a href="../board/list.do">게시판 리스트</a>
+                              </li>
                             </ul>
-                          </li>
-                        </ul>
                         
                       </div>
                     </div>
