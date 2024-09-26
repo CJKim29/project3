@@ -4,44 +4,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.S_HallMapper">
 
-    <!-- 특정 공연 날짜에 대한 좌석 조회 -->
-    <select id="selectSeatsByPerformanceAndDate" parameterType="map" resultType="s_hall">
+ <!-- 특정 공연 날짜에 대한 좌석 조회 -->
+ <select id="selectSeatsByPerformanceAndDate" parameterType="map" resultType="s_hall">
         SELECT s.*
         FROM s_hall s
         JOIN performance_date cd ON s.performance_date_idx = cd.performance_date_idx
         WHERE cd.performance_idx = #{performance_idx} AND SUBSTRING(cd.performance_date_date, 1, 10) = #{performance_date}
-    </select>
+ </select>
 
-    <update id="updateSeatStatus" parameterType="map">
+ <update id="updateSeatStatus" parameterType="map">
         UPDATE s_hall
         SET ${col} = 1
         WHERE performance_date_idx = #{performance_date_idx}
         AND s_hall_row_no = #{row}
-    </update>
+ </update>
 
 
-    <!-- 안쓰는 코드들 -->
-    <!-- 전체조회 -->
-    <!-- <select id="selectList" resultType="s_hall">
+ <!-- 안쓰는 코드들 -->
+
+ <!-- <update id="updateSeatStatus" parameterType="map">
+      UPDATE s_hall AS s
+      JOIN cart_seat AS cs ON m.seat_idx = cs.seat_idx
+      SET s.${col} = 1, cs.reserved = 1
+      WHERE s.performance_date_idx = #{performance_date_idx}
+      AND s.s_hall_row_no = #{row}
+      AND cs.cart_idx = #{cart_idx}; 
+  </update> -->
+
+ <!-- 전체조회 -->
+ <!-- <select id="selectList" resultType="s_hall">
 		select * from s_hall order by s_hall_idx
     </select> -->
 
-    <!-- 특정 공연에 대한 좌석 조회 -->
-    <!-- <select id="selectSeatsByPerformance" parameterType="int" resultType="s_hall">
+ <!-- 특정 공연에 대한 좌석 조회 -->
+ <!-- <select id="selectSeatsByPerformance" parameterType="int" resultType="s_hall">
         SELECT s.*
         FROM s_hall s
         JOIN performance_date cd ON s.performance_date_idx = cd.performance_date_idx
         WHERE cd.performance_idx = #{performanceIdx}
     </select> -->
 
-    <!-- VIP 좌석 수 조회 -->
-    <!-- <select id="countAvailableSeatsBySeatIdx" parameterType="int" resultType="int">
+ <!-- VIP 좌석 수 조회 -->
+ <!-- <select id="countAvailableSeatsBySeatIdx" parameterType="int" resultType="int">
         SELECT COUNT(*) 
         FROM s_hall 
         WHERE seat_idx = #{seatIdx} AND seat_status = 0
     </select> -->
 
-    <!-- <select id="BookedSeatList" resultType="int">
+ <!-- <select id="BookedSeatList" resultType="int">
         select *
         from s_hall
         where s_hall_row_no = #{row}

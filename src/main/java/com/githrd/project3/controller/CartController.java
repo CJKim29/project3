@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.CartMapper;
 import com.githrd.project3.dao.Cart_seatMapper;
@@ -99,31 +101,30 @@ public class CartController {
     return "redirect:list.do";
   }
 
+  @ResponseBody // Ajax 응답을 위한 어노테이션 추가
   @RequestMapping("check_seat.do")
-public String check_seat(@RequestParam("cart_idx") int cartIdx, Model model) {
+  public String check_seat(@RequestParam("cart_idx") int cartIdx) {
     // 1. 장바구니 내 좌석 정보 가져오기
     List<Cart_seatVo> seatList = cart_seat_mapper.cart_seat_reserved_check(cartIdx);
 
     // 2. 좌석의 예매 여부 확인
     boolean hasReservedSeats = seatList.stream().anyMatch(seat -> seat.getReserved() == 1);
 
-    // 3. 예매된 좌석이 있으면 경고 메시지를 띄우고 장바구니 내역 삭제
+    // 3. 예매된 좌석이 있으면 "reserved" 응답
     if (hasReservedSeats) {
-        cart_mapper.cart_delete(cartIdx);  // 장바구니 삭제
-        model.addAttribute("message", "이미 예매된 좌석이 있어 장바구니에서 삭제되었습니다.");
-        return "redirect:/cart/list.do";  // 장바구니 목록 페이지로 리다이렉트
+      cart_mapper.cart_delete(cartIdx); // 장바구니 삭제
+      return "reserved"; // 예매된 좌석이 있음을 나타내는 응답
     }
 
-    // 4. 예매된 좌석이 없으면 결제 페이지로 이동
-    return "redirect:/cart/payment.do?cart_idx=" + cartIdx;  // 결제 페이지로 이동
-}
+    // 4. 예매된 좌석이 없으면 "available" 응답
+    return "available"; // 결제 가능한 상태
+  }
 
-// 테스트
-@RequestMapping("payment.do")
-public String payment(@RequestParam("cart_idx") int cart_idx, Model model) {
+  // 테스트(이후 삭제 예정)
+  @RequestMapping("payment.do")
+  public String payment(@RequestParam("cart_idx") int cart_idx, Model model) {
     model.addAttribute("cart_idx", cart_idx);
-    return "cart/testPayment";  // 테스트용 결제 페이지
-}
-
+    return "cart/testPayment"; // 테스트용 결제 페이지
+  }
 
 }

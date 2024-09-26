@@ -14,7 +14,7 @@
 
         .search-results h2 {
             text-align: center;
-            font-size: 25px;
+            font-size: 30px;
             margin-bottom: 30px;
         }
 
@@ -32,8 +32,8 @@
         }
 
         .performance_img {
-            width: 250px;
-            height: 400px;
+            width: 320px;
+            height: 500px;
             object-fit: cover;
             margin-bottom: 10px;
         }
@@ -45,7 +45,7 @@
         }
 
         .performance_name {
-            font-size: 17px;
+            font-size: 23px;
             font-weight: bold;
         }
 
@@ -72,9 +72,12 @@
                     <li class="content_wrap">
                         <a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
                             <img class="performance_img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="performance_name">
-                            <div class="performance_name">${performance.performance_name}</div>
                             <div class="performance_cate">${performance.performanceCateVo.performance_cate_name}</div>
-                            <div class="performance_hall">${performance.hallVo.hall_name}</div>
+                            <div class="performance_name">${performance.performance_name}</div>
+                            <div class="area">
+                                ${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}
+                            </div>
+                            <div class="performance_state">상태: ${performance.performance_state}</div>
                         </a>
                     </li>
                 </c:forEach>

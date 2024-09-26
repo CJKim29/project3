@@ -7,32 +7,36 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <head>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
     <script>
-      function cart_delete(cart_idx) {
-        
-        if(confirm("정말 삭제하시겠습니까?")==false)return;
+// 장바구니 삭제 함수 (confirm 여부를 제어할 수 있음)
+function cart_delete(cart_idx, showConfirm) {
+    if (showConfirm && confirm("정말 삭제하시겠습니까?") == false) return;
 
-        location.href= "delete.do?cart_idx="+cart_idx;
-      }
+    // 바로 삭제 요청
+    location.href = "delete.do?cart_idx=" + cart_idx;
+}
 
-        // 결제 전에 좌석 예약 여부를 체크하는 함수
-  function check_seat(cart_idx) {
+// 결제 전에 좌석 예약 여부를 체크하는 함수
+function check_seat(cart_idx) {
     $.ajax({
-      url: '/cart/check_seat.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
-      type: 'GET',
-      data: { cart_idx: cart_idx },
-      success: function(result) {
-        if (result === 'reserved') {
-          alert("이미 예매된 좌석이 포함되어 있습니다. 해당 항목을 삭제합니다.");
-          cart_delete(cart_idx);  // 예매된 좌석이 있을 경우 해당 장바구니 삭제
-        } else {
-          location.href = "/cart/payment.do?cart_idx=" + cart_idx;  // 결제 페이지로 이동
+        url: '/cart/check_seat.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
+        type: 'GET',
+        data: { cart_idx: cart_idx },
+        success: function(result) {
+            // 서버에서 'reserved'를 반환하면 경고 메시지 및 장바구니 삭제
+            if (result === 'reserved') {
+                alert("이미 예매된 좌석이 포함되어 있습니다. 해당 항목을 삭제합니다.");
+                cart_delete(cart_idx, false);  // 바로 삭제 (confirm 메시지 없음)
+            }
+            // 'available'을 반환하면 결제 페이지로 이동
+            else if (result === 'available') {
+                location.href = "/cart/payment.do?cart_idx=" + cart_idx;  // 결제 페이지로 이동(이후 경로 수정)
+            }
+        },
+        error: function() {
+            alert("좌석 예약 여부를 확인하는 중 오류가 발생했습니다.");
         }
-      },
-      error: function() {
-        alert("좌석 예약 여부를 확인하는 중 오류가 발생했습니다.");
-      }
     });
-  }
+}
      </script> 
   </head>
   <body class="js">
@@ -98,7 +102,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     <!-- 결제/취소 -->
                     <td class="action" data-title="Remove">
                       <input type="button" value="결제" onclick="check_seat('${ vo.cart_idx }');">
-                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }');">
+                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', true);">
                     </td>
                   </tr>
                 </c:forEach> 
