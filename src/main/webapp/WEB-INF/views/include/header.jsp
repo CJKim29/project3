@@ -174,7 +174,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <input
                       id="searchInput"
                       name="search"
-                      placeholder="찾으실 공연을 입력해주세요"
+                      placeholder="찾으실 공연 또는 공연장을 입력해주세요"
                       type="search"
                       required
                     />
@@ -214,10 +214,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
 
-                          <li class="active">
+                          <li class="${empty performanceCateIdx ? 'active' : ''}">
                             <a href="../main/list.do">Home</a>
                           </li>
-                          <li>
+                          <li class="${!empty performanceCateIdx ? 'active' : ''}">
                             <a href="../performance/list.do">전체 공연</a>
                           </li>
                           <li>
@@ -227,8 +227,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <a href="../performance/list.do?performance_cate_idx=2">콘서트</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do?performance_cate_idx=3"
-                              >연극</a>
+                            <a href="../performance/list.do?performance_cate_idx=3">연극</a>
                           </li>
                           <li>
                             <a href="../faq/list.do"
