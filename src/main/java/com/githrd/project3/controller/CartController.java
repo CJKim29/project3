@@ -86,7 +86,6 @@ public class CartController {
       vo.setCart_idx(cart_idx);
       vo.setSeat_idx(seat_idx);
       vo.setCart_seat_name(seat);
-      System.out.println("seat:" + seat);
 
       // 좌석 정보 삽입
       cart_seat_mapper.cart_seat_insert(vo);
@@ -121,7 +120,7 @@ public class CartController {
     return "available"; // 결제 가능한 상태
   }
 
-  // 테스트
+  // 테스트(이후 삭제 예정)
   @RequestMapping("payment.do")
   public String payment(@RequestParam("cart_idx") int cart_idx, Model model) {
     model.addAttribute("cart_idx", cart_idx);

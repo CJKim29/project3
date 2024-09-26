@@ -102,7 +102,7 @@ function check_seat(cart_idx) {
                     <!-- 결제/취소 -->
                     <td class="action" data-title="Remove">
                       <input type="button" value="결제" onclick="check_seat('${ vo.cart_idx }');">
-                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }');">
+                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', true);">
                     </td>
                   </tr>
                 </c:forEach> 
