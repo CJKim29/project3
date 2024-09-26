@@ -255,6 +255,88 @@
               }
              });
             </script>
+
+            <!-- 수정 토글 -->
+            <script>
+             $(document).ready(function () {
+              // '관람 후기' 작성 버튼 클릭 시 처리하는 함수
+              $('.toggleReviewModify').on('click', function (e) {
+               e.preventDefault(); // 링크의 기본 동작 방지
+
+               // 로그인 여부 체크
+               if ("${empty user}" === "true") {
+                // 로그인이 안된 경우
+                if (confirm("관람 후기는 로그인 후 작성 가능합니다. \n 로그인 하시겠습니까?") === true) {
+                 // 로그인을 하겠다고 선택한 경우 로그인 페이지로 이동
+                 location.href = "../member/login_form.do";
+                } else {
+                 // 로그인을 하지 않겠다고 선택한 경우 아무 일도 일어나지 않음
+                 return;
+                }
+               } else {
+                // 로그인된 경우에만 후기 작성 여부 체크
+                var mem_idx = "${user.mem_idx}"; // 로그인한 사용자의 mem_idx
+                var performance_idx = "${param.performance_idx}"; // 공연 번호
+
+                if (!performance_idx) {
+                 console.error("Performance Index is missing.");
+                 return;
+                }
+
+                console.log("Requesting review check with mem_idx: " + mem_idx + " and performance_idx: " + performance_idx);
+
+                fetch(`/detail/review_check.do?mem_idx=${mem_idx}&performance_idx=${param.performance_idx}`)
+                 .then(response => {
+                  if (!response.ok) {
+                   throw new Error("Network response was not ok.");
+                  }
+                  return response.json();
+                 })
+                 .then(hasReviewed => {
+                  console.log("hasReviewed response: ", hasReviewed);
+                  if (hasReviewed) {
+                   alert("이미 후기를 작성한 사용자입니다.");
+                  } else {
+                   // 후기 작성이 가능한 경우에만 토글 처리
+                   toggleReviewForm();
+                  }
+                 })
+                 .catch(error => {
+                  console.error("후기 작성 여부 확인 중 오류 발생:", error);
+                 });
+               }
+              });
+
+              // '총 리뷰' 링크 클릭 시
+              $('#totalReviewLink').on('click', function (e) {
+               e.preventDefault(); // 링크의 기본 동작 방지
+
+               // 로그인된 경우에만 관람 후기 탭 활성화
+               if ("${empty user}" !== "true") {
+                activateReviewTab();
+               } else {
+                alert("로그인 후 리뷰를 작성하실 수 있습니다.");
+               }
+              });
+
+              // 후기 작성 폼 토글 함수
+              function toggleReviewForm() {
+               var reviewModifyForm = document.getElementById("reviewModifyForm");
+               if (reviewModifyForm.style.display === "none") {
+                reviewModifyForm.style.display = "block";
+               } else {
+                reviewModifyForm.style.display = "none";
+               }
+              }
+
+              // '관람 후기' 탭을 활성화하고 표시하는 함수
+              function activateReviewTab() {
+               // 탭 메뉴의 '관람 후기'를 활성화
+               $('#toggleReview').removeClass('active'); // '관람 후기 작성' 버튼 비활성화
+               $('a[href="#reviews"]').tab('show'); // '관람 후기' 탭 활성화
+              }
+             });
+            </script>
            </div>
           </div>
          </div>
@@ -321,8 +403,7 @@
                 <div class="col-12">
                  <div class="ratting-main">
                   <div class="avg-ratting" style="display: flex; justify-content: space-between; align-items: center;">
-                   <h6 style="width: 500px;"><span>&emsp;관람
-                     후기(${fn:length(list_review)})&emsp;</span>
+                   <h6 style="width: 500px;"><span>&emsp;관람 후기(${fn:length(list_review)})&emsp;</span>
                     <fmt:formatNumber value="${ avgScore }" type="number" maxFractionDigits="2" />/5
                    </h6>
                    <!-- <input id="search_text" class="form-control" value="${param.search_text}" style="
@@ -343,9 +424,7 @@
                    <div class="nav-main">
                     <ul class="nav nav-tabs" style="width: 100%;" id="myReview" role="tablist">
                      <li class="nav-item">
-                      <a class="nav-link active" id="toggleReview" href="javascript:void(0);">관람
-                       후기
-                       작성</a>
+                      <a class="nav-link active" id="toggleReview" href="javascript:void(0);">관람 후기 작성</a>
                      </li>
                     </ul>
                    </div>
@@ -473,87 +552,31 @@
                        <div class="nav-main">
                         <ul class="nav nav-tabs" style="width: 100%;" id="myReviewInside" role="tablist">
                          <li class="nav-item">
-                          <a class="nav-link" id="toggleReviewModify" href="javascript:void(0);">수정</a>
+                          <a class="nav-link toggleReviewModify" href="javascript:void(0);">수정</a>
                          </li>
                          <c:if test="${ review.mem_idx == user.mem_idx || user.mem_grade eq '관리자' }">
                           <button type="button"
                            onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">수정</button>
-                           <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0);" onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">삭제</a>
+                          <li class="nav-item">
+                           <a class="nav-link" href="javascript:void(0);"
+                            onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">삭제</a>
                           </li>
-                          
+
                          </c:if>
                          <script>
                           function reviewDelete(performance_idx, review_idx) {
-                            if (confirm("정말 삭제하시겠습니까?") == false) return;
-                            
-                            location.href = "review_delete.do?performance_idx=" + performance_idx + "&review_idx=" + review_idx;
+                           if (confirm("정말 삭제하시겠습니까?") == false) return;
+
+                           location.href = "review_delete.do?performance_idx=" + performance_idx + "&review_idx=" + review_idx;
                           }
-                        </script>
-                        
+                         </script>
+
                         </ul>
-                        <!-- Review Form -->
-                        <div class="comment-review" id="reviewModifyForm" style="display: none;">
-                         <div class="add-review">
-                          <h5>「${vo.performance_name}」
-                           - 관람 후기 수정
-                          </h5>
-                         </div>
-                         <h4>평점</h4>
-                         <form id="ratingForm" class="review-inner" method="POST" action="review_insert.do">
-                          <input type="hidden" name="performance_idx" id="performance_idx"
-                           value="${param.performance_idx}">
-                          <div class="ratings">
-                           <label>
-                            <input type="radio" name="review_score_point" value="5" class="rating-radio" required>
-                            <span class="star" data-value="5">★★★★★</span>
-                           </label>
-                           <label>
-                            <input type="radio" name="review_score_point" value="4" class="rating-radio" required>
-                            <span class="star" data-value="4">★★★★</span>
-                           </label>
-                           <label>
-                            <input type="radio" name="review_score_point" value="3" class="rating-radio" required>
-                            <span class="star" data-value="3">★★★</span>
-                           </label>
-                           <label>
-                            <input type="radio" name="review_score_point" value="2" class="rating-radio" required>
-                            <span class="star" data-value="2">★★</span>
-                           </label>
-                           <label>
-                            <input type="radio" name="review_score_point" value="1" class="rating-radio" required>
-                            <span class="star" data-value="1">★</span>
-                           </label>
-                          </div>
-                          <!-- Form -->
-                          <div class="form">
-                           <div class="row">
-                            <div class="col-lg-6 col-12">
-                             <div class="form-group">
-                              <label>제목<span>*</span></label>
-                              <input type="text" name="review_title" required="required" placeholder="">
-                             </div>
-                            </div>
-                            <div class="col-lg-12 col-12">
-                             <div class="form-group">
-                              <label>내용<span>*</span></label>
-                              <textarea name="review_content" rows="6" placeholder=""></textarea>
-                             </div>
-                            </div>
-                            <div class="col-lg-12 col-12">
-                             <div class="form-group button5" style="text-align: center;">
-                              <button type="button" class="btn" onclick="send(this.form)">수정완료</button>
-                             </div>
-                            </div>
-                           </div>
-                          </div>
-                         </form>
-                        </div>
-                        <!--/ End Form -->
+
                        </div>
 
                        <!-- 리뷰 수정 토글 -->
-                       <script>
+                       <!-- <script>
                         // 수정 버튼 클릭 이벤트
                         document.addEventListener("DOMContentLoaded", function () {
                          var modifyButtons = document.querySelectorAll(".toggleReviewModify");
@@ -570,7 +593,7 @@
                           });
                          });
                         });
-                       </script>
+                       </script> -->
 
 
                        <div class="reg-information" style="text-align: right;">
@@ -619,6 +642,63 @@
 
                     </div>
                    </div>
+                   <!-- Review Form -->
+                   <div class="comment-review" id="reviewModifyForm" style="display: none;">
+                    <div class="add-review">
+                     <h5>「${vo.performance_name}」
+                      - 관람 후기 수정
+                     </h5>
+                    </div>
+                    <h4>평점</h4>
+                    <form id="ratingForm" class="review-inner" method="POST" action="review_insert.do">
+                     <input type="hidden" name="performance_idx" id="performance_idx" value="${param.performance_idx}">
+                     <div class="ratings">
+                      <label>
+                       <input type="radio" name="review_score_point" value="5" class="rating-radio" required>
+                       <span class="star" data-value="5">★★★★★</span>
+                      </label>
+                      <label>
+                       <input type="radio" name="review_score_point" value="4" class="rating-radio" required>
+                       <span class="star" data-value="4">★★★★</span>
+                      </label>
+                      <label>
+                       <input type="radio" name="review_score_point" value="3" class="rating-radio" required>
+                       <span class="star" data-value="3">★★★</span>
+                      </label>
+                      <label>
+                       <input type="radio" name="review_score_point" value="2" class="rating-radio" required>
+                       <span class="star" data-value="2">★★</span>
+                      </label>
+                      <label>
+                       <input type="radio" name="review_score_point" value="1" class="rating-radio" required>
+                       <span class="star" data-value="1">★</span>
+                      </label>
+                     </div>
+                     <!-- Form -->
+                     <div class="form">
+                      <div class="row">
+                       <div class="col-lg-6 col-12">
+                        <div class="form-group">
+                         <label>제목<span>*</span></label>
+                         <input type="text" name="review_title" required="required" placeholder="">
+                        </div>
+                       </div>
+                       <div class="col-lg-12 col-12">
+                        <div class="form-group">
+                         <label>내용<span>*</span></label>
+                         <textarea name="review_content" rows="6" placeholder=""></textarea>
+                        </div>
+                       </div>
+                       <div class="col-lg-12 col-12">
+                        <div class="form-group button5" style="text-align: center;">
+                         <button type="button" class="btn" onclick="send(this.form)">수정완료</button>
+                        </div>
+                       </div>
+                      </div>
+                     </div>
+                    </form>
+                   </div>
+                   <!--/ End Form -->
                   </c:forEach>
                   <!--/ End 관람 후기 -->
                  </div>
