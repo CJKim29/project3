@@ -81,7 +81,7 @@
     }
 
     if (mem_nickname_check.test(mem_nickname) == false) {
-     $("#nickname_msg").html("닉네임은 3~12자리 영문 한글만 사용가능합니다.").css("color", "IndianRed");
+     $("#nickname_msg").html("닉네임은 3~12자리 한글 또는 영문만 사용가능합니다.").css("color", "IndianRed");
      return;
     }
 
@@ -147,7 +147,7 @@
   <script type="text/javascript">
 
    // 이메일 체크
-   function check_email_forward() {
+   function check_email() {
 
     $("#btn_register").prop("disabled", true);
 
@@ -180,42 +180,7 @@
       alert("현재, 요청이 지연되고 있습니다.");
      }
     });
-   }// end:check_email_forward()
-
-   function check_email_back() {
-
-    $("#btn_register").prop("disabled", true);
-
-    let mem_email = $("#mem_email").val();
-    let mem_email_check = /^[가-힣ㄱ-ㅎA-Za-z0-9@.]{3,25}$/;
-
-    if (mem_email.length == 0) {
-     $("#email_msg").html("");
-     return;
-    }
-
-    if (mem_email_check.test(mem_email) == false) {
-     $("#email_msg").html("이메일은 3~25자리 영문 한글만 사용가능합니다.").css("color", "IndianRed");
-     return;
-    }
-
-    $.ajax({
-     url: "check_email.do",
-     data: { "mem_email": mem_email },
-     dataType: "json",
-     success: function (res_data) {
-      if (res_data.result) {
-       $("#email_msg").html("사용가능한 이메일 입니다.").css("color", "black");
-       $("#btn_register").prop("disabled", false);
-      } else {
-       $("#email_msg").html("이미 사용중인 이메일 입니다.").css("color", "IndianRed");
-      }
-     },
-     error: function (err) {
-      alert("현재, 요청이 지연되고 있습니다.");
-     }
-    });
-   }// end:check_email_back()
+   }// end:check_email()
   </script>
 
 
@@ -436,43 +401,43 @@
      </div>
      <div class="form-group">
       <div class="text1">
-       <select name="year" id="year">
-        <option value="select">태어난 해</option>
+       <select name="year" id="year" style="margin-right: 30px; height: 42px;">
+        <option value="select">&nbsp;&nbsp;태어난 해&nbsp;</option>
        </select>
 
-       <select name="month" id="month">
-        <option value="select">월</option>
-        <option value="1">01</option>
-        <option value="2">02</option>
-        <option value="3">03</option>
-        <option value="4">04</option>
-        <option value="5">05</option>
-        <option value="6">06</option>
-        <option value="7">07</option>
-        <option value="8">08</option>
-        <option value="9">09</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
+       <select name="month" id="month" style="margin-right: 30px;">
+        <option value="select">&nbsp;월&nbsp;</option>
+        <option value="1">&nbsp;01&nbsp;</option>
+        <option value="2">&nbsp;02&nbsp;</option>
+        <option value="3">&nbsp;03&nbsp;</option>
+        <option value="4">&nbsp;04&nbsp;</option>
+        <option value="5">&nbsp;05&nbsp;</option>
+        <option value="6">&nbsp;06&nbsp;</option>
+        <option value="7">&nbsp;07&nbsp;</option>
+        <option value="8">&nbsp;08&nbsp;</option>
+        <option value="9">&nbsp;09&nbsp;</option>
+        <option value="10">&nbsp;10&nbsp;</option>
+        <option value="11">&nbsp;11&nbsp;</option>
+        <option value="12">&nbsp;12&nbsp;</option>
        </select>
 
-       <select name="day" id="day">
-        <option value="select">일</option>
+       <select name="day" id="day" style="margin-right: 10px;">
+        <option value="select">&nbsp;일&nbsp;</option>
        </select>
       </div>
      </div>
      <div class="form-group">
       <div class="text2">
-       <input type="text" class="form-control" placeholder="010" readonly style="width: 65px;">
+       <input type="text" class="form-control" placeholder="010" readonly style="width: 63px;">
        <input type="text" class="form-control" name="mem_phone" id="mem_phone" placeholder="핸드폰번호 입력(숫자 8자리)"
-        style="width: 235px;" onkeyup="check_phone();">
+        style="width: 237px;" onkeyup="check_phone();">
       </div>
       <span id="phone_msg" style="display: block; min-height: 20px;"></span>
      </div>
      <div class="form-group">
       <div class="text2">
        <input type="text" class="form-control" name="mem_email" id="mem_email" placeholder="이메일 입력"
-        onkeyup="check_email_forward();">
+        onkeyup="check_email();">
       </div>
       <span id="email_msg" style="display: block; min-height: 20px;"></span>
      </div>
