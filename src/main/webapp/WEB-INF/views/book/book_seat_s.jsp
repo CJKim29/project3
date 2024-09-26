@@ -134,7 +134,7 @@
       document.addEventListener("DOMContentLoaded", function () {
        let selectedSeats = [];
        function toggleSeat(row, col) {
-        const seatId = row + "열" + col.toUpperCase() + "석";
+        const seatId = row + "-" + col.toUpperCase();
         const index = selectedSeats.indexOf(seatId);
         if (index === -1) {
          selectedSeats.push(seatId);
@@ -157,8 +157,8 @@
         document.getElementById("selectedSeats").value = JSON.stringify(
          selectedSeats.map((seat) => {
           console.log("Selected Seat Updated:", seat);
-          const [row, col] = seat.split("열|석");
-          return { row: parseInt(row), col: col }; // 열 정보를 대문자로 변환   col.toUpperCase()
+          const [row, col] = seat.split("-");
+          return { row: parseInt(row), col: col.toUpperCase() }; // 열 정보를 대문자로 변환
          })
         );
         // 선택된 좌석 정보를 hidden input으로 추가
@@ -181,7 +181,7 @@
         );
         seatInfoContainer.innerHTML = ""; // 이전 내용 제거
         selectedSeats.forEach((seatId) => {
-         const [row, col] = seatId.split("열|석");
+         const [row, col] = seatId.split("-");
          const div = document.createElement("div");
          div.textContent = `Row: ${row}, Col: ${col}`; // 좌석 정보를 표시
          seatInfoContainer.appendChild(div);
