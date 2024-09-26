@@ -1,9 +1,9 @@
 package com.githrd.project3.service;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.vo.OrdersVo;
@@ -16,22 +16,21 @@ import com.siot.IamportRestClient.response.Payment;
 @Service
 public class PaymentService {
 
-  @Autowired
-  BookMapper book_mapper;
+ @Autowired
+ BookMapper book_mapper;
 
-  private final IamportClient iamportClient;
+ private final IamportClient iamportClient;
 
-  @Autowired
-  public PaymentService(IamportClient iamportClient) {
-    this.iamportClient = iamportClient;
-  }
+ @Autowired
+ public PaymentService(IamportClient iamportClient) {
+  this.iamportClient = iamportClient;
+ }
 
-  public IamportResponse<Payment> getPaymentInfo(String impUid) throws IamportResponseException, IOException {
-    return iamportClient.paymentByImpUid(impUid);
-  }
+ public IamportResponse<Payment> getPaymentInfo(String impUid) throws IamportResponseException, IOException {
+  return iamportClient.paymentByImpUid(impUid);
+ }
 
-  // 작업중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // public OrdersVo getOrderByIdx(int orderIdx) {
-  // return book_mapper.selectOneFromOrderIdx(orderIdx);
-  // }
+ public OrdersVo getOrderByIdx(int orderIdx) {
+  return book_mapper.selectOneFromOrderIdx(orderIdx);
+ }
 }
