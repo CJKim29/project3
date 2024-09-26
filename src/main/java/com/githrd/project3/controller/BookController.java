@@ -178,7 +178,7 @@ public class BookController {
 
  @RequestMapping("/reserve_seats.do")
  public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
-   @RequestParam("date") String performance_date,
+   @RequestParam("reserved_performance_date") String performance_date,
    @RequestParam("selectedSeats") String selectedSeatsJson,
    @RequestParam("seatInfo") List<String> seatInfo,
    Model model) {
@@ -299,7 +299,7 @@ public class BookController {
  @RequestMapping("order_insert.do")
  public String orderInsert(OrdersVo ordersVo,
    @RequestParam("performance_idx") int performance_idx,
-   @RequestParam("date") String performance_date,
+   @RequestParam("reserved_performance_date") String performance_date,
    @RequestParam("selectedSeats") String selectedSeatsJson,
    @RequestParam("seatInfo") List<String> seatInfo,
    Model model, RedirectAttributes ra) {
