@@ -30,7 +30,7 @@ public class MainController {
     // 공연 정보 전체 조회 - 그리드 형식
     @RequestMapping("list.do")
     public String main(Model model) {
-
+    
         // 공연 정보 가져오기
         List<PerformanceVo> list = performance_mapper.selectList();
 
