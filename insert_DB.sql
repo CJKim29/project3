@@ -1,6 +1,6 @@
 -- member
-insert into member values(null, '김관리', 'admin', 'admin', '관리자', '1998-03-31', '01012345678', 'admin@naver.com', '11111', '서울시 관악구', '0.0.0.1' , default, default, default, '관리자');
-insert into member values(null, '일길동', 'one', '1234', 'one', '2000-09-20', '01011115678', 'one@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, default, '일반');
+insert into member values(null, '김관리', 'admin', 'admin', '관리자', '1998-03-31', '01012345678', 'admin@naver.com', '11111', '서울시 관악구', '0.0.0.1' , default, default, 1000000, '관리자');
+insert into member values(null, '일길동', 'one', '1234', 'one', '2000-09-20', '01011115678', 'one@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
 
 -- hall 
 -- 뮤지컬(1-중)
