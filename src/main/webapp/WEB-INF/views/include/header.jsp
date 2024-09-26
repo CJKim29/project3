@@ -214,16 +214,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
 
-                          <li class="${empty param.performance_cate_idx ? 'active' : ''}">
+                          <li>
                             <a href="../main/list.do">Home</a>
                           </li>
-                          <li class="${param.performance_cate_idx == 1 ? 'active' : ''}">
+                          <li>
                             <a href="../performance/list.do">뮤지컬</a>li
                           </li>
-                          <li class="${param.performance_cate_idx == 2 ? 'active' : ''}">
+                          <li>
                             <a href="../performance/list.do">콘서트</a>
                           </li>
-                          <li class="${param.performance_cate_idx == 3 ? 'active' : ''}">
+                          <li>
                             <a href="../performance/list.do">연극</a>
                           </li>
                           <li>
