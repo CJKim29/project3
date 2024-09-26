@@ -101,9 +101,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <a href="../member/insert_form.do">회원가입</a>
                     </li>
                     <li>
-                      <i class="ti-power-off"></i
-                      ><a href="../member/login_form.do">로그인</a>
-                    </li>
+                      <i class="ti-power-off"></i><a href="#" onclick="login();">로그인</a>
+                     </li>
                   </c:if>
                   <!-- 로그인이 된 경우 -->
                   <c:if test="${ not empty sessionScope.user }">
@@ -214,40 +213,29 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li class="active">
+
+                          <li class="${empty param.performance_cate_idx ? 'active' : ''}">
                             <a href="../main/list.do">Home</a>
                           </li>
-                          <li>
-                            <a href="../performance/list.do">전체 공연</a>
+                          <li class="${param.performance_cate_idx == 1 ? 'active' : ''}">
+                            <a href="../performance/list.do">뮤지컬</a>li
+                          </li>
+                          <li class="${param.performance_cate_idx == 2 ? 'active' : ''}">
+                            <a href="../performance/list.do">콘서트</a>
+                          </li>
+                          <li class="${param.performance_cate_idx == 3 ? 'active' : ''}">
+                            <a href="../performance/list.do">연극</a>
                           </li>
                           <li>
-                            <a
-                              href="../performance/list.do?performance_cate_idx=1"
-                              >뮤지컬</a>
-                          </li>
-                          <li>
-                            <a
-                              href="../performance/list.do?performance_cate_idx=2"
-                              >콘서트</a>
-                          </li>
-                          <li>
-                            <a
-                              href="../performance/list.do?performance_cate_idx=3"
-                              >연극</a>
-                          </li>
-                          <li>
-                            <a href="../faq/list.do"
-                              >고객센터<i class="ti-angle-down"></i
-                            ></a>
+                            <a href="../faq/list.do">고객센터 <i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
                               <li><a href="../qna/list.do">Q&A</a></li>
                               <li><a href="../faq/list.do">FAQ</a></li>
-                              <li>
-                                <a href="../board/list.do">게시판 리스트</a>
-                              </li>
+                              <li><a href="../board/list.do">게시판 리스트</a></li>
                             </ul>
                           </li>
                         </ul>
+                        
                       </div>
                     </div>
                   </nav>
@@ -325,5 +313,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         location.href = "../cart/list.do";
       }
     </script>
+
+    <script>
+      function login() {
+      location.href = "../member/login_form.do?url=" + encodeURIComponent(location.href);
+      }
+    </script>
+
   </body>
 </html>
