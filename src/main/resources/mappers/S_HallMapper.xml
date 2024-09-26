@@ -12,15 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE cd.performance_idx = #{performance_idx} AND SUBSTRING(cd.performance_date_date, 1, 10) = #{performance_date}
  </select>
 
- <!-- <update id="updateSeatStatus" parameterType="map">
-      UPDATE s_hall AS s
-      JOIN cart_seat AS cs ON m.seat_idx = cs.seat_idx
-      SET s.${col} = 1, cs.reserved = 1
-      WHERE s.performance_date_idx = #{performance_date_idx}
-      AND s.s_hall_row_no = #{row}
-      AND cs.cart_idx = #{cart_idx}; 
-  </update> -->
-
  <update id="updateSeatStatus" parameterType="map">
         UPDATE s_hall
         SET ${col} = 1
@@ -30,6 +21,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
  <!-- 안쓰는 코드들 -->
+
+ <!-- <update id="updateSeatStatus" parameterType="map">
+      UPDATE s_hall AS s
+      JOIN cart_seat AS cs ON m.seat_idx = cs.seat_idx
+      SET s.${col} = 1, cs.reserved = 1
+      WHERE s.performance_date_idx = #{performance_date_idx}
+      AND s.s_hall_row_no = #{row}
+      AND cs.cart_idx = #{cart_idx}; 
+  </update> -->
+
  <!-- 전체조회 -->
  <!-- <select id="selectList" resultType="s_hall">
 		select * from s_hall order by s_hall_idx
