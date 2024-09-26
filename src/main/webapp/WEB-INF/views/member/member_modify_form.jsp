@@ -127,7 +127,7 @@
      $("#btn_register").prop("disabled", true);
 
      let mem_nickname = $("#mem_nickname").val();
-     let mem_nickname_check = /^[가-힣ㄱ-ㅎA-Za-z]{2,6}$/;
+     let mem_nickname_check = /^[가-힣ㄱ-ㅎA-Za-z]{3,12}$/;
 
      if (mem_nickname.length == 0) {
       $("#nickname_msg").html("");
@@ -135,7 +135,7 @@
      }
 
      if (mem_nickname_check.test(mem_nickname) == false) {
-      $("#nickname_msg").html("닉네임은 2~6자리 영문 한글만 사용가능합니다.").css("color", "IndianRed");
+      $("#nickname_msg").html("닉네임은 3~12자리 한글 또는 영문만 사용가능합니다.").css("color", "IndianRed");
       return;
      }
 
@@ -156,12 +156,86 @@
       }
      });
     }// end:check_nickname()
-
-
    </script>
 
+   <script type="text/javascript">
 
+    // 핸드폰번호 체크
+    function check_phone() {
 
+     $("#btn_register").prop("disabled", true);
+
+     let mem_phone = $("#mem_phone").val();
+     let mem_phone_check = /^[0-9]{8}$/;
+
+     if (mem_phone.length == 0) {
+      $("#phone_msg").html("");
+      return;
+     }
+
+     if (mem_phone_check.test(mem_phone) == false) {
+      $("#phone_msg").html("핸드폰번호는 숫자 8자리를 입력해주세요.").css("color", "IndianRed");
+      return;
+     }
+
+     $.ajax({
+      url: "check_phone.do",
+      data: { "mem_phone": mem_phone },
+      dataType: "json",
+      success: function (res_data) {
+       if (res_data.result) {
+        $("#phone_msg").html("사용가능한 핸드폰번호 입니다.").css("color", "black");
+        $("#btn_register").prop("disabled", false);
+       } else {
+        $("#phone_msg").html("이미 사용중인 핸드폰번호 입니다.").css("color", "IndianRed");
+       }
+      },
+      error: function (err) {
+       console.log(err);
+       alert("현재, 요청이 지연되고 있습니다.");
+      }
+     });
+    }// end:check_phone()
+   </script>
+
+   <script type="text/javascript">
+
+    // 이메일 체크
+    function check_email() {
+
+     $("#btn_register").prop("disabled", true);
+
+     let mem_email = $("#mem_email").val();
+     let mem_email_check = /^[가-힣ㄱ-ㅎA-Za-z0-9@.]{3,25}$/;
+
+     if (mem_email.length == 0) {
+      $("#email_msg").html("");
+      return;
+     }
+
+     if (mem_email_check.test(mem_email) == false) {
+      $("#email_msg").html("이메일은 3~25자리 영문 한글만 사용가능합니다.").css("color", "IndianRed");
+      return;
+     }
+
+     $.ajax({
+      url: "check_email.do",
+      data: { "mem_email": mem_email },
+      dataType: "json",
+      success: function (res_data) {
+       if (res_data.result) {
+        $("#email_msg").html("사용가능한 이메일 입니다.").css("color", "black");
+        $("#btn_register").prop("disabled", false);
+       } else {
+        $("#email_msg").html("이미 사용중인 이메일 입니다.").css("color", "IndianRed");
+       }
+      },
+      error: function (err) {
+       alert("현재, 요청이 지연되고 있습니다.");
+      }
+     });
+    }// end:check_email()
+   </script>
 
    <!-- 프로필 사진 업로드 -->
    <script type="text/javascript">
@@ -272,10 +346,10 @@
         <input type="password" class="form-control" name="mem_pwd" value="${ vo.mem_pwd }" placeholder="비밀번호 입력">
        </div>
        <div class="form-group">
-        <div class="text1">닉네임</div> <!-- 중복체크 위해 필요 -->
+        <div class="text1" style="display: inline-block;">닉네임&emsp;</div><span id="nickname_msg"></span>
         <input type="text" class="form-control" name="mem_nickname" id="mem_nickname" placeholder="닉네임 입력"
          value="${ vo.mem_nickname }" onkeyup="check_nickname();">
-        <span id="nickname_msg"></span>
+
        </div>
        <div class="form-group">
         <div class="text1">생년월일<span class="id_msg">*생년월일은 수정이 불가합니다</span></div>
@@ -283,13 +357,13 @@
         <input type="text" class="form-control" name="mem_birth" value="${ vo.mem_birth }" readonly="readonly">
        </div>
        <div class="form-group">
-        <div class="text1">핸드폰번호</div> <!-- 중복체크 위해 필요 -->
+        <div class="text1" style="display: inline-block;">핸드폰번호&emsp;</div><span id="phone_msg"></span>
         <input type="text" class="form-control" name="mem_phone" id="mem_phone" placeholder="핸드폰번호 입력"
          value="${ vo.mem_phone }" onkeyup="check_phone();">
         <span id="phone_msg"></span>
        </div>
        <div class="form-group">
-        <div class="text1">이메일</div> <!-- 중복체크 위해 필요 -->
+        <div class="text1" style="display: inline-block;">이메일&emsp;</div><span id="email_msg"></span>
         <input type="text" class="form-control" name="mem_email" id="mem_email" placeholder="이메일 입력"
          value="${ vo.mem_email }" onkeyup="check_email();">
         <span id="email_msg"></span>
