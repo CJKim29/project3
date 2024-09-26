@@ -519,6 +519,77 @@
     </header>
     <!--/ End Header -->
 
+    <script>
+      $(document).ready(function () {
+        function setActiveMenu() {
+          let currentUrl = window.location.pathname; // 현재 페이지의 경로
+          // 모든 'active' 클래스 제거
+          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
+          // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
+          $(".nav.main-menu.menu.navbar-nav a").each(function () {
+            let linkUrl = $(this).attr("href");
+            // 상대 경로= 절대 경로 변환
+            let absoluteLinkUrl = new URL(linkUrl, window.location.origin)
+              .pathname;
+            // 현재 페이지 URL과 메뉴 링크가 일치?
+            if (currentUrl === absoluteLinkUrl) {
+              $(this).parent().addClass("active");
+            }
+          });
+        }
+        // 로드
+        setActiveMenu();
+        // 메뉴 항목 클릭 시
+        $(".nav.main-menu.menu.navbar-nav a").click(function (event) {
+          event.preventDefault();
+          //'active' 클래스 제거
+          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
+          // 클릭한 'active' 클래스 추가
+          $(this).parent().addClass("active");
+          // 링크 이동 (정해진 링크이동)
+          // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
+          window.location.href = $(this).attr("href");
+        });
+      });
+    </script>
+    <!-- 메인 검색창 경고창 -->
+    <script>
+      function validateSearch() {
+        var searchInput = document.getElementById("searchInput");
+        // 검색어가 입력되지 않았을 경우
+        if (searchInput.value.trim() === "") {
+          alert("공연 제목을 입력해주세요");
+          searchInput.value = ""; // 입력된 글자를 지움
+          searchInput.focus(); // 포커스를 입력 필드로 다시 설정
+          return false; // 폼 제출을 막음
+        }
+        return true; // 검색어가 있을 경우 폼을 제출
+      }
+    </script>
+    <script type="text/javascript">
+      function checkLogin() {
+        // 로그인 여부 체크
+        if ("${ empty user }" == "true") {
+          if (
+            confirm(
+              "장바구니 조회는 로그인 후 가능합니다 \n 로그인 하시겠습니까?"
+            ) == false
+          )
+            return;
+          location.href = "../member/login_form.do";
+          return;
+        }
+        location.href = "../cart/list.do";
+      }
+    </script>
+
+    <script>
+      function login() {
+      location.href = "../member/login_form.do?url=" + encodeURIComponent(location.href);
+      }
+    </script>
+
+
      <script>
 
       $(document).ready(function () {
