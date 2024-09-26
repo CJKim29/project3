@@ -4,38 +4,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.MemberMapper">
 
-  <!-- 전체조회 -->
-  <select id="selectList" resultType="member">
+ <!-- 전체조회 -->
+ <select id="selectList" resultType="member">
 		select * from member order by mem_idx
-  </select>
+ </select>
 
-  <!-- idx조회 -->
-  <select id="selectOneFromIdx" parameterType="int" resultType="member">
+ <!-- idx조회 -->
+ <select id="selectOneFromIdx" parameterType="int" resultType="member">
 		select * from member where mem_idx=#{ mem_idx }
-  </select>
+ </select>
 
-  <!-- id조회 -->
-  <select id="selectOneFromId" parameterType="String" resultType="member">
+ <!-- id조회 -->
+ <select id="selectOneFromId" parameterType="String" resultType="member">
 		select * from member where mem_id=#{ mem_id }
-  </select>
+ </select>
 
-  <!-- nickname조회 -->
-  <select id="selectOne_nickname" parameterType="String" resultType="member">
+ <!-- nickname조회 -->
+ <select id="selectOne_nickname" parameterType="String" resultType="member">
 		select * from member where mem_nickname=#{ mem_nickname }
-  </select>
+ </select>
 
-  <!-- phone조회 -->
-  <select id="selectOne_phone" parameterType="String" resultType="member">
-		select * from member where mem_phone=#{ mem_phone }
-  </select>
+ <!-- phone조회 -->
+ <select id="selectOne_phone" parameterType="String" resultType="member">
+		select * from member WHERE mem_phone = CONCAT('010', #{mem_phone})
+ </select>
 
-  <!-- email조회 -->
-  <select id="selectOne_email" parameterType="String" resultType="member">
+ <!-- email조회 -->
+ <select id="selectOne_email" parameterType="String" resultType="member">
 		select * from member where mem_email=#{ mem_email }
-  </select>
+ </select>
 
-  <!-- insert -->
-  <insert id="insert" parameterType="member">
+ <!-- insert -->
+ <insert id="insert" parameterType="member">
         insert into member (
             mem_name,
             mem_id,
@@ -65,21 +65,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             default,           -- mem_point 기본값 사용 (0)
             '일반'
         )
-  </insert>
+ </insert>
 
-  <!-- delete -->
-  <delete id="delete" parameterType="int">
+ <!-- delete -->
+ <delete id="delete" parameterType="int">
 		delete from member where mem_idx=#{ mem_idx }
-  </delete>
+ </delete>
 
-  <!-- update -->
-  <update id="update" parameterType="member">
+ <!-- update -->
+ <update id="update" parameterType="member">
 		update member set mem_name= #{ mem_name }, mem_pwd= #{ mem_pwd }, mem_nickname = #{ mem_nickname },
     mem_birth = #{ mem_birth }, mem_phone = #{ mem_phone }, mem_email = #{ mem_email }, mem_zipcode= #{ mem_zipcode }, mem_addr= #{ mem_addr }, mem_ip= #{ mem_ip }, mem_grade= #{ mem_grade }
 							where mem_idx= #{ mem_idx }
-  </update>
+ </update>
 
-  <update id="updateFilename" parameterType="member">
+ <update id="updateFilename" parameterType="member">
         update member set mem_filename = #{mem_filename} where mem_idx = #{mem_idx}
-  </update>
+ </update>
 </mapper>

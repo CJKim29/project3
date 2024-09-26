@@ -137,6 +137,7 @@
       }
      },
      error: function (err) {
+      console.log(err);
       alert("현재, 요청이 지연되고 있습니다.");
      }
     });
@@ -146,7 +147,7 @@
   <script type="text/javascript">
 
    // 이메일 체크
-   function check_email() {
+   function check_email_forward() {
 
     $("#btn_register").prop("disabled", true);
 
@@ -179,7 +180,42 @@
       alert("현재, 요청이 지연되고 있습니다.");
      }
     });
-   }// end:check_emailname()
+   }// end:check_email_forward()
+
+   function check_email_back() {
+
+    $("#btn_register").prop("disabled", true);
+
+    let mem_email = $("#mem_email").val();
+    let mem_email_check = /^[가-힣ㄱ-ㅎA-Za-z0-9@.]{3,25}$/;
+
+    if (mem_email.length == 0) {
+     $("#email_msg").html("");
+     return;
+    }
+
+    if (mem_email_check.test(mem_email) == false) {
+     $("#email_msg").html("이메일은 3~25자리 영문 한글만 사용가능합니다.").css("color", "IndianRed");
+     return;
+    }
+
+    $.ajax({
+     url: "check_email.do",
+     data: { "mem_email": mem_email },
+     dataType: "json",
+     success: function (res_data) {
+      if (res_data.result) {
+       $("#email_msg").html("사용가능한 이메일 입니다.").css("color", "black");
+       $("#btn_register").prop("disabled", false);
+      } else {
+       $("#email_msg").html("이미 사용중인 이메일 입니다.").css("color", "IndianRed");
+      }
+     },
+     error: function (err) {
+      alert("현재, 요청이 지연되고 있습니다.");
+     }
+    });
+   }// end:check_email_back()
   </script>
 
 
@@ -398,11 +434,6 @@
       </div>
       <span id="nickname_msg" style="display: block; min-height: 20px;"></span>
      </div>
-     <!-- <div class="form-group">
-      <div class="text1">
-       <input type="text" class="form-control" name="mem_birth" id="mem_birth" placeholder="생년월일 입력">
-      </div>
-     </div> -->
      <div class="form-group">
       <div class="text1">
        <select name="year" id="year">
@@ -441,7 +472,7 @@
      <div class="form-group">
       <div class="text2">
        <input type="text" class="form-control" name="mem_email" id="mem_email" placeholder="이메일 입력"
-        onkeyup="check_email();">
+        onkeyup="check_email_forward();">
       </div>
       <span id="email_msg" style="display: block; min-height: 20px;"></span>
      </div>
