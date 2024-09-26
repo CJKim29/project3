@@ -214,10 +214,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
 
-                          <li class="${empty performanceCateIdx ? 'active' : ''}">
+                          <li class="active">
                             <a href="../main/list.do">Home</a>
                           </li>
-                          <li class="${!empty performanceCateIdx ? 'active' : ''}">
+                          <li>
                             <a href="../performance/list.do">전체 공연</a>
                           </li>
                           <li>
