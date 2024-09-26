@@ -10,6 +10,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <collection property="seatList" column="cart_idx=cart_idx" select="cart_seat_list" />
   </resultMap>
 
+  <!-- 장바구니 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
+  <select id="cart_seat_list" resultType="cart_seat">
+    SELECT 
+        cs.cart_seat_idx,
+        cs.seat_idx,
+        s.seat_grade,
+        s.seat_price,
+        cs.cart_seat_name,
+        cs.reserved
+    FROM cart_seat cs 
+    INNER JOIN seat s ON cs.seat_idx = s.seat_idx
+    WHERE cs.cart_idx = #{cart_idx}
+  </select>
+
   <!-- 회원별 장바구니목록 조회(공연이미지, 공연명, 공연장명) -->
   <select id="cart_list" parameterType="int" resultMap="cartMap">
       SELECT 
@@ -25,19 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ORDER BY c.cart_idx
   </select>
 
-  <!-- 장바구니 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
-  <select id="cart_seat_list" resultType="cart_seat">
-    SELECT 
-        cs.cart_seat_idx,
-        cs.seat_idx,
-        s.seat_grade,
-        s.seat_price,
-        cs.cart_seat_name,
-        cs.reserved
-    FROM cart_seat cs 
-    INNER JOIN seat s ON cs.seat_idx = s.seat_idx
-    WHERE cs.cart_idx = #{cart_idx}
-  </select>
+
 
   <select id="select_one_cart" parameterType="int" resultType="cart">
         select * from cart where cart_idx = #{cart_idx}

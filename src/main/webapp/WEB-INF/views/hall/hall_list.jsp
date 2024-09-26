@@ -59,15 +59,13 @@
     <div id="box">
         <h1 id="title"> 공연장목록 </h1>
 
-        <div style="margin-top:20px; text-align: left; float:right;">
-            
+        <div style="margin-top:20px; text-align: left; float:right;">            
             <!-- 관리자만 추가 기능 -->
             <c:if test="${ user.mem_grade eq '관리자' }">
                 <input class="btn" type="button" value="등록" style=" color: white; background: #337ab7;"
                 onclick="location.href='insert_form.do'">
             </c:if>
         </div>
-
 
         <table class="table">
             <tr style="background: #ff1d38">
@@ -92,7 +90,7 @@
                     <td>${ vo.hall_addr }</td>
                     <td>${ vo.hall_tel }</td>
                     <td>
-                       <a href="${vo.hall_site}">사이트로이동</a>
+                       <a href="${vo.hall_site}"><p style="color: blue;">사이트로이동</p></a>
                     </td>
                     
                     <td>${ vo.hall_seat }</td>
@@ -108,7 +106,6 @@
                     </td>
                 </tr>
             </c:forEach>
-
         </table>
 
         <!-- Data가 없는 경우 -->

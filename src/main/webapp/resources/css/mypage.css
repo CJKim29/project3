@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.custom-header {
+  background-color: #ff1d38;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 0 auto 20px auto; /* 중앙 정렬 */
+  max-width: 1200px; /* 헤더의 최대 너비 */
+  width: 100%;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.site-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.welcome-section {
+  font-size: 18px;
+}
+
+.points-section {
+  display: flex;
+  gap: 40px;
+}
+
+.points-section div {
+  text-align: center;
+}
+
+.point-value,
+.ticket-value {
+  font-size: 24px;
+  color: #ff4b4b;
+  font-weight: bold;
+}
+
+.points-section div span {
+  display: block;
+  font-size: 16px;
+}
+
+main {
+  display: flex !important;
+  max-width: 1200px; /* 헤더와 동일한 너비 */
+  margin: 0 auto; /* 가운데 정렬 */
+  margin-bottom: 5px;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-right: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  display: block;
+}
+
+.sidebar ul li a:hover {
+  color: #ff1d38;
+}
+
+.sidebar hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+}
