@@ -442,7 +442,7 @@
             </div>
             <div class="d-flex overflow-auto">
 				<c:forEach var="performance" items="${newPerformances}" varStatus="status">
-				<c:if test="${status.index < 3}"> <!-- 3개만 출력 -->
+				<c:if test="${status.index < 3}"> <!--공연정보 3개만 출력 -->
                 <!-- Start Single List -->
 				 <!-- 115x140 -->
 				 <!-- 210x320 -->
@@ -450,6 +450,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
+								<!-- 상대경로${pageContext.request.contextPath} performance idx  -->
 	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
 									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#" style="width: 210px; height: 320px;">
 								</a>
@@ -475,7 +476,7 @@
             </div>
             <div class="d-flex overflow-auto">
 				<c:forEach var="performance" items="${rankingPerformances}" varStatus="status">
-				<c:if test="${status.index < 3}"> <!-- 3개만 출력 -->
+				<c:if test="${status.index < 3}"> <!--랭킹정보 3개만 출력 -->
 				<!-- 가로형 -->
                 <!-- Start Single List -->
                 <div class="single-list me-3">
