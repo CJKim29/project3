@@ -20,9 +20,12 @@ import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.L_HallMapper;
 import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.S_HallMapper;
+import com.githrd.project3.vo.CartVo;
+import com.githrd.project3.vo.Cart_seatVo;
 import com.githrd.project3.vo.L_HallVo;
 import com.githrd.project3.vo.M_HallVo;
 import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.OrdersSeatVo;
 import com.githrd.project3.vo.OrdersVo;
 import com.githrd.project3.vo.S_HallVo;
 import com.githrd.project3.vo.X_PerformanceVo;
@@ -182,28 +185,32 @@ public class BookController {
 
   // 공연 정보 조회
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
-  model.addAttribute("vo", vo);
+  // model.addAttribute("vo", vo);
 
-  if (vo.getPerformance_cate_idx() == 1) {
-   List<M_HallVo> seats = m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx, performance_date);
+  // if (vo.getPerformance_cate_idx() == 1) {
+  // List<M_HallVo> seats =
+  // m_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+  // performance_date);
 
-   model.addAttribute("seats", seats);
-  }
-  if (vo.getPerformance_cate_idx() == 2) {
-   List<S_HallVo> seats = s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
-     performance_date);
+  // model.addAttribute("seats", seats);
+  // }
+  // if (vo.getPerformance_cate_idx() == 2) {
+  // List<S_HallVo> seats =
+  // s_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+  // performance_date);
 
-   model.addAttribute("seats", seats);
-  }
-  if (vo.getPerformance_cate_idx() == 3) {
-   List<L_HallVo> seats = l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
-     performance_date);
+  // model.addAttribute("seats", seats);
+  // }
+  // if (vo.getPerformance_cate_idx() == 3) {
+  // List<L_HallVo> seats =
+  // l_hall_mapper.selectSeatsByPerformanceAndDate(performance_idx,
+  // performance_date);
 
-   model.addAttribute("seats", seats);
-  }
+  // model.addAttribute("seats", seats);
+  // }
 
   // 좌석 정보 model을 통해 jsp로 전달
-  model.addAttribute("seatInfo", seatInfo);
+  // model.addAttribute("seatInfo", seatInfo);
 
   // performance_date_idx를 구합니다.
   Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
@@ -288,8 +295,9 @@ public class BookController {
   return "/mypage/my_reservation"; // book_result.jsp로 이동
  }
 
- @RequestMapping("payment_agree.do")
- public String payment_agree(
+ // payment_check -> payment_agree 넘어갈 때 order insert
+ @RequestMapping("order_insert.do")
+ public String orderInsert(OrdersVo ordersVo,
    @RequestParam("performance_idx") int performance_idx,
    @RequestParam("date") String performance_date,
    @RequestParam("selectedSeats") String selectedSeatsJson,
@@ -305,36 +313,68 @@ public class BookController {
 
   // 공연 정보 가져오기
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
-
   model.addAttribute("vo", vo);
   // 이거 써야 좌석 정보 가져와짐
   model.addAttribute("selectedSeats", selectedSeatsJson);
   model.addAttribute("seatInfo", seatInfo);
+  // => 다음 페이지 넘어갈 때 넘겨 줘야 할 정보들
 
   // ----------------------- 주문 정보 관련----------------------------
 
   // 주문 정보를 담기 위한 OrdersVo 객체 생성
-  OrdersVo ordersVo = new OrdersVo();
-  ordersVo.setPerformance_idx(performance_idx);
-  ordersVo.setMem_idx(user.getMem_idx());
-  // Timestamp String으로 변환 (order_date가 string이므로)
-  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-  String formattedDate = sdf.format(new Timestamp(System.currentTimeMillis()));
-  ordersVo.setOrder_date(formattedDate); // 변환된 문자열을 저장
-  // ordersVo.setOrder_amount( /* 금액 계산 로직을 여기에 추가하세요 */ );
-
-  // 여기서 seat_idx는 반드시 세팅되어야 합니다. 여러 좌석이 있다면 이를 처리하는 로직이 필요합니다.
-  // ordersVo.setSeat_idx(여기에 좌석 아이디);
+  // OrdersVo ordersVo = new OrdersVo();
+  // ordersVo.setPerformance_idx(performance_idx);
+  // ordersVo.setMem_idx(user.getMem_idx());
+  // // Timestamp String으로 변환 (order_date가 string이므로)
+  // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  // String formattedDate = sdf.format(new Timestamp(System.currentTimeMillis()));
+  // ordersVo.setOrder_date(formattedDate); // 변환된 문자열을 저장
 
   // 주문 정보 DB insert
-  book_mapper.ordersInsert(ordersVo);
+  int res = book_mapper.ordersInsert(ordersVo);
 
   // INSERT 후 생성된 `order_idx` 가져오기
-  int order_idx = ordersVo.getOrder_idx(); // MyBatis의 `ordersInsert`가 이 값을 리턴하게끔 설정
-
+  // int order_idx = ordersVo.getOrder_idx(); // MyBatis의 `ordersInsert`가 이 값을
+  // 리턴하게끔 설정
+  // 최근 주문 번호 얻어오기
+  int order_idx = book_mapper.OrderRecentIdx();
   // 생성된 주문 번호를 모델에 추가해 JSP에서 사용할 수 있도록 전달
-  model.addAttribute("order_idx", order_idx);
+  // model.addAttribute("order_idx", order_idx);
 
+  // 공연 카테고리 인덱스 조회
+  int performance_cate_idx = book_mapper.selectOnePerformanceCateIdx(ordersVo.getPerformance_idx());
+
+  // 좌석등록(반복문 - 최대 4좌석 등록을 위함 - 2차 등록)
+  for (String seat : seatInfo) {
+   // "x열x석" 형식에서 "열"과 "석"으로 분리
+   String[] seatParts = seat.split("열|석");
+
+   int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
+
+   int seat_idx = 0;
+
+   // 카테고리에 따라 다른 메서드 호출
+   switch (performance_cate_idx) {
+    case 1: // 중형(뮤지컬)
+     seat_idx = book_mapper.selectOneSeatIdxM(ordersVo.getPerformance_idx(), row);
+     break;
+    case 2: // 소형(연극)
+     seat_idx = book_mapper.selectOneSeatIdxS(ordersVo.getPerformance_idx(), row);
+     break;
+    case 3: // 대형(콘서트)
+     seat_idx = book_mapper.selectOneSeatIdxL(ordersVo.getPerformance_idx(), row);
+     break;
+   }
+
+   OrdersSeatVo ordersSeatVo = new OrdersSeatVo();
+   ordersSeatVo.setOrder_idx(order_idx);
+   ordersSeatVo.setSeat_idx(seat_idx);
+   ordersSeatVo.setOrder_seat_name(seat);
+
+   // 좌석 정보 삽입
+   book_mapper.ordersSeatInsert(ordersSeatVo);
+
+  }
   return "/payment/payment_agree";
  }
 
@@ -344,5 +384,4 @@ public class BookController {
 
  // return "/payment/payment";
  // }
-
 }
