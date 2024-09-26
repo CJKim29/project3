@@ -53,12 +53,12 @@ public class MemberController {
  @RequestMapping("login_form.do")
  public String login_form() {
 
-  String referer = request.getHeader("Referer");
+  // String referer = request.getHeader("Referer");
 
   // 세션에 이전 페이지 URL 저장 (로그인 폼이 아닌 경우에만)
-  if (referer != null && !referer.contains("login_form.do")) {
-   session.setAttribute("prevPage", referer);
-  }
+  // if (referer != null && !referer.contains("login_form.do")) {
+  // session.setAttribute("prevPage", referer);
+  // }
 
   return "member/member_login_form";
  }
@@ -66,10 +66,13 @@ public class MemberController {
  // /member/login.do?mem_id=one&mem_pwd=1234
 
  @RequestMapping("login.do")
- public String login(String mem_id, String mem_pwd,
+ public String login(String mem_id, String mem_pwd, String url,
    RedirectAttributes ra) {
 
   MemberVo user = member_mapper.selectOneFromId(mem_id);
+  System.out.println("---------------------------------------------");
+  System.out.println(url);
+  System.out.println("---------------------------------------------");
 
   if (user == null) {
 
@@ -92,13 +95,8 @@ public class MemberController {
   session.setAttribute("user", user);
   session.setAttribute("mem_idx", user.getMem_idx()); // mem_idx 추가 저장
 
-  // 이전 페이지 정보가 세션에 저장되어 있는지 확인
-  String prevPage = (String) session.getAttribute("prevPage");
-
-  // 이전 페이지가 있다면 그쪽으로 리다이렉트, 없으면 메인 페이지로 이동
-  if (prevPage != null) {
-   session.removeAttribute("prevPage"); // 사용 후 세션에서 제거
-   return "redirect:" + prevPage;
+  if (url != null && url.length() > 0) {
+   return "redirect:" + url;
   }
 
   return "redirect:../main/list.do"; // 기본적으로 메인 페이지로 이동
