@@ -197,24 +197,29 @@
           <tr>
            <td>선택 좌석</td>
            <td>
-            <c:forEach var="info" items="${seatInfo}">
-             ${info}<br />
-            </c:forEach>
+            ${param.seat_grade}
+            <!-- <c:forEach var="ordersVo" items="${list}">
+             <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
+              ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
+             </c:forEach>
+            </c:forEach> -->
            </td>
 
           </tr>
           <tr>
            <td>티켓 금액</td>
            <td>
-            <c:forEach var="seat" items="${vo.seatList}">
-             <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-             <br>
-            </c:forEach>
+            ${param.seat_grade}
+            <!-- <c:forEach var="ordersVo" items="${list}">
+             <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
+              ${ ordersSeatVo.seat_price }원<br>
+             </c:forEach>
+            </c:forEach> -->
            </td>
           </tr>
           <tr>
            <td>할인</td>
-           <td>???</td>
+           <td>${param.used_point2}</td>
           </tr>
           <tr>
            <td>총 결제 금액</td>

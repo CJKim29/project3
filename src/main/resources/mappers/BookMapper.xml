@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.BookMapper">
 
- <resultMap id="performanceListMap" type="x_performance">
+ <resultMap id="performanceListMap" type="performance">
   <result property="hall_idx" column="hall_idx"/>
   <result property="performance_cate_idx" column="performance_cate_idx"/>
 
@@ -115,7 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
 
- <resultMap id="performanceOneMap" type="x_performance">
+ <resultMap id="performanceOneMap" type="performance">
   <result property="hall_idx" column="hall_idx"/>
   <result property="performance_cate_idx" column="performance_cate_idx"/>
   <result property="performance_idx" column="performance_idx"/>
@@ -154,7 +154,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </resultMap>
 
  <!-- 회원별 주문 내역 조회(공연이미지, 공연명, 공연장명) -->
- <select id="ordersList" parameterType="int" resultMap="ordersMap">
+ <select id="ordersList" parameterType="Map" resultMap="ordersMap">
       SELECT 
           o.order_idx,
           p.performance_name,
@@ -165,7 +165,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       FROM orders o 
       INNER JOIN performance p ON o.performance_idx = p.performance_idx
       INNER JOIN hall h ON p.hall_idx = h.hall_idx
-      WHERE o.mem_idx = #{mem_idx} 
+      WHERE o.mem_idx = #{mem_idx} and o.order_idx=#{order_idx}
       ORDER BY o.order_idx
  </select>
 
@@ -221,6 +221,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="OrderRecentIdx" resultType="int">
         select max(order_idx) from orders
  </select>
+
+ <!-- 이전으로 갈 시 삭제 되게(미구현..ㅠㅠㅠㅠ) -->
+ <delete id="orderDelete" parameterType="int">
+        DELETE FROM orders WHERE order_idx = #{order_idx}
+ </delete>
+
+ <!-- 좌석 0으로 되돌리기 -->
 
 
 </mapper>
