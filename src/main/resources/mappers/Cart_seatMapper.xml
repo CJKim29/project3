@@ -11,7 +11,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         cart_seat_name) values (#{cart_idx}, #{seat_idx}, #{cart_seat_name});
   </insert>
 
-  <!-- 좌석 검증 -->
   <select id="cart_seat_select_one" parameterType="int" resultType="cart_seat">
     SELECT *
     FROM cart_seat 
