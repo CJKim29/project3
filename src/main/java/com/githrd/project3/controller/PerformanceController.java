@@ -2,6 +2,9 @@ package com.githrd.project3.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
+import com.githrd.project3.vo.SeatListVo;
 import com.githrd.project3.vo.SeatVo;
 
 import jakarta.servlet.ServletContext;
@@ -40,6 +46,9 @@ public class PerformanceController {
  // 처음에 1회 연결
  @Autowired
  PerformanceMapper performance_mapper;
+
+ @Autowired
+ S_HallMapper s_HallMapper;
 
  @Autowired
  ServletContext application;
@@ -171,6 +180,29 @@ public class PerformanceController {
   // DB insert
   int res = performance_mapper.insert(vo);
 
+  // 공연이 정상적으로 등록되었을 때만 진행
+  if (res > 0) {
+   // 공연 ID를 얻어와야 함 (performance 테이블의 auto_increment로 생성된 ID)
+   int performanceIdx = vo.getPerformance_idx(); // 이 부분은 insert 후에 해당 idx를 받아와야 함
+
+   // 공연 시작일과 종료일을 받아옴
+   LocalDate startDate = LocalDate.parse(vo.getPerformance_startday());
+   LocalDate endDate = LocalDate.parse(vo.getPerformance_endday());
+
+   // 시작일에서 종료일까지 날짜 리스트를 생성
+   while (!startDate.isAfter(endDate)) {
+    PerformanceDateVo dateVo = new PerformanceDateVo();
+    dateVo.setPerformance_idx(performanceIdx); // 공연 ID 설정
+    dateVo.setPerformance_date_date(startDate.atStartOfDay()); // 공연 날짜 설정
+
+    // 날짜 정보를 performance_date 테이블에 삽입
+    performance_mapper.insertPerformanceDate(dateVo);
+
+    // 다음 날짜로 이동
+    startDate = startDate.plusDays(1);
+   }
+  }
+
   return "redirect:list.do";
  }
 
@@ -186,31 +218,72 @@ public class PerformanceController {
  }
 
  // 공연 좌석 등록
- @RequestMapping("insert_seat.do")
- // 파라미터 Vo로 포장해달라고 요청
- public String insert_seat(SeatVo vo, int performance_idx, RedirectAttributes ra) {
+ // @RequestMapping("insert_seat.do")
+ // public String insert_seat(SeatListVo seatListVo, RedirectAttributes ra) {
+ // // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
+ // MemberVo user = (MemberVo) session.getAttribute("user");
+ // if (user == null) {
+ // ra.addAttribute("reason", "session_timeout");
+ // return "redirect:../member/login_form.do";
+ // }
 
+ // // DB insert
+ // List<SeatVo> seats = seatListVo.getSeats();
+ // if (seats != null && !seats.isEmpty()) {
+ // for (SeatVo vo : seats) {
+ // System.out.println("Performance_idx: " + vo.getPerformance_idx());
+ // // insert 문자형 자료 enter 처리
+ // String seat_grade = vo.getSeat_grade().replaceAll("\n", "<br>");
+ // vo.setSeat_grade(seat_grade);
+
+ // // DB insert
+ // performance_mapper.insertSeat(vo);
+ // }
+ // }
+
+ // return "redirect:list.do";
+ // }
+
+ @RequestMapping("insert_seat.do")
+ public String insert_seat(int performance_idx,
+   @RequestParam("seat_grade") String[] seat_grade_array,
+   @RequestParam("seat_price") Integer[] seat_price_array,
+   RedirectAttributes ra) {
   // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
   MemberVo user = (MemberVo) session.getAttribute("user");
   if (user == null) {
-
    ra.addAttribute("reason", "session_timeout");
-
    return "redirect:../member/login_form.do";
   }
 
-  // insert 문자형 자료 enter 처리
-  String seat_grade = vo.getSeat_grade().replaceAll("\n", "<br>");
-  vo.setSeat_grade(seat_grade);
+  // 좌석 정보를 삽입하고 seat_idx를 가져오기
+  List<Integer> seat_ids = new ArrayList<>(); // seat_idx 저장할 리스트
+  for (int i = 0; i < seat_price_array.length; i++) {
+   performance_mapper.insertSeats(performance_idx, seat_grade_array[i], seat_price_array[i]);
+   int seat_idx = performance_mapper.selectSeatIndex(performance_idx, seat_grade_array[i], seat_price_array[i]);
+   seat_ids.add(seat_idx); // 생성된 seat_idx를 리스트에 추가
+  }
 
-  // DB insert
-  int res = performance_mapper.insertSeat(vo);
+  // performance_date 테이블에서 날짜 정보 조회
+  List<Date> performanceDates = performance_mapper.getPerformanceDates(performance_idx);
+
+  // s_hall 테이블에 데이터 삽입
+  for (Date date : performanceDates) {
+   int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+   for (Integer seat_idx : seat_ids) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("performance_date_idx", performance_date_idx);
+    params.put("seat_idx", seat_idx);
+    s_HallMapper.insertIntoSHall(params);
+   }
+  }
 
   return "redirect:list.do";
  }
 
  // 공연 수정 폼
  @RequestMapping("modify_form.do")
+
  public String modify_form(int performance_idx, Model model) {
 
   PerformanceVo vo = performance_mapper.selectOneFromIdx(performance_idx);

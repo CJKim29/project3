@@ -19,6 +19,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND s_hall_row_no = #{row}
  </update>
 
+ <!-- 좌석등급 1개 일 때 공연 등록 -->
+ <insert id="insertIntoSHall" parameterType="map">
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 1);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 2);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 3);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 4);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 5);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 6);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 7);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 8);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 9);
+    insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(#{performance_date_idx}, #{seat_idx}, 10);
+ </insert>
+
 
  <!-- 안쓰는 코드들 -->
 
