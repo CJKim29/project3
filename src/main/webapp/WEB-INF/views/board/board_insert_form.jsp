@@ -56,7 +56,13 @@ pageEncoding="UTF-8"%>
           f.board_content.focus();
           return;
         }
-
+        if (
+          !board_cate_idx == "" &&
+          !board_name == "" &&
+          !board_content == ""
+        ) {
+          if (confirm("등록하시겠습니까?") == false) return;
+        }
         f.action = "insert.do";
         f.submit();
       }
