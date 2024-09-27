@@ -86,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ) p2
     WHERE no BETWEEN #{ start } AND #{ end }
 
-                              <!-- 정렬 -->
+                                  <!-- 정렬 -->
   <choose>
    <when test='sort_options == "s_abc"'>
             order by performance_name asc 
@@ -128,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
 
  <!-- 공연 좌석 등록 -->
- <insert id="insertSeat" parameterType="seat">
+ <insert id="insertSeats" parameterType="seat">
     insert into seat values(null,
                             #{performance_idx},
                             #{seat_grade},

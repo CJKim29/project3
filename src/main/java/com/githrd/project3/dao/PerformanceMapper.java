@@ -3,6 +3,7 @@ package com.githrd.project3.dao;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
@@ -62,5 +63,9 @@ public interface PerformanceMapper {
  List<PerformanceVo> selectRankingPerformances();
 
  int insertPerformanceDate(PerformanceDateVo vo);
+
+ void insertSeats(@Param("performance_idx") int performance_idx,
+   @Param("seat_grade") String seat_grade,
+   @Param("seat_price") Integer seat_price);
 
 }

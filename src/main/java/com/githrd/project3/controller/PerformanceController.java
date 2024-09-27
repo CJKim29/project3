@@ -22,6 +22,7 @@ import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
+import com.githrd.project3.vo.SeatListVo;
 import com.githrd.project3.vo.SeatVo;
 
 import jakarta.servlet.ServletContext;
@@ -211,31 +212,54 @@ public class PerformanceController {
  }
 
  // 공연 좌석 등록
- @RequestMapping("insert_seat.do")
- // 파라미터 Vo로 포장해달라고 요청
- public String insert_seat(SeatVo vo, int performance_idx, RedirectAttributes ra) {
+ // @RequestMapping("insert_seat.do")
+ // public String insert_seat(SeatListVo seatListVo, RedirectAttributes ra) {
+ // // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
+ // MemberVo user = (MemberVo) session.getAttribute("user");
+ // if (user == null) {
+ // ra.addAttribute("reason", "session_timeout");
+ // return "redirect:../member/login_form.do";
+ // }
 
+ // // DB insert
+ // List<SeatVo> seats = seatListVo.getSeats();
+ // if (seats != null && !seats.isEmpty()) {
+ // for (SeatVo vo : seats) {
+ // System.out.println("Performance_idx: " + vo.getPerformance_idx());
+ // // insert 문자형 자료 enter 처리
+ // String seat_grade = vo.getSeat_grade().replaceAll("\n", "<br>");
+ // vo.setSeat_grade(seat_grade);
+
+ // // DB insert
+ // performance_mapper.insertSeat(vo);
+ // }
+ // }
+
+ // return "redirect:list.do";
+ // }
+
+ @RequestMapping("insert_seat.do")
+ public String insert_seat(int performance_idx,
+   @RequestParam("seat_grade") String[] seat_grade_array,
+   @RequestParam("seat_price") Integer[] seat_price_array,
+   RedirectAttributes ra) {
   // session 만료 시 로그아웃 시키기 -> 로그인 폼으로 이동
   MemberVo user = (MemberVo) session.getAttribute("user");
   if (user == null) {
-
    ra.addAttribute("reason", "session_timeout");
-
    return "redirect:../member/login_form.do";
   }
 
-  // insert 문자형 자료 enter 처리
-  String seat_grade = vo.getSeat_grade().replaceAll("\n", "<br>");
-  vo.setSeat_grade(seat_grade);
-
-  // DB insert
-  int res = performance_mapper.insertSeat(vo);
+  for (int i = 0; i < seat_price_array.length; i++) {
+   performance_mapper.insertSeats(performance_idx, seat_grade_array[i], seat_price_array[i]);
+  }
 
   return "redirect:list.do";
  }
 
  // 공연 수정 폼
  @RequestMapping("modify_form.do")
+
  public String modify_form(int performance_idx, Model model) {
 
   PerformanceVo vo = performance_mapper.selectOneFromIdx(performance_idx);
