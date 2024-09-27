@@ -18,6 +18,7 @@ import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.L_HallMapper;
 import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.S_HallMapper;
+import com.githrd.project3.vo.CartVo;
 import com.githrd.project3.vo.L_HallVo;
 import com.githrd.project3.vo.M_HallVo;
 import com.githrd.project3.vo.MemberVo;
@@ -261,6 +262,8 @@ public class BookController {
    int performance_idx, @RequestParam("date") String performance_date, String selectedSeats,
    @RequestParam("seatInfo") List<String> seatInfo, Model model) {
 
+  MemberVo user = (MemberVo) session.getAttribute("user");
+
   // 공연 정보 조회
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
   model.addAttribute("vo", vo);
@@ -269,12 +272,10 @@ public class BookController {
 
   // performance_date_idx를 구합니다.
   Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
-
   if (performance_date_idx == null) {
    // performance_date_idx가 null일 경우 처리
    return "errorPage";
   }
-
   // 선택된 좌석 정보 파싱
   ObjectMapper mapper = new ObjectMapper();
   List<Map<String, Object>> selectedSeats1;
@@ -311,12 +312,22 @@ public class BookController {
    }
   }
 
+  // 주문 리스트 가져옴
+  List<OrdersVo> list = book_mapper.ordersList(user.getMem_idx());
+  model.addAttribute("list", list);
+  model.addAttribute("ordersVo", ordersVo); // JSP에 전달
+
+  // for (OrdersVo order : list) {
+  // // seatList가 제대로 채워졌는지 확인
+  // System.out.println(order.getSeatList());
+  // }
+
+  // "date" 값을 ordersVo에 설정
+  ordersVo.setReserved_performance_date(performance_date);
+
   // 주문 정보 DB insert
   int res = book_mapper.ordersInsert(ordersVo);
 
-  // INSERT 후 생성된 `order_idx` 가져오기
-  // int order_idx = ordersVo.getOrder_idx(); // MyBatis의 `ordersInsert`가 이 값을
-  // 리턴하게끔 설정
   // 최근 주문 번호 얻어오기
   int order_idx = book_mapper.OrderRecentIdx();
 
@@ -326,7 +337,7 @@ public class BookController {
   // 좌석등록(반복문 - 최대 4좌석 등록을 위함 - 2차 등록)
   for (String seat : seatInfo) {
    // "x열x석" 형식에서 "열"과 "석"으로 분리
-   String[] seatParts = seat.split("-");
+   String[] seatParts = seat.split("열|석");
 
    int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
 
@@ -354,7 +365,6 @@ public class BookController {
    book_mapper.ordersSeatInsert(ordersSeatVo);
 
   }
-
   return "/payment/payment_check";
  }
 

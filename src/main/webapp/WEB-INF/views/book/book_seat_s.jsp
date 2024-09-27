@@ -150,30 +150,41 @@
         var form = $("#seatForm");
         // 이전에 추가된 좌석 정보를 제거
         form.find('input[name="seatInfo"]').remove();
+        form.find('input[name="selectedSeats"]').remove(); // selectedSeats hidden input도 제거
         // 선택된 좌석이 없으면 경고창 표시
         if (selectedSeats.length === 0) {
          alert("좌석을 선택해 주세요.");
          return;
         }
-        // 선택된 좌석 정보를 JSON 형식으로 hidden input에 저장
-        document.getElementById("selectedSeats").value = JSON.stringify(
-         selectedSeats.map((seat) => {
-          console.log("Selected Seat Updated:", seat);
 
-          const [row, col] = seat.split("-");
-          return { row: parseInt(row), col: col.toUpperCase() }; // 열 정보를 대문자로 변환
-         })
-        );
-        // 선택된 좌석 정보를 hidden input으로 추가
+        // 선택된 좌석 정보를 `4열A석` 형식으로 변환하여 hidden input에 저장
         selectedSeats.forEach((seat) => {
+         const [row, col] = seat.split("-");
+         const seatInfo = row + "열" + col + "석"; // 여기서 형식 변경
+
          $("<input>")
           .attr({
            type: "hidden",
            name: "seatInfo",
-           value: seat, // 좌석 정보 추가
+           value: seatInfo, // 변경된 좌석 정보 추가
           })
           .appendTo(form);
         });
+
+        // 선택된 좌석을 JSON 형식으로 변환하여 hidden input에 추가
+        $("<input>")
+         .attr({
+          type: "hidden",
+          name: "selectedSeats", // 이 값을 서버에서 받을 변수 이름
+          value: JSON.stringify(
+           selectedSeats.map((seat) => {
+            const [row, col] = seat.split("-");
+            return { row: parseInt(row), col: col.toUpperCase() };
+           })
+          ),
+         })
+         .appendTo(form);
+
         // 폼 제출
         form.submit();
        };

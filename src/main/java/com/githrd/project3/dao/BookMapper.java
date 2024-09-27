@@ -56,6 +56,8 @@ public interface BookMapper {
 
  int OrderRecentIdx();
 
+ List<OrdersVo> ordersList(int mem_idx);
+
  // 안쓰는 코드들
  // Integer selectRemainSeat(@Param("performance_date") String performance_date,
  // @Param("seat_idx") int seat_idx);
