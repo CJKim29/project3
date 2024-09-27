@@ -8,14 +8,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     INSERT INTO cart_seat (
         cart_idx,
         seat_idx,
-        cart_seat_name,
-        reserved) values (#{cart_idx}, #{seat_idx}, #{cart_seat_name}, 0);
+        cart_seat_name) values (#{cart_idx}, #{seat_idx}, #{cart_seat_name});
   </insert>
 
   <!-- 좌석 검증 -->
-<select id="cart_seat_reserved_check" parameterType="int" resultType="cart_seat">
-    SELECT cs.*, cs.reserved 
-    FROM cart_seat cs 
-    WHERE cs.cart_idx = #{cart_idx}
-</select>
+  <select id="cart_seat_select_one" parameterType="int" resultType="cart_seat">
+    SELECT *
+    FROM cart_seat 
+    WHERE cart_idx = #{cart_idx}
+  </select>
+
+  <select id="cart_seat_reserved_check_m" parameterType="map" resultType="int">
+    SELECT 
+        CASE 
+        WHEN m.${col} IS NOT NULL AND m.${col} = 1 THEN 1 
+        ELSE 0 
+    END AS reserved
+    FROM cart_seat cs
+    INNER JOIN m_hall m ON m.seat_idx = cs.seat_idx
+    WHERE m.m_hall_row_no = ${row}
+    and cs.cart_idx = #{cart_idx}
+    and m.seat_idx = #{seat_idx}
+    LIMIT 1
+  </select>
+  <select id="cart_seat_reserved_check_s" parameterType="map" resultType="int">
+    SELECT 
+        CASE 
+        WHEN s.${col} IS NOT NULL AND s.${col} = 1 THEN 1 
+        ELSE 0 
+    END AS reserved
+    FROM cart_seat cs
+    INNER JOIN s_hall s ON s.seat_idx = cs.seat_idx
+    WHERE s.s_hall_row_no = ${row}
+    and cs.cart_idx = #{cart_idx}
+    and s.seat_idx = #{seat_idx}
+    LIMIT 1
+  </select>
+  <select id="cart_seat_reserved_check_l" parameterType="map" resultType="int">
+    SELECT 
+        CASE 
+        WHEN l.${col} IS NOT NULL AND l.${col} = 1 THEN 1 
+        ELSE 0 
+    END AS reserved
+    FROM cart_seat cs
+    INNER JOIN l_hall l ON l.seat_idx = cs.seat_idx
+    WHERE l.l_hall_row_no = ${row}
+    and cs.cart_idx = #{cart_idx}
+    and l.seat_idx = #{seat_idx}
+    LIMIT 1
+  </select>
+
+
 </mapper>

@@ -14,11 +14,9 @@ public class Cart_seatVo {
   int cart_idx;
   int seat_idx;
   String cart_seat_name;
-  int reserved; // 예매 여부 (검증용 변수)
 
   // 조인용 변수
   String seat_grade;
   int seat_price;
 
-  
 }
