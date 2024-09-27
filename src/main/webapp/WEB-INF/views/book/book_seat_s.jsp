@@ -483,6 +483,7 @@
            <input type="hidden" id="seat_col" name="col" />
            <input type="hidden" name="seat_idx" value="${seat_idx}" />
            <input type="hidden" id="selectedSeats" name="selectedSeats" />
+           <input type="hidden" name="mem_idx" value="${user.mem_idx}" />
            <div style="display: flex; justify-content: center">
             <input type="button" class="btn btn-success" value="좌석선택완료" style="width: 110px" onclick="submitSeats()" />
            </div>

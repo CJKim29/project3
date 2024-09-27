@@ -332,11 +332,7 @@
           <tr>
            <td>티켓 금액</td>
            <td id="ticket_amount">
-            40000
-            <!-- <c:forEach var="seat" items="${vo.seatList}">
-             <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-             <br>
-            </c:forEach> -->
+
            </td>
           </tr>
 
