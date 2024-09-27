@@ -2,11 +2,14 @@ package com.githrd.project3.vo;
 
 import java.util.List;
 import org.apache.ibatis.type.Alias;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Alias("performance")
 public class PerformanceVo {
 
@@ -31,6 +34,8 @@ public class PerformanceVo {
     PerformanceCateVo performanceCateVo;
 
     List<SeatVo> seatList;
+
+    List<CastingVo> castingList;
 
     // 공연 상세 카테고리
     PerformanceDetailCateVo performanceDetailCateVo;

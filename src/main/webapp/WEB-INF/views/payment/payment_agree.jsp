@@ -198,7 +198,7 @@
            <td>선택 좌석</td>
            <td>
             <c:forEach var="info" items="${seatInfo}">
-             ${info}석<br />
+             ${info}<br />
             </c:forEach>
            </td>
 
