@@ -177,15 +177,13 @@ public class BookController {
  } // end - performance_seat
 
  @RequestMapping("/reserve_seats.do")
- public String reserveSeats(@RequestParam("performance_idx") int performance_idx,
-   @RequestParam("reserved_performance_date") String performance_date,
-   @RequestParam("selectedSeats") String selectedSeatsJson,
+ public String reserveSeats(int performance_idx, @RequestParam("date") String performance_date, String selectedSeats,
    @RequestParam("seatInfo") List<String> seatInfo,
    Model model) {
 
   // 공연 정보 조회
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
-  // model.addAttribute("vo", vo);
+  model.addAttribute("vo", vo);
 
   // if (vo.getPerformance_cate_idx() == 1) {
   // List<M_HallVo> seats =
@@ -210,7 +208,7 @@ public class BookController {
   // }
 
   // 좌석 정보 model을 통해 jsp로 전달
-  // model.addAttribute("seatInfo", seatInfo);
+  model.addAttribute("seatInfo", seatInfo);
 
   // performance_date_idx를 구합니다.
   Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
@@ -222,9 +220,9 @@ public class BookController {
 
   // 선택된 좌석 정보 파싱
   ObjectMapper mapper = new ObjectMapper();
-  List<Map<String, Object>> selectedSeats;
+  List<Map<String, Object>> selectedSeats1;
   try {
-   selectedSeats = mapper.readValue(selectedSeatsJson, new TypeReference<List<Map<String, Object>>>() {
+   selectedSeats1 = mapper.readValue(selectedSeats, new TypeReference<List<Map<String, Object>>>() {
    });
   } catch (IOException e) {
    e.printStackTrace();
@@ -233,7 +231,7 @@ public class BookController {
 
   if (vo.getPerformance_cate_idx() == 1) {
    // 선택된 좌석을 업데이트
-   for (Map<String, Object> seat : selectedSeats) {
+   for (Map<String, Object> seat : selectedSeats1) {
     int row = ((Number) seat.get("row")).intValue();
     String col = (String) seat.get("col");
     m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
@@ -241,7 +239,7 @@ public class BookController {
   }
   if (vo.getPerformance_cate_idx() == 2) {
    // 선택된 좌석을 업데이트
-   for (Map<String, Object> seat : selectedSeats) {
+   for (Map<String, Object> seat : selectedSeats1) {
     int row = ((Number) seat.get("row")).intValue();
     String col = (String) seat.get("col");
     s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
@@ -249,15 +247,12 @@ public class BookController {
   }
   if (vo.getPerformance_cate_idx() == 3) {
    // 선택된 좌석을 업데이트
-   for (Map<String, Object> seat : selectedSeats) {
+   for (Map<String, Object> seat : selectedSeats1) {
     int row = ((Number) seat.get("row")).intValue();
     String col = (String) seat.get("col");
     l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
    }
   }
-
-  System.out.println("seatInfo = " + seatInfo);
-  System.out.println("performance_date = " + performance_date);
 
   return "/payment/payment_check";
  }
@@ -265,7 +260,7 @@ public class BookController {
  @PostMapping("/book_reservation.do")
  public String bookResult(@RequestParam("seatInfo") List<String> seatInfo,
    @RequestParam("performance_idx") int performance_idx,
-   @RequestParam("date") String performance_date, Model model) {
+   @RequestParam("reserved_performance_date") String performance_date, Model model) {
 
   X_PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
 
@@ -347,7 +342,7 @@ public class BookController {
   // 좌석등록(반복문 - 최대 4좌석 등록을 위함 - 2차 등록)
   for (String seat : seatInfo) {
    // "x열x석" 형식에서 "열"과 "석"으로 분리
-   String[] seatParts = seat.split("열|석");
+   String[] seatParts = seat.split("-");
 
    int row = Integer.parseInt(seatParts[0]); // "열" 앞의 숫자 (예: "3")
 
