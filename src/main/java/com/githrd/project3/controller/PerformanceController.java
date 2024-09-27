@@ -2,6 +2,7 @@ package com.githrd.project3.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.githrd.project3.dao.PerformanceMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.SeatVo;
 
@@ -170,6 +172,29 @@ public class PerformanceController {
 
   // DB insert
   int res = performance_mapper.insert(vo);
+
+  // 공연이 정상적으로 등록되었을 때만 진행
+  if (res > 0) {
+   // 공연 ID를 얻어와야 함 (performance 테이블의 auto_increment로 생성된 ID)
+   int performanceIdx = vo.getPerformance_idx(); // 이 부분은 insert 후에 해당 idx를 받아와야 함
+
+   // 공연 시작일과 종료일을 받아옴
+   LocalDate startDate = LocalDate.parse(vo.getPerformance_startday());
+   LocalDate endDate = LocalDate.parse(vo.getPerformance_endday());
+
+   // 시작일에서 종료일까지 날짜 리스트를 생성
+   while (!startDate.isAfter(endDate)) {
+    PerformanceDateVo dateVo = new PerformanceDateVo();
+    dateVo.setPerformance_idx(performanceIdx); // 공연 ID 설정
+    dateVo.setPerformance_date_date(startDate.atStartOfDay()); // 공연 날짜 설정
+
+    // 날짜 정보를 performance_date 테이블에 삽입
+    performance_mapper.insertPerformanceDate(dateVo);
+
+    // 다음 날짜로 이동
+    startDate = startDate.plusDays(1);
+   }
+  }
 
   return "redirect:list.do";
  }
