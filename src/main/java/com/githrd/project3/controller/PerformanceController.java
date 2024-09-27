@@ -2,7 +2,9 @@ package com.githrd.project3.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
 import com.githrd.project3.vo.MemberVo;
@@ -43,6 +46,9 @@ public class PerformanceController {
  // 처음에 1회 연결
  @Autowired
  PerformanceMapper performance_mapper;
+
+ @Autowired
+ S_HallMapper s_HallMapper;
 
  @Autowired
  ServletContext application;
@@ -250,8 +256,26 @@ public class PerformanceController {
    return "redirect:../member/login_form.do";
   }
 
+  // 좌석 정보를 삽입하고 seat_idx를 가져오기
+  List<Integer> seat_ids = new ArrayList<>(); // seat_idx 저장할 리스트
   for (int i = 0; i < seat_price_array.length; i++) {
    performance_mapper.insertSeats(performance_idx, seat_grade_array[i], seat_price_array[i]);
+   int seat_idx = performance_mapper.selectSeatIndex(performance_idx, seat_grade_array[i], seat_price_array[i]);
+   seat_ids.add(seat_idx); // 생성된 seat_idx를 리스트에 추가
+  }
+
+  // performance_date 테이블에서 날짜 정보 조회
+  List<Date> performanceDates = performance_mapper.getPerformanceDates(performance_idx);
+
+  // s_hall 테이블에 데이터 삽입
+  for (Date date : performanceDates) {
+   int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+   for (Integer seat_idx : seat_ids) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("performance_date_idx", performance_date_idx);
+    params.put("seat_idx", seat_idx);
+    s_HallMapper.insertIntoSHall(params);
+   }
   }
 
   return "redirect:list.do";

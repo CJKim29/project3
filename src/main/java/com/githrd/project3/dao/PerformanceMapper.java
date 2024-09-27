@@ -1,5 +1,7 @@
 package com.githrd.project3.dao;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
@@ -67,5 +69,14 @@ public interface PerformanceMapper {
  void insertSeats(@Param("performance_idx") int performance_idx,
    @Param("seat_grade") String seat_grade,
    @Param("seat_price") Integer seat_price);
+
+ int selectSeatIndex(@Param("performance_idx") int performance_idx,
+   @Param("seat_grade") String seat_grade,
+   @Param("seat_price") int seat_price);
+
+ List<Date> getPerformanceDates(int performance_idx);
+
+ int getPerformanceDateIdx(int performance_idx,
+   Date performance_date_date);
 
 }
