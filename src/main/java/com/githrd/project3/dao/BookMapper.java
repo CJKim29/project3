@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.githrd.project3.vo.OrdersSeatVo;
 import com.githrd.project3.vo.OrdersVo;
+import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.X_PerformanceVo;
 
 @Mapper
@@ -15,7 +16,7 @@ public interface BookMapper {
 
  List<X_PerformanceVo> selectList();
 
- X_PerformanceVo selectOneFromIdx(int performance_idx);
+ PerformanceVo selectOneFromIdx(int performance_idx);
 
  // performance_date와 performance_idx를 기반으로 performance_date_idx를 조회
  Integer selectPerformanceDateIdx(@Param("performance_date") String performance_date,
@@ -56,7 +57,7 @@ public interface BookMapper {
 
  int OrderRecentIdx();
 
- List<OrdersVo> ordersList(int mem_idx);
+ List<OrdersVo> ordersList(Map<String, Object> map);
 
  // 안쓰는 코드들
  // Integer selectRemainSeat(@Param("performance_date") String performance_date,

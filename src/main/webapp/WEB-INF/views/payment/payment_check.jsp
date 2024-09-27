@@ -43,12 +43,10 @@
         return;
        }
 
-
        // "&selectedSeats=" + "${param.selectedSeats}" => 이거 넣을 시 row 관련해서 오류남
        //f.action = "payment.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&selectedSeats=" + "${param.selectedSeats}" + "&seatInfo=" + "${param.seatInfo}";
-       f.action = "order_insert.do?performance_idx=" + "${param.performance_idx}" + "&reserved_performance_date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
-
-       alert(f.action); // 이 부분 추가하여 URL 확인
+       // f.action = "agree.do?performance_idx=" + "${param.performance_idx}" + "&reserved_performance_date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
+       //f.action = "agree.do";
 
        f.submit();
       }// end : send();
@@ -103,6 +101,10 @@
        // 사용 포인트와 남은 포인트 업데이트 함수
        function updateUsedPoints(usedPoints) {
         document.getElementById('used_point2').textContent = usedPoints;
+        // hidden input의 값을 업데이트
+        document.getElementById('hidden_used_point2').value = usedPoints.replace(/[^0-9]/g, ''); // 숫자만 남김
+
+
        }
 
        function updateAvailablePoints(totalPoints) {
@@ -227,17 +229,37 @@
       });
      </script>
 
+     <!-- 좌석 등급과 가격 넘기기 위한 작업 배열로 넘기래여.. => 컨트롤러 가서 json 문자열 파싱하는 작업 마저 하기  -->
+     <script>
+      // 선택된 좌석 정보를 배열로 저장
+      let seatGrades = [];
+      let seatPrices = [];
+
+      // 반복문을 통해 좌석 정보를 추출
+      document.querySelectorAll('.your-seat-selector').forEach(seat => {
+       seatGrades.push(seat.dataset.grade); // 각 좌석의 등급 데이터
+       seatPrices.push(seat.dataset.price); // 각 좌석의 가격 데이터
+      });
+
+      // 배열을 문자열로 변환하여 히든 필드에 저장
+      document.getElementById('seat_grade').value = JSON.stringify(seatGrades);
+      document.getElementById('seat_price').value = JSON.stringify(seatPrices);
+     </script>
     </head>
 
     <body>
-     <form>
-      ${ordersVo}
+
+     <form action="agree.do" method="post">
       <input type="hidden" name="performance_idx" value="${param.performance_idx}">
       <input type="hidden" name="date" value="${param.date}">
-      <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
-      <input type="hidden" name="seatInfo" value="${param.seatInfo}">
+      <!-- <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
+      <input type="hidden" name="seatInfo" value="${param.seatInfo}"> -->
       <input type="hidden" name="mem_idx" value="${user.mem_idx}">
 
+      <input type="hidden" id="seat_grade" name="seat_grade" value="">
+      <input type="hidden" id="seat_price" name="seat_price" value="">
+
+      <input type="hidden" name="used_point2" id="hidden_used_point2" value="${param.used_point2}">
       <div id="seat-box">
 
        <div id="seat-box-header">
@@ -323,27 +345,28 @@
           <tr>
            <td>선택 좌석</td>
            <td>
-            <c:forEach var="info" items="${seatInfo}">
-             ${info}<br>
+            <c:forEach var="ordersVo" items="${list}">
+             <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
+              ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
+             </c:forEach>
             </c:forEach>
-            <!-- <c:forEach var="seat" items="${ordersVo.seatList}">
-             ${seat.order_seat_name} <br>
-            </c:forEach> -->
            </td>
           </tr>
 
           <tr>
            <td>티켓 금액</td>
            <td id="ticket_amount">
-            <c:forEach var="seat" items="${ordersSeatVo.seatList}">
-             ${seat.seat_grade} : ${seat.seat_price} <br>
+            <c:forEach var="ordersVo" items="${list}">
+             <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
+              ${ ordersSeatVo.seat_price }원<br>
+             </c:forEach>
             </c:forEach>
            </td>
           </tr>
 
           <tr>
-           <td>포인트 사용</td>
-           <td><span id="used_point2">0</span></td>
+           <td>할인</td>
+           <td><span id="used_point2"></span></td>
           </tr>
 
           <tr>
