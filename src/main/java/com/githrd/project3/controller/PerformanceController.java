@@ -270,11 +270,17 @@ public class PerformanceController {
   // s_hall 테이블에 데이터 삽입
   for (Date date : performanceDates) {
    int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
-   for (Integer seat_idx : seat_ids) {
-    Map<String, Object> params = new HashMap<>();
-    params.put("performance_date_idx", performance_date_idx);
-    params.put("seat_idx", seat_idx);
-    s_HallMapper.insertIntoSHall(params);
+   int s_hall_row_no = 1;
+   for (int i = 0; i < 10; i++) {
+    for (Integer seat_idx : seat_ids) {
+     Map<String, Object> params = new HashMap<>();
+     params.put("performance_date_idx", performance_date_idx);
+     params.put("seat_idx", seat_idx);
+     params.put("s_hall_row_no", s_hall_row_no);
+     s_HallMapper.insertIntoSHall(params);
+
+     s_hall_row_no++;
+    }
    }
   }
 
