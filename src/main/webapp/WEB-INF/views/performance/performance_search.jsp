@@ -34,6 +34,7 @@
         .performance_img {
             width: 320px;
             height: 500px;
+            /* 사진 비율 맞추기 */
             object-fit: cover;
             margin-bottom: 10px;
         }
@@ -54,6 +55,7 @@
             color: inherit;
         }
 
+        /* 이미지 강조 */
         .content_wrap a:hover .performance_img {
             opacity: 0.8;
         }
