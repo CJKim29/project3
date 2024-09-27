@@ -156,10 +156,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!-- 회원별 주문 내역 조회(공연이미지, 공연명, 공연장명) -->
  <select id="ordersList" parameterType="int" resultMap="ordersMap">
       SELECT 
-          o.cart_idx,
+          o.order_idx,
           p.performance_name,
           p.performance_image,
           o.reserved_performance_date,
+          o.order_date,
           h.hall_name
       FROM orders o 
       INNER JOIN performance p ON o.performance_idx = p.performance_idx
@@ -171,12 +172,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!-- 주문 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
  <select id="orderSeatList" resultType="orders_seat">
     SELECT 
-        os.cart_seat_idx,
+        os.order_seat_idx,
+        os.order_idx,
         os.seat_idx,
         s.seat_grade,
         s.seat_price,
-        os.cart_seat_name,
-        os.reserved
+        os.order_seat_name
     FROM orders_seat os 
     INNER JOIN seat s ON os.seat_idx = s.seat_idx
     WHERE os.order_idx = #{order_idx}
@@ -185,18 +186,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!-- 주문 테이블에 정보 추가 -->
  <insert id="ordersInsert" parameterType="orders">
     insert into orders (performance_idx, mem_idx, reserved_performance_date, order_date)
-    values (#{performance_idx}, #{mem_idx}, #{reserved_performance_date}, #{order_date});
+                values (#{performance_idx},
+                        #{mem_idx},
+                        #{reserved_performance_date},
+                        now()
+                        );
  </insert>
- <!-- MyBatis에서 INSERT 후 자동 생성된 기본키(order_idx)를 받아오려면 @Options를 사용하여 자동 생성된 키를 매핑해야 합니다. -->
- <!-- 이렇게 하면 ordersVo 객체의 order_idx 필드에 자동 생성된 키가 저장됩니다. -->
- <!-- <insert id="ordersInsert" parameterType="orders" useGeneratedKeys="true" keyProperty="order_idx">
-    insert into orders values( null,
-                              #{performance_idx},
-                              #{mem_idx},
-                              #{reserved_performance_date},
-                              #{order_date}
-                            );
- </insert> -->
 
  <!-- 주문 좌석 -->
  <insert id="ordersSeatInsert" parameterType="orders_seat">

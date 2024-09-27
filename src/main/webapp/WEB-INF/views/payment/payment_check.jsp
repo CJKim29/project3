@@ -231,7 +231,7 @@
 
     <body>
      <form>
-
+      ${ordersVo}
       <input type="hidden" name="performance_idx" value="${param.performance_idx}">
       <input type="hidden" name="date" value="${param.date}">
       <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
@@ -324,19 +324,20 @@
            <td>선택 좌석</td>
            <td>
             <c:forEach var="info" items="${seatInfo}">
-             ${info}석<br>
+             ${info}<br>
             </c:forEach>
+            <!-- <c:forEach var="seat" items="${ordersVo.seatList}">
+             ${seat.order_seat_name} <br>
+            </c:forEach> -->
            </td>
           </tr>
 
           <tr>
            <td>티켓 금액</td>
            <td id="ticket_amount">
-            40000
-            <!-- <c:forEach var="seat" items="${vo.seatList}">
-             <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-             <br>
-            </c:forEach> -->
+            <c:forEach var="seat" items="${ordersSeatVo.seatList}">
+             ${seat.seat_grade} : ${seat.seat_price} <br>
+            </c:forEach>
            </td>
           </tr>
 
