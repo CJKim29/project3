@@ -119,6 +119,7 @@
                      display: inline-block;
                      margin: 0 36px 40px 0;
                      text-align: center;
+                     vertical-align: top;
                   }
 
                   #toggleButton {
@@ -155,30 +156,67 @@
                      margin-left: 80px;
                      font-size: 20px;
                      border: 1px solid #e6e6e6;
+                     max-height: 220px;
                   }
 
                   ul #modal-actor-name {
                      background-color: #f4f4f4;
-                     color: #666666;
+                     color: #222222;
                      width: 340px;
                      margin-right: 0;
+                     font-weight: bold;
                   }
 
                   .modal-body ul li {
                      padding: 7px 0 5px 20px;
                      margin-bottom: 9px;
+                     color: #666666;
                   }
 
                   #modal-img {
                      vertical-align: top;
-                     width: 200px;
-                     height: 252px;
+                     width: 170;
+                     height: 220px;
                   }
 
                   #name {
                      font-weight: bold;
                      font-size: 20px;
-                     padding: 30px 10px;
+                     padding: 30px 10px 30px 0;
+                  }
+
+                  #modal-performance-img {
+                     width: 82px;
+                     height: 100px;
+                     cursor: pointer;
+                     vertical-align: top;
+                  }
+
+                  #modal-performance {
+                     display: inline-block;
+                     border: none;
+                     margin: 0;
+                     vertical-align: top;
+                  }
+
+                  #modal-performance li {
+                     font-size: 15px;
+                     margin: 0;
+                     padding: 0 0 7px 5px;
+                     margin-right: 30px;
+                  }
+
+                  #modal-performance-name {
+                     font-weight: bold;
+                  }
+
+                  #modal-performance-list {
+                     display: inline-block;
+                  }
+
+                  #casting {
+                     display: inline-block;
+                     height: 200px;
                   }
                </style>
 
@@ -200,8 +238,10 @@
                         success: function (res_data) {
                            console.log(res_data);
 
+                           let modalContent = '';
+
                            $("#modal-img").attr("src", "../resources/images/" + res_data.actor_pic);
-                           $("#modal-actor-name").html("배우명 : " + res_data.actor_name);
+                           $("#modal-actor-name").html(res_data.actor_name);
                            if (res_data.actor_job != null) {
                               $("#modal-actor-job").html("직업 : " + res_data.actor_job).css({
                                  "padding": "7px 0 5px 20px",
@@ -246,27 +286,32 @@
                                  "margin": "0"
                               });
                            }
-                        },
-                        error: function (err) {
-                           alert(err.responseText)
-                        }
-                     })
 
-                     $.ajax({
-                        url: "performance.do",
-                        data: {
-                           "actor_idx": actor_idx
-                        },
-                        dataType: "json",
-                        method: "GET",
-                        success: function (res_data_2) {
-                           console.log(res_data_2);
-                           let modalContent = '';
-                           res_data_2.forEach(function (performance) {
+                           res_data.performanceList.forEach(function (performance) {
+
+                              let startDate = performance.performance_startday.split(' ')[0];
+                              let endDate = performance.performance_endday.split(' ')[0];
+
+                              // 배우 리스트(castingList)를 처리
+                              let castingNames = '';
+
+                              performance.castingList.forEach(function (casting) {
+                                 if (casting.casting_name != null) {
+                                    castingNames += `<li class='modal-casting-name'>\${casting.casting_name} 역</li>`;
+                                 }
+                              });
+
                               modalContent += `
-											<div id="name">출연작</div>
-											<img id='modal-performance-img' src='../resources/images/${performance.performance_image}'>
-											<div id='modal-performance-name'>${performance.performance_name}</div>
+											<img id='modal-performance-img' src='../resources/images/\${performance.performance_image}' onclick="location.href='detail.do?performance_idx=\${performance.performance_idx}'">
+                                 <ul id='modal-performance'>
+                                    <li id='modal-performance-name'>
+                                       \${performance.performance_name}
+                                    </li>
+                                    <li id='modal-performance-date'>
+                                       \${startDate}~\${endDate}
+                                    </li>
+                                    \${castingNames}
+                                 </ul>
 										`;
                            });
 
@@ -277,6 +322,32 @@
                            alert(err.responseText)
                         }
                      })
+
+                     // $.ajax({
+                     //    url: "performance.do",
+                     //    data: {
+                     //       "actor_idx": actor_idx
+                     //    },
+                     //    dataType: "json",
+                     //    method: "GET",
+                     //    success: function (res_data_2) {
+                     //       console.log(res_data_2);
+                     //       let modalContent = '';
+                     //       res_data_2.forEach(function (performance) {
+                     //          modalContent += `
+                     // 				<div id="name">출연작</div>
+                     // 				<img id='modal-performance-img' src='../resources/images/${performance.performance_image}'>
+                     // 				<div id='modal-performance-name'>${performance.performance_name}</div>
+                     // 			`;
+                     //       });
+
+                     //       // 공연 리스트를 모달 내에 삽입
+                     //       $("#modal-performance-list").html(modalContent);
+                     //    },
+                     //    error: function (err) {
+                     //       alert(err.responseText)
+                     //    }
+                     // })
 
 
 
@@ -398,17 +469,19 @@
                                              <div id="moreText" class="collapsed">
                                                 <h4>캐스팅</h4>
                                                 <c:forEach var="castingVo" items="${ list }">
-                                                   <div id="casting_list">
-                                                      <div id="actor_box">
-                                                         <a href="#" onclick="showSaram(`${castingVo.actor_idx}`)">
-                                                            <img id="actor_pic"
-                                                               src="../resources/images/${castingVo.actorVo.actor_pic}">
-                                                         </a>
+                                                   <div id="casting">
+                                                      <div id="casting_list">
+                                                         <div id="actor_box">
+                                                            <a href="#" onclick="showSaram(`${castingVo.actor_idx}`)">
+                                                               <img id="actor_pic"
+                                                                  src="../resources/images/${castingVo.actorVo.actor_pic}">
+                                                            </a>
+                                                         </div>
+                                                         <h6>${castingVo.casting_name}</h6>
+                                                         <p style="color: #666666;">
+                                                            ${castingVo.actorVo.actor_name}
+                                                         </p>
                                                       </div>
-                                                      <h6>${castingVo.casting_name}</h6>
-                                                      <p style="color: #666666;">
-                                                         ${castingVo.actorVo.actor_name}
-                                                      </p>
                                                    </div>
                                                 </c:forEach>
                                              </div>
@@ -880,6 +953,7 @@
                               <li id="modal-actor-company"></li>
                               <li id="modal-actor-group"></li>
                            </ul>
+                           <div id="name">판매중인 출연작</div>
                            <div id="modal-performance-list"></div>
                         </div>
 
