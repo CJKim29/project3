@@ -268,21 +268,101 @@ public class PerformanceController {
   List<Date> performanceDates = performance_mapper.getPerformanceDates(performance_idx);
 
   // s_hall 테이블에 데이터 삽입
-  for (Date date : performanceDates) {
-   int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
-   int s_hall_row_no = 1;
-   for (int i = 0; i < 10; i++) {
-    for (Integer seat_idx : seat_ids) {
-     Map<String, Object> params = new HashMap<>();
-     params.put("performance_date_idx", performance_date_idx);
-     params.put("seat_idx", seat_idx);
-     params.put("s_hall_row_no", s_hall_row_no);
-     s_HallMapper.insertIntoSHall(params);
-
-     s_hall_row_no++;
+  // 좌석등급이 1개일 때
+  if (seat_ids.size() == 1) {
+   for (Date date : performanceDates) {
+    int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+    for (int i = 1; i <= 10; i++) {
+     for (Integer seat_idx : seat_ids) {
+      Map<String, Object> params = new HashMap<>();
+      params.put("performance_date_idx", performance_date_idx);
+      params.put("seat_idx", seat_idx);
+      params.put("s_hall_row_no", i);
+      s_HallMapper.insertIntoSHall(params);
+     }
     }
    }
   }
+
+  // 좌석등급이 2개일 때
+  if (seat_ids.size() == 2) {
+   for (Date date : performanceDates) {
+    int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+    for (int i = 1; i <= 10; i++) {
+     Map<String, Object> params = new HashMap<>();
+     params.put("performance_date_idx", performance_date_idx);
+     params.put("seat_idx", i <= 4 ? seat_ids.get(0) : seat_ids.get(1));
+     params.put("s_hall_row_no", i);
+     s_HallMapper.insertIntoSHall(params);
+    }
+   }
+  }
+
+  // 좌석등급이 3개일 때
+  if (seat_ids.size() == 3) {
+   for (Date date : performanceDates) {
+    int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+    for (int i = 1; i <= 10; i++) {
+     Map<String, Object> params = new HashMap<>();
+     params.put("performance_date_idx", performance_date_idx);
+     if (i >= 1 && i <= 3) {
+      params.put("seat_idx", seat_ids.get(0));
+     } else if (i >= 4 && i <= 6) {
+      params.put("seat_idx", seat_ids.get(1));
+     } else {
+      params.put("seat_idx", seat_ids.get(2));
+     }
+     params.put("s_hall_row_no", i);
+     s_HallMapper.insertIntoSHall(params);
+    }
+   }
+  }
+
+  // 좌석등급이 4개일 때
+  if (seat_ids.size() == 4) {
+   for (Date date : performanceDates) {
+    int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+    for (int i = 1; i <= 10; i++) {
+     Map<String, Object> params = new HashMap<>();
+     params.put("performance_date_idx", performance_date_idx);
+     if (i >= 1 && i <= 2) {
+      params.put("seat_idx", seat_ids.get(0));
+     } else if (i >= 3 && i <= 4) {
+      params.put("seat_idx", seat_ids.get(1));
+     } else if (i >= 5 && i <= 6) {
+      params.put("seat_idx", seat_ids.get(2));
+     } else {
+      params.put("seat_idx", seat_ids.get(3));
+     }
+     params.put("s_hall_row_no", i);
+     s_HallMapper.insertIntoSHall(params);
+    }
+   }
+  }
+
+    // 좌석등급이 5개일 때
+    if (seat_ids.size() == 5) {
+     for (Date date : performanceDates) {
+      int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+      for (int i = 1; i <= 10; i++) {
+       Map<String, Object> params = new HashMap<>();
+       params.put("performance_date_idx", performance_date_idx);
+       if (i >= 1 && i <= 2) {
+        params.put("seat_idx", seat_ids.get(0));
+       } else if (i >= 3 && i <= 4) {
+        params.put("seat_idx", seat_ids.get(1));
+       } else if (i >= 5 && i <= 6) {
+        params.put("seat_idx", seat_ids.get(2));
+       } else if (i >= 7 && i <= 8) {
+        params.put("seat_idx", seat_ids.get(3));
+       } else {
+        params.put("seat_idx", seat_ids.get(4));
+       }
+       params.put("s_hall_row_no", i);
+       s_HallMapper.insertIntoSHall(params);
+      }
+     }
+    }
 
   return "redirect:list.do";
  }
