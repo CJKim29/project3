@@ -17,5 +17,6 @@ public interface M_HallMapper {
     void updateSeatStatus(@Param("performance_date_idx") int performance_date_idx, @Param("row") int row,
             @Param("col") String col);
 
+    // 빈좌석 등록
     void insertIntoMHall(Map<String, Object> params);
 }

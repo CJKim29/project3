@@ -377,6 +377,105 @@ public class PerformanceController {
      }
   }
 
+  // l_hall 테이블에 데이터 삽입
+  // 좌석등급이 1개일 때
+  if(performance_detail_cate_idx == 3){
+   if (seat_ids.size() == 1) {
+    for (Date date : performanceDates) {
+     int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+     for (int i = 1; i <= 20; i++) {
+      for (Integer seat_idx : seat_ids) {
+       Map<String, Object> params = new HashMap<>();
+       params.put("performance_date_idx", performance_date_idx);
+       params.put("seat_idx", seat_idx);
+       params.put("l_hall_row_no", i);
+       l_HallMapper.insertIntoLHall(params);
+      }
+     }
+    }
+   }
+ 
+   // 좌석등급이 2개일 때
+   if (seat_ids.size() == 2) {
+    for (Date date : performanceDates) {
+     int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+     for (int i = 1; i <= 20; i++) {
+      Map<String, Object> params = new HashMap<>();
+      params.put("performance_date_idx", performance_date_idx);
+      params.put("seat_idx", i <= 7 ? seat_ids.get(0) : seat_ids.get(1));
+      params.put("l_hall_row_no", i);
+      l_HallMapper.insertIntoLHall(params);
+     }
+    }
+   }
+ 
+   // 좌석등급이 3개일 때
+   if (seat_ids.size() == 3) {
+    for (Date date : performanceDates) {
+     int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+     for (int i = 1; i <= 20; i++) {
+      Map<String, Object> params = new HashMap<>();
+      params.put("performance_date_idx", performance_date_idx);
+      if (i >= 1 && i <= 4) {
+       params.put("seat_idx", seat_ids.get(0));
+      } else if (i >= 5 && i <= 10) {
+       params.put("seat_idx", seat_ids.get(1));
+      } else {
+       params.put("seat_idx", seat_ids.get(2));
+      }
+      params.put("l_hall_row_no", i);
+      l_HallMapper.insertIntoLHall(params);
+     }
+    }
+   }
+ 
+   // 좌석등급이 4개일 때
+   if (seat_ids.size() == 4) {
+    for (Date date : performanceDates) {
+     int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+     for (int i = 1; i <= 20; i++) {
+      Map<String, Object> params = new HashMap<>();
+      params.put("performance_date_idx", performance_date_idx);
+      if (i >= 1 && i <= 4) {
+       params.put("seat_idx", seat_ids.get(0));
+      } else if (i >= 5 && i <= 9) {
+       params.put("seat_idx", seat_ids.get(1));
+      } else if (i >= 10 && i <= 14) {
+       params.put("seat_idx", seat_ids.get(2));
+      } else {
+       params.put("seat_idx", seat_ids.get(3));
+      }
+      params.put("l_hall_row_no", i);
+      l_HallMapper.insertIntoLHall(params);
+     }
+    }
+   }
+ 
+     // 좌석등급이 5개일 때
+     if (seat_ids.size() == 5) {
+      for (Date date : performanceDates) {
+       int performance_date_idx = performance_mapper.getPerformanceDateIdx(performance_idx, date);
+       for (int i = 1; i <= 20; i++) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("performance_date_idx", performance_date_idx);
+        if (i >= 1 && i <= 3) {
+         params.put("seat_idx", seat_ids.get(0));
+        } else if (i >= 4 && i <= 7) {
+         params.put("seat_idx", seat_ids.get(1));
+        } else if (i >= 8 && i <= 11) {
+         params.put("seat_idx", seat_ids.get(2));
+        } else if (i >= 12 && i <= 15) {
+         params.put("seat_idx", seat_ids.get(3));
+        } else {
+         params.put("seat_idx", seat_ids.get(4));
+        }
+        params.put("l_hall_row_no", i);
+        l_HallMapper.insertIntoLHall(params);
+       }
+      }
+     }
+  }
+
   // m_hall 테이블에 데이터 삽입
   // 좌석등급이 1개일 때
   if(performance_detail_cate_idx == 1){
@@ -475,7 +574,6 @@ public class PerformanceController {
       }
      }
   }
-  
 
   return "redirect:list.do";
  }

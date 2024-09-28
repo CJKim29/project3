@@ -18,6 +18,7 @@ public interface S_HallMapper {
    @Param("row") int row,
    @Param("col") String col);
 
+ // 빈좌석 등록
  void insertIntoSHall(Map<String, Object> params);
 
  // 안쓰는 코드들
