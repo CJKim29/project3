@@ -18,6 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND m_hall_row_no = #{row}
  </update>
 
+  <!-- 좌석등급 등록 후 공연 빈자리 공연 날짜에 맞게 자동 등록 -->
+ <insert id="insertIntoMHall" parameterType="map">
+    insert into m_hall (performance_date_idx, seat_idx, m_hall_row_no)
+    values(#{performance_date_idx}, #{seat_idx}, #{m_hall_row_no});
+ </insert>
+
  <!-- <update id="updateSeatStatus" parameterType="map">
     UPDATE m_hall AS m
     JOIN cart_seat AS cs ON m.seat_idx = cs.seat_idx

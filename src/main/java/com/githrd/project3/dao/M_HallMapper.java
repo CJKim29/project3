@@ -1,6 +1,7 @@
 package com.githrd.project3.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,6 @@ public interface M_HallMapper {
 
     void updateSeatStatus(@Param("performance_date_idx") int performance_date_idx, @Param("row") int row,
             @Param("col") String col);
+
+    void insertIntoMHall(Map<String, Object> params);
 }

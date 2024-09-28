@@ -136,7 +136,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     );
  </insert>
 
- <!-- 소형 공연장 등록을 위한 과정 -->
+ <!-- 공연장 등록을 위한 과정 -->
+ <select id="getPerformanceCateIdx" resultType="int">
+     SELECT performance_cate_idx
+     FROM performance
+     WHERE performance_idx = #{ performance_idx };
+ </select>
+
  <select id="selectSeatIndex" parameterType="map" resultType="int">
         SELECT seat_idx
         FROM seat

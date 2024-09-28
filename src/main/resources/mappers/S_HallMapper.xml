@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND s_hall_row_no = #{row}
  </update>
 
- <!-- 좌석등급 1개 일 때 공연 등록 -->
+ <!-- 좌석등급 등록 후 공연 빈자리 공연 날짜에 맞게 자동 등록 -->
  <insert id="insertIntoSHall" parameterType="map">
     insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no)
     values(#{performance_date_idx}, #{seat_idx}, #{s_hall_row_no});

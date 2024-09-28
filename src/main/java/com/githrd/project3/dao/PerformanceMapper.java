@@ -66,6 +66,10 @@ public interface PerformanceMapper {
 
  int insertPerformanceDate(PerformanceDateVo vo);
 
+ // 빈자리 자동 등록
+ // 자리수 구하기(s/m/l)
+ int getPerformanceCateIdx(int performance_idx);
+
  void insertSeats(@Param("performance_idx") int performance_idx,
    @Param("seat_grade") String seat_grade,
    @Param("seat_price") Integer seat_price);
@@ -78,5 +82,6 @@ public interface PerformanceMapper {
 
  int getPerformanceDateIdx(int performance_idx,
    Date performance_date_date);
+
 
 }
