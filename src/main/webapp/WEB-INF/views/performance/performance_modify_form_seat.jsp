@@ -90,84 +90,93 @@
             </script> -->
 
             <script type="text/javascript">
-
-                // 폼 전송 전 검증
-                function send(f) {
-
-                    // 모든 좌석 등급과 가격 입력 검증
-                    let valid = true;
-                    $('input[name="seat_grade[]"]').each(function () {
-                        if ($(this).val().trim() === '') {
-                            alert('좌석 이름(등급)을 입력해주세요');
-                            $(this).focus();
-                            valid = false;
-                            return false;  // 반복문 종료
-                        }
-                    });
-
-                    if (valid) {
-                        $('input[name="seat_price[]"]').each(function () {
-                            if ($(this).val().trim() === '') {
-                                alert('좌석 가격을 입력해주세요\n*숫자만 입력 가능');
-                                $(this).focus();
-                                valid = false;
-                                return false;  // 반복문 종료
-                            }
-                        });
-                    }
-
-                    if (valid) {
-                        f.action = "modify_seat.do"; // 전송 경로 설정
-                        f.submit();  // 폼 전송
-                    }
-                }
-            </script>
-        </head>
-
-        <body>
-            <form>
-                <!-- JSP에서 서버가 전달한 performance_idx 값을 해당 폼 필드의 value 속성에 넣음 -->
-                <!-- performance_idx 값을 서버에서 폼으로 전달하여, 폼 전송 시 함께 performance_idx를 전송 -->
-                <input type="hidden" name="performance_idx" value="${vo.performance_idx}">
-
-                <div id="box">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 style="text-align: center;">공연 좌석 수정</h4>
-                        </div>
-                        <div class="panel-body">
-
-                            <div>
-                                <c:forEach var="seat" items="${vo.seatList}">
-                                    <br>
-                                    <h4>좌석 이름(등급)</h4>
-                                    <div>*좌석 이름만 입력해주세요. ex) VIP석 -> VIP</div>
-                                    <input type="text" class="form-control" name="seat_grade[]"
-                                        value="${seat.seat_grade}">
-                                    <br>
-
-                                    <h4>좌석 가격</h4>
-                                    <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
-                                    <input type="number" class="form-control" name="seat_price[]"
-                                        value="${seat.seat_price}">
-
-                                    <!-- 좌석 ID를 hidden으로 함께 전송 -->
-                                    <input type="hidden" name="seat_idx[]" value="${seat.seat_idx}">
-                                    <br>
-                                    <hr>
-
-                                </c:forEach>
-
-                                <input class="btn" type="button" value="이전" onclick="location.href='list.do'">
-                                <input class="btn btn_insert" type="button" value="수정" onclick="send(this.form);">
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </body>
+             // 폼 전송 전 검증 함수
+             function sendAll(f) {
+                 for (let i = 0; i < f.seat_grade.length; i++) {
+                     let seat_grade = f.seat_grade[i].value.trim();
+                     let seat_price = f.seat_price[i].value.trim();
+     
+                     if (seat_grade === '') {
+                         alert("좌석 이름(등급)을 입력해주세요");
+                         f.seat_grade[i].focus();
+                         return;
+                     }
+                     if (seat_price === '') {
+                         alert("좌석 가격을 입력해주세요\n*숫자만 입력 가능");
+                         f.seat_price[i].focus();
+                         return;
+                     }
+                 }
+     
+                 f.submit(); // 모든 검증을 통과하면 폼 전송
+             }
+     
+             // 좌석 폼을 동적으로 추가하는 함수
+             function addSeatForm() {
+                 let formContainer = document.getElementById('formContainer');
+                 let newForm = document.createElement('div');
+                 newForm.className = 'seat-form form-container';
+                 newForm.innerHTML = `
+                     <h4>좌석 이름(등급)</h4>
+                     <div>*좌석 이름만 입력해주세요. ex) VIP석 -> VIP</div>
+                     <input class="form-control content" name="seat_grade">
+     
+                     <h4>좌석 가격</h4>
+                     <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
+                     <input class="form-control content" type="number" name="seat_price">
+     
+                     <button type="button" class="btn btn-danger btn_remove" onclick="removeSeatForm(this);">취소</button>
+                 `;
+                 formContainer.appendChild(newForm);
+             }
+     
+             // 좌석 폼을 취소하는 함수 (삭제)
+             function removeSeatForm(button) {
+                 let formContainer = button.parentNode;
+                 formContainer.parentNode.removeChild(formContainer);
+             }
+         </script>
+     </head>
+     <body>
+         <form id="mainForm" method="post" action="modify_seat.do">
+             <input type="hidden" name="performance_idx" value="${performance_idx}">
+     
+             <div id="box">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                         <h4 style="text-align: center;">공연 좌석 수정</h4>
+                     </div>
+                     <div class="panel-body">
+                         <div id="formContainer">
+                             <!-- 기존 입력된 좌석 정보 불러오기 -->
+                             <c:forEach var="seat" items="${vo.seatList}">
+                                 <div class="seat-form form-container">
+                                     <h4>좌석 이름(등급)</h4>
+                                     <div>*좌석 이름만 입력해주세요. ex) VIP석 -> VIP</div>
+                                     <input class="form-control content" name="seat_grade" value="${seat.seat_grade}">
+     
+                                     <h4>좌석 가격</h4>
+                                     <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
+                                     <input class="form-control content" type="number" name="seat_price" value="${seat.seat_price}">
+     
+                                     <!-- 좌석 ID를 hidden으로 함께 전송 -->
+                                     <input type="hidden" name="seat_idx[]" value="${seat.seat_idx}">
+     
+                                     <button type="button" class="btn btn-danger btn_remove" onclick="removeSeatForm(this);">취소</button>
+                                     <hr>
+                                 </div>
+                             </c:forEach>
+                         </div>
+     
+                         <!-- 좌석 더 추가하기 버튼 -->
+                         <input class="btn btn_insert" type="button" style="width: 100%;" value="좌석 더 추가하기" onclick="addSeatForm();">
+     
+                         <!-- 폼 전송 버튼 -->
+                         <input class="btn btn_insert" type="button" style="width: 100%;" value="모든 좌석 수정" onclick="sendAll(this.form);">
+                     </div>
+                 </div>
+             </div>
+         </form>
+     </body>
 
         </html>

@@ -357,6 +357,11 @@
         <input type="text" class="form-control" name="mem_birth" value="${ vo.mem_birth }" readonly="readonly">
        </div>
        <div class="form-group">
+        <input type="text" class="form-control" placeholder="010" readonly style="width: 63px;">
+        <input type="text" class="form-control" name="mem_phone" id="mem_phone" placeholder="핸드폰번호 입력(숫자 8자리)"
+        value="${ vo.mem_phone }" style="width: 237px;" onkeyup="check_phone();">
+       </div>
+       <div class="form-group">
         <div class="text1" style="display: inline-block;">핸드폰번호&emsp;</div><span id="phone_msg"></span>
         <input type="text" class="form-control" name="mem_phone" id="mem_phone" placeholder="핸드폰번호 입력"
          value="${ vo.mem_phone }" onkeyup="check_phone();">
