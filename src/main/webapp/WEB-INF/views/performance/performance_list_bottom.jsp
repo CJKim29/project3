@@ -14,7 +14,7 @@
 							display: flex;
 							flex-wrap: wrap;
 							justify-content: space-between;
-							margin-bottom: 100px !important;
+							/* margin-bottom: 100px !important; */
 						}
 
 						.content_wrap {
@@ -103,6 +103,15 @@
 						.empty_msg2 {
 							font-size: 17px;
 						}
+
+      #pageMenuContainer_performance {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin: 0 auto;
+       margin-bottom: 100px;
+       padding: 0;
+      }
 					</style>
 
 					<script>
@@ -207,7 +216,8 @@
 									</c:if>
 
 									<!-- PageMenu -->
-									<div style="text-align: center; margin: auto">${ pageMenu }</div>
+									<!-- <div style="text-align: center; margin: auto">${ pageMenu }</div> -->
+         <div id="pageMenuContainer_performance">${ pageMenu }</div>
 
 									<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 				</body>

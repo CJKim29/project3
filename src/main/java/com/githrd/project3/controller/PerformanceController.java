@@ -24,6 +24,7 @@ import com.githrd.project3.dao.PerformanceMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
+import com.githrd.project3.util.Paging_performance;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
@@ -112,7 +113,7 @@ public class PerformanceController {
   // System.out.printf("rowTotal:%d list.size():%d\n", rowTotal, list.size());
 
   // pageMenu생성하기
-  String pageMenu = Paging.getPaging("category.do",
+  String pageMenu = Paging_performance.getPaging("list.do",
     nowPage,
     rowTotal,
     blockList,
