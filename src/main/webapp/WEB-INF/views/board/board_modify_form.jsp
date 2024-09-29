@@ -49,6 +49,9 @@ pageEncoding="UTF-8"%>
           f.board_content.focus();
           return;
         }
+        if (!board_name == "" && !board_content == "") {
+          if (confirm("등록하시겠습니까?") == false) return;
+        }
 
         f.action = "modify.do?board_idx=${ vo.board_idx }";
         f.submit();

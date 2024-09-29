@@ -49,6 +49,9 @@ pageEncoding="UTF-8"%>
           f.qna_content.focus();
           return;
         }
+        if (!qna_title == "" && !qna_content == "") {
+          if (confirm("등록하시겠습니까?") == false) return;
+        }
 
         f.action = "modify.do?qna_idx=${ vo.qna_idx }";
         f.submit();

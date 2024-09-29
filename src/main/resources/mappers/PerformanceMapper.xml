@@ -4,67 +4,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.PerformanceMapper">
 
-  <resultMap id="performanceMap" type="performance">
-    <result property="hall_idx" column="hall_idx"/>
-    <result property="performance_cate_idx" column="performance_cate_idx"/>
-    <result property="performance_idx" column="performance_idx"/>
-    <result property="seat_idx" column="seat_idx"/>
-    <result property="performance_detail_cate_idx" column="performance_detail_cate_idx"/>
+ <resultMap id="performanceMap" type="performance">
+  <result property="hall_idx" column="hall_idx"/>
+  <result property="performance_cate_idx" column="performance_cate_idx"/>
+  <result property="performance_idx" column="performance_idx"/>
+  <result property="seat_idx" column="seat_idx"/>
+  <result property="performance_detail_cate_idx" column="performance_detail_cate_idx"/>
 
-    <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
-    <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
-    <association property="performanceDetailCateVo" column="performance_detail_cate_idx=performance_detail_cate_idx" select="detail_cate_list_sub" />
+  <association property="performanceCateVo" column="performance_cate_idx=performance_cate_idx" select="performance_cate_list" />
+  <association property="hallVo" column="hall_idx=hall_idx" select="hall_list" />
+  <association property="performanceDetailCateVo" column="performance_detail_cate_idx=performance_detail_cate_idx" select="detail_cate_list_sub" />
 
-    <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
-  </resultMap>
+  <collection property="seatList" column="performance_idx=performance_idx" select="seat_list" />
+ </resultMap>
 
 
-  <!-- id명 =  association의 select명            vo alias-->
-  <select id="detail_cate_list_sub" resultType="performance_detail_cate">
+ <!-- id명 =  association의 select명            vo alias-->
+ <select id="detail_cate_list_sub" resultType="performance_detail_cate">
 		select * from performance_detail_cate 
 				 where performance_detail_cate_idx=#{ performance_detail_cate_idx }
-  </select>
+ </select>
 
-  <select id="performance_cate_list" resultType="performance_cate">
+ <select id="performance_cate_list" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
-  </select>
+ </select>
 
-  <select id="hall_list" resultType="hall">
+ <select id="hall_list" resultType="hall">
 	   select * from hall where hall_idx=#{ hall_idx }
-  </select>
+ </select>
 
-  <select id="seat_list" resultType="seat">
+ <select id="seat_list" resultType="seat">
        select * from seat where performance_idx=#{ performance_idx } order by seat_price
-  </select>
+ </select>
 
-  <!-- 공연 좌석 수정을 위한 selectOneFromSeatIdx -->
-  <select id="selectOneFromSeatIdx" resultType="seat">
+ <!-- 공연 좌석 수정을 위한 selectOneFromSeatIdx -->
+ <select id="selectOneFromSeatIdx" resultType="seat">
     select * from seat where seat_idx=#{seat_idx}
-  </select>
+ </select>
 
-  <!-- 전체조회 (최신순 정렬)-->
-  <select id="selectList" resultMap="performanceMap">
+ <!-- 전체조회 (최신순 정렬)-->
+ <select id="selectList" resultMap="performanceMap">
 		select * from performance order by performance_startday desc
-  </select>
+ </select>
 
-  <!-- idx조회 -->
-  <select id="selectOneFromIdx" resultMap="performanceMap">
+ <!-- idx조회 -->
+ <select id="selectOneFromIdx" resultMap="performanceMap">
 		select * from performance where performance_idx=#{ performance_idx }
-  </select>
+ </select>
 
 
 
-  <!-- 장르별 공연 리스트 조회(특정 한 장르의 공연 리스트) - performance_detail_cate_name 이용-->
-  <select id="performance_detail_cate_list" parameterType="int" resultMap="performanceMap">
+ <!-- 장르별 공연 리스트 조회(특정 한 장르의 공연 리스트) - performance_detail_cate_name 이용-->
+ <select id="performance_detail_cate_list" parameterType="int" resultMap="performanceMap">
 		select * from performance 
 				 where performance_detail_cate_idx = #{ performance_detail_cate_idx }
 				 	   and hall_idx = #{hall_idx}
-  </select>
+ </select>
 
 
-  <!-- 장르별+지역별 조회 / 최신순 정렬 -->
-  <!-- performance_detail_cate_idx=0 일 경우에 대한 처리를 어떻게 할지 -->
-  <select id="selectCategoryList" parameterType="Map" resultMap="performanceMap">
+ <!-- 장르별+지역별 조회 / 최신순 정렬 -->
+ <!-- performance_detail_cate_idx=0 일 경우에 대한 처리를 어떻게 할지 -->
+ <select id="selectCategoryList" parameterType="Map" resultMap="performanceMap">
 		
     select * from
     (
@@ -74,36 +74,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       from  
       (
         select * from performance 
-    <trim prefix="where" prefixOverrides="and">
-      <if test="performance_detail_cate_idx!=0">
+  <trim prefix="where" prefixOverrides="and">
+   <if test="performance_detail_cate_idx!=0">
                 performance_detail_cate_idx = #{ performance_detail_cate_idx }
-      </if>
-      <if test="hall_area!='all'">
+   </if>
+   <if test="hall_area!='all'">
                  and (hall_idx in (select hall_idx from hall where  hall_area = #{hall_area}) )
-      </if>
-    </trim>
+   </if>
+  </trim>
       ) p
     ) p2
     WHERE no BETWEEN #{ start } AND #{ end }
 
-                    <!-- 정렬 -->
-    <choose>
-      <when test='sort_options == "s_abc"'>
+                                              <!-- 정렬 -->
+  <choose>
+   <when test='sort_options == "s_abc"'>
             order by performance_name asc 
-      </when>
-      <when test='sort_options == "s_new"'>
+   </when>
+   <when test='sort_options == "s_new"'>
              order by performance_startday desc
-      </when>
-      <otherwise>
+   </when>
+   <otherwise>
             order by performance_idx asc
-      </otherwise>
-    </choose>
+   </otherwise>
+  </choose>
 
-  </select>
+ </select>
 
 
-  <!-- 공연 정보 등록 -->
-  <insert id="insert" parameterType="performance">
+ <!-- 공연 정보 등록 -->
+ <insert id="insert" parameterType="performance" useGeneratedKeys="true" keyProperty="performance_idx">
     insert into performance values(null,
 							                     #{performance_cate_idx},
                                    #{performance_detail_cate_idx},
@@ -119,19 +119,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                    default,
                                    default
                                );
-  </insert>
+ </insert>
 
-  <!-- 공연 좌석 등록 -->
-  <insert id="insertSeat" parameterType="seat">
+ <!-- 공연 날짜 자동 등록 -->
+ <insert id="insertPerformanceDate" parameterType="performance_date">
+    INSERT INTO performance_date (performance_idx, performance_date_date)
+    VALUES (#{performance_idx}, #{performance_date_date});
+ </insert>
+
+ <!-- 공연 좌석 등록 -->
+ <insert id="insertSeats" parameterType="seat">
     insert into seat values(null,
                             #{performance_idx},
                             #{seat_grade},
                             #{seat_price}
     );
-  </insert>
+ </insert>
 
-  <!-- 공연 수정 -->
-  <update id="update" parameterType="performance">
+ <!-- 공연장 등록을 위한 과정 -->
+ <select id="getPerformanceCateIdx" resultType="int">
+     SELECT performance_cate_idx
+     FROM performance
+     WHERE performance_idx = #{ performance_idx };
+ </select>
+
+ <select id="selectSeatIndex" parameterType="map" resultType="int">
+        SELECT seat_idx
+        FROM seat
+        WHERE performance_idx = #{performance_idx}
+          AND seat_grade = #{seat_grade}
+          AND seat_price = #{seat_price}
+ </select>
+
+ <select id="getPerformanceDates" resultType="java.sql.Date">
+    SELECT performance_date_date
+    FROM performance_date
+    WHERE performance_idx = #{performance_idx}
+ </select>
+
+ <select id="getPerformanceDateIdx" parameterType="map" resultType="int">
+    SELECT performance_date_idx
+    FROM performance_date
+    WHERE performance_idx = #{performance_idx} 
+      AND performance_date_date = #{performance_date_date}
+ </select>
+
+
+ <!-- 공연 수정 -->
+ <update id="update" parameterType="performance">
     update performance set performance_cate_idx = #{performance_cate_idx},
                            performance_detail_cate_idx = #{performance_detail_cate_idx},
                            hall_idx = #{hall_idx},
@@ -141,28 +176,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                            performance_runtime = #{performance_runtime},
                            performance_age = #{performance_age}
                         where performance_idx=#{performance_idx}
-  </update>
+ </update>
 
-  <!-- 공연 수정 - 이미지 -->
-  <update id="updateImage" parameterType="performance">
+ <!-- 공연 수정 - 이미지 -->
+ <update id="updateImage" parameterType="performance">
     update performance set performance_image = #{performance_image} where performance_idx=#{performance_idx}
-  </update>
+ </update>
 
-  <!-- 공연 좌석 수정 -->
-  <update id="updateSeat" parameterType="seat">
+ <!-- 공연 좌석 수정 -->
+ <update id="updateSeat" parameterType="seat">
   update seat set seat_grade=#{seat_grade}, seat_price=#{seat_price}
               where seat_idx=#{seat_idx} and performance_idx=#{performance_idx}
-  </update>
+ </update>
 
-  <!-- 공연 삭제 -->
-  <delete id="delete" parameterType="int">
+ <!-- 공연 삭제 -->
+ <delete id="delete" parameterType="int">
   delete from performance where performance_idx=#{performance_idx}
-  </delete>
+ </delete>
 
 
 
-  <!-- 페이징 별 조회 -->
-  <select id="performancePageList" parameterType="Map" resultType="performance">
+ <!-- 페이징 별 조회 -->
+ <select id="performancePageList" parameterType="Map" resultType="performance">
     SELECT pfm.* FROM 
     (
       SELECT
@@ -183,12 +218,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           )p
   )pfm
   WHERE no BETWEEN #{start} AND #{end}
-  </select>
+ </select>
 
-  <!-- 전체 게시물 수 -->
-  <select id="selectRowTotal" parameterType="Map" resultType="int">
+ <!-- 전체 게시물 수 -->
+ <select id="selectRowTotal" parameterType="Map" resultType="int">
         select ifnull(count(*),0) from performance
-  </select>
+ </select>
 
 
 
@@ -198,32 +233,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-  <!-- 검색어에 따른 공연 목록 조회!! -->
-  <select id="searchPerformances" parameterType="string" resultMap="performanceMap">
+ <!-- 검색어에 따른 공연 목록 조회!! -->
+ <select id="searchPerformances" parameterType="string" resultMap="performanceMap">
     SELECT p.*, h.hall_name, h.hall_area, p.performance_state
     FROM performance p
     JOIN hall h ON p.hall_idx = h.hall_idx
     WHERE p.performance_name LIKE #{search} OR h.hall_name LIKE #{search}
-  </select>
+ </select>
 
-  <!-- 최신 공연 정보 조회 (최신순) -->
-  <select id="selectNewPerformances" resultMap="performanceMap">
+ <!-- 최신 공연 정보 조회 (최신순) -->
+ <select id="selectNewPerformances" resultMap="performanceMap">
       select * from performance order by performance_idx desc limit 3
-  </select>
+ </select>
 
 
-  <!-- 랭킹 공연 정보 조회 (좋아요 순) -->
-  <select id="selectRankingPerformances" resultMap="performanceMap">
+ <!-- 랭킹 공연 정보 조회 (좋아요 순) -->
+ <select id="selectRankingPerformances" resultMap="performanceMap">
       select p.*, ifnull(l.like_number, 0) as like_number
       from performance p
       left join performance_ex_like l
       on p.performance_idx = l.performance_idx
       order by like_number desc limit 3
-  </select>
+ </select>
 
 
 
-  <!--parameterType = 전달인자타입
+ <!--parameterType = 전달인자타입
 		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
 
 </mapper>

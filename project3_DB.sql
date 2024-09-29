@@ -340,7 +340,6 @@ create table cart_seat(
     cart_idx		int not null,					-- 장바구니일련번호(FK)
     seat_idx		int not null,					-- 좌석번호(FK)
     cart_seat_name	varchar(100),					-- 장바구니좌석
-    reserved		int default 0,					-- 예매여부(검증용)
 	FOREIGN KEY (cart_idx) REFERENCES cart(cart_idx) ON UPDATE CASCADE ON DELETE CASCADE,		-- 외래키 설정: performance 테이블의 performance_idx 참조
     FOREIGN KEY (seat_idx) REFERENCES seat(seat_idx) ON UPDATE CASCADE ON DELETE CASCADE		
 );
