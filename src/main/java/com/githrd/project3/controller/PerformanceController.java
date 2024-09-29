@@ -13,17 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.githrd.project3.dao.HallMapper;
 import com.githrd.project3.dao.L_HallMapper;
 import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.PerformanceMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging;
+import com.githrd.project3.vo.HallVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
@@ -60,6 +63,9 @@ public class PerformanceController {
 
  @Autowired
  ServletContext application;
+
+ @Autowired
+ HallMapper hall_mapper;
 
  // 공연 정보 전체 조회
  @RequestMapping("list.do")
@@ -752,5 +758,15 @@ public class PerformanceController {
   model.addAttribute("list", list);
   return "performance/performance_search"; // 검색 결과를 보여줄 JSP 페이지
  }
+
+@RequestMapping(value = "/get_hall_area.do", method = RequestMethod.GET)
+@ResponseBody
+public List<HallVo> getHallsByArea(@RequestParam("area_idx") int area_idx) {
+    // 지역에 해당하는 공연장 목록을 조회
+    List<HallVo> hallList = hall_mapper.get_hall_by_area(area_idx);
+    
+    // JSON 형식으로 반환
+    return hallList;
+}
 
 }

@@ -5,12 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.githrd.project3.dao.HallMapper">
 
     <select id="hall_list" resultType="hall">
-        select * from hall order by hall_idx
-        <trim prefix="where" prefixOverrides="or">
-            <if test="area!= null and area != 'all'">
-				area_idx = #{area}
-			</if>
-        </trim>
+    select h.* 
+    from hall h
+    join area a on h.area_idx = a.area_idx
+    <trim prefix="where" prefixOverrides="and">
+        <if test="area!= null and area != 'all'">
+            h.area_idx = #{area}
+        </if>
+    </trim>
+    order by h.hall_idx
     </select>
 
     <insert id="hall_insert" parameterType="hall">
@@ -30,5 +33,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where hall_idx = #{hall_idx}
     </update>
 
+<select id="search_list" resultType="performance">
+    SELECT 
+        p.performance_idx, 
+        p.performance_name, 
+        p.performance_startday, 
+        p.performance_image, 
+        p.performance_state, 
+        h.hall_name, 
+        h.hall_area, 
+        pc.performance_cate_name    -- 공연카테고리명 추가
+    FROM 
+        performance p
+    JOIN 
+        hall h ON p.hall_idx = h.hall_idx
+    JOIN 
+        performance_cate pc ON p.performance_cate_idx = pc.performance_cate_idx  -- 공연카테고리 조인
+    WHERE 
+        p.hall_idx = #{hall_idx}
+    ORDER BY 
+        p.performance_startday DESC
+</select>
+
+<select id="get_hall_name" resultType="String">
+    SELECT hall_name FROM hall WHERE hall_idx = #{hall_idx}
+</select>
+
+ <select id="get_hall_by_area" resultType="hall">
+    SELECT hall_idx, hall_name 
+    FROM hall 
+    WHERE area_idx = #{area_idx}
+</select>
 
 </mapper>

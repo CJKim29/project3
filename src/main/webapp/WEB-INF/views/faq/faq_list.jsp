@@ -113,7 +113,7 @@
          <tr>
           <td>
            <span class="toggle-btn faq_title" onclick="toggleContent('content-${vo.faq_no}')"
-            style="font-size: 20px;">${ vo.faq_title }</span><br>
+            style="font-size: 20px;">${ vo.faq_title } <span style="color: #cccccc;">▼</span></span><br>
            <span style="font-size: 14px; color: #cccccc;">${ fn:substring(vo.faq_regdate,0,10) }</span>
            <div id="content-${vo.faq_no}" class="faq_content" style="background: #f3f3f3; font-size: 13px; ">
             ${ vo.faq_content }

@@ -64,6 +64,8 @@
 
     <div id="box">
         <h1 id="title"> 공연장목록 </h1>
+        <p style="text-align: right; color: #ff1d38;">※공연장명을 클릭하여 공연장에서 상영중인 공연 목록을 조회하실 수 있습니다.</p>
+        <p style="text-align: right; color: #ff1d38;">※사이트로 이동을 클릭하여 해당 공연장 홈페이지로 이동하실 수 있습니다.</p>
 
         <div style="margin-top:20px; text-align: left; float:right;">            
             <!-- 관리자만 추가 기능 -->
@@ -75,7 +77,7 @@
 
         <table class="table" >
             <tr style="background: #ff1d38">
-                <!-- <th>번호</th> -->
+                <th>번호</th>
                 <th>공연장</th>
                 <th>
                     <select id="area-select" onchange="filterByArea()">
@@ -101,8 +103,8 @@
             <!-- for(MemberVo vo : list) -->
             <c:forEach var="vo" items="${ list }">
                 <tr>
-                    <!-- <td>${ vo.hall_idx }</td> -->
-                    <td>${ vo.hall_name }</td>
+                    <td>${ vo.hall_idx }</td>
+                    <td><a href="search.do?hall_idx=${vo.hall_idx}" style="color: blue;">${ vo.hall_name }</a></td>
                     <td>${ vo.hall_area }</td>
                     <td>${ vo.hall_addr }</td>
                     <td>${ vo.hall_tel }</td>

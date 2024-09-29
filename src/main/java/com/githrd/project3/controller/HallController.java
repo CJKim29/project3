@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.githrd.project3.dao.HallMapper;
 import com.githrd.project3.vo.HallVo;
 import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.PerformanceVo;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -164,4 +165,16 @@ public class HallController {
 
 		return "redirect:list.do";
 	}
+
+@RequestMapping("search.do")
+public String search(@RequestParam("hall_idx") int hall_idx, Model model) {
+  List<PerformanceVo> list = hall_mapper.search_list(hall_idx);
+	String hall_name = hall_mapper.get_hall_name(hall_idx);
+    
+    // 조회된 공연 목록을 모델에 추가
+    model.addAttribute("list", list);
+		model.addAttribute("hall_name", hall_name);
+
+    return "hall/hall_search";
+}
 }

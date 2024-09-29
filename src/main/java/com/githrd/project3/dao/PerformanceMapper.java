@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.githrd.project3.vo.HallVo;
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.SeatVo;
@@ -82,6 +83,7 @@ public interface PerformanceMapper {
 
  int getPerformanceDateIdx(int performance_idx,
    Date performance_date_date);
+
 
 
 }

@@ -19,6 +19,7 @@ public class PerformanceVo {
     int performance_cate_idx;
     int performance_detail_cate_idx;
     int hall_idx;
+    int area_idx;
     String performance_name;
     String performance_startday;
     String performance_endday;
@@ -29,6 +30,10 @@ public class PerformanceVo {
     String performance_detail_info;
     String performance_al;
     String performance_detail_image;
+
+    String hall_name;
+    String hall_area;
+    String performance_cate_name;
 
     HallVo hallVo;
     PerformanceCateVo performanceCateVo;
