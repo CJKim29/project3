@@ -1,7 +1,9 @@
 package com.githrd.project3.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,10 +40,18 @@ public class HallController {
 	ServletContext application;
 
 	@RequestMapping("list.do")
-	public String list(Model model) {
+	public String list(
+	@RequestParam(defaultValue = "all") String area,	
+	Model model) {
+
+		Map<String,Object> map = new HashMap<>();
+
+		if(!area.equals("all")) {
+			map.put("area", area);
+		}
 
 		// 회원목록 가져오기
-		List<HallVo> list = hall_mapper.hall_list();
+		List<HallVo> list = hall_mapper.hall_list(map);
 
 		// request binding
 		model.addAttribute("list", list);

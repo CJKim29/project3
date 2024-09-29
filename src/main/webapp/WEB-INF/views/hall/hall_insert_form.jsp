@@ -5,8 +5,8 @@ pageEncoding="UTF-8" %>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
-
+    <title>TIMOA - 공연장</title>
+    <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
     <!-- BootStrap 3.x-->
     <link
       rel="stylesheet"

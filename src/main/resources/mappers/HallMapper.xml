@@ -6,6 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="hall_list" resultType="hall">
         select * from hall order by hall_idx
+        <trim prefix="where" prefixOverrides="or">
+            <if test="area!= null and area != 'all'">
+				area_idx = #{area}
+			</if>
+        </trim>
     </select>
 
     <insert id="hall_insert" parameterType="hall">

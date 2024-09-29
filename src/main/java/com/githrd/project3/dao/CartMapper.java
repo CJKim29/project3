@@ -29,10 +29,10 @@ public interface CartMapper {
 
   int select_performance_cate_idx(int performance_idx);
 
-  int selectOne_seat_idx_m(int performance_idx, int row);
+  int selectOne_seat_idx_m(int performance_date_idx, int row);
 
-  int selectOne_seat_idx_s(int performance_idx, int row);
+  int selectOne_seat_idx_s(int performance_date_idx, int row);
 
-  int selectOne_seat_idx_l(int performance_idx, int row);
+  int selectOne_seat_idx_l(int performance_date_idx, int row);
 
 }

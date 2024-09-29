@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <title>TIMOA - 공연장</title>
+    <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>   
@@ -44,6 +45,11 @@
 
 
     <script type="text/javascript">
+        function filterByArea() {
+            location.href = 
+            "list.do?area=" + encodeURIComponent($("#area-select").val());
+        }
+
         function del(hall_idx){            
             
             if(confirm("정말 삭제하시겠습니까?")==false)return;
@@ -67,11 +73,22 @@
             </c:if>
         </div>
 
-        <table class="table">
+        <table class="table" >
             <tr style="background: #ff1d38">
-                <th>번호</th>
+                <!-- <th>번호</th> -->
                 <th>공연장</th>
-                <th>지역</th>
+                <th>
+                    <select id="area-select" onchange="filterByArea()">
+                        <option value="all" ${param.cate eq 'all' ? 'selected' : ''}>지역</option>
+                        <option value="1" ${param.cate eq '1' ? 'selected' : ''}>서울</option>
+                        <option value="2" ${param.cate eq '2' ? 'selected' : ''}>경기/인천</option>
+                        <option value="3" ${param.cate eq '3' ? 'selected' : ''}>충청/대전</option>
+                        <option value="4" ${param.cate eq '4' ? 'selected' : ''}>경상/대구/부산</option>
+                        <option value="5" ${param.cate eq '5' ? 'selected' : ''}>전라/광주</option>
+                        <option value="6" ${param.cate eq '6' ? 'selected' : ''}>강원</option>
+                        <option value="7" ${param.cate eq '7' ? 'selected' : ''}>제주</option>
+                    </select>
+                </th>
                 <th>주소</th>
                 <th>전화번호</th>
                 <th>홈페이지</th>
@@ -84,7 +101,7 @@
             <!-- for(MemberVo vo : list) -->
             <c:forEach var="vo" items="${ list }">
                 <tr>
-                    <td>${ vo.hall_idx }</td>
+                    <!-- <td>${ vo.hall_idx }</td> -->
                     <td>${ vo.hall_name }</td>
                     <td>${ vo.hall_area }</td>
                     <td>${ vo.hall_addr }</td>

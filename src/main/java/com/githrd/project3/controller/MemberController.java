@@ -70,9 +70,6 @@ public class MemberController {
    RedirectAttributes ra) {
 
   MemberVo user = member_mapper.selectOneFromId(mem_id);
-  System.out.println("---------------------------------------------");
-  System.out.println(url);
-  System.out.println("---------------------------------------------");
 
   if (user == null) {
 
@@ -102,26 +99,28 @@ public class MemberController {
   return "redirect:../main/list.do"; // 기본적으로 메인 페이지로 이동
  }
 
- // 로그아웃
- @RequestMapping("logout.do")
- public String logout() {
+// 로그아웃
+@RequestMapping("logout.do")
+public String logout() {
 
-  session.removeAttribute("user");
+    session.removeAttribute("user");
 
-  // 로그아웃 하기 전 페이지로 이동
-  String referer = request.getHeader("Referer");
+    // 로그아웃 하기 전 페이지로 이동
+    String referer = request.getHeader("Referer");
 
-  // referer가 장바구니 페이지인 경우 메인 화면으로 리다이렉트
-  if (referer != null && referer.contains("/cart/list.do")) {
-   return "redirect:../main/list.do";
-  }
-  // referer가 있을 경우 해당 페이지로 리다이렉트, 없으면 메인 화면으로 이동
-  if (referer != null) {
-   return "redirect:" + referer;
-  }
+    // referer가 장바구니 페이지 또는 마이페이지인 경우 메인 화면으로 리다이렉트
+    if (referer != null && (referer.contains("/cart/list.do") || referer.contains("/mypage/mypage.do"))) {
+        return "redirect:../main/list.do";
+    }
+    
+    // referer가 있을 경우 해당 페이지로 리다이렉트, 없으면 메인 화면으로 이동
+    if (referer != null) {
+        return "redirect:" + referer;
+    }
 
-  return "redirect:../main/list.do";
- }
+    return "redirect:../main/list.do";
+}
+
 
  // 삭제
  @RequestMapping("delete.do")
