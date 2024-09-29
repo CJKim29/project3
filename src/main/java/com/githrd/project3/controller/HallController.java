@@ -1,7 +1,9 @@
 package com.githrd.project3.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.githrd.project3.dao.HallMapper;
 import com.githrd.project3.vo.HallVo;
 import com.githrd.project3.vo.MemberVo;
+import com.githrd.project3.vo.PerformanceVo;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,10 +41,18 @@ public class HallController {
 	ServletContext application;
 
 	@RequestMapping("list.do")
-	public String list(Model model) {
+	public String list(
+	@RequestParam(defaultValue = "all") String area,	
+	Model model) {
+
+		Map<String,Object> map = new HashMap<>();
+
+		if(!area.equals("all")) {
+			map.put("area", area);
+		}
 
 		// 회원목록 가져오기
-		List<HallVo> list = hall_mapper.hall_list();
+		List<HallVo> list = hall_mapper.hall_list(map);
 
 		// request binding
 		model.addAttribute("list", list);
@@ -154,4 +165,16 @@ public class HallController {
 
 		return "redirect:list.do";
 	}
+
+@RequestMapping("search.do")
+public String search(@RequestParam("hall_idx") int hall_idx, Model model) {
+  List<PerformanceVo> list = hall_mapper.search_list(hall_idx);
+	String hall_name = hall_mapper.get_hall_name(hall_idx);
+    
+    // 조회된 공연 목록을 모델에 추가
+    model.addAttribute("list", list);
+		model.addAttribute("hall_name", hall_name);
+
+    return "hall/hall_search";
+}
 }

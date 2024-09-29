@@ -15,8 +15,6 @@ drop table orders_seat;			-- 주문 좌석
 drop table orders;              -- 주문 정보
 drop table seat;                -- 좌석
 
-drop table preview_comment;     -- 기대평댓글
-drop table preview;             -- 기대평
 drop table user_review_readhit; -- 후기 조회수
 drop table review_score;        -- 후기(공감)
 drop table review;              -- 후기
@@ -37,6 +35,8 @@ drop table performance;           -- 공연(상품)
 drop table performance_detail_cate;
 drop table performance_cate;
 drop table hall;
+drop table area;
+
 
 
 
@@ -57,15 +57,21 @@ CREATE TABLE member (
     mem_point INT DEFAULT 0,                        -- 회원보유포인트
     mem_grade VARCHAR(100) NOT NULL                 -- 회원등급('일반' or '관리자')
 );
+create table area (
+	area_idx INT PRIMARY KEY AUTO_INCREMENT,   
+    area_name varchar(100) not null
+);
 CREATE TABLE hall (
     hall_idx INT PRIMARY KEY AUTO_INCREMENT,                -- 공연장번호
+    area_idx int not null,									-- 지역번호(FK)
     hall_name VARCHAR(100) NOT NULL,                        -- 공연장이름
     hall_area VARCHAR(100) NOT NULL,                        -- 공연장지역
     hall_addr VARCHAR(200) NOT NULL,                        -- 공연장주소
     hall_tel VARCHAR(100) NOT NULL,                         -- 공연장전화번호
     hall_site VARCHAR(100) NOT NULL,                        -- 공연장홈페이지
     hall_seat INT NOT NULL,                                 -- 공연장좌석수
-    hall_image VARCHAR(100) NOT NULL DEFAULT 'no_image.png' -- 공연장이미지 (기본값: no_image.png)
+    hall_image VARCHAR(100) NOT NULL DEFAULT 'no_image.png', -- 공연장이미지 (기본값: no_image.png)
+	FOREIGN KEY (area_idx) REFERENCES area(area_idx) ON UPDATE CASCADE ON DELETE CASCADE -- 외래키 설정: performance_cate 테이블의 performance_cate_idx 참조
 );
 CREATE TABLE performance_cate (
     performance_cate_idx INT PRIMARY KEY AUTO_INCREMENT,-- 공연카테고리번호
@@ -83,6 +89,7 @@ CREATE TABLE performance (
     performance_cate_idx INT NOT NULL,                                                             				-- 공연카테고리번호(FK)
     performance_detail_cate_idx INT NOT NULL,                                                       			-- 공연카테고리세부번호(FK)
     hall_idx INT NOT NULL,                                                                      				-- 공연장번호(FK)
+    area_idx int not null,																						-- 지역번호(FK)
     performance_name VARCHAR(100) NOT NULL,                                                         			-- 공연이름
     performance_startday datetime NOT NULL,                                                     				-- 공연시작일자
     performance_endday datetime NOT NULL,                                                       				-- 공연종료일자
@@ -93,7 +100,8 @@ CREATE TABLE performance (
     performance_detail_info text NULL,                  														-- 공연상세정보
     performance_al			text null,																			-- 공지사항
     performance_detail_image VARCHAR(100) NULL,                 											-- 공연이미지명
-    FOREIGN KEY (performance_cate_idx) REFERENCES performance_cate(performance_cate_idx) ON UPDATE CASCADE ON DELETE CASCADE,                   	-- 외래키 설정: performance_cate 테이블의 performance_cate_idx 참조
+	FOREIGN KEY (performance_cate_idx) REFERENCES performance_cate(performance_cate_idx) ON UPDATE CASCADE ON DELETE CASCADE,                   	-- 외래키 설정: performance_cate 테이블의 performance_cate_idx 참조
+	FOREIGN KEY (area_idx) REFERENCES area(area_idx) ON UPDATE CASCADE ON DELETE CASCADE, -- 외래키 설정: performance_cate 테이블의 performance_cate_idx 참조
     FOREIGN KEY (hall_idx) REFERENCES hall(hall_idx) ON UPDATE CASCADE ON DELETE CASCADE,                                           				-- 외래키 설정: hall 테이블의 hall_idx 참조
     FOREIGN KEY (performance_detail_cate_idx) REFERENCES performance_detail_cate(performance_detail_cate_idx) ON UPDATE CASCADE ON DELETE CASCADE	-- 외래키 설정: performance_detail_cate 테이블의 performance_detail_cate_idx 참조
 );
@@ -184,30 +192,6 @@ CREATE TABLE user_review_readhit (
     review_idx INT NOT NULL,                             		-- 후기번호(FK)
     FOREIGN KEY (mem_idx) REFERENCES member(mem_idx) ON UPDATE CASCADE ON DELETE CASCADE,     		-- 외래키 설정: member 테이블의 mem_idx 참조
     FOREIGN KEY (review_idx) REFERENCES review(review_idx) ON UPDATE CASCADE ON DELETE CASCADE 		-- 외래키 설정: review 테이블의 review_idx 참조
-);
-
-CREATE TABLE preview (
-    preview_idx INT PRIMARY KEY AUTO_INCREMENT,                 -- 기대평개별번호
-    mem_idx INT NOT NULL,                                       -- 회원번호(FK)
-    performance_idx INT NOT NULL,                               -- 공연번호(FK)
-    preview_regdate DATETIME NOT NULL DEFAULT NOW(),            -- 작성일자
-    preview_ip VARCHAR(100) NOT NULL,                           -- 아이피
-    preview_content VARCHAR(400) NOT NULL,                      -- 내용
-    mem_nickname VARCHAR(100) NOT NULL,                         -- 회원닉네임
-    preview_title VARCHAR(100) NOT NULL,                        -- 제목
-    FOREIGN KEY (mem_idx) REFERENCES member(mem_idx) ON UPDATE CASCADE ON DELETE CASCADE,           -- 외래키 설정: member 테이블의 mem_idx 참조
-    FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx) ON UPDATE CASCADE ON DELETE CASCADE   -- 외래키 설정: performance 테이블의 performance_idx 참조
-);
-CREATE TABLE preview_comment (
-    pre_cmt_idx INT PRIMARY KEY AUTO_INCREMENT,                 -- 기대평댓글번호
-    mem_idx INT NOT NULL,                                       -- 회원번호(FK)
-    performance_idx INT NOT NULL,                                   -- 공연번호(FK)
-    preview_idx INT NOT NULL,                                   -- 기대평번호
-    pre_cmt_content VARCHAR(200) NOT NULL,                      -- 내용
-    pre_cmt_ip VARCHAR(100) NOT NULL,                           -- 아이피
-    mem_nickname VARCHAR(100) NOT NULL,                         -- 회원닉네임
-    FOREIGN KEY (mem_idx) REFERENCES member(mem_idx) ON UPDATE CASCADE ON DELETE CASCADE,           -- 외래키 설정: member 테이블의 mem_idx 참조
-    FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx) ON UPDATE CASCADE ON DELETE CASCADE   -- 외래키 설정: performance 테이블의 performance_idx 참조
 );
 CREATE TABLE performance_date (
 	performance_date_idx INT PRIMARY KEY AUTO_INCREMENT,            -- 공연날자번호

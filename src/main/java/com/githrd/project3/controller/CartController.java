@@ -51,6 +51,15 @@ public class CartController {
     model.addAttribute("list", list);
     return "cart/cart_list";
   }
+  // 마이페이지에서 장바구니 조회시 호출
+  @RequestMapping("ajax_list.do")
+  public String ajax_list(Model model) {
+    MemberVo user = (MemberVo) session.getAttribute("user");
+    // 회원 별 장바구니 목록 가져오기
+    List<CartVo> list = cart_mapper.cart_list(user.getMem_idx());
+    model.addAttribute("list", list);
+    return "cart/cart_ajax_list";
+  }
 
   @RequestMapping("insert.do")
   public String insert(@RequestParam("seatInfo") List<String> seatInfo, CartVo cartVo) {
@@ -62,6 +71,8 @@ public class CartController {
 
     // 공연 카테고리 인덱스 조회
     int performance_cate_idx = cart_mapper.select_performance_cate_idx(cartVo.getPerformance_idx());
+    // 공연 날짜 번호 얻어오기
+    int performance_date_idx = book_mapper.selectPerformanceDateIdx(cartVo.getReserved_performance_date(),cartVo.getPerformance_idx());
 
     // 좌석등록(반복문 - 최대 4좌석 등록을 위함 - 2차 등록)
     for (String seat : seatInfo) {
@@ -75,13 +86,13 @@ public class CartController {
       // 카테고리에 따라 다른 메서드 호출
       switch (performance_cate_idx) {
         case 1: // 중형(뮤지컬)
-          seat_idx = cart_mapper.selectOne_seat_idx_m(cartVo.getPerformance_idx(), row);
+          seat_idx = cart_mapper.selectOne_seat_idx_m(performance_date_idx, row);
           break;
         case 2: // 소형(연극)
-          seat_idx = cart_mapper.selectOne_seat_idx_s(cartVo.getPerformance_idx(), row);
+          seat_idx = cart_mapper.selectOne_seat_idx_s(performance_date_idx, row);
           break;
         case 3: // 대형(콘서트)
-          seat_idx = cart_mapper.selectOne_seat_idx_l(cartVo.getPerformance_idx(), row);
+          seat_idx = cart_mapper.selectOne_seat_idx_l(performance_date_idx, row);
           break;
       }
 

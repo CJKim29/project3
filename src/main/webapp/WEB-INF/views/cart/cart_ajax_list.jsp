@@ -3,11 +3,8 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fn"
 uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html lang="zxx">
+<html>
   <head>
-    <title>TIMOA - 장바구니</title>
-    <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
-    <jsp:include page="/WEB-INF/views/include/header.jsp" />
     <script>
 // 장바구니 삭제 함수 (confirm 여부를 제어할 수 있음)
 function cart_delete(cart_idx, showConfirm) {
@@ -41,7 +38,7 @@ function check_seat(cart_idx) {
 }
      </script> 
   </head>
-  <body class="js">
+  <body>
     <!-- Shopping Cart -->
     <div class="shopping-cart section">
       <div class="container">
@@ -53,11 +50,10 @@ function check_seat(cart_idx) {
               <thead>
                 <tr class="main-hading">
                    <th class="text-center">공연</th> 
-                  <!-- <th class="text-center">공연명</th> -->
                   <th class="text-center">공연장</th>
                   <th class="text-center">공연날짜</th>
                   <th class="text-center">좌석정보</th>
-                  <th class="text-center">가격</th>
+                  <th style="width: 15%;" class="text-center">가격</th>
                   <th class="text-center">결제/삭제</th>
                 </tr>
               </thead>
@@ -72,16 +68,14 @@ function check_seat(cart_idx) {
                  <c:forEach var="vo" items="${ list }">
                   <tr>
                     <td class="image" data-title="No"><img src="../resources/images/${ vo.performance_image }" alt="#"><br>
-                      <div style="max-width: 90px; font-weight: bold;">${ vo.performance_name }</div></td> 
-
+                     <div style="max-width: 90px; font-weight: bold;">${ vo.performance_name }</div></td> 
+                    <!-- 공연장 -->
                     <td class="price" data-title="Price">
                         ${ vo.hall_name }
-                      <!-- <span></span> -->
                     </td>
                     <!-- 공연날짜 -->
                     <td class="price" data-title="Price">
                       ${ vo.reserved_performance_date }
-                      <!-- <span></span> -->
                     </td>
                     <!-- 예매 좌석정보 -->
                     <td class="total-amount" data-title="Total">
@@ -109,7 +103,5 @@ function check_seat(cart_idx) {
         </div>
       </div>
     </div>
-    <!--/ End Shopping Cart -->
-    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
   </body>
 </html>
