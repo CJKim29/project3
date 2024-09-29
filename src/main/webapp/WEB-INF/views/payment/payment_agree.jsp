@@ -21,13 +21,16 @@
      <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
      <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+     <!-- 포트원 결제 -->
+     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
      <!-- jQuery -->
-     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
      <!-- iamport.payment.js -->
      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+     <!-- 포트원 결제 -->
 
      <script>
-      var IMP = window.IMP;
+      var IMP = window.IMP;    // 생략 가능
       IMP.init("imp15578583"); // 가맹점 식별 코드
 
       function requestPay() {
@@ -50,10 +53,10 @@
           type: 'POST',
           url: "/payment/payment.do",  //결제 금액을 보낼 url 설정 ex) "/user/mypage/charge/point"
           data: {
-           test: "test"
-           // imp_uid: rsp.imp_uid, // 아임포트 결제 완료 후 응답 받은 imp_uid
-           // order_idx: rsp.merchant_uid, // 주문번호
-           // order_amount: rsp.paid_amount // 결제된 금액
+           // test: "test"
+           imp_uid: rsp.imp_uid, // 아임포트 결제 완료 후 응답 받은 imp_uid
+           order_idx: rsp.merchant_uid, // 주문번호
+           order_amount: rsp.paid_amount // 결제된 금액
           },
           success: function (res_data) {
 
@@ -197,24 +200,23 @@
           <tr>
            <td>선택 좌석</td>
            <td>
-            ${param.seat_grade}
-            <!-- <c:forEach var="ordersVo" items="${list}">
+            <!-- ${param.seat_grade} -->
+            <c:forEach var="ordersVo" items="${list}">
              <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
               ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
              </c:forEach>
-            </c:forEach> -->
+            </c:forEach>
            </td>
 
           </tr>
           <tr>
            <td>티켓 금액</td>
            <td>
-            ${param.seat_grade}
-            <!-- <c:forEach var="ordersVo" items="${list}">
+            <c:forEach var="ordersVo" items="${list}">
              <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
               ${ ordersSeatVo.seat_price }원<br>
              </c:forEach>
-            </c:forEach> -->
+            </c:forEach>
            </td>
           </tr>
           <tr>
@@ -223,7 +225,7 @@
           </tr>
           <tr>
            <td>총 결제 금액</td>
-           <td>0원</td>
+           <td><span id="total_payment">${param.total_payment}</span></td>
           </tr>
          </table>
 
