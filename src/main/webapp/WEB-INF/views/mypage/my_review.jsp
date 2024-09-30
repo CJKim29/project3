@@ -450,7 +450,7 @@
                  </p>
                  <div class="single-rating">
                   <div class="rating-author">
-                   <img src="../resources/images/${ review.mem_filename }">
+                   <img src="../resources/images/${ review.performance_image }">
                   </div>
                   <div class="rating-des">
                    <div class="ratings">
