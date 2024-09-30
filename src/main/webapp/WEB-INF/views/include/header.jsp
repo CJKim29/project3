@@ -224,10 +224,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <a href="../performance/list.do?performance_cate_idx=1">뮤지컬</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do?performance_cate_idx=2">콘서트</a>
+                            <a href="../performance/list.do?performance_cate_idx=2">연극</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do?performance_cate_idx=3">연극</a>
+                            <a href="../performance/list.do?performance_cate_idx=3">콘서트</a>
                           </li>
                           <li>
                             <a href="../faq/list.do"
@@ -255,39 +255,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </header>
     <!--/ End Header -->
     
-    <script>
-      $(document).ready(function () {
-        function setActiveMenu() {
-          let currentUrl = window.location.pathname; // 현재 페이지의 경로
-          // 모든 'active' 클래스 제거
-          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
-          // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
-          $(".nav.main-menu.menu.navbar-nav a").each(function () {
-            let linkUrl = $(this).attr("href");
-            // 상대 경로= 절대 경로 변환
-            let absoluteLinkUrl = new URL(linkUrl, window.location.origin)
-              .pathname;
-            // 현재 페이지 URL과 메뉴 링크가 일치?
-            if (currentUrl === absoluteLinkUrl) {
-              $(this).parent().addClass("active");
-            }
-          });
-        }
-        // 로드
-        setActiveMenu();
-        // 메뉴 항목 클릭 시
-        $(".nav.main-menu.menu.navbar-nav a").click(function (event) {
-          event.preventDefault();
-          //'active' 클래스 제거
-          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
-          // 클릭한 'active' 클래스 추가
-          $(this).parent().addClass("active");
-          // 링크 이동 (정해진 링크이동)
-          // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
-          window.location.href = $(this).attr("href");
-        });
-      });
-    </script>
     <!-- 메인 검색창 경고창 -->
     <script>
       function validateSearch() {
