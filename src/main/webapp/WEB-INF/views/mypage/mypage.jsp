@@ -10,15 +10,15 @@
   <link rel="stylesheet" href="../resources/css/mypage.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-   <script type="text/javascript">
-      function member_delete() {
-        if (confirm("정말 탈퇴하시겠습니까?") == false) return;
+  <script type="text/javascript">
+   function member_delete() {
+    if (confirm("정말 탈퇴하시겠습니까?") == false) return;
 
-        alert("회원 탈퇴가 완료되었습니다.");
-        location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
-      }
+    alert("회원 탈퇴가 완료되었습니다.");
+    location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
+   }
 
-    </script> 
+  </script>
   <script>
    $(document).ready(function () {
     // '장바구니' 링크 클릭 시
@@ -65,6 +65,33 @@
     });
    });
   </script>
+  <script>
+   $(document).ready(function () {
+    $('#MyReview').on('click', function (event) {
+     event.preventDefault();  // 기본 링크 동작을 막음
+    });
+    // '장바구니' 링크 클릭 시
+    myReviewList(1);
+   });
+
+   function myReviewList(page) {
+    // AJAX 요청 보내기
+    $.ajax({
+     url: '/mypage/ajax_review.do',  // 호출할 URL
+     data: { 'page': page },
+     type: 'GET',           // HTTP 메소드
+     success: function (response) {
+      // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
+      $('.content').html(response);
+     },
+     error: function (xhr, status, error) {
+      // 에러가 발생했을 때 처리
+      console.error('AJAX 요청 실패:', status, error);
+      $('.content').html('<p>나의 후기 목록을 불러오는 데 실패했습니다.</p>');
+     }
+    });
+   }
+  </script>
  </head>
 
  <body>
@@ -100,11 +127,11 @@
     </ul>
     <hr />
     <ul>
-     <li><a href="#" data-content="my-reviews">나의 후기 목록</a></li>
+     <li><a href="#" data-content="my-reviews" id="MyReview">나의 후기 목록</a></li>
      <li>
       <a href="#" data-content="liked-performances">좋아요한 공연 목록</a>
      </li>
-    </ul> 
+    </ul>
     <hr />
     <ul>
      <li><a href="/qna/list.do" data-content="qna">Q&A</a></li>
