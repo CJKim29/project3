@@ -90,9 +90,6 @@
                                     <c:when test="${performance.performance_state == 'w'}">
                                         상연 전
                                     </c:when>
-                                    <c:otherwise>
-                                        확인 필요
-                                    </c:otherwise>
                                 </c:choose>
                             </div>
                         </a>

@@ -96,21 +96,26 @@
 													<div class="product-img">
 														<!-- 관리자 수정, 삭제 버튼 -->
 														<div class="admin-btns">
-															<a href="main_performance_modi.do" class="btn btn-warning btn-sm">수정</a>	
-														</div>						
-														<a href="../detail/detail.do?performance_idx=1">
-															<!-- 이미지 크기는 550x750  -->
-															<!-- 이미지 크기는 550x750  -->
-															<img class="default-img" src="/../resources/template/images/장르용 써니텐.png" alt="#">
+															<!-- 공연 ID를 쿼리 파라미터로 전달하여 수정 페이지로 이동 -->
+															<a href="${pageContext.request.contextPath}/main/performance_modi.do?performance_idx=${performance.performance_idx}" 
+															   class="btn btn-warning btn-sm">수정</a>
+														</div>                        
+														<a href="">
+															<!-- 공연 이미지 출력 -->
+															<img class="default-img" src="${performance.performance_image}" alt="공연 이미지" style="width: 550px; height: 750px;">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=1">뮤지컬 써니텐</a></h3>
+														<!-- 공연 이름 출력 -->
+														<h3><a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">${performance.performance_name}</a></h3>
 														<div class="product-price">
-															<span>2022.07.08 ~ OPEN RUN</span>
+															<!-- 공연 시작일과 종료일 출력 -->
+															<span>${performance.performance_startday} ~ ${performance.performance_endday}</span>
 														</div>
 													</div>
 												</div>
+												
+												
 											</div>
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
