@@ -258,6 +258,7 @@
       <input type="hidden" name="mem_idx" value="${user.mem_idx}">
       <input type="hidden" name="used_point2" id="hidden_used_point2" value="${param.used_point2}">
       <input type="hidden" name="total_payment" id="hidden_total_payment" value="${param.total_payment}">
+      <input type="hidden" name="order_idx" value="${order_idx}">
 
       <!-- <input type="hidden" name="imp_uid" value="${param.imp_uid}">
       <input type="hidden" name="order_idx" value="${param.order_idx}">

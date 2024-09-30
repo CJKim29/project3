@@ -24,12 +24,68 @@
      <!-- 포트원 결제 -->
      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
      <!-- jQuery -->
-     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
      <!-- iamport.payment.js -->
      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
      <!-- 포트원 결제 -->
 
+
      <script>
+
+      var IMP = window.IMP;
+      IMP.init("imp15578583");  // 가맹점 식별코드
+
+      function requestPay() {
+
+       console.log("order_idx" + "${order_idx}");
+
+       IMP.request_pay({
+        pg: "kakaopay", // PG사명 (카카오페이)
+        pay_method: "card", // 결제수단
+        merchant_uid: 'p' + new Date().getTime() + '_' + "${order_idx}", // 주문번호
+        name: "${vo.performance_name}", // 상품명
+        amount: "${order_amount}", // 결제 금액
+        buyer_email: "${mem_email}", // 구매자 이메일
+        buyer_name: "${mem_name}", // 구매자 이름
+        buyer_tel: "${mem_phone}", // 구매자 전화번호
+        buyer_addr: "${mem_addr}", // 구매자 주소
+        buyer_postcode: "${mem_zipcode}" // 구매자 우편번호
+       }, function (rsp) { // callback 함수
+        if (rsp.success) {
+         // 결제 성공 시 처리
+         $.ajax({
+          type: "POST",
+          url: "/payment/payment.do",  // 서버에서 결제를 처리하는 URL
+          data: {
+           imp_uid: rsp.imp_uid,  // 아임포트 결제 고유번호
+           merchant_uid: rsp.merchant_uid,  // 상점에서 생성한 주문번호
+           order_amount: rsp.paid_amount,  // 실제 결제 금액
+           order_idx: "${order_idx}"  // 주문 번호 (백엔드에서 활용할 수 있음)
+          },
+          success: function (result) {
+           alert("결제가 완료되었습니다.");
+           //self.close();
+           location.href = "/payment/success.do"; // 서버에서 전달받은 URL을 통해 리다이렉트
+          },
+          error: function (result) {
+           alert(result.responseText);
+           cancelPayments(rsp);  // 결제 취소 함수
+          }
+         });
+        } else {
+         // 결제 실패 시 로직
+         alert("결제 실패");
+         alert(rsp.error_msg);
+         console.log(rsp);
+        }
+       });
+      }
+
+     </script>
+
+
+
+     <!-- <script>
       var IMP = window.IMP;
       IMP.init("imp15578583");  // 가맹점 식별코드
 
@@ -79,11 +135,9 @@
           alert(rsp.error_msg);
           console.log(rsp);
          }
-
-
         });
       }
-     </script>
+     </script> -->
 
 
 
@@ -98,7 +152,7 @@
       <input type="hidden" name="seatInfo" value="${param.seatInfo}" />
       <div id="seat-box">
        <!-- amount 확인용 -->
-       <p>결제 금액: ${order_amount}</p>
+       <!-- <p>결제 금액: ${order_amount}</p> -->
 
        <div id="seat-box-header">
         <div class="seat-title" title="${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
@@ -115,9 +169,9 @@
         <div>
          <div class="content_title">결제 수단 선택</div>
          <br>
-         <input type="radio" name="performance_detail_cate_idx" value="0" checked />신용카드
-         <input type="radio" name="performance_detail_cate_idx" value="0" />무통장입금
+         <!-- <input type="radio" name="performance_detail_cate_idx" value="0" checked />신용카드 -->
          <input type="radio" name="performance_detail_cate_idx" value="0" />카카오페이
+         <input type="radio" name="performance_detail_cate_idx" value="0" />무통장입금
         </div>
 
         <div id="agree">

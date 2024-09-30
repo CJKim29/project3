@@ -62,7 +62,7 @@ public interface BookMapper {
  // 회원 별 주문 내역 조회
  List<OrdersVo> ordersList(int mem_idx);
 
- void updatePaymentState(int order_idx, String string);
+ void updatePaymentState(int order_idx);
 
  void updateOrderAmount(Map<String, Object> paramMap);
 

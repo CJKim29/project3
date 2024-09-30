@@ -230,7 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <update id="updatePaymentState">
     UPDATE orders
-    SET payment_state = #{payment_state}
+    SET payment_state = 'y'
     WHERE order_idx = #{order_idx}
  </update>
 

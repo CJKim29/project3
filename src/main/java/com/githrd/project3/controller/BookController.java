@@ -296,7 +296,8 @@ public class BookController {
   List<OrdersVo> list = book_mapper.ordersList(map);
 
   model.addAttribute("list", list);
-  model.addAttribute("ordersVo", ordersVo); // JSP에 전달
+  model.addAttribute("ordersVo", ordersVo);
+  model.addAttribute("order_idx", order_idx);
 
   return "/payment/payment_check";
  }
@@ -306,10 +307,8 @@ public class BookController {
    @RequestParam("performance_idx") int performance_idx,
    @RequestParam("used_point2") String used_point2,
    @RequestParam("total_payment") String total_payment,
+   @RequestParam("order_idx") int order_idx,
    Model model, RedirectAttributes ra) {
-
-  // int orderAmount = 30000; // 예시 값, 실제 값으로 설정
-  // model.addAttribute("test", orderAmount);
 
   // session에서 사용자 정보 가져오기
   MemberVo user = (MemberVo) session.getAttribute("user");
@@ -323,7 +322,7 @@ public class BookController {
   model.addAttribute("vo", vo);
 
   // 최근 주문 번호 얻어오기
-  int order_idx = book_mapper.OrderRecentIdx();
+  order_idx = book_mapper.OrderRecentIdx();
 
   // 파라미터로 받은 "total_payment" 값을 ordersVo의 order_amount에 저장하기
   // 숫자만 추출 -> "," 와 "원" 제거
@@ -350,6 +349,7 @@ public class BookController {
 
   model.addAttribute("used_point2", used_point2);
   model.addAttribute("total_payment", total_payment);
+  model.addAttribute("order_idx", order_idx);
 
   return "/payment/payment_agree";
  }
