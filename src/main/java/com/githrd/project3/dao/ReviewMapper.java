@@ -63,4 +63,6 @@ public interface ReviewMapper {
 
  List<ReviewVo> review_readhit_list(Map<String, Object> map);
 
+ List<ReviewVo> selectMyReviewList(int mem_idx);
+
 }
