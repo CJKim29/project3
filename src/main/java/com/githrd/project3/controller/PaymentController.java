@@ -138,8 +138,8 @@ public class PaymentController {
 
   MemberVo user = (MemberVo) session.getAttribute("user");
 
-  // List<OrdersVo> list = book_mapper.cart_list(user.getMem_idx());
-  // model.addAttribute("list", list);
+  List<OrdersVo> list = book_mapper.orderList(user.getMem_idx());
+  model.addAttribute("list", list);
 
   // 주문 조회 시 필요한 정보 map에 담음
   // Map<String, Object> map = new HashMap<>();
