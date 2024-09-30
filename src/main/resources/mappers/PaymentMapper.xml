@@ -7,18 +7,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!--parameterType = 전달인자타입
 		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
 
+
  <!-- 결제 정보 insert -> 결제 완료 시 결제 테이블에 저장될 것-->
- <insert id="insertPayment">
-        insert into payment values (#{payment_idx},
+ <insert id="insert" parameterType="payment">
+        insert into payment values (null,
                                     #{order_idx},
                                     #{payment_amount}, 
-                                    #{payment_date}, 
-                                    #{buyepayment_staterName}
+                                    default, 
+                                    default
                                    );
  </insert>
 
  <!-- 결제 번호로 결제 정보 조회 -->
- <select id="getPaymentByPaymentIdx" resultType="payment">
+ <select id="selectOnePaymentIdx" resultType="payment">
         selcet * from payment WHERE payment_idx = #{payment_idx}
  </select>
 

@@ -100,11 +100,9 @@
 
        // 사용 포인트와 남은 포인트 업데이트 함수
        function updateUsedPoints(usedPoints) {
-        document.getElementById('used_point2').textContent = usedPoints;
+        document.getElementById('used_point2').textContent = usedPoints + "P";
         // hidden input의 값을 업데이트
-        document.getElementById('hidden_used_point2').value = usedPoints.replace(/[^0-9]/g, ''); // 숫자만 남김
-
-
+        document.getElementById('hidden_used_point2').value = usedPoints.replace(/[^0-9]/g, '') + "P"; // 숫자만 남김
        }
 
        function updateAvailablePoints(totalPoints) {
@@ -202,6 +200,9 @@
         // 총 결제 금액을 HTML에 반영
         document.getElementById('total_payment').textContent = totalPayment.toLocaleString() + "원";
 
+        // hidden input의 값을 업데이트
+        document.getElementById('hidden_total_payment').value = totalPayment.toLocaleString() + "원";
+
         console.log("티켓 금액:", ticketAmount);
         console.log("사용 포인트:", usedPoints);
         console.log("총 결제 금액:", totalPayment);
@@ -230,13 +231,13 @@
      </script>
 
      <!-- 좌석 등급과 가격 넘기기 위한 작업 배열로 넘기래여.. => 컨트롤러 가서 json 문자열 파싱하는 작업 마저 하기  -->
-     <script>
+     <!-- <script>
       // 선택된 좌석 정보를 배열로 저장
       let seatGrades = [];
       let seatPrices = [];
 
       // 반복문을 통해 좌석 정보를 추출
-      document.querySelectorAll('.your-seat-selector').forEach(seat => {
+      document.querySelectorAll('.seat_info').forEach(seat => {
        seatGrades.push(seat.dataset.grade); // 각 좌석의 등급 데이터
        seatPrices.push(seat.dataset.price); // 각 좌석의 가격 데이터
       });
@@ -244,7 +245,9 @@
       // 배열을 문자열로 변환하여 히든 필드에 저장
       document.getElementById('seat_grade').value = JSON.stringify(seatGrades);
       document.getElementById('seat_price').value = JSON.stringify(seatPrices);
-     </script>
+
+     </script> -->
+
     </head>
 
     <body>
@@ -252,14 +255,15 @@
      <form action="agree.do" method="post">
       <input type="hidden" name="performance_idx" value="${param.performance_idx}">
       <input type="hidden" name="date" value="${param.date}">
-      <!-- <input type="hidden" name="selectedSeats" value="${param.selectedSeats}">
-      <input type="hidden" name="seatInfo" value="${param.seatInfo}"> -->
       <input type="hidden" name="mem_idx" value="${user.mem_idx}">
-
-      <input type="hidden" id="seat_grade" name="seat_grade" value="">
-      <input type="hidden" id="seat_price" name="seat_price" value="">
-
       <input type="hidden" name="used_point2" id="hidden_used_point2" value="${param.used_point2}">
+      <input type="hidden" name="total_payment" id="hidden_total_payment" value="${param.total_payment}">
+      <input type="hidden" name="order_idx" value="${order_idx}">
+
+      <!-- <input type="hidden" name="imp_uid" value="${param.imp_uid}">
+      <input type="hidden" name="order_idx" value="${param.order_idx}">
+      <input type="hidden" name="order_amount" value="${param.order_amount}"> -->
+
       <div id="seat-box">
 
        <div id="seat-box-header">
@@ -350,6 +354,14 @@
               ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
              </c:forEach>
             </c:forEach>
+            <!-- <c:forEach var="ordersVo" items="${list}">
+             <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
+              <div class="seat_info" data-grade="${ordersSeatVo.seat_grade}" data-price="${ordersSeatVo.seat_price}">
+               ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
+              </div>
+             </c:forEach>
+            </c:forEach> -->
+
            </td>
           </tr>
 

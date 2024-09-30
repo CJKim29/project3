@@ -183,13 +183,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE os.order_idx = #{order_idx}
  </select>
 
- <!-- 주문 테이블에 정보 추가 -->
+ <!-- 주문 정보 추가 -->
  <insert id="ordersInsert" parameterType="orders">
-    insert into orders (performance_idx, mem_idx, reserved_performance_date, order_date)
+    insert into orders (performance_idx, mem_idx, reserved_performance_date, order_date, order_amount, payment_state)
                 values (#{performance_idx},
                         #{mem_idx},
                         #{reserved_performance_date},
-                        now()
+                        now(),
+                        default,
+                        default
                         );
  </insert>
 
@@ -221,6 +223,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="OrderRecentIdx" resultType="int">
         select max(order_idx) from orders
  </select>
+
+ <select id="selectOneOrderAmount" parameterType="int" resultType="Integer">
+  select order_amount from orders where order_idx = #{order_idx};
+ </select>
+
+ <update id="updatePaymentState">
+    UPDATE orders
+    SET payment_state = 'y'
+    WHERE order_idx = #{order_idx}
+ </update>
+
+ <update id="updateOrderAmount" parameterType="map">
+    UPDATE orders
+    SET order_amount = #{order_amount}
+    WHERE order_idx = #{order_idx}
+ </update>
 
  <!-- 이전으로 갈 시 삭제 되게(미구현..ㅠㅠㅠㅠ) -->
  <delete id="orderDelete" parameterType="int">

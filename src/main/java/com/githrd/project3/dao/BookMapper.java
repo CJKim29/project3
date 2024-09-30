@@ -59,6 +59,15 @@ public interface BookMapper {
 
  List<OrdersVo> ordersList(Map<String, Object> map);
 
+ // 회원 별 주문 내역 조회
+ List<OrdersVo> ordersList(int mem_idx);
+
+ void updatePaymentState(int order_idx);
+
+ void updateOrderAmount(Map<String, Object> paramMap);
+
+ int selectOneOrderAmount(int order_idx);
+
  // 안쓰는 코드들
  // Integer selectRemainSeat(@Param("performance_date") String performance_date,
  // @Param("seat_idx") int seat_idx);

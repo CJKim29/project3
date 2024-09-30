@@ -21,84 +21,138 @@
      <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
      <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+     <!-- 포트원 결제 -->
+     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
      <!-- jQuery -->
      <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
      <!-- iamport.payment.js -->
      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+     <!-- 포트원 결제 -->
+
 
      <script>
+
       var IMP = window.IMP;
-      IMP.init("imp15578583"); // 가맹점 식별 코드
+      IMP.init("imp15578583");  // 가맹점 식별코드
 
       function requestPay() {
 
+       console.log("order_idx" + "${order_idx}");
+
        IMP.request_pay({
-        // 결제 시 사용할 정보 입력
-        pg: "{html5_inicis}.{INIpayTest}",      //{PG사코드}.{MID} 
-        pay_method: "card",                     // 결제 방법
-        merchant_uid: "${order_idx}",           // 주문번호 'p' + new Date().getTime()+'_'+memberId
-        name: "${performance_name}",            // 상품명
-        amount: "${order_amount}",            // 결제금액 
-        buyer_email: "${mem_email}",            // 구매자 정보 필드는 필요에 따라 생략 가능
-        buyer_name: "${mem_name}",
-        buyer_tel: "${mem_phone}",
-        buyer_addr: "${mem_addr}",
-        buyer_postcode: "${mem_zipcode}"
-       },
-        function (rsp) { // callback
+        pg: "kakaopay", // PG사명 (카카오페이)
+        pay_method: "card", // 결제수단
+        merchant_uid: 'p' + new Date().getTime() + '_' + "${order_idx}", // 주문번호
+        name: "${vo.performance_name}", // 상품명
+        amount: "${order_amount}", // 결제 금액
+        buyer_email: "${mem_email}", // 구매자 이메일
+        buyer_name: "${mem_name}", // 구매자 이름
+        buyer_tel: "${mem_phone}", // 구매자 전화번호
+        buyer_addr: "${mem_addr}", // 구매자 주소
+        buyer_postcode: "${mem_zipcode}" // 구매자 우편번호
+       }, function (rsp) { // callback 함수
+        if (rsp.success) {
+         // 결제 성공 시 처리
          $.ajax({
-          type: 'POST',
-          url: "/payment/payment.do",  //결제 금액을 보낼 url 설정 ex) "/user/mypage/charge/point"
+          type: "POST",
+          url: "/payment/payment.do",  // 서버에서 결제를 처리하는 URL
           data: {
-           test: "test"
-           // imp_uid: rsp.imp_uid, // 아임포트 결제 완료 후 응답 받은 imp_uid
-           // order_idx: rsp.merchant_uid, // 주문번호
-           // order_amount: rsp.paid_amount // 결제된 금액
+           imp_uid: rsp.imp_uid,  // 아임포트 결제 고유번호
+           merchant_uid: rsp.merchant_uid,  // 상점에서 생성한 주문번호
+           order_amount: rsp.paid_amount,  // 실제 결제 금액
+           order_idx: "${order_idx}"  // 주문 번호 (백엔드에서 활용할 수 있음)
           },
-          success: function (res_data) {
-
-           console.log("서버 응답 데이터:", res_data); // 응답 전체를 출력
-           // 필요한 데이터가 어디에 있는지 확인
-
-           // rsp.paid_amount: 아임포트에서 받은 응답. 실제 결제된 금액
-           // res_data.response.amount: 서버에서 받은 응답 데이터. 결제 요청을 처리한 결과에서 사용자가 요청한 금액이 저장된 부분
-           // if (res_data && res_data.response && res_data.response.amount) {
-           //  if (rsp.paid_amount === res_data.response.amount) {
-           //   alert("결제 성공");
-           //   //결제 성공 후 이동할 페이지
-           //   location.href = "/payment/success";
-
-           //  } else {
-           //   alert("결제 금액 불일치");
-           //  }
-           // }
-           // else {
-           //  console.error("응답 데이터가 예상과 다릅니다.");
-           //  alert("결제 실패!!!");
-           // }
+          success: function (result) {
+           alert("결제가 완료되었습니다.");
+           //self.close();
+           location.href = "/payment/success.do"; // 서버에서 전달받은 URL을 통해 리다이렉트
           },
-          error: function (err) {
-           console.error("AJAX 요청 실패: ", err);
-           alert("결제 실패");
+          error: function (result) {
+           alert(result.responseText);
+           cancelPayments(rsp);  // 결제 취소 함수
           }
          });
-
+        } else {
+         // 결제 실패 시 로직
+         alert("결제 실패");
+         alert(rsp.error_msg);
+         console.log(rsp);
         }
-
-       );
+       });
       }
+
      </script>
+
+
+
+     <!-- <script>
+      var IMP = window.IMP;
+      IMP.init("imp15578583");  // 가맹점 식별코드
+
+
+      function requestPay() {
+       IMP.request_pay({
+        pg: "kakaopay", // PG사명 (카카오페이)
+        pay_method: "card", // 결제수단
+        merchant_uid: 'p' + new Date().getTime() + '_' + "${order_idx}", // 주문번호
+        name: "${vo.performance_name}", // 상품명
+        amount: "${order_amount}", // 결제 금액
+        buyer_email: "${mem_email}", // 구매자 이메일
+        buyer_name: "${mem_name}", // 구매자 이름
+        buyer_tel: "${mem_phone}", // 구매자 전화번호
+        buyer_addr: "${mem_addr}", // 구매자 주소
+        buyer_postcode: "${mem_zipcode}" // 구매자 우편번호
+       },
+
+        function (rsp) { // callback 함수
+         if (rsp.success) {
+          // 결제 성공 시 처리
+          let data = {
+           imp_uid: rsp.imp_uid, // 아임포트 결제 고유번호
+           merchant_uid: rsp.merchant_uid, // 상점에서 생성한 주문번호
+           order_amount: rsp.paid_amount // 실제 결제 금액
+          };
+
+          // 결제 검증
+          $.ajax({
+           type: "POST",
+           url: "/payment/payment.do",
+           data: JSON.stringify(data),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (result) {
+            alert("결제검증 완료");
+            //self.close();
+           },
+           error: function (result) {
+            alert(result.responseText);
+            cancelPayments(rsp);
+           }
+          });
+
+         } else {// 결제 실패 시 로직
+          alert("결제 실패");
+          alert(rsp.error_msg);
+          console.log(rsp);
+         }
+        });
+      }
+     </script> -->
+
+
 
     </head>
 
     <body>
+
      <form>
       <input type="hidden" name="performance_idx" value="${param.performance_idx}" />
       <input type="hidden" name="date" value="${param.date}" />
       <input type="hidden" name="selectedSeats" value="${param.selectedSeats}" />
       <input type="hidden" name="seatInfo" value="${param.seatInfo}" />
       <div id="seat-box">
-
+       <!-- amount 확인용 -->
+       <!-- <p>결제 금액: ${order_amount}</p> -->
 
        <div id="seat-box-header">
         <div class="seat-title" title="${ vo.performanceCateVo.performance_cate_name }&nbsp; - ${ vo.performance_name }
@@ -112,12 +166,12 @@
        </div>
 
        <div id="content_left">
-        <div id="payment">
+        <div>
          <div class="content_title">결제 수단 선택</div>
          <br>
-         <input type="radio" name="performance_detail_cate_idx" value="0" checked />신용카드
-         <input type="radio" name="performance_detail_cate_idx" value="0" />무통장입금
+         <!-- <input type="radio" name="performance_detail_cate_idx" value="0" checked />신용카드 -->
          <input type="radio" name="performance_detail_cate_idx" value="0" />카카오페이
+         <input type="radio" name="performance_detail_cate_idx" value="0" />무통장입금
         </div>
 
         <div id="agree">
@@ -197,24 +251,23 @@
           <tr>
            <td>선택 좌석</td>
            <td>
-            ${param.seat_grade}
-            <!-- <c:forEach var="ordersVo" items="${list}">
+            <!-- ${param.seat_grade} -->
+            <c:forEach var="ordersVo" items="${list}">
              <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
               ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
              </c:forEach>
-            </c:forEach> -->
+            </c:forEach>
            </td>
 
           </tr>
           <tr>
            <td>티켓 금액</td>
            <td>
-            ${param.seat_grade}
-            <!-- <c:forEach var="ordersVo" items="${list}">
+            <c:forEach var="ordersVo" items="${list}">
              <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
               ${ ordersSeatVo.seat_price }원<br>
              </c:forEach>
-            </c:forEach> -->
+            </c:forEach>
            </td>
           </tr>
           <tr>
@@ -223,7 +276,7 @@
           </tr>
           <tr>
            <td>총 결제 금액</td>
-           <td>0원</td>
+           <td><span id="total_payment">${param.total_payment}</span></td>
           </tr>
          </table>
 
@@ -233,6 +286,7 @@
           <input type="button" class="btn" value="이전"
            onclick="location.href='performance_seat.do?performance_idx=${param.performance_idx}&date=${param.date}'">
           <input type="button" id="next_btn" class="btn" value="결제하기" onclick="requestPay();">
+          <!-- <button id="payment">구매하기</button> 결제하기 버튼 생성 -->
          </div>
         </div>
        </div>
