@@ -107,6 +107,13 @@
      }
     </script>
 
+    <script>
+     function goToMyPaymentList() {
+      // 마이페이지로 이동하면서 구매내역을 바로 보여주는 URL로 이동
+      window.location.href = '/mypage.do?show=paymentList';
+     }
+    </script>
+
    </head>
 
    <body>
@@ -144,7 +151,9 @@
      </div>
 
      <button class="btn btn-custom" onclick="redirectHome('../main/list.do');">홈으로</button>
-     <button class="btn btn-custom" onclick="redirectHome('../payment/list.do');">구매 내역 보기</button>
+
+     <button id="viewPaymentList" class="btn btn-custom" onclick="goToMyPaymentList()">구매내역 보기</button>
+
     </div>
     </div>
 
