@@ -25,5 +25,6 @@ public class ReviewVo {
  int review_score_point; // 평점 불러오기 위해 추가
 
  String performance_name; // 공연 이름
+ String performance_image; // 공연 이미지
 
 }

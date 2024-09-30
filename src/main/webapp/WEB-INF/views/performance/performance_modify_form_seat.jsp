@@ -141,7 +141,7 @@
 
    <body>
     <form id="mainForm" method="post" action="modify_seat.do">
-     <input type="hidden" name="performance_idx" value="${performance_idx}">
+     <input type="hidden" name="performance_idx" value="${param.performance_idx}">
 
      <div id="box">
       <div class="panel panel-default">
@@ -162,10 +162,10 @@
 
            <h4>좌석 가격</h4>
            <div>*숫자만 입력해주세요. ex) 100,000원 -> 100000</div>
-           <input class="form-control content" type="number" name="seat_price" value="${seat.seat_price}">
+           <input class="form-control content" type="number" name="seat_price" value="${seat.seat_price}" required>
 
            <!-- 좌석 ID를 hidden으로 함께 전송 -->
-           <input type="hidden" name="seat_idx[]" value="${seat.seat_idx}">
+           <!-- <input type="hidden" name="seat_idx[]" value="${seat.seat_idx}"> -->
 
            <button type="button" class="btn btn-danger btn_remove" onclick="removeSeatForm(this);">취소</button>
            <hr>
@@ -178,6 +178,7 @@
 
         <!-- 폼 전송 버튼 -->
         <input class="btn btn_insert" type="button" style="width: 100%;" value="모든 좌석 수정" onclick="sendAll(this.form);">
+
        </div>
       </div>
      </div>

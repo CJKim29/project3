@@ -86,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ) p2
     WHERE no BETWEEN #{ start } AND #{ end }
 
-                                              <!-- 정렬 -->
+                                                <!-- 정렬 -->
   <choose>
    <when test='sort_options == "s_abc"'>
             order by performance_name asc 
@@ -255,7 +255,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <!-- 특정 카테고리 공연 조회 -->
-<select id="selectByCategory" parameterType="Map" resultMap="performanceMap">
+ <select id="selectByCategory" parameterType="Map" resultMap="performanceMap">
     SELECT * FROM
     (
         SELECT
@@ -264,44 +264,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM  
         (
             SELECT * FROM performance 
-            <trim prefix="WHERE" prefixOverrides="and">
-                <if test="performance_cate_idx != 0">
+  <trim prefix="WHERE" prefixOverrides="and">
+   <if test="performance_cate_idx != 0">
                     performance_cate_idx = #{performance_cate_idx}
-                </if>
-                <if test="performance_detail_cate_idx != 0">
+   </if>
+   <if test="performance_detail_cate_idx != 0">
                     and performance_detail_cate_idx = #{performance_detail_cate_idx}
-                </if>
-                <if test="hall_area != 'all'">
+   </if>
+   <if test="hall_area != 'all'">
                     and (hall_idx IN (SELECT hall_idx FROM hall WHERE hall_area = #{hall_area}))
-                </if>
-            </trim>
+   </if>
+  </trim>
         ) p
     ) p2
     WHERE no BETWEEN #{start} AND #{end}
-</select>
+ </select>
 
-<select id="selectRowTotalByCategory" parameterType="map" resultType="int">
+ <select id="selectRowTotalByCategory" parameterType="map" resultType="int">
     SELECT ifnull(count(*),0) 
     FROM performance
-    <where>
-        <if test="performance_cate_idx != 0">
+  <where>
+   <if test="performance_cate_idx != 0">
             AND performance_cate_idx = #{performance_cate_idx}
-        </if>
-        <if test="performance_detail_cate_idx != 0">
+   </if>
+   <if test="performance_detail_cate_idx != 0">
             AND performance_detail_cate_idx = #{performance_detail_cate_idx}
-        </if>
-        <if test="hall_area != 'all'">
+   </if>
+   <if test="hall_area != 'all'">
             AND hall_idx IN (SELECT hall_idx FROM hall WHERE hall_area = #{hall_area})
-        </if>
-    </where>
-</select>
+   </if>
+  </where>
+ </select>
 
-<!-- 전체조회 (최신순 정렬) -->
-<select id="select_cate" parameterType="map" resultMap="performanceMap">
+ <!-- 전체조회 (최신순 정렬) -->
+ <select id="select_cate" parameterType="map" resultMap="performanceMap">
     SELECT *
     FROM performance
     WHERE performance_cate_idx = #{performance_cate_idx}
-</select>
+ </select>
 
 
 
@@ -309,4 +309,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!--parameterType = 전달인자타입
 		    resultType = select결과에 대한 포장타입(각레코드에 대한) -->
 
+
+ <!-- 좌석등급 수정을 위한 선행처리(삭제) -->
+ <!-- performance_date에서 performance_idx로 performance_date_idx 추출 -->
+ <select id="selectPerformanceDateIdx" parameterType="int" resultType="int">
+    SELECT performance_date_idx
+    FROM performance_date
+    WHERE performance_idx = #{performance_idx}
+ </select>
+
+ <!-- m_hall에서 performance_date_idx로 데이터 삭제 -->
+ <delete id="deleteFromMHall" parameterType="int">
+    DELETE FROM m_hall
+    WHERE performance_date_idx = #{performance_date_idx}
+ </delete>
+
+ <!-- performance_date에서 performance_idx로 해당 데이터 삭제 -->
+ <delete id="deletePerformanceDates" parameterType="int">
+    DELETE FROM performance_date
+    WHERE performance_idx = #{performance_idx}
+ </delete>
+
+ <!-- seat에서 performance_idx로 해당 데이터 삭제 -->
+ <delete id="deleteSeatByPerformanceIdx" parameterType="int">
+    DELETE FROM seat
+    WHERE performance_idx = #{performance_idx}
+ </delete>
+ 
 </mapper>
