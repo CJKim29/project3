@@ -51,6 +51,7 @@ public class CartController {
     model.addAttribute("list", list);
     return "cart/cart_list";
   }
+
   // 마이페이지에서 장바구니 조회시 호출
   @RequestMapping("ajax_list.do")
   public String ajax_list(Model model) {
@@ -72,7 +73,8 @@ public class CartController {
     // 공연 카테고리 인덱스 조회
     int performance_cate_idx = cart_mapper.select_performance_cate_idx(cartVo.getPerformance_idx());
     // 공연 날짜 번호 얻어오기
-    int performance_date_idx = book_mapper.selectPerformanceDateIdx(cartVo.getReserved_performance_date(),cartVo.getPerformance_idx());
+    int performance_date_idx = book_mapper.selectPerformanceDateIdx(cartVo.getReserved_performance_date(),
+        cartVo.getPerformance_idx());
 
     // 좌석등록(반복문 - 최대 4좌석 등록을 위함 - 2차 등록)
     for (String seat : seatInfo) {
@@ -117,7 +119,7 @@ public class CartController {
 
   @ResponseBody // Ajax 응답을 위한 어노테이션 추가
   @RequestMapping("check_seat.do")
-  public String check_seat(@RequestParam("cart_idx") int cart_idx) {
+  public boolean check_seat(@RequestParam("cart_idx") int cart_idx) {
     // 1. 장바구니 내 좌석 정보 가져오기
     List<Cart_seatVo> seatList = cart_seat_mapper.cart_seat_select_one(cart_idx);
 
@@ -153,21 +155,22 @@ public class CartController {
           break;
       }
 
-      // 가져온 값이 1이면, reserved return
       if (reserved == 1) {
-        return "reserved";
+        return true; // 예약된 좌석이 존재함
       }
     }
-    // 0이면, 기본적으로 결제페이지로 이동시킨다.
-    return "available";
+    return false; // 예약된 좌석이 없음
 
   }
 
-  // 테스트(이후 삭제 예정)
   @RequestMapping("payment.do")
-  public String payment(@RequestParam("cart_idx") int cart_idx, Model model) {
-    model.addAttribute("cart_idx", cart_idx);
-    return "cart/testPayment"; // 테스트용 결제 페이지
+  public String cart_payment(int cart_idx, Model model) {
+
+    List<CartVo> cart_list = cart_mapper.cart_pay(cart_idx);
+
+    model.addAttribute("cart_list", cart_list);
+
+    return "cart/cart_payment_check";
   }
 
 }
