@@ -85,18 +85,18 @@
             }
           </style>
 
-          <script src="../resources/template/js/jquery.min.js"></script>
+          <!-- <script src="../resources/template/js/jquery.min.js"></script> -->
+          <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
           <!-- 카테고리 별 조회 -->
           <script>
+           // var $my = $.noConflict(true);
             $(document).ready(function () {
               // 페이지가 로드될 때 바로 화면 출력되도록 search() 호출
               search();
 
               // 이름이 genre, hall_area인 input 태그가 클릭되면 search() 호출
-              $(
-                "input[name='performance_detail_cate_idx'],input[name='hall_area']"
-              ).click(function () {
+              $("input[name='performance_detail_cate_idx'],input[name='hall_area']").click(function () {
                 search();
               });
             });
@@ -111,14 +111,6 @@
               const sort_options = $("#sort_options").val(); // sort_options 값 가져오기
               const sort_options_number = $("#sort_options_number").val(); // sort_options 값 가져오기
 
-              //alert(genre + "/" + hall_area);
-              // 전송 데이터 확인
-              console.log({
-                performance_detail_cate_idx,
-                hall_area,
-                sort_options,
-                sort_options_number,
-              });
 
               $.ajax({
                 url: "category.do", // controller
@@ -130,7 +122,10 @@
                   sort_options_number: sort_options_number,
                 }, //paramter 전달  category.do?performance_detail_cate_idx="all"
                 success: function (res_data) {
+                 
                   $("#disp").html(res_data);
+
+                  // console.log(res_data);
                 },
                 error: function (err) {
                   alert(err.responseText);
@@ -195,7 +190,28 @@
                           class="custom-control-input" />
                         <label class="custom-control-label" for="kids">어린이</label>
                       </div>
+                      <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="ballad" name="performance_detail_cate_idx" value="13"
+                               class="custom-control-input" />
+                        <label class="custom-control-label" for="ballad">발라드</label>
                     </div>
+                    <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="rock" name="performance_detail_cate_idx" value="14"
+                               class="custom-control-input" />
+                        <label class="custom-control-label" for="rock">락</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="hiphop" name="performance_detail_cate_idx" value="15"
+                               class="custom-control-input" />
+                        <label class="custom-control-label" for="hiphop">힙합</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-radio-label">
+                        <input type="radio" id="teuroteu" name="performance_detail_cate_idx" value="16"
+                               class="custom-control-input" />
+                        <label class="custom-control-label" for="teuroteu">트로트</label>
+                    </div>
+                    </div>
+                  </div>
 
                     <!-- 지역별 라디오 버튼 -->
                     <div class="radio-group">
@@ -237,6 +253,8 @@
                         <label class="custom-control-label" for="jeju">제주</label>
                       </div>
                     </div>
+
+                  </div>
 
                     <!-- <input type="radio" name="performance_detail_cate_idx" value="0" checked />전체
                     <input type="radio" name="performance_detail_cate_idx" value="1" />로맨틱코미디
@@ -323,38 +341,9 @@
           <!-- 컨텐츠 영역 -->
           <div id="disp"></div>
 
-          <!-- Popper JS -->
-          <script src="../resources/template/js/popper.min.js"></script>
-          <!-- Bootstrap JS -->
-          <script src="../resources/template/js/bootstrap.min.js"></script>
-          <!-- Color JS -->
-          <script src="../resources/template/js/colors.js"></script>
-          <!-- Slicknav JS -->
-          <script src="../resources/template/js/slicknav.min.js"></script>
-          <!-- Owl Carousel JS -->
-          <script src="../resources/template/js/owl-carousel.js"></script>
-          <!-- Magnific Popup JS -->
-          <script src="../resources/template/js/magnific-popup.js"></script>
-          <!-- Fancybox JS -->
-          <script src="../resources/template/js/facnybox.min.js"></script>
-          <!-- Waypoints JS -->
-          <script src="../resources/template/js/waypoints.min.js"></script>
-          <!-- Countdown JS -->
-          <script src="../resources/template/js/finalcountdown.min.js"></script>
-          <!-- Nice Select JS -->
-          <script src="../resources/template/js/nicesellect.js"></script>
-          <!-- Ytplayer JS -->
-          <script src="../resources/template/js/ytplayer.min.js"></script>
-          <!-- Flex Slider JS -->
-          <script src="../resources/template/js/flex-slider.js"></script>
-          <!-- ScrollUp JS -->
-          <script src="../resources/template/js/scrollup.js"></script>
-          <!-- Onepage Nav JS -->
-          <script src="../resources/template/js/onepage-nav.min.js"></script>
-          <!-- Easing JS -->
-          <script src="../resources/template/js/easing.js"></script>
-          <!-- Active JS -->
-          <script src="../resources/template/js/active.js"></script>
+
+          <%@ include file="/WEB-INF/views/include/footer.jsp" %> 
+  
         </body>
 
         </html>

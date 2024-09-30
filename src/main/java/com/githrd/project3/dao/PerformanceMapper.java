@@ -84,9 +84,13 @@ public interface PerformanceMapper {
  int getPerformanceDateIdx(int performance_idx,
    Date performance_date_date);
 
-       // 카테고리별 공연 조회
-List<PerformanceVo> selectByCategory(int performance_cate_idx);
+  // 카테고리별 공연 조회
+  List<PerformanceVo> selectByCategory(Map<String, Object> map);
 
+  // 카테고리별 전체 공연 수
+  int selectRowTotalByCategory(Map<String, Object> map);
 
+  // 카테고리별 공연 목록 조회
+List<PerformanceVo> select_cate(int performance_cate_idx);
 
 }
