@@ -451,6 +451,9 @@
                   </script>
                   <!-- 관람 후기 -->
                   <c:forEach var="review" items="${list}">
+                   <p>해당 공연명 : <a
+                     href="../detail/detail.do?performance_idx=${review.performance_idx}">${review.performance_name}</a>
+                   </p>
                    <div class="single-rating">
                     <div class="rating-author">
                      <img src="../resources/images/${ review.mem_filename }">
@@ -517,7 +520,6 @@
                          });
                         });
                        </script> -->
-
 
                        <div class="reg-information" style="text-align: right;">
                         조회&nbsp;${
@@ -643,70 +645,11 @@
       </div>
      </section>
      <!--/ End Shop Single -->
+     </div>
+     </div>
+     </div>
 
-     <!-- Modal -->
-     <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog" style="display: flex; align-items: center; justify-content: center;">
-
-       <!-- Modal content-->
-       <div class="modal-content" style="border-radius: 16px; width: 710px; height: 655px;">
-        <div class="myModal-header">
-         <button type="button" class="close" data-dismiss="modal" style="padding: 0 20px; margin-top: 18px;">X</button>
-         <div style="top: 0; left: 0; padding: 0 20px; text-align: left; border-bottom: 1px solid #dde4ec; height: 50px;
-				margin-top: 15px;">
-          <h4 class="modal-title">공연장 정보</h4>
-         </div>
-        </div>
-        <!-- 본문 -->
-        <div class="modal-body" style="padding: 16px 25px 25px;">
-         <div style="margin-bottom: 8px; font-weight: bold; font-size: 20px;">
-          ${vo.hallVo.hall_name}
-         </div>
-         <div style="color: #666; font-size: 15px;">전화번호 : ${vo.hallVo.hall_tel}</div>
-         <div style="color: #666; font-size: 15px;">주소 : ${vo.hallVo.hall_addr}</div>
-         <div style="color: #666; font-size: 15px;"><a href="${vo.hallVo.hall_site}" target="_blank">홈페이지
-           : ${vo.hallVo.hall_site}<i class="fi fi-sr-caret-right"
-            style="display: inline-block; position: relative; top: 3px;"></i></a>
-         </div>
-         <div style="margin-top: 23px; border: 1px solid #ccc;">
-          <div id="map" style="width:656px; height:339px;"></div>
-          <input type="hidden" id="address" value="${vo.hallVo.hall_addr}">
-
-          <script>
-           function loadMap() {
-            var address = document.getElementById('address').value;
-
-            naver.maps.Service.geocode({
-             query: address
-            }, function (status, response) {
-             if (status !== naver.maps.Service.Status.OK) {
-              return alert('지도 위치를 찾을 수 없습니다.');
-             }
-
-             var result = response.v2.addresses[0];
-             var latitude = result.y;
-             var longitude = result.x;
-
-             var mapOptions = {
-              center: new naver.maps.LatLng(latitude, longitude),
-              zoom: 17
-             };
-
-             var map = new naver.maps.Map('map', mapOptions);
-
-             var marker = new naver.maps.Marker({
-              position: new naver.maps.LatLng(latitude, longitude),
-              map: map
-             });
-            });
-           }
-
-          </script>
-         </div>
-        </div>
-       </div>
-
-      </div>
+     </div>
      </div>
 
      <!-- Jquery -->
