@@ -5,28 +5,7 @@
    <html>
 
    <head>
-    <script>
 
-     // 구매 내역 조회
-     function myPayment() {
-      $.ajax({
-       url: '/payment/list.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
-       type: 'GET',
-       data: {
-        order_idx: order_idx,
-        mem_idx: mem_idx
-       },
-       success: function (result) {
-        // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
-        $('.content').html(response);
-       },
-       error: function (xhr, status, error) {
-        console.error('AJAX 요청 실패:', status, error);
-        $('.content').html('<p>구매 내역을 불러오는 데 실패했습니다.</p>');
-       }
-      });
-     }
-    </script>
    </head>
 
    <body>
@@ -49,13 +28,15 @@
           </tr>
          </thead>
          <tbody>
+
           <c:if test="${ empty list }">
            <tr>
             <td colspan="5" align="center">
-             <font color="red">담긴 티켓이 없습니다</font>
+             <font color="red">구매 내역이 없습니다</font>
             </td>
            </tr>
           </c:if>
+
           <c:forEach var="vo" items="${ list }">
            <tr>
             <td class="image" data-title="No"><img src="../resources/images/${ vo.performance_image }" alt="#"><br>

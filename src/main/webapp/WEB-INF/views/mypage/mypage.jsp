@@ -92,6 +92,36 @@
     });
    }
   </script>
+
+
+  <script>
+   // 구매 내역 조회
+   $(document).ready(function () {
+    // '구매내역' 링크 클릭 시
+    $('#paymentList').on('click', function (event) {
+     event.preventDefault();  // 기본 링크 동작을 막음
+
+     // AJAX 요청 보내기
+     $.ajax({
+      url: '/payment/list.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
+      type: 'GET',
+      // data: {
+      //  order_idx: order_idx,
+      //  mem_idx: mem_idx
+      // },
+      success: function (result) {
+       // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
+       $('.content').html(response);
+      },
+      error: function (xhr, status, error) {
+       console.error('AJAX 요청 실패:', status, error);
+       $('.content').html('<p>구매 내역을 불러오는 데 실패했습니다.</p>');
+      }
+     });
+    });
+   });
+  </script>
+
  </head>
 
  <body>
@@ -123,7 +153,7 @@
     <hr />
     <ul>
      <li><a href="#" data-content="cart" id="cartLink">장바구니</a></li>
-     <li><a href="#" data-content="purchase-history">구매 내역</a></li>
+     <li><a href="#" data-content="payment" id="paymentList">구매 내역</a></li>
     </ul>
     <hr />
     <ul>
