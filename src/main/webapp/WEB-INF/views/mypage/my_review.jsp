@@ -450,7 +450,7 @@
                    }
                   </script>
                   <!-- 관람 후기 -->
-                  <c:forEach var="review" items="${list}">
+                  <c:forEach var="review" items="${my_review_list}">
                    <p>해당 공연명 : <a
                      href="../detail/detail.do?performance_idx=${review.performance_idx}">${review.performance_name}</a>
                    </p>

@@ -49,14 +49,49 @@ public class MypageController {
  }
 
  @RequestMapping("ajax_review.do")
- public String review_list(Model model) {
+ public String review_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+   Model model) {
 
   MemberVo user = (MemberVo) session.getAttribute("user");
 
   int mem_idx = user.getMem_idx();
 
-  List<ReviewVo> list = review_mapper.selectMyReviewList(mem_idx);
-  model.addAttribute("list", list);
+  // List<ReviewVo> list = review_mapper.selectMyReviewList(mem_idx);
+  // model.addAttribute("list", list);
+
+  Map<String, Object> map = new HashMap<String, Object>();
+
+  int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
+  int end = start + MyCommon.Review.BLOCK_LIST - 1;
+
+  map.put("start", start);
+  map.put("end", end);
+  map.put("mem_idx", mem_idx);
+
+  // 전체 게시물 수
+  int rowTotal = review_mapper.my_review_row_total(mem_idx);
+
+  // pageMenu생성하기
+  String pageMenu = Paging3.getMyReviewPaging(
+    nowPage,
+    rowTotal,
+    MyCommon.Review.BLOCK_LIST,
+    MyCommon.Review.BLOCK_PAGE);
+
+  // 게시판 목록가져오기
+  List<ReviewVo> my_review_list = review_mapper.my_review_list(map);
+
+  // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+  // DS는 model에 저장된 데이터를 request binding시킨다
+
+  model.addAttribute("my_review_list", my_review_list);
+  model.addAttribute("pageMenu", pageMenu);
+
+  // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
+  int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.Review.BLOCK_LIST); // 전체 페이지 수
+
+  model.addAttribute("totalPages", totalPages);
+  model.addAttribute("currentPage", nowPage);
 
   return "mypage/my_review";
  }

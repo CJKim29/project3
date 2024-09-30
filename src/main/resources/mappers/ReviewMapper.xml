@@ -289,4 +289,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE m.mem_idx = #{mem_idx}
     ORDER BY r.review_idx desc;
  </select>
+
+ <!-- paging 별 최신글순 조회 -->
+ <select id="my_review_list" parameterType="Map" resultType="review">
+    SELECT * FROM (
+        SELECT 
+            r.review_idx, r.review_title, r.review_content,
+            r.mem_nickname, r.review_regdate, r.review_readhit,
+            rs.review_score_point, m.mem_filename, m.mem_idx,
+            p.performance_name, p.performance_idx,
+            ROW_NUMBER() OVER (ORDER BY r.review_idx DESC) AS no
+        FROM 
+            review r
+        JOIN 
+            member m ON r.mem_idx = m.mem_idx
+        LEFT JOIN 
+            review_score rs ON r.review_idx = rs.review_idx
+        LEFT JOIN 
+            performance p ON r.performance_idx = p.performance_idx
+        WHERE 
+            m.mem_idx = #{mem_idx}
+    ) ranked_reviews
+    WHERE no BETWEEN #{start} AND #{end}
+ </select>
+
+ <!-- 전체 게시물 수 -->
+ <select id="my_review_row_total" resultType="int">
+        SELECT IFNULL(COUNT(*), 0) FROM review where mem_idx=#{mem_idx}
+ </select>
+
 </mapper>

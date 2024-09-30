@@ -67,26 +67,30 @@
   </script>
   <script>
    $(document).ready(function () {
-    // '장바구니' 링크 클릭 시
     $('#MyReview').on('click', function (event) {
      event.preventDefault();  // 기본 링크 동작을 막음
-
-     // AJAX 요청 보내기
-     $.ajax({
-      url: '/mypage/ajax_review.do',  // 호출할 URL
-      type: 'GET',           // HTTP 메소드
-      success: function (response) {
-       // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
-       $('.content').html(response);
-      },
-      error: function (xhr, status, error) {
-       // 에러가 발생했을 때 처리
-       console.error('AJAX 요청 실패:', status, error);
-       $('.content').html('<p>나의 후기 목록을 불러오는 데 실패했습니다.</p>');
-      }
-     });
     });
+    // '장바구니' 링크 클릭 시
+    myReviewList(1);
    });
+
+   function myReviewList(page) {
+    // AJAX 요청 보내기
+    $.ajax({
+     url: '/mypage/ajax_review.do',  // 호출할 URL
+     data: { 'page': page },
+     type: 'GET',           // HTTP 메소드
+     success: function (response) {
+      // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
+      $('.content').html(response);
+     },
+     error: function (xhr, status, error) {
+      // 에러가 발생했을 때 처리
+      console.error('AJAX 요청 실패:', status, error);
+      $('.content').html('<p>나의 후기 목록을 불러오는 데 실패했습니다.</p>');
+     }
+    });
+   }
   </script>
  </head>
 
