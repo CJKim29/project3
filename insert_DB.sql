@@ -171,6 +171,8 @@ insert into performance_detail_cate values(null, 3, '락');
 insert into performance_detail_cate values(null, 3, '힙합');
 insert into performance_detail_cate values(null, 3, '트로트');
 
+
+
 -- performance
 -- 뮤지컬
 -- 1.로맨틱코미디                         장르 공연장
@@ -227,16 +229,16 @@ insert into performance values(null, 1, 6, 1, 1, '피노키오', '2024-03-23', '
 
 -- 연극
 -- 1.로맨틱코미디                         장르 공연장
-insert into performance values(null, 2, 1, 22, 4, '행복총량의 법칙', '2024-08-17', '2024-10-30', 90, '행복총량의 법칙.jpg', 8, 'p', null, null, null);
-insert into performance values(null, 2, 1, 15, 1, '비누향기', '2024-10-10', '2024-12-20', 110, '비누향기.jpg', 12, 'w', null, null, null);
-insert into performance values(null, 2, 1, 14, 1, '은밀한 연애', '2024-03-12', '2024-10-31', 75, '은밀한 연애.PNG', 12, 'p', "[9월]<br>
+insert into performance values(null, 2, 7, 22, 4, '행복총량의 법칙', '2024-08-17', '2024-10-30', 90, '행복총량의 법칙.jpg', 8, 'p', null, null, null);
+insert into performance values(null, 2, 7, 15, 1, '비누향기', '2024-10-10', '2024-12-20', 110, '비누향기.jpg', 12, 'w', null, null, null);
+insert into performance values(null, 2, 7, 14, 1, '은밀한 연애', '2024-03-12', '2024-10-31', 75, '은밀한 연애.PNG', 12, 'p', "[9월]<br>
 화, 수, 목 오후 3시, 5시 / 월, 금 오후 3시, 5시, 7시 30분 / 토요일 오후 1시, 3시, 5시, 7시 / 일요일, 공휴일 오후 2시, 4시<br><br>
 
 [10월]<br>
 평일 오후 3시, 5시, 7시 30분 / 토요일 오후 1시, 3시, 5시, 7시 / 일요일, 공휴일 오후 2시, 4시<br>
 <10월 16일 (수), 10월 23일 (수), 10월 30일 (수) 15시, 17시 공연 없음>", "- 공연 30분 전 매표소 오픈 / 10분 전 입장 가능합니다.", 'sangse29.jpg');
-insert into performance values(null, 2, 1, 16, 1, '라면', '2024-04-04', '2024-10-31', 100, '라면.PNG', 11, 'p', null, null, null);
-insert into performance values(null, 2, 1, 14, 1, '핫식스', '2017-09-14', '2024-10-31', 120, '핫식스.PNG', 19, 'p', "［9월 공연시간］<br>
+insert into performance values(null, 2, 7, 16, 1, '라면', '2024-04-04', '2024-10-31', 100, '라면.PNG', 11, 'p', null, null, null);
+insert into performance values(null, 2, 7, 14, 1, '핫식스', '2017-09-14', '2024-10-31', 120, '핫식스.PNG', 19, 'p', "［9월 공연시간］<br>
 월화수목 : 4시30분<br>
 금 : 3시20분, 6시30분<br>
 토일 : 1시20분, 4시30분, 7시10분<br><br>
@@ -256,17 +258,17 @@ insert into performance values(null, 2, 1, 14, 1, '핫식스', '2017-09-14', '20
 *10/9(수) : 1시30분, 4시40분, 7시30분", null, 'sangse31.jpg'
 );
 -- 2.드라마
-insert into performance values(null, 2, 2, 16, 1, '버나르도&프란시스코', '2024-08-17', '2024-10-13', 95, '버나르도&프란시스코.PNG', 7, 'p', "평일 20시 / 토,공휴일 14시, 18시 / 일요일 16시<br>
+insert into performance values(null, 2, 8, 16, 1, '버나르도&프란시스코', '2024-08-17', '2024-10-13', 95, '버나르도&프란시스코.PNG', 7, 'p', "평일 20시 / 토,공휴일 14시, 18시 / 일요일 16시<br>
 * 월요일, 9월 17일 공연 없음", "※ 매수제한: 회차별 1인 4매<br><br>
 
 ※ 9월10일(화) ~ 9월15일(일) 페어 엽서 증정 이벤트", 'sangse32.jpg');
-insert into performance values(null, 2, 2, 15, 1, '나와 할아버지', '2024-09-24', '2024-11-24', 90, '나와 할아버지.PNG', 10, 'p', null, null, null);
-insert into performance values(null, 2, 2, 18, 2, '이방인', '2024-08-23', '2024-09-22', 100, '이방인.PNG', 15, 'f', "평일 8시 | 토 3시, 7시 | 일 및 공휴일 3시 | 화 쉼", "* 9월 6일(금) 8시 회차는 '2024 야간 공연 관람권 사업'으로 인하여 미오픈됩니다.<br>
+insert into performance values(null, 2, 8, 15, 1, '나와 할아버지', '2024-09-24', '2024-11-24', 90, '나와 할아버지.PNG', 10, 'p', null, null, null);
+insert into performance values(null, 2, 8, 18, 2, '이방인', '2024-08-23', '2024-09-22', 100, '이방인.PNG', 15, 'f', "평일 8시 | 토 3시, 7시 | 일 및 공휴일 3시 | 화 쉼", "* 9월 6일(금) 8시 회차는 '2024 야간 공연 관람권 사업'으로 인하여 미오픈됩니다.<br>
 * 9월 21일(토) 3시 회차는 단체 관람으로 인해 일부 좌석이 마감되었습니다.<br>
 예매 시 참고 부탁드립니다. 감사합니다.", 'sanagse34.jpg');
-insert into performance values(null, 2, 2, 20, 3, '로스트', '2024-09-11', '2025-01-05', 60, '로스트.PNG', 15, 'p', "평일(월~금): 19:30<br>
+insert into performance values(null, 2, 8, 20, 3, '로스트', '2024-09-11', '2025-01-05', 60, '로스트.PNG', 15, 'p', "평일(월~금): 19:30<br>
 토/일/공휴일: 15:30", null, 'sangse35.jpg');
-insert into performance values(null, 2, 2, 19, 2, '불편한 편의점', '2023-04-08', '2024-11-17', 100, '불편한 편의점.PNG', 7, 'p', "* 수-금 19:30 │ 토 14:00, 17:00 │ 일 14:00 │ 월, 화 휴관<br><br>
+insert into performance values(null, 2, 8, 19, 2, '불편한 편의점', '2023-04-08', '2024-11-17', 100, '불편한 편의점.PNG', 7, 'p', "* 수-금 19:30 │ 토 14:00, 17:00 │ 일 14:00 │ 월, 화 휴관<br><br>
 
 * 추석: 9/16(월) 14:00, 17:00 │ 9/17(화) 14:00 │ 9/18(수) 14:00<br>
 * 10/3 (목, 개천절) 14:00│10/9 (수, 한글날) 14:00", "［청소년/학교 및 일반 단체 관람일자］<br>
@@ -278,18 +280,18 @@ insert into performance values(null, 2, 2, 19, 2, '불편한 편의점', '2023-0
 10/18(금) 19:30<br>
 10/19(토) 14:00", 'sangse36.jpg');
 -- 3.코믹
-insert into performance values(null, 2, 3, 17, 1, '2호선 세입자', '2024-11-11', '2024-12-30', 100, '2호선 세입자.jpg', 14, 'w', null, null, null);
-insert into performance values(null, 2, 3, 23, 4, '런투패밀리', '2024-08-02', '2024-12-30', 90, '런투패밀리.jpg', 9, 'p', null, null, null);
-insert into performance values(null, 2, 3, 18, 2, '죽여주는 이야기', '2023-07-01', '2024-11-13', 100, '죽여주는 이야기.PNG', 8, 'p', null, null, null);
-insert into performance values(null, 2, 3, 16, 1, '오백에 삼십', '2015-11-21', '2024-10-31', 100, '오백에 삼십.PNG', 11, 'p', null, null, null);
-insert into performance values(null, 2, 3, 21, 3, '너의 목소리가 들려', '2018-12-06', '2024-10-20', 100, '너의 목소리가 들려.PNG', 12, 'p', null, null, null);
+insert into performance values(null, 2, 9, 17, 1, '2호선 세입자', '2024-11-11', '2024-12-30', 100, '2호선 세입자.jpg', 14, 'w', null, null, null);
+insert into performance values(null, 2, 9, 23, 4, '런투패밀리', '2024-08-02', '2024-12-30', 90, '런투패밀리.jpg', 9, 'p', null, null, null);
+insert into performance values(null, 2, 9, 18, 2, '죽여주는 이야기', '2023-07-01', '2024-11-13', 100, '죽여주는 이야기.PNG', 8, 'p', null, null, null);
+insert into performance values(null, 2, 9, 16, 1, '오백에 삼십', '2015-11-21', '2024-10-31', 100, '오백에 삼십.PNG', 11, 'p', null, null, null);
+insert into performance values(null, 2, 9, 21, 3, '너의 목소리가 들려', '2018-12-06', '2024-10-20', 100, '너의 목소리가 들려.PNG', 12, 'p', null, null, null);
 
 -- 4.공포/스릴러
-insert into performance values(null, 2, 4, 14, 1, '그곳에 있었다', '2023-09-01', '2024-10-16', 70, '그곳에 있었다.jpg', 13, 'p', null, null, null);
-insert into performance values(null, 2, 4, 25, 5, '쉬어매드니스', '2024-07-25', '2024-10-17', 110, '쉬어매드니스.jpg', 16, 'p', null, null, null);
-insert into performance values(null, 2, 4, 24, 5, '자취', '2020-02-28', '2024-10-18', 80, '자취.jpg', 13, 'p', null, null, null);
-insert into performance values(null, 2, 4, 18, 2, '크리미널 시즌4', '2024-07-12', '2024-10-09', 90, '크리미널 시즌4.jpg', 13, 'p', null, null, null);
-insert into performance values(null, 2, 4, 19, 2, '오마이갓', '2017-07-01', '2024-11-15', 90, '오마이갓.PNG', 12, 'p', "［ 9월 공연시간 ］<br>
+insert into performance values(null, 2, 10, 14, 1, '그곳에 있었다', '2023-09-01', '2024-10-16', 70, '그곳에 있었다.jpg', 13, 'p', null, null, null);
+insert into performance values(null, 2, 10, 25, 5, '쉬어매드니스', '2024-07-25', '2024-10-17', 110, '쉬어매드니스.jpg', 16, 'p', null, null, null);
+insert into performance values(null, 2, 10, 24, 5, '자취', '2020-02-28', '2024-10-18', 80, '자취.jpg', 13, 'p', null, null, null);
+insert into performance values(null, 2, 10, 18, 2, '크리미널 시즌4', '2024-07-12', '2024-10-09', 90, '크리미널 시즌4.jpg', 13, 'p', null, null, null);
+insert into performance values(null, 2, 10, 19, 2, '오마이갓', '2017-07-01', '2024-11-15', 90, '오마이갓.PNG', 12, 'p', "［ 9월 공연시간 ］<br>
 월화수목금 : 3시30분, 5시20분<br>
 토 : 1시40분, 3시30분, 5시20분, 7시10분<br>
 일 : 2시, 3시50분, 5시40분<br><br>
@@ -313,9 +315,9 @@ insert into performance values(null, 2, 4, 19, 2, '오마이갓', '2017-07-01', 
 -- 5.퍼포먼스
 
 -- 6.어린이
-insert into performance values(null, 2, 6, 16, 1, '북극곰예술여행', '2019-07-20', '2024-10-30', 60, '북극곰 예술여행.PNG', 2, 'p', null, null, null);
-insert into performance values(null, 2, 6, 15, 1, '아빠와 난 초등1학년', '2024-10-11', '2024-10-13', 60, '아빠와 난 초등1학년.PNG', 3, 'w', null, null, null);
-insert into performance values(null, 2, 6, 14, 1, '시간을 파는 상점', '2016-10-08', '2024-10-27', 90, '시간을 파는 상점.PNG', 8, 'p', "［9~10월 공연 시간］<br>
+insert into performance values(null, 2, 12, 16, 1, '북극곰예술여행', '2019-07-20', '2024-10-30', 60, '북극곰 예술여행.PNG', 2, 'p', null, null, null);
+insert into performance values(null, 2, 12, 15, 1, '아빠와 난 초등1학년', '2024-10-11', '2024-10-13', 60, '아빠와 난 초등1학년.PNG', 3, 'w', null, null, null);
+insert into performance values(null, 2, 12, 14, 1, '시간을 파는 상점', '2016-10-08', '2024-10-27', 90, '시간을 파는 상점.PNG', 8, 'p', "［9~10월 공연 시간］<br>
 금: 17:00<br>
 토: 11:00, 13:00, 15:00, 17:00<br>
 일: 11:00, 13:00, 15:00<br><br>
@@ -332,8 +334,8 @@ insert into performance values(null, 2, 6, 14, 1, '시간을 파는 상점', '20
 10월 4일: 11:00, 13:00, 15:00<br><br>
 
 10월 9일: 11:00, 13:00, 15:00", null, 'sangse49.jpg');
-insert into performance values(null, 2, 6, 20, 3, '난 토마토 절대 안 먹어', '2024-11-08', '2024-11-09', 50, '난 토마토 절대 안 먹어.PNG', 3, 'w', null, null, null);
-insert into performance values(null, 2, 6, 23, 4, '따라가면 안돼', '2024-10-01', '2024-10-02', 50, '따라가면 안돼.PNG', 3, 'f', null, null, null);
+insert into performance values(null, 2, 12, 20, 3, '난 토마토 절대 안 먹어', '2024-11-08', '2024-11-09', 50, '난 토마토 절대 안 먹어.PNG', 3, 'w', null, null, null);
+insert into performance values(null, 2, 12, 23, 4, '따라가면 안돼', '2024-10-01', '2024-10-02', 50, '따라가면 안돼.PNG', 3, 'f', null, null, null);
 
 -- 발라드
 insert into performance values(null, 3, 13, 27, 1, '2024 린(LYn) 콘서트 〈HOME〉', '2024-10-05', '2024-10-06', 100, '2024 린(LYn) 콘서트 〈HOME〉.png', 7, 'w', "1회차: 2024년 10월 5일(토) 오후 3시<br>

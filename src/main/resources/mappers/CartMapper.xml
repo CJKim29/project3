@@ -4,11 +4,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.CartMapper">
 
-  <resultMap id="cartMap" type="cart">
+<!-- cartMap: cart와 cart_seat를 묶어 조회 -->
+<resultMap id="cartMap" type="cart">
     <result property="cart_idx" column="cart_idx" />
-    <!-- 좌석 정보를 담기위한 list -->
-    <collection property="seatList" column="cart_idx=cart_idx" select="cart_seat_list" />
-  </resultMap>
+    <result property="mem_idx" column="mem_idx" />
+    <result property="performance_name" column="performance_name" />
+    <result property="performance_idx" column="performance_idx" />
+    <result property="reserved_performance_date" column="reserved_performance_date" />
+    <result property="hall_name" column="hall_name" />
+    <!-- 좌석 정보를 담기 위한 list -->
+    <collection property="seatList" column="cart_idx" select="cart_seat_list" />
+</resultMap>
 
   <!-- 장바구니 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
   <select id="cart_seat_list" resultType="cart_seat">
@@ -37,6 +43,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       WHERE c.mem_idx = #{mem_idx} 
       ORDER BY c.cart_idx
   </select>
+
+<select id="cart_pay" parameterType="int" resultMap="cartMap">
+    SELECT 
+        c.cart_idx,                         -- 장바구니 번호
+        c.mem_idx,                          -- 회원 번호
+        p.performance_name,                 -- 공연명
+        c.performance_idx,                  -- 공연 번호
+        c.reserved_performance_date,        -- 공연 예약 날짜
+        h.hall_name                         -- 공연장명
+    FROM cart c
+    INNER JOIN performance p ON c.performance_idx = p.performance_idx
+    JOIN cart_seat cs ON c.cart_idx = cs.cart_idx
+    INNER JOIN hall h ON p.hall_idx = h.hall_idx
+    WHERE c.cart_idx = #{cart_idx}
+</select>
 
 
 
@@ -75,5 +96,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <delete id="cart_delete" parameterType="int">
         DELETE FROM cart WHERE cart_idx = #{cart_idx}
   </delete>
+
 
 </mapper>

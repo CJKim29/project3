@@ -19,19 +19,19 @@ function cart_delete(cart_idx, showConfirm) {
 
 // 결제 전에 좌석 예약 여부를 체크하는 함수
 function check_seat(cart_idx) {
+  console.log(cart_idx);
     $.ajax({
         url: '/cart/check_seat.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
         type: 'GET',
         data: { cart_idx: cart_idx },
         success: function(result) {
-            // 서버에서 'reserved'를 반환하면 경고 메시지 및 장바구니 삭제
-            if (result === 'reserved') {
+            if (result === true) {
                 alert("이미 예매된 좌석이 포함되어 있습니다. 해당 항목을 삭제합니다.");
                 cart_delete(cart_idx, false);  // 바로 삭제 (confirm 메시지 없음)
             }
-            // 'available'을 반환하면 결제 페이지로 이동
-            else if (result === 'available') {
-                location.href = "/cart/payment.do?cart_idx=" + cart_idx;  // 결제 페이지로 이동(이후 경로 수정)
+            
+            else if (result === false) {
+              location.href = "/payment.do?cart_idx=" + cart_idx;  // 예매 페이지로 이동
             }
         },
         error: function() {
