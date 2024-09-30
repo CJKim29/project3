@@ -69,17 +69,23 @@ public class PerformanceController {
  @Autowired
  HallMapper hall_mapper;
 
- // 공연 정보 전체 조회
- @RequestMapping("list.do")
- public String performance_list(Model model) {
+// 공연 정보 전체 조회
+@RequestMapping("list.do")
+public String performance_list(@RequestParam(value = "performance_cate_idx", required = false) Integer performance_cate_idx, Model model) {
+    List<PerformanceVo> list;
 
-  // List<PerformanceVo> list = performance_mapper.selectList();
+    // performance_cate_idx가 null이 아니고 1, 2, 3 중 하나인 경우 카테고리별로 공연 조회
+    if (performance_cate_idx != null && (performance_cate_idx == 1 || performance_cate_idx == 2 || performance_cate_idx == 3)) {
+        list = performance_mapper.selectByCategory(performance_cate_idx);
+    } else {
+        // 카테고리별 조회가 아닌 경우 모든 공연 조회
+        list = performance_mapper.selectList();
+    }
 
-  // request binding
-  // model.addAttribute("list", list);
-
-  return "performance/performance_list";
- }
+    // request binding
+    model.addAttribute("list", list);
+    return "performance/performance_list";
+}
 
  // 카테고리 별 조회 및 정렬 기능
  @RequestMapping("category.do")
