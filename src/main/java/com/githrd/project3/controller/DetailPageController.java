@@ -23,7 +23,6 @@ import com.githrd.project3.dao.ReviewMapper;
 import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging3;
-import com.githrd.project3.util.MyCommon.Performance;
 import com.githrd.project3.vo.ActorVo;
 import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
@@ -768,13 +767,14 @@ public class DetailPageController {
       return vo;
    }
 
-   // @RequestMapping(value = "performance.do")
-   // @ResponseBody
-   // public List<Performance> performance(int actor_idx) {
+   @RequestMapping("delete_casting.do")
+   public String delete(CastingVo vo, int casting_idx, int performance_idx) {
 
-   // List<Performance> list = detail_mapper.performance_list_by_actor(actor_idx);
+      vo = detail_mapper.selectCastingFromCastingIdx(casting_idx);
 
-   // return list;
-   // }
+      int res = detail_mapper.delete(casting_idx);
+
+      return "redirect:casting_modify_form.do?" + performance_idx;
+   }
 
 }

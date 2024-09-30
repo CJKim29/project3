@@ -17,8 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    <resultMap id="castingMap" type="casting">
       <result property="actor_idx" column="actor_idx" />
+      <result property="performance_idx" column="performance_idx" />
 
       <association property="actorVo" column="actor_idx=actor_idx" select="actor_list" />
+      <association property="performanceVo" column="performance_idx=performance_idx" select="performance_list_by_actor" />
    </resultMap>
 
    <resultMap id="performanceResultMap" type="Performance">
@@ -123,6 +125,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from casting where performance_idx=#{ performance_idx }
    </select>
 
+   <!-- 캐스팅 idx별 조회 -->
+   <select id="selectCastingFromCastingIdx" parameterType="int" resultMap="castingMap">
+      select * from casting where casting_idx=#{casting_idx}
+   </select>
+
    <!-- 공연 날짜 가져오기 -->
    <select id="getPerformanceDates" resultType="string">
       SELECT DATE_FORMAT(performance_date_date, '%Y-%m-%d') 
@@ -154,10 +161,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       update performance set performance_detail_info=#{performance_detail_info}, performance_al=#{performance_al} where performance_idx=#{performance_idx}
    </update>
 
-   <!-- 캐스팅 추가 -->
-   <insert id="casting_insert">
-      insert casting
-   </insert>
-
+   <!-- 캐스팅 삭제 -->
+   <delete id="delete" parameterType="int">
+      delete from casting where casting_idx=#{casting_idx}
+   </delete>
 
 </mapper>
