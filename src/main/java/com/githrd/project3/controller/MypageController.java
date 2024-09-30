@@ -61,8 +61,8 @@ public class MypageController {
 
   Map<String, Object> map = new HashMap<String, Object>();
 
-  int start = (nowPage - 1) * MyCommon.Review.BLOCK_LIST + 1;
-  int end = start + MyCommon.Review.BLOCK_LIST - 1;
+  int start = (nowPage - 1) * MyCommon.MyReview.BLOCK_LIST + 1;
+  int end = start + MyCommon.MyReview.BLOCK_LIST - 1;
 
   map.put("start", start);
   map.put("end", end);
@@ -75,8 +75,8 @@ public class MypageController {
   String pageMenu = Paging3.getMyReviewPaging(
     nowPage,
     rowTotal,
-    MyCommon.Review.BLOCK_LIST,
-    MyCommon.Review.BLOCK_PAGE);
+    MyCommon.MyReview.BLOCK_LIST,
+    MyCommon.MyReview.BLOCK_PAGE);
 
   // 게시판 목록가져오기
   List<ReviewVo> my_review_list = review_mapper.my_review_list(map);
@@ -88,7 +88,7 @@ public class MypageController {
   model.addAttribute("pageMenu", pageMenu);
 
   // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
-  int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.Review.BLOCK_LIST); // 전체 페이지 수
+  int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.MyReview.BLOCK_LIST); // 전체 페이지 수
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
