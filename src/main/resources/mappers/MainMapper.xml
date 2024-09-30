@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.githrd.project3.dao.MainMapper">
+    <select id="selectPerformanceById" parameterType="int" resultType="performance">
+        SELECT * FROM performance WHERE performance_idx = #{performance_idx}
+    </select>
+
+    <update id="updatePerformance" parameterType="performance">
+        UPDATE performance
+        SET performance_name = #{performance_name},
+            performance_startday = #{performance_startday},
+            performance_endday = #{performance_endday},
+            performance_image = #{performance_image}
+        WHERE performance_idx = #{performance_idx}
+    </update>
+</mapper>

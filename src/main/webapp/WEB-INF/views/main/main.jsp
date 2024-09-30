@@ -96,8 +96,7 @@
 													<div class="product-img">
 														<!-- 관리자 수정, 삭제 버튼 -->
 														<div class="admin-btns">
-															<a href="main_performance_modi.jsp?performance_idx=1" class="btn btn-warning btn-sm">수정</a>
-															<button onclick="deletePerformance(1)" class="btn btn-danger btn-sm">삭제</button>
+															<a href="main_performance_modi.do" class="btn btn-warning btn-sm">수정</a>	
 														</div>						
 														<a href="../detail/detail.do?performance_idx=1">
 															<!-- 이미지 크기는 550x750  -->
@@ -448,6 +447,7 @@
             </div>
     </div>
 	<!-- End Product Area -->
+	 <!-- 추천공연 end -->
 	
 	
 <!-- 최신, 랭킹 별 공연 -->
