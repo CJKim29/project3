@@ -68,9 +68,9 @@
            if (result.result == "success") {
 
             alert("결제가 완료되었습니다.");
-            //self.close();
-            //location.href = "/payment/success.do"; // 서버에서 전달받은 URL을 통해 리다이렉트
+
             location.href = `/payment/success.do?performance_idx=${param.performance_idx}&order_idx=${order_idx}&used_point2=${param.used_point2}`;  // 서버에서 전달받은 URL을 통해 리다이렉트
+
            } else if (result.result == "fail_not_same_payment") {
             alert("결제 금액이 불일지 합니다");
            }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.githrd.project3.dao.BookMapper;
 import com.githrd.project3.dao.PaymentMapper;
 import com.githrd.project3.service.IamportService;
+import com.githrd.project3.vo.CartVo;
 import com.githrd.project3.vo.MemberVo;
 import com.githrd.project3.vo.OrdersVo;
 import com.siot.IamportRestClient.IamportClient;
@@ -127,6 +128,27 @@ public class PaymentController {
   model.addAttribute("used_point2", used_point2);
 
   return "payment/success";
+ }
+
+ // 구매내역 조회
+ @RequestMapping("list.do")
+ public String paymentList(
+   @RequestParam("order_idx") int order_idx,
+   @RequestParam("used_point2") String used_point2,
+   Model model) {
+
+  MemberVo user = (MemberVo) session.getAttribute("user");
+
+  // 주문 조회 시 필요한 정보 map에 담음
+  Map<String, Object> map = new HashMap<>();
+  map.put("mem_idx", user.getMem_idx());
+  map.put("order_idx", order_idx);
+
+  List<OrdersVo> list = book_mapper.ordersList(map);
+  model.addAttribute("list", list);
+  model.addAttribute("used_point2", used_point2);
+
+  return "payment/my_payment";
  }
 
 }
