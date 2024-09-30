@@ -119,8 +119,6 @@
      <!-- Bootstrap 4 JavaScript -->
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-		 <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
-
 					<script>
 
 						//공연 좌석 정보 추가
@@ -171,7 +169,19 @@
 													src="../resources/images/${ vo.performance_image }"
 													onclick="location.href='../detail/detail.do?performance_idx=${vo.performance_idx}'">
 
-												<div>공연상태 : ${vo.performance_state}</div>
+												<div>
+													 <c:choose>
+													<c:when test="${vo.performance_state == 'p'}">
+															상연 중
+													</c:when>
+													<c:when test="${vo.performance_state == 'f'}">
+															상연 종료
+													</c:when>
+													<c:when test="${vo.performance_state == 'w'}">
+															상연 전
+													</c:when>
+												</c:choose>
+												</div>
 												<div class="performance_cate">
 													${vo.performanceCateVo.performance_cate_name }
 													&gt; ${ vo.performanceDetailCateVo.performance_detail_cate_name

@@ -71,20 +71,25 @@ public class PerformanceController {
 
 // 공연 정보 전체 조회
 @RequestMapping("list.do")
-public String performance_list(@RequestParam(value = "performance_cate_idx", required = false) Integer performance_cate_idx, Model model) {
-    List<PerformanceVo> list;
-
-    // performance_cate_idx가 null이 아니고 1, 2, 3 중 하나인 경우 카테고리별로 공연 조회
-    if (performance_cate_idx != null && (performance_cate_idx == 1 || performance_cate_idx == 2 || performance_cate_idx == 3)) {
-        list = performance_mapper.selectByCategory(performance_cate_idx);
-    } else {
-        // 카테고리별 조회가 아닌 경우 모든 공연 조회
-        list = performance_mapper.selectList();
-    }
+public String performance_list(Model model) {
+    
+  List<PerformanceVo> list = performance_mapper.selectList();
 
     // request binding
     model.addAttribute("list", list);
     return "performance/performance_list";
+}
+
+@RequestMapping("list_cate.do")
+public String performance_list_cate(
+        Model model, int performance_cate_idx) {
+
+    // 카테고리별 공연 목록 조회
+    List<PerformanceVo> list = performance_mapper.select_cate(performance_cate_idx);
+
+    model.addAttribute("list", list);
+
+    return "performance/performance_list_cate";
 }
 
  // 카테고리 별 조회 및 정렬 기능
@@ -93,9 +98,6 @@ public String performance_list(@RequestParam(value = "performance_cate_idx", req
    int performance_detail_cate_idx, String hall_area, String sort_options,
    @RequestParam(name = "sort_options_number", defaultValue = "9") int sort_options_number,
    Model model) {
-
-  System.out.println("sort_options_number :" + sort_options_number);
-  System.out.println("sort_options :" + sort_options);
 
   // 목록 가져오기 위한 map
   Map<String, Object> map = new HashMap<String, Object>();
@@ -113,7 +115,6 @@ public String performance_list(@RequestParam(value = "performance_cate_idx", req
   int start = (nowPage - 1) * blockList + 1;
   int end = start + blockList - 1;
 
-  System.out.printf("start:%d end:%d blockList:%d\n", start, end, blockList);
   map.put("start", start);
   map.put("end", end);
 
@@ -143,6 +144,57 @@ public String performance_list(@RequestParam(value = "performance_cate_idx", req
 
   return "performance/performance_list_bottom";
  }
+
+ @RequestMapping("cate.do")
+ public String cate(@RequestParam(name = "page", defaultValue = "1") int nowPage, int performance_cate_idx,
+     int performance_detail_cate_idx, String hall_area, String sort_options,
+     @RequestParam(name = "sort_options_number", defaultValue = "9") int sort_options_number,
+     Model model) {
+ 
+     // 필터 및 페이징 정보 map에 추가
+     Map<String, Object> map = new HashMap<>();
+     map.put("performance_cate_idx", performance_cate_idx);
+     map.put("performance_detail_cate_idx", performance_detail_cate_idx);
+     map.put("hall_area", hall_area);
+     map.put("sort_options", sort_options);
+ 
+     // 페이징 설정
+     int blockList = sort_options_number;
+     int start = (nowPage - 1) * blockList + 1;
+     int end = start + blockList - 1;
+ 
+     map.put("sort_options_number", blockList);
+     map.put("start", start);
+     map.put("end", end);
+ 
+     // 콘서트 목록 가져오기
+     List<PerformanceVo> list = performance_mapper.selectByCategory(map);
+ 
+     // 전체 게시물 수
+     int rowTotal = performance_mapper.selectRowTotalByCategory(map);
+ 
+     // pageMenu 생성하기
+     String pageMenu = Paging_performance.getPaging_cate(
+         "list_cate.do",
+         nowPage,
+         rowTotal,
+         blockList,
+         MyCommon.Performance.BLOCK_PAGE,
+         performance_cate_idx,
+         hall_area,
+         sort_options,
+         performance_detail_cate_idx
+     );
+ 
+     // 모델에 데이터 추가
+     model.addAttribute("performance_list", list);
+     model.addAttribute("pageMenu", pageMenu);
+     model.addAttribute("sort_options", sort_options);  // 선택된 정렬 기준 전달
+     model.addAttribute("sort_options_number", sort_options_number);  // 선택된 개수 전달
+ 
+     return "performance/performance_list_cate_bottom";
+ }
+ 
 
  // 공연 정보 등록폼 띄우기
  @RequestMapping("insert_form.do")

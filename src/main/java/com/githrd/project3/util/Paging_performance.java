@@ -6,7 +6,103 @@ package com.githrd.project3.util;
         blockList:한페이지당 게시물수
         blockPage:한화면에 나타낼 페이지 목록수
  */
-public class Paging_performance {
+
+ public class Paging_performance {
+  public static String getPaging_cate(
+      String pageURL,
+      int nowPage,
+      int rowTotal,
+      int blockList,
+      int blockPage,
+      int performance_cate_idx,
+      String hall_area,
+      String sort_options,
+      int performance_detail_cate_idx) {
+
+      // 데이터가 없을 경우 빈 문자열 반환
+      if (rowTotal <= 0) {
+          return ""; // 데이터가 없으면 페이지 네비게이션을 아예 표시하지 않음
+      }
+
+      int totalPage; // 전체 페이지 수
+      int startPage; // 시작 페이지 번호
+      int endPage;   // 마지막 페이지 번호
+
+      boolean isPrevPage, isNextPage;
+      StringBuffer sb; // 모든 상황을 판단하여 HTML코드를 저장할 곳
+
+      isPrevPage = isNextPage = false;
+
+      // 전체 페이지 수 계산
+      totalPage = rowTotal / blockList;
+      if (rowTotal % blockList != 0) {
+          totalPage++;
+      }
+
+      // 현재 페이지가 전체 페이지 수를 넘을 경우 현재 페이지 값을 전체 페이지 값으로 변경
+      if (nowPage > totalPage) {
+          nowPage = totalPage;
+      }
+
+      // 전체 페이지가 1보다 작을 경우 페이징을 표시하지 않음
+      if (totalPage < 1) {
+          return ""; // 전체 페이지가 1보다 적으면 아예 반환
+      }
+
+      // 시작 페이지와 마지막 페이지 계산
+      startPage = ((nowPage - 1) / blockPage) * blockPage + 1;
+      endPage = startPage + blockPage - 1;
+
+      // 마지막 페이지 수가 전체 페이지 수보다 크면 마지막 페이지 값을 변경
+      if (endPage > totalPage) {
+          endPage = totalPage;
+      }
+
+      // 마지막 페이지가 전체 페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
+      if (endPage < totalPage) {
+          isNextPage = true;
+      }
+
+      // 시작 페이지의 값이 1보다 크면 이전 페이징 적용 가능
+      if (startPage > 1) {
+          isPrevPage = true;
+      }
+
+      // HTML 코드를 저장할 StringBuffer 생성
+      sb = new StringBuffer("<ul class='pagination'>");
+
+      // 이전 페이지 처리
+      if (isPrevPage) {
+          sb.append(
+              String.format("<li class='page-item'><a class='page-link' href='%s?performance_cate_idx=%d&hall_area=%s&sort_options=%s&performance_detail_cate_idx=%d&blockList=%d&page=%d'>←</a></li>",
+                  pageURL, performance_cate_idx, hall_area, sort_options, performance_detail_cate_idx, blockList, startPage - 1));
+      } else {
+          sb.append("<li class='page-item disabled'><a class='page-link' href='#'>←</a></li>");
+      }
+
+      // 페이지 목록 출력
+      for (int i = startPage; i <= endPage; i++) {
+          if (i == nowPage) { // 현재 있는 페이지
+              sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", i));
+          } else { // 현재 페이지가 아니면
+              sb.append(String.format("<li class='page-item'><a class='page-link' href='%s?performance_cate_idx=%d&hall_area=%s&sort_options=%s&performance_detail_cate_idx=%d&blockList=%d&page=%d'>%d</a></li>",
+                  pageURL, performance_cate_idx, hall_area, sort_options, performance_detail_cate_idx, blockList, i, i));
+          }
+      }
+
+      // 다음 페이지 처리
+      if (isNextPage) {
+          sb.append(
+              String.format("<li class='page-item'><a class='page-link' href='%s?performance_cate_idx=%d&hall_area=%s&sort_options=%s&performance_detail_cate_idx=%d&blockList=%d&page=%d'>→</a></li>",
+                  pageURL, performance_cate_idx, hall_area, sort_options, performance_detail_cate_idx, blockList, endPage + 1));
+      } else {
+          sb.append("<li class='page-item disabled'><a class='page-link' href='#'>→</a></li>");
+      }
+
+      sb.append("</ul>");
+      return sb.toString();
+  }
+
  public static String getPaging(String pageURL, int nowPage, int rowTotal, int blockList, int blockPage) {
 
   int totalPage/* 전체페이지수 */,
