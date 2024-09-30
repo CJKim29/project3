@@ -36,11 +36,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../resources/template/css/font-awesome.css" />
-    <!-- Fancybox -->
-    <link
-      rel="stylesheet"
-      href="../resources/template/css/jquery.fancybox.min.css"
-    />
     <!-- Themify Icons -->
     <link rel="stylesheet" href="../resources/template/css/themify-icons.css" />
     <!-- Nice Select CSS -->
@@ -213,24 +208,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-
                           <li class="active">
                             <a href="../main/list.do">Home</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do">전체 공연</a>
+                            <a href="../performance/list_cate.do?performance_cate_idx=1">뮤지컬</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do?performance_cate_idx=1">뮤지컬</a>
+                            <a href="../performance/list_cate.do?performance_cate_idx=2">연극</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do?performance_cate_idx=2">연극</a>
+                            <a href="../performance/list_cate.do?performance_cate_idx=3">콘서트</a>
                           </li>
                           <li>
-                            <a href="../performance/list.do?performance_cate_idx=3">콘서트</a>
+                            <a href="../hall/list.do">공연장</a>
                           </li>
                           <li>
-                            <a href="../faq/list.do"
+                            <a href="#"
                               >고객센터<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
                               <li><a href="../qna/list.do">Q&A</a></li>

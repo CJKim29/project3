@@ -91,72 +91,25 @@
 								<div class="tab-pane fade show active" id="performance1" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
+											<c:forEach items="${romanticComedy}" var="performance">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<!-- 관리자 수정, 삭제 버튼 -->
-														<div class="admin-btns">
-															<a href="main_performance_modi.do" class="btn btn-warning btn-sm">수정</a>	
-														</div>						
-														<a href="../detail/detail.do?performance_idx=1">
-															<!-- 이미지 크기는 550x750  -->
-															<!-- 이미지 크기는 550x750  -->
-															<img class="default-img" src="/../resources/template/images/장르용 써니텐.png" alt="#">
+														<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<img class="default-img" src="${performance.imageUrl}" alt="#">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=1">뮤지컬 써니텐</a></h3>
+														<h3><a href="../detail/detail.do?performance_idx=${performance.performance_idx}">${performance.name}</a></h3>
 														<div class="product-price">
-															<span>2022.07.08 ~ OPEN RUN</span>
+															<span>${performance.date}</span>
 														</div>
 													</div>
-												</div>
+												</div>	
 											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=3">
-															<img class="default-img" src="/../resources/template/images/장르용 김종욱 찾기.jpg" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=3">뮤지컬 김종욱 찾기</a></h3>
-														<div class="product-price">
-															<span>2024.01.01 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=30">
-															<img class="default-img" src="/../resources/template/images/장르용 라면.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=30">연극 라면</a></h3>
-														<div class="product-price">
-															<span>2020.01.01 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=29">
-															<img class="default-img" src="/../resources/template/images/장르용 은밀한연애.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=29">연극 은밀한 연애</a></h3>
-														<div class="product-price">
-															<span>2024.06.15 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
+										</c:forEach>
+	
+	
 										</div>
 									</div>
 								</div>
@@ -473,14 +426,14 @@
                             <div class="product-content">
 								<!-- 상대경로${pageContext.request.contextPath} performance idx  -->
 	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
-									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#" style="width: 210px; height: 320px;">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#" style="width: 150px; height: 210px;">
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title">NEW</h6><br>
-								<p style="font-size: 12px;">${performance.performance_name}</p>
+								<p style="font-size: 9px;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -511,8 +464,8 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}st</h6><br>
-								<p style="font-size: 12px;">${performance.performance_name}</p>
+								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}nd</h6><br>
+								<p style="font-size: 11px;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
