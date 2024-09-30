@@ -221,6 +221,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <a href="../performance/list.do">전체 공연</a>
                           </li>
                           <li>
+                            <a href="../hall/list.do">공연장</a>
+                          </li>
+                          <li>
                             <a href="../performance/list.do?performance_cate_idx=1">뮤지컬</a>
                           </li>
                           <li>

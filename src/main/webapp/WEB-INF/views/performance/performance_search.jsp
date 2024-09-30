@@ -79,7 +79,22 @@
                             <div class="area">
                                 ${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}
                             </div>
-                            <div class="performance_state">상태: ${performance.performance_state}</div>
+                            <div class="performance_state">상태: 
+                                <c:choose>
+                                    <c:when test="${performance.performance_state == 'p'}">
+                                        상연 중
+                                    </c:when>
+                                    <c:when test="${performance.performance_state == 'f'}">
+                                        상연 종료
+                                    </c:when>
+                                    <c:when test="${performance.performance_state == 'w'}">
+                                        상연 전
+                                    </c:when>
+                                    <c:otherwise>
+                                        확인 필요
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </a>
                     </li>
                 </c:forEach>
