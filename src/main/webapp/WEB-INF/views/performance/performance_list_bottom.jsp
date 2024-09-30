@@ -14,7 +14,7 @@
 							display: flex;
 							flex-wrap: wrap;
 							justify-content: space-between;
-							margin-bottom: 100px !important;
+							/* margin-bottom: 100px !important; */
 						}
 
 						.content_wrap {
@@ -103,7 +103,21 @@
 						.empty_msg2 {
 							font-size: 17px;
 						}
+
+      #pageMenuContainer_performance {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin: 0 auto;
+       margin-bottom: 100px;
+       padding: 0;
+      }
 					</style>
+     <!-- Popper.js (Bootstrap 4의 tooltips, popovers에 필요) -->
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+     <!-- Bootstrap 4 JavaScript -->
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 					<script>
 
@@ -207,7 +221,8 @@
 									</c:if>
 
 									<!-- PageMenu -->
-									<div style="text-align: center; margin: auto">${ pageMenu }</div>
+									<!-- <div style="text-align: center; margin: auto">${ pageMenu }</div> -->
+         <div id="pageMenuContainer_performance">${ pageMenu }</div>
 
 									<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 				</body>
