@@ -17,6 +17,8 @@ public class OrdersVo {
  int mem_idx; // 회원번호
  String reserved_performance_date; // 공연관람날짜
  String order_date; // 주문일시
+ int order_amount; // 총 결제 금액
+ String payment_state; // 결제 상태
 
  // 조인용 변수
  String performance_name;

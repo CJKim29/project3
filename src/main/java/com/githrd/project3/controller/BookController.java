@@ -301,50 +301,15 @@ public class BookController {
   return "/payment/payment_check";
  }
 
- // @RequestMapping("agree.do")
- // public String agree(OrdersVo ordersVo,
- // @RequestParam("performance_idx") int performance_idx,
- // @RequestParam("used_point2") String used_point2,
- // @RequestParam("order_idx") int order_idx,
- // Model model, RedirectAttributes ra) {
-
- // // session에서 사용자 정보 가져오기
- // MemberVo user = (MemberVo) session.getAttribute("user");
- // if (user == null) {
- // ra.addAttribute("reason", "session_timeout");
- // return "redirect:../member/login_form.do";
- // }
-
- // // 공연 정보 조회
- // PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
- // model.addAttribute("vo", vo);
-
- // // order_idx를 사용하여 해당 주문 정보 조회
- // OrdersVo order = ordersMapper.getOrderById(orderIdx);
- // model.addAttribute("recentOrder", order);
-
- // // 최근 주문 번호 얻어오기
- // int order_idx = book_mapper.OrderRecentIdx();
-
- // Map<String, Object> map = new HashMap<>();
- // map.put("mem_idx", user.getMem_idx());
- // map.put("performance_idx", performance_idx);
- // map.put("order_idx", order_idx);
- // List<OrdersVo> list = book_mapper.ordersList(map);
-
- // model.addAttribute("list", list);
- // model.addAttribute("ordersVo", ordersVo);
- // model.addAttribute("used_point2", used_point2);
-
- // return "/payment/payment_agree";
- // }
-
  @RequestMapping("agree.do")
  public String agree(OrdersVo ordersVo,
    @RequestParam("performance_idx") int performance_idx,
    @RequestParam("used_point2") String used_point2,
    @RequestParam("total_payment") String total_payment,
    Model model, RedirectAttributes ra) {
+
+  // int orderAmount = 30000; // 예시 값, 실제 값으로 설정
+  // model.addAttribute("test", orderAmount);
 
   // session에서 사용자 정보 가져오기
   MemberVo user = (MemberVo) session.getAttribute("user");
@@ -360,35 +325,31 @@ public class BookController {
   // 최근 주문 번호 얻어오기
   int order_idx = book_mapper.OrderRecentIdx();
 
+  // 파라미터로 받은 "total_payment" 값을 ordersVo의 order_amount에 저장하기
+  // 숫자만 추출 -> "," 와 "원" 제거
+  String total_payment_number = total_payment.replace(",", "").replace("원", "");
+  // String -> int로 변환
+  int int_total_payment = Integer.parseInt(total_payment_number);
+
+  Map<String, Object> paramMap = new HashMap<>();
+  paramMap.put("order_idx", order_idx);
+  paramMap.put("order_amount", int_total_payment);
+  book_mapper.updateOrderAmount(paramMap);
+
   Map<String, Object> map = new HashMap<>();
   map.put("mem_idx", user.getMem_idx());
   map.put("performance_idx", performance_idx);
   map.put("order_idx", order_idx);
-  List<OrdersVo> list = book_mapper.ordersList(map);
 
+  List<OrdersVo> list = book_mapper.ordersList(map);
   model.addAttribute("list", list);
   model.addAttribute("ordersVo", ordersVo);
 
-  // JSON 문자열을 파싱
-  // ObjectMapper objectMapper = new ObjectMapper();
-  // try {
-  // List<String> seatGrades = objectMapper.readValue(seat_grade, new
-  // TypeReference<List<String>>() {
-  // });
-  // List<Integer> seatPrices = objectMapper.readValue(seat_price, new
-  // TypeReference<List<Integer>>() {
-  // });
-  // // 필요한 데이터 처리
-  // model.addAttribute("seatGrades", seatGrades);
-  // model.addAttribute("seatPrices", seatPrices);
-  // } catch (JsonProcessingException e) {
-  // // 에러 로그를 남기거나 사용자에게 알림 처리
-  // System.out.println("JSON 파싱 중 오류 발생: " + e.getMessage());
-  // return "redirect:/errorPage"; // 에러 페이지로 리다이렉트
-  // }
+  int order_amount = book_mapper.selectOneOrderAmount(order_idx);
+  model.addAttribute("order_amount", order_amount);
+
   model.addAttribute("used_point2", used_point2);
   model.addAttribute("total_payment", total_payment);
-  System.out.println("Total Payment: " + total_payment);
 
   return "/payment/payment_agree";
  }
