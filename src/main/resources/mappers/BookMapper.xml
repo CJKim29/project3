@@ -161,6 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           p.performance_image,
           o.reserved_performance_date,
           o.order_date,
+          o.order_amount,
           h.hall_name
       FROM orders o 
       INNER JOIN performance p ON o.performance_idx = p.performance_idx

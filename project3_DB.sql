@@ -376,10 +376,12 @@ WHERE p.performance_cate_idx = 3;  -- 대형 공연장 (카테고리 3)만 필�
 -- 주문
 create table orders(
     order_idx       	      int AUTO_INCREMENT PRIMARY KEY,     	-- 주문 번호
-    performance_idx 		  int,                                	-- 공연 번호(fk)
-    mem_idx         		  int,                                	-- 회원 번호(fk)
-    reserved_performance_date varchar(100),						  	-- 공연 관람 날짜
+    performance_idx 		  int not null,                                	-- 공연 번호(fk)
+    mem_idx         		  int not null,                                	-- 회원 번호(fk)
+    reserved_performance_date varchar(100) not null,						  	-- 공연 관람 날짜
     order_date      		  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 	-- 주문 일시 -> 일정 시간 지난 후 결제 미완료 시 주문 취소
+    order_amount			  int default 0,									-- 총 결제 금액
+    payment_state  	      char(1) default 'n',					-- 'y' or 'n' y=결제 후, n="결제 전"    	
     FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (mem_idx) REFERENCES member(mem_idx) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -397,8 +399,6 @@ create table payment(
     payment_idx     int AUTO_INCREMENT PRIMARY KEY,     -- 결제 번호
     order_idx       int,                                -- 주문번호(fk)check
     payment_amount  int,                                -- 결제 금액
-    payment_method  varchar(50),                        -- 결제 수단 (카드, 무통장..)
-    payment_date    Timestamp,                          -- 결제일시
-    payment_state   char(1) default 'n',                -- 'y' or 'n' y=결제 후, n="결제 전"    
+    payment_date    Timestamp DEFAULT CURRENT_TIMESTAMP,  -- 결제일시
     FOREIGN KEY (order_idx) REFERENCES orders(order_idx) ON UPDATE CASCADE ON DELETE CASCADE
 );
