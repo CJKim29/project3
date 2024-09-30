@@ -10,20 +10,15 @@
   <link rel="stylesheet" href="../resources/css/mypage.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <!-- <script type="text/javascript">
-      function member_modify() {
-        location.href = "../member/modify_form.do?mem_idx=" + `${user.mem_idx}`;
-      }
+   <script type="text/javascript">
       function member_delete() {
         if (confirm("정말 탈퇴하시겠습니까?") == false) return;
 
         alert("회원 탈퇴가 완료되었습니다.");
         location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
       }
-      function cart_list() {
-        location.href = "../cart/list.do";
-      }
-    </script> -->
+
+    </script> 
   <script>
    $(document).ready(function () {
     // '장바구니' 링크 클릭 시
@@ -55,7 +50,7 @@
 
      // AJAX 요청 보내기
      $.ajax({
-      url: '/cart/list.do',  // 호출할 URL
+      url: '/cart/ajax_list.do',  // 호출할 URL
       type: 'GET',           // HTTP 메소드
       success: function (response) {
        // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
@@ -96,7 +91,7 @@
    <div class="sidebar">
     <ul>
      <li><a href="#" data-content="member-info" id="memberModify">회원정보 수정</a></li>
-     <li><a href="#" data-content="delete-account">회원 탈퇴</a></li>
+     <li><a href="#" data-content="delete-account" onclick="member_delete();">회원 탈퇴</a></li>
     </ul>
     <hr />
     <ul>
@@ -109,29 +104,17 @@
      <li>
       <a href="#" data-content="liked-performances">좋아요한 공연 목록</a>
      </li>
-    </ul>
+    </ul> 
     <hr />
     <ul>
-     <li><a href="#" data-content="qna">Q&A</a></li>
-     <li><a href="#" data-content="bulletin-board">게시판</a></li>
-     <li><a href="#" data-content="faq">FAQ</a></li>
+     <li><a href="/qna/list.do" data-content="qna">Q&A</a></li>
+     <li><a href="/board/list.do" data-content="bulletin-board">게시판</a></li>
+     <li><a href="/faq/list.do" data-content="faq">FAQ</a></li>
     </ul>
    </div>
 
    <div class="content"></div>
   </main>
-
-  <!-- <script>
-   $(document).ready(function () {
-    $("a").on("click", function (e) {
-     e.preventDefault();
-     const content = $(this).data("content");
-
-     // Ajax로 각 메뉴 클릭 시 해당 페이지를 불러오는 부분
-     $(".content").load(content + ".html");
-    });
-   });
-  </script> -->
 
   <jsp:include page="/WEB-INF/views/include/footer.jsp" />
  </body>

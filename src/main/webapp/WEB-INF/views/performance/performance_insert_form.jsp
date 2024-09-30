@@ -16,6 +16,7 @@
         <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
         <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
+
         <style type="text/css">
             #box {
                 width: 600px;
@@ -199,8 +200,34 @@
             }
         </script>
 
+<script>
+    $(document).ready(function() {
+        // 지역 선택 이벤트 핸들러
+        $('#areaSelect').on('change', function() {
+            var areaIdx = $(this).val();  // 선택된 지역값
+    
+            // AJAX 요청
+            $.ajax({
+                url: '/performance/get_hall_area.do',  // 컨트롤러에 요청할 URL
+                type: 'GET',
+                dataType: 'json',  // 서버가 JSON 데이터를 반환하는지 명시
+                data: { area_idx: areaIdx },  // 전송할 데이터 (지역 값)
+                success: function(data) {
+                    // 공연장 목록 초기화 (기본 옵션은 남겨둠)
+                    $('#hallSelect').find('option:gt(0)').remove(); // 두 번째 옵션부터 삭제
 
-
+                    // 공연장 목록 채우기
+                    $.each(data, function(index, hall) {
+                        $('#hallSelect').append('<option value="' + hall.hall_idx + '">' + hall.hall_name + '</option>');
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('공연장 목록을 불러오는 데 실패했습니다.');
+                }
+            });
+        });
+    });
+</script>
 
     </head>
 
@@ -253,12 +280,24 @@
                             </c:choose> -->
                             </div>
 
+                            <!-- 지역 선택 -->
+                            <h4>지역</h4>
+                            <span style="color: #ff1d38;">*지역을 먼저 선택하신 후, 공연장을 선택해주세요!</span>
+                            <select class="form-control content" name="area_idx" id="areaSelect">
+                                <option value="">지역을 선택하세요</option>  <!-- 초기값 변경 -->
+                                <option value="1">서울</option>
+                                <option value="2">경기/인천</option>
+                                <option value="3">충청/대전</option>
+                                <option value="4">경상/대구/부산</option>
+                                <option value="5">전라/광주</option>
+                                <option value="6">강원</option>
+                                <option value="7">제주</option>
+                            </select>
+                            
+                            <!-- 공연장 선택 -->
                             <h4>공연장</h4>
-                            <select class="form-control content" name="hall_idx">
-                                <option value="1">서울 - 디큐브 링크아트센터</option>
-                                <option value="2">서울 - 블루스퀘어 신한카드홀</option>
-                                <option value="3">서울 - 샤롯데씨어터</option>
-                                <option value="4">서울 - 충무아트센터 대극장</option>
+                            <select class="form-control content" name="hall_idx" id="hallSelect">
+                                <option value="">공연장을 선택해주세요</option>
                             </select>
 
                             <h4>공연명</h4>

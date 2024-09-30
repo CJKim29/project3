@@ -5,6 +5,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
+    <title>TIMOA - 게시판</title>
+    <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
