@@ -62,12 +62,22 @@
            order_amount: rsp.paid_amount,  // 실제 결제 금액
            order_idx: "${order_idx}"  // 주문 번호 (백엔드에서 활용할 수 있음)
           },
+          dataType: "json",
           success: function (result) {
-           alert("결제가 완료되었습니다.");
-           //self.close();
-           location.href = "/payment/success.do"; // 서버에서 전달받은 URL을 통해 리다이렉트
+
+           if (result.result == "success") {
+
+            alert("결제가 완료되었습니다.");
+            //self.close();
+            //location.href = "/payment/success.do"; // 서버에서 전달받은 URL을 통해 리다이렉트
+            location.href = `/payment/success.do?performance_idx=${param.performance_idx}&order_idx=${order_idx}&used_point2=${param.used_point2}`;  // 서버에서 전달받은 URL을 통해 리다이렉트
+           } else if (result.result == "fail_not_same_payment") {
+            alert("결제 금액이 불일지 합니다");
+           }
           },
+
           error: function (result) {
+           alert("실패!!!");
            alert(result.responseText);
            cancelPayments(rsp);  // 결제 취소 함수
           }
@@ -80,76 +90,23 @@
         }
        });
       }
-
      </script>
-
-
-
-     <!-- <script>
-      var IMP = window.IMP;
-      IMP.init("imp15578583");  // 가맹점 식별코드
-
-
-      function requestPay() {
-       IMP.request_pay({
-        pg: "kakaopay", // PG사명 (카카오페이)
-        pay_method: "card", // 결제수단
-        merchant_uid: 'p' + new Date().getTime() + '_' + "${order_idx}", // 주문번호
-        name: "${vo.performance_name}", // 상품명
-        amount: "${order_amount}", // 결제 금액
-        buyer_email: "${mem_email}", // 구매자 이메일
-        buyer_name: "${mem_name}", // 구매자 이름
-        buyer_tel: "${mem_phone}", // 구매자 전화번호
-        buyer_addr: "${mem_addr}", // 구매자 주소
-        buyer_postcode: "${mem_zipcode}" // 구매자 우편번호
-       },
-
-        function (rsp) { // callback 함수
-         if (rsp.success) {
-          // 결제 성공 시 처리
-          let data = {
-           imp_uid: rsp.imp_uid, // 아임포트 결제 고유번호
-           merchant_uid: rsp.merchant_uid, // 상점에서 생성한 주문번호
-           order_amount: rsp.paid_amount // 실제 결제 금액
-          };
-
-          // 결제 검증
-          $.ajax({
-           type: "POST",
-           url: "/payment/payment.do",
-           data: JSON.stringify(data),
-           contentType: "application/json; charset=utf-8",
-           dataType: "json",
-           success: function (result) {
-            alert("결제검증 완료");
-            //self.close();
-           },
-           error: function (result) {
-            alert(result.responseText);
-            cancelPayments(rsp);
-           }
-          });
-
-         } else {// 결제 실패 시 로직
-          alert("결제 실패");
-          alert(rsp.error_msg);
-          console.log(rsp);
-         }
-        });
-      }
-     </script> -->
-
-
 
     </head>
 
     <body>
 
-     <form>
-      <input type="hidden" name="performance_idx" value="${param.performance_idx}" />
+     <form action="success.do" method="post">
+      <input type="hidden" name="performance_idx" value="${ param.performance_idx}" />
       <input type="hidden" name="date" value="${param.date}" />
+      <input type="hidden" name="mem_idx" value="${user.mem_idx}">
+      <input type="hidden" name="order_idx" value="${order_idx}">
+      <input type="hidden" name="used_point2" value="${param.used_point2}" />
+
       <input type="hidden" name="selectedSeats" value="${param.selectedSeats}" />
       <input type="hidden" name="seatInfo" value="${param.seatInfo}" />
+
+
       <div id="seat-box">
        <!-- amount 확인용 -->
        <!-- <p>결제 금액: ${order_amount}</p> -->
@@ -198,12 +155,10 @@
          <div class="title2"> 개인정보 제3자 정보 제공 </div>
          <!-- <input type="button" class="btn" value="▼" onclick="toggleContent()" /> -->
          <div class="personal_info">
-          (주)인터파크트리플은 기획사와 이용자 간의 상품 거래를 중개하는 통신판매중개자입니다. 거래관계가 이루어진 이후의 고객을때 및 공연정보 안내 등을 위하여
-          관련한 정보는 필요한 범위 내에서 거래
-          당사자에게 아래와 같이 제 공됩니다.
-          개인정보 제공 동의
-          에 제공합니다.
-          인터파크트리플은 개인정보보호법에 따라 이용자의 개인정보에 있어 아래와 같이 알리고 동의를 받아 상품의 기획사
+          (주)TIMOA(티모아)는 기획사와 이용자 간의 상품 거래를 중개하는 통신판매중개자입니다. 거래관계가 이루어진 이후의 고객을때 및 공연정보 안내 등을 위하여 관련한 정보는 필요한 범위 내에서 거래
+          당사자에게 아래와 같이 제공됩니다.
+
+          TIMOA(티모아)는 개인정보보호법에 따라 이용자의 개인정보에 있어 아래와 같이 알리고 동의를 받아 상품의 기획사
           2 개인정보 제공받는자 주식회사 라이브러리컴퍼니
           개인정보 이용 목적
           기획사 : 티켓 현장발권, 캐스팅 변경, 공연취소 등에 대한 고객 안내, 티켓 정당 예매 확인 및 관련 업무 수행
@@ -212,21 +167,6 @@
           개인정보 보유 및 이용 기간
           개인정보 이용목적 달성 시까지(단, 관계 법령의 규정에 의해 보존의 필요가 있는 경우 및 사전 동의를 득한 경우 해당 보유기간까지)
           ※ 위 개인정보 제공에 대한 동의를 거부할 권리가 있으며, 만약 동의를 거부할 경우 티켓 예매서비스 이용에 제한을 받을 수 있습니다.
-          04 배송선택/주문자화
-          뚜
-          일시
-          선택좌~
-          (2석)
-          티켓금0
-          수수료
-          배송료
-          할인
-          할인쿠폰
-          취소기한
-          취소수수
-          총 결제는
-          모두 동의합니다.
-
          </div>
          <input type="checkbox" class="checkbox" name="agreement" />
          <span>(필수) 취소수수료/취소기한을 확인하였으며, 동의합니다</span>

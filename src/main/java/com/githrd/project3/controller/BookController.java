@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.githrd.project3.dao.BookMapper;
@@ -350,6 +349,7 @@ public class BookController {
   model.addAttribute("used_point2", used_point2);
   model.addAttribute("total_payment", total_payment);
   model.addAttribute("order_idx", order_idx);
+  model.addAttribute("performance_idx", performance_idx);
 
   return "/payment/payment_agree";
  }
