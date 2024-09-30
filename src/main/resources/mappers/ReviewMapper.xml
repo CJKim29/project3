@@ -297,7 +297,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             r.review_idx, r.review_title, r.review_content,
             r.mem_nickname, r.review_regdate, r.review_readhit,
             rs.review_score_point, m.mem_filename, m.mem_idx,
-            p.performance_name, p.performance_idx,
+            p.performance_name, p.performance_idx, p.performance_image,
             ROW_NUMBER() OVER (ORDER BY r.review_idx DESC) AS no
         FROM 
             review r

@@ -84,13 +84,24 @@ public interface PerformanceMapper {
  int getPerformanceDateIdx(int performance_idx,
    Date performance_date_date);
 
-  // 카테고리별 공연 조회
-  List<PerformanceVo> selectByCategory(Map<String, Object> map);
+ // 카테고리별 공연 조회
+ List<PerformanceVo> selectByCategory(Map<String, Object> map);
 
-  // 카테고리별 전체 공연 수
-  int selectRowTotalByCategory(Map<String, Object> map);
+ // 카테고리별 전체 공연 수
+ int selectRowTotalByCategory(Map<String, Object> map);
 
-  // 카테고리별 공연 목록 조회
-List<PerformanceVo> select_cate(int performance_cate_idx);
+ // 카테고리별 공연 목록 조회
+ List<PerformanceVo> select_cate(int performance_cate_idx);
+
+ // performance_date에서 performance_idx로 performance_date_idx 추출
+ List<Integer> selectPerformanceDateIdx(int performance_idx);
+
+ // m_hall에서 performance_date_idx로 데이터 삭제
+ void deleteFromMHall(int performance_date_idx);
+
+ // performance_date에서 performance_idx로 해당 데이터 삭제
+ void deletePerformanceDates(int performance_idx);
+
+ void deleteSeatByPerformanceIdx(int performance_idx);
 
 }

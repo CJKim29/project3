@@ -82,28 +82,6 @@
     }
 
     f.submit();
-
-    //let forms = document.querySelectorAll('.seat-form');
-    // for (let i = 0; i < forms.length; i++) {
-    //  let f = forms[i];
-
-    //  let seat_grade = f.querySelector('input[name="seats[' + i + '].seat_grade"]').value.trim();
-    //  let seat_price = f.querySelector('input[name="seats[' + i + '].seat_price"]').value.trim();
-
-    //  if (seat_grade === '') {
-    //   alert("좌석 이름(등급)을 입력해주세요");
-    //   f.querySelector('input[name="seats[' + i + '].seat_grade"]').focus();
-    //   return;
-    //  }
-    //  if (seat_price === '') {
-    //   alert("좌석 가격을 입력해주세요\n*숫자만 입력 가능");
-    //   f.querySelector('input[name="seats[' + i + '].seat_price"]').focus();
-    //   return;
-    //  }
-    // }
-
-    // 모든 폼이 유효하면 제출
-    //document.getElementById('mainForm').submit();
    }
 
    function addSeatForm() {
