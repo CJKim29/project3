@@ -94,12 +94,14 @@ public interface PerformanceMapper {
  List<PerformanceVo> select_cate(int performance_cate_idx);
 
  // performance_date에서 performance_idx로 performance_date_idx 추출
- List<Integer> selectPerformanceDateIdx(int performanceIdx);
+ List<Integer> selectPerformanceDateIdx(int performance_idx);
 
  // m_hall에서 performance_date_idx로 데이터 삭제
- void deleteFromMHall(int performanceDateIdx);
+ void deleteFromMHall(int performance_date_idx);
 
  // performance_date에서 performance_idx로 해당 데이터 삭제
- void deletePerformanceDates(int performanceIdx);
+ void deletePerformanceDates(int performance_idx);
+
+ void deleteSeatByPerformanceIdx(int performance_idx);
 
 }

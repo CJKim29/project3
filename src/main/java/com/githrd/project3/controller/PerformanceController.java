@@ -748,13 +748,12 @@ public class PerformanceController {
  // 공연 좌석 수정
  @RequestMapping("modify_seat.do")
  // 파라미터 Vo로 포장해달라고 요청
- public String modify_seat(
-   @RequestParam("seat_grade") String[] seat_grade_array,
-   @RequestParam("seat_price") Integer[] seat_price_array,
-   @RequestParam("seat_idx") Integer[] seat_idx_array,
-   @RequestParam("performance_idx") int performance_idx,
-   RedirectAttributes ra)
-   throws IllegalStateException, IOException {
+ public String modify_seat(int performance_idx,
+ @RequestParam("seat_grade") String[] seat_grade_array,
+ @RequestParam("seat_price") Integer[] seat_price_array,
+ RedirectAttributes ra) {
+
+    System.out.println("performance_idx : " + performance_idx);
 
   // session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
   // 세션 정보 구하기 - 로그인 한 유저 정보
@@ -771,12 +770,14 @@ public class PerformanceController {
   List<Integer> performanceDateIdxList = performance_mapper.selectPerformanceDateIdx(performance_idx);
 
   // m_hall에서 일치하는 데이터 삭제
-  for (int performanceDateIdx : performanceDateIdxList) {
-   performance_mapper.deleteFromMHall(performanceDateIdx);
+  for (int performance_date_idx : performanceDateIdxList) {
+   performance_mapper.deleteFromMHall(performance_date_idx);
   }
 
   // performance_date에서 performance_idx로 해당 데이터 삭제 (필요하다면)
-  performance_mapper.deletePerformanceDates(performance_idx);
+  //performance_mapper.deletePerformanceDates(performance_idx);
+
+  performance_mapper.deleteSeatByPerformanceIdx(performance_idx);
 
   // 좌석 정보 수정 처리 - 여러 좌석 한 번에 수정하기 위해 배열로 받고 반복문 돌림
   // for (int i = 0; i < seat_idx_list.size(); i++) {

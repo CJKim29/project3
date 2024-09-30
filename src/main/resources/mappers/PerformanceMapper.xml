@@ -315,20 +315,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="selectPerformanceDateIdx" parameterType="int" resultType="int">
     SELECT performance_date_idx
     FROM performance_date
-    WHERE performance_idx = #{performanceIdx}
+    WHERE performance_idx = #{performance_idx}
  </select>
 
  <!-- m_hall에서 performance_date_idx로 데이터 삭제 -->
  <delete id="deleteFromMHall" parameterType="int">
     DELETE FROM m_hall
-    WHERE performance_date_idx = #{performanceDateIdx}
+    WHERE performance_date_idx = #{performance_date_idx}
  </delete>
 
  <!-- performance_date에서 performance_idx로 해당 데이터 삭제 -->
  <delete id="deletePerformanceDates" parameterType="int">
     DELETE FROM performance_date
-    WHERE performance_idx = #{performanceIdx}
+    WHERE performance_idx = #{performance_idx}
  </delete>
 
-
+ <!-- seat에서 performance_idx로 해당 데이터 삭제 -->
+ <delete id="deleteSeatByPerformanceIdx" parameterType="int">
+    DELETE FROM seat
+    WHERE performance_idx = #{performance_idx}
+ </delete>
+ 
 </mapper>
