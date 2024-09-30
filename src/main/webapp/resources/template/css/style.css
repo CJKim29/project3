@@ -3060,10 +3060,10 @@ Version:1.0
 .shop-home-list .single-list {
  overflow: hidden;
  position: relative;
- margin: 30px;
+ margin: 15px;
  margin-top: 22px;
  border: 1px solid #eee;
- padding: 15px;
+ padding: 10px;
 }
 
 .shop-home-list .single-list .list-image {
@@ -3124,7 +3124,7 @@ Version:1.0
 
 .shop-home-list .single-list img {
  width: 100%;
- height: 100%;
+ height: auto;
 }
 
 .shop-home-list .single-list .content {

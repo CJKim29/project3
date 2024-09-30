@@ -79,7 +79,7 @@
                             <div class="area">
                                 ${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}
                             </div>
-                            <div class="performance_state">상태: 
+                            <div class="performance_state">
                                 <c:choose>
                                     <c:when test="${performance.performance_state == 'p'}">
                                         상연 중

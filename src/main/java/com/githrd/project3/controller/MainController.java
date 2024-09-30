@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.githrd.project3.dao.MainMapper;
 import com.githrd.project3.dao.PerformanceMapper;
+import com.githrd.project3.util.MyCommon.Performance;
 import com.githrd.project3.vo.PerformanceVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -60,52 +61,22 @@ public class MainController {
         return "main/main";
     }
 
-     // 공연 수정 폼 요청
-     @GetMapping("performance_modi.do")
-     public String performanceModi(@RequestParam(value = "performance_idx", required = false) Integer performanceIdx, Model model) {
-         if (performanceIdx != null) {
-             // 공연 정보 가져오기 (수정할 때)
-             PerformanceVo performance = mainMapper.selectPerformanceById(performanceIdx);
-             model.addAttribute("performance", performance);
-         } else {
-             // 공연 정보 추가 폼 (새 공연 추가할 때)
-             model.addAttribute("performance", new PerformanceVo());
-         }
-         return "main/main_performance_modi"; // 수정 및 추가 JSP 페이지로 이동
-     }
- 
-     @PostMapping("updatePerformance.do")
-public String updatePerformance(PerformanceVo performance, @RequestParam("performance_img") MultipartFile performance_img) {
-    // 파일이 비어 있지 않은 경우에만 처리
-    if (!performance_img.isEmpty()) {
-        // 파일 저장 경로 설정 (실제 파일 저장 경로는 서버의 경로로 설정)
-        String uploadDir = "F:/project3/src/main/webapp/resources/template/images/";
-        String fileName = performance_img.getOriginalFilename();
-        
+     @GetMapping("/main")
+    public String getMainPage(Model model) {
+        List<Performance> romanticComedy = mainMapper.getRandomPerformancesByGenre("로맨틱코미디", 4);
+        List<Performance> drama = mainMapper.getRandomPerformancesByGenre("드라마", 4);
+        List<Performance> performance = mainMapper.getRandomPerformancesByGenre("퍼포먼스", 4);
+        List<Performance> horrorThriller = mainMapper.getRandomPerformancesByGenre("공포/스릴러", 4);
+        List<Performance> children = mainMapper.getRandomPerformancesByGenre("어린이", 4);
 
-        // 저장할 디렉토리 확인 및 생성
-                File dir = new File(uploadDir);
-                if (!dir.exists()) {
-                    dir.mkdirs(); // 디렉토리가 없으면 생성
-                }
+        model.addAttribute("romanticComedy", romanticComedy);
+        model.addAttribute("drama", drama);
+        model.addAttribute("performance", performance);
+        model.addAttribute("horrorThriller", horrorThriller);
+        model.addAttribute("children", children);
 
-        // 파일 저장 로직
-        try {
-            File destFile = new File(uploadDir + fileName);
-            performance_img.transferTo(destFile);
-
-            // 저장된 파일 경로를 performance 객체에 설정
-            performance.setPerformance_image("/resources/template/images/" + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return "main";
     }
-
-    // 공연 정보 업데이트
-    mainMapper.updatePerformance(performance);
-
-    return "redirect:/main/list.do"; // 수정 후 목록으로 리다이렉트
-}
 
 
 
