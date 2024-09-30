@@ -65,4 +65,10 @@ public interface DetailMapper {
 
    // 캐스팅 삭제
    int delete(int casting_idx);
+
+   // 배우 이름별 조회
+   List<ActorVo> selectActorFromName(String actor_name);
+
+   // 캐스팅 추가
+   int insert(CastingVo vo);
 }

@@ -768,13 +768,35 @@ public class DetailPageController {
    }
 
    @RequestMapping("delete_casting.do")
-   public String delete(CastingVo vo, int casting_idx, int performance_idx) {
+   public String delete(CastingVo vo, int casting_idx) {
 
       vo = detail_mapper.selectCastingFromCastingIdx(casting_idx);
 
       int res = detail_mapper.delete(casting_idx);
 
-      return "redirect:casting_modify_form.do?" + performance_idx;
+      return "redirect:casting_modify_form.do?performance_idx=" + vo.getPerformance_idx();
+   }
+
+   @RequestMapping(value = "actor_insert.do")
+   @ResponseBody
+   public List<ActorVo> actor_insert(String actor_name) {
+
+      List<ActorVo> list = detail_mapper.selectActorFromName(actor_name);
+
+      return list;
+   }
+
+   @RequestMapping("insert_casting.do")
+   public String insert(CastingVo vo, int actor_idx, int performance_idx, String casting_name) {
+
+      vo = new CastingVo();
+      vo.setActor_idx(actor_idx);
+      vo.setPerformance_idx(performance_idx);
+      vo.setCasting_name(casting_name);
+
+      int res = detail_mapper.insert(vo);
+
+      return "redirect:casting_modify_form.do?performance_idx=" + performance_idx;
    }
 
 }

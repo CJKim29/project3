@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="performance_idx" column="performance_idx" />
 
       <association property="actorVo" column="actor_idx=actor_idx" select="actor_list" />
-      <association property="performanceVo" column="performance_idx=performance_idx" select="performance_list_by_actor" />
+      <association property="performanceVo" column="performance_idx=performance_idx" select="performance_list" />
    </resultMap>
 
    <resultMap id="performanceResultMap" type="Performance">
@@ -46,6 +46,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    <select id="actor_list" resultType="actor">
       select * from actor where actor_idx=#{actor_idx}
+   </select>
+   <select id="performance_list" resultType="performance">
+      select * from performance where performance_idx=#{performance_idx}
    </select>
 
 
@@ -93,6 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    <resultMap id="actorMap" type="actor">
       <result property="actor_idx" column="actor_idx"/>
+      <result property="actor_name" column="actor_name"/>
       <collection property="performanceList" column="actor_idx=actor_idx" select="performance_list_by_actor" />
    </resultMap>
 
@@ -100,6 +104,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!-- 배우 idx별 조회 -->
    <select id="selectActorFromIdx" parameterType="int" resultMap="actorMap">
          select * from actor where actor_idx=#{ actor_idx }
+   </select>
+
+   <!-- 배우 이름별 조회 -->
+   <select id="selectActorFromName" parameterType="string" resultType="actor">
+      select * from actor where actor_name like concat('%', #{actor_name}, '%')
    </select>
 
    <!-- 배우 idx별 공연 -->
@@ -165,5 +174,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <delete id="delete" parameterType="int">
       delete from casting where casting_idx=#{casting_idx}
    </delete>
+
+   <!-- 캐스팅 추가 -->
+   <insert id="insert" parameterType="casting">
+      insert into casting values(null,
+                                 #{actor_idx},
+                                 #{performance_idx},
+                                 #{casting_name}
+                                 )
+   </insert>
 
 </mapper>
