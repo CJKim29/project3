@@ -753,8 +753,6 @@ public class PerformanceController {
  @RequestParam("seat_price") Integer[] seat_price_array,
  RedirectAttributes ra) {
 
-    System.out.println("performance_idx : " + performance_idx);
-
   // session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
   // 세션 정보 구하기 - 로그인 한 유저 정보
   MemberVo user = (MemberVo) session.getAttribute("user");
