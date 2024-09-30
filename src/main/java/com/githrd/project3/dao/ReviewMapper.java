@@ -63,4 +63,11 @@ public interface ReviewMapper {
 
  List<ReviewVo> review_readhit_list(Map<String, Object> map);
 
+ // mypage 후기 리스트
+ List<ReviewVo> selectMyReviewList(int mem_idx);
+
+ int my_review_row_total(int mem_idx);
+
+ List<ReviewVo> my_review_list(Map<String, Object> map);
+
 }

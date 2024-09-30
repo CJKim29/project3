@@ -48,15 +48,99 @@
      </script>
      <!-- 달력 -->
      <script>
+      var min_date;
+      var max_date;
       $(document).ready(function () {
-       $("#datepicker").each(function () {
-        $(this).datepicker({
-         format: "yyyy-mm-dd",
-         showOnFocus: false,
-        });
+       var performance_idx = "${param.performance_idx}";
+       console.log("performance_idx:", performance_idx);  // performance_idx가 올바르게 출력되는지 확인
+
+       // AJAX 요청을 통해 서버에서 공연 날짜 데이터를 가져옴
+       $.ajax({
+        async: false,
+        url: '/detail/getAvailableDates',  // 서버에 날짜 정보를 요청
+        type: 'GET',
+        data: { performance_idx: performance_idx },
+        success: function (response) {
+         console.log("서버로부터 날짜 데이터 수신:", response);
+
+         var availableDates = response.availableDates;
+         console.log("availableDates:", availableDates); // 여기에 추가
+
+         var first_date = response.first_date;
+         var last_date = response.last_date;
+         console.log("first_date :", first_date);
+         console.log("last_date :", last_date);
+
+         var firstDateObj = new Date(first_date); // first_date를 Date 객체로 변환
+
+         var today = new Date(); // 오늘 날짜
+
+         // 날짜 리스트를 HTML에 출력 (디버깅용)
+         var dateListHtml = "<ul>";
+         availableDates.forEach(function (date) {
+          dateListHtml += "<li>" + date + "</li>";
+         });
+         dateListHtml += "</ul>";
+         $("#dateList").html(dateListHtml);
+
+         // minDate와 maxDate 계산
+         min_date = (firstDateObj > today) ? firstDateObj : today;
+         //min_date = availableDates[0];
+         console.log(typeof (min_date));
+         console.log(min_date);
+
+         max_date = new Date(last_date);
+         //console.log("가장 빠른 날짜 (min_date):", min_date.toISOString().split('T')[0]);
+         console.log("가장 빠른 날짜 (min_date):", min_date);
+         console.log("가장 늦은 날짜 (max_date):", max_date.toISOString().split('T')[0]);
+
+
+         reserved_setting();
+
+
+         // Datepicker 초기화 및 특정 날짜만 활성화
+         $my('#datepicker').datepicker({
+          beforeShowDay: function (date) {
+           var formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
+           console.log("formattedDate:", formattedDate); // 여기서 출력
+           if ($.inArray(formattedDate, availableDates) !== -1) {
+            return [true, "available", ""];
+           } else {
+            return [false, "unavailable", ""];
+           }
+          }
+         });
+
+        },
+        error: function (xhr, status, error) {
+         console.error("AJAX 호출 실패:", error);
+        }
        });
       });
      </script>
+
+     <script>
+
+      var $my = $.noConflict(true);
+
+      function reserved_setting() {
+
+       console.log(min_date);
+
+       var oneDayBeforeMinDate = new Date(min_date);
+       oneDayBeforeMinDate.setDate(min_date.getDate() - 1);
+
+       // datepicker 초기화
+       $my('#datepicker').datepicker({
+        showOn: "button",
+        buttonText: "Select date",
+        format: "yyyy-mm-dd",
+        minDate: oneDayBeforeMinDate,
+        maxDate: max_date
+       });
+      }
+     </script>
+
      <!-- 버튼 클릭시 선택좌석 띄우기 -->
      <script>
       $(document).ready(function () {

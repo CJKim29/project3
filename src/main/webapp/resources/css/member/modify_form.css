@@ -115,6 +115,14 @@ body {
  color: IndianRed;
 }
 
+.text2 {
+ /* width: 80px; */
+ display: flex !important;
+ font-size: 20px;
+ color: #ac8d5a;
+ justify-content: center !important;
+}
+
 .addr_text {
  float: left;
 }
