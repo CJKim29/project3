@@ -258,6 +258,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       order by like_number desc limit 3
  </select>
 
+ <!-- 특정 카테고리 공연 조회 -->
+<select id="selectByCategory" parameterType="int" resultMap="performanceMap">
+    SELECT p.*, h.hall_name, h.hall_area, p.performance_state
+    FROM performance p
+    JOIN hall h ON p.hall_idx = h.hall_idx
+    WHERE p.performance_cate_idx = #{performance_cate_idx}
+</select>
+
 
 
  <!--parameterType = 전달인자타입
