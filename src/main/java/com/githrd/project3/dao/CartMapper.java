@@ -35,4 +35,6 @@ public interface CartMapper {
 
   int selectOne_seat_idx_l(int performance_date_idx, int row);
 
+  List<CartVo> cart_pay(int cart_idx);
+
 }
