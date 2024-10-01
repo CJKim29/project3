@@ -6,7 +6,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
   <head lang="zxx">
     <title>TIMOA - Q&A</title>
-  <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
+    <link
+      rel="icon"
+      href="../resources/images/TIMOA_icon.png"
+      type="image/png"
+    />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -105,8 +109,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <h3 id="title" style="margin-bottom: 20px">Q&A</h3>
 
         <div class="row">
-          <span style="display: inline-block; width: 624px"></span>
-
           <form style="height: 50px">
             <select id="search">
               <option value="all">전체보기</option>

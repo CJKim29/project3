@@ -136,7 +136,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <h3 id="title" style="margin-bottom: 20px">게시판</h3>
         <div class="row">
           <!-- 검색메뉴 -->
-           <span style="display: inline-block; width: 350px;"></span>
             <form style="height:50px;">
               <select
                 id="search"
@@ -255,7 +254,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
                   <td>${ vo.mem_nickname }</td>
                   <td>${ vo.board_regdate }</td>
-                  <td style="text-align: center;">${ vo.board_readhit }</td>
+
+                  <td style="text-align: center;">
+                            ${vo.board_readhit}
+                </td>
                 </tr>
               </c:forEach>
             </tr>
