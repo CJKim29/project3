@@ -249,6 +249,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select order_amount from orders where order_idx = #{order_idx};
  </select>
 
+ <select id="selectOneOrderIdx" parameterType="int" resultType="orders">
+  select * from orders where order_idx = #{order_idx};
+ </select>
+
  <update id="updatePaymentState">
     UPDATE orders
     SET payment_state = 'y'
@@ -260,6 +264,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SET order_amount = #{order_amount}
     WHERE order_idx = #{order_idx}
  </update>
+
+ <!-- 포인트 적립 -->
+ <update id="addPoint" parameterType="map">
+    UPDATE member
+    SET mem_point = mem_point + #{mem_point}
+    WHERE mem_idx = #{mem_idx}
+ </update>
+
+ <!-- 사용 포인트 업데이트 -->
+ <update id="updateUsedPoint" parameterType="map">
+    UPDATE orders
+    SET used_point = #{used_point}
+    WHERE order_idx = #{order_idx}
+ </update>
+
+ <!-- 포인트 차감 -->
+ <update id="usedPoint" parameterType="map">
+    UPDATE member
+    SET mem_point = mem_point - #{used_point}
+    WHERE mem_idx = #{mem_idx}
+ </update>
+
+
 
  <!-- 이전으로 갈 시 삭제 되게(미구현..ㅠㅠㅠㅠ) -->
  <delete id="orderDelete" parameterType="int">

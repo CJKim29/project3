@@ -68,7 +68,15 @@ public interface BookMapper {
 
  void updateOrderAmount(Map<String, Object> paramMap);
 
+ void updateUsedPoint(Map<String, Object> paramMap);
+
+ OrdersVo selectOneOrderIdx(int order_idx);
+
  int selectOneOrderAmount(int order_idx);
+
+ void addPoint(Map<String, Object> params); // Map을 사용하는 포인트 추가 메서드
+
+ void usedPoint(Map<String, Object> params); // Map을 사용하는 포인트 차감 메서드
 
  // 안쓰는 코드들
  // Integer selectRemainSeat(@Param("performance_date") String performance_date,
