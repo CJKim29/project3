@@ -271,7 +271,7 @@
                      </ul>
                      <!-- <h6 style="width: 200px;">${review.mem_nickname }</h6> -->
                      <h6 style="width: 120px;">
-                      &emsp;${fn:substring(review.mem_nickname, 0, fn:length(review.mem_nickname) - 2)}**</h6>
+                      &emsp;${review.mem_nickname}</h6>
                      <div class="nav-main">
                       <ul class="nav nav-tabs" style="width: 100%;" id="myReviewInside" role="tablist">
                        <c:if test="${ review.mem_idx == user.mem_idx || user.mem_grade eq '관리자' }">
