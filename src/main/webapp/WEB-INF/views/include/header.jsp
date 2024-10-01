@@ -102,12 +102,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <!-- 로그인이 된 경우 -->
                   <c:if test="${ not empty sessionScope.user }">
                     <li>
-                      <b>${ user.mem_nickname }님</b>
-                      <a href="../member/logout.do">로그아웃</a>
-                    </li>
-                    <li>
                       <i class="ti-user"></i>
                       <a href="../mypage/mypage.do">마이페이지</a>
+                    </li>
+                    <li>
+                      <b>${ user.mem_nickname }님</b>
+                      <a href="../member/logout.do">로그아웃</a>
                     </li>
                   </c:if>
                 </ul>
@@ -157,9 +157,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="col-lg-8 col-md-7 col-12">
               <div class="search-bar-top">
                 <div class="search-bar">
-                  <select>
-                    <option>통합검색</option>
-                  </select>
+                  <div class="search-label">통합검색</div>
                   <!-- search 검색 -->
                   <form
                     id="searchForm"
@@ -170,7 +168,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <input
                       id="searchInput"
                       name="search"
-                      placeholder="찾으실 공연 또는 공연장을 입력해주세요"
+                      placeholder="검색어를 입력해주세요"
                       type="search"
                     />
                     <button class="btnn" type="submit">
