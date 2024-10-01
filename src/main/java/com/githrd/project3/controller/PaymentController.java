@@ -129,4 +129,27 @@ public class PaymentController {
   return "payment/success";
  }
 
+ // 구매내역 조회
+ @RequestMapping("list.do")
+ public String paymentList(Model model) {
+
+  // System.out.println("-------Payment List method called--------"); // 로그 추가
+
+  MemberVo user = (MemberVo) session.getAttribute("user");
+
+  List<OrdersVo> list = book_mapper.ordersList(user.getMem_idx());
+  model.addAttribute("list", list);
+
+  // 주문 조회 시 필요한 정보 map에 담음
+  // Map<String, Object> map = new HashMap<>();
+  // map.put("mem_idx", user.getMem_idx());
+  // map.put("performance_idx", performance_idx);
+  // map.put("order_idx", order_idx);
+
+  // List<OrdersVo> list = book_mapper.ordersList(map);
+  // model.addAttribute("list", list);
+
+  return "payment/my_payment";
+ }
+
 }

@@ -143,6 +143,10 @@
                      overflow: hidden;
                   }
 
+                  #moreText {
+                     width: 890px;
+                  }
+
                   .single-des {
                      width: 880px;
                   }
@@ -217,6 +221,18 @@
                   #casting {
                      display: inline-block;
                      height: 200px;
+                  }
+
+                  #modal-form {
+                     display: inline-block;
+                     margin-top: 10px;
+                  }
+
+                  #casting_name {
+                     width: 109px;
+                     overflow: hidden;
+                     text-overflow: ellipsis;
+                     white-space: nowrap;
                   }
                </style>
 
@@ -302,6 +318,7 @@
                               });
 
                               modalContent += `
+                                 <div id='modal-form'>
 											<img id='modal-performance-img' src='../resources/images/\${performance.performance_image}' onclick="location.href='detail.do?performance_idx=\${performance.performance_idx}'">
                                  <ul id='modal-performance'>
                                     <li id='modal-performance-name'>
@@ -312,6 +329,7 @@
                                     </li>
                                     \${castingNames}
                                  </ul>
+                                 </div>
 										`;
                            });
 
@@ -477,7 +495,7 @@
                                                                   src="../resources/images/${castingVo.actorVo.actor_pic}">
                                                             </a>
                                                          </div>
-                                                         <h6>${castingVo.casting_name}</h6>
+                                                         <h6 id="casting_name">${castingVo.casting_name}</h6>
                                                          <p style="color: #666666;">
                                                             ${castingVo.actorVo.actor_name}
                                                          </p>

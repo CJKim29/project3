@@ -230,24 +230,6 @@
       });
      </script>
 
-     <!-- 좌석 등급과 가격 넘기기 위한 작업 배열로 넘기래여.. => 컨트롤러 가서 json 문자열 파싱하는 작업 마저 하기  -->
-     <!-- <script>
-      // 선택된 좌석 정보를 배열로 저장
-      let seatGrades = [];
-      let seatPrices = [];
-
-      // 반복문을 통해 좌석 정보를 추출
-      document.querySelectorAll('.seat_info').forEach(seat => {
-       seatGrades.push(seat.dataset.grade); // 각 좌석의 등급 데이터
-       seatPrices.push(seat.dataset.price); // 각 좌석의 가격 데이터
-      });
-
-      // 배열을 문자열로 변환하여 히든 필드에 저장
-      document.getElementById('seat_grade').value = JSON.stringify(seatGrades);
-      document.getElementById('seat_price').value = JSON.stringify(seatPrices);
-
-     </script> -->
-
     </head>
 
     <body>
