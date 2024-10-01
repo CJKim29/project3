@@ -705,9 +705,14 @@
                 </div>
                </div>
               </div>
-
+              <!-- Data가 없는 경우 -->
+              <c:if test="${ empty requestScope.review_row_list }">
+               <div id="empty_msg" style="text-align: center; margin-top: 50px; font-size: 20px;">등록된 후기가 없습니다</div>
+              </c:if>
               <!-- Pagination -->
-              <div id="pageMenuContainer">${ pageMenu }</div>
+              <c:if test="${rowTotal > 0}">
+               <div id="pageMenuContainer">${pageMenu}</div>
+              </c:if>
               <!--/ End Pagination -->
              </div>
              <!--/ End Reviews Tab -->
