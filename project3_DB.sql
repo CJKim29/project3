@@ -307,9 +307,9 @@ create table casting(
 	casting_idx 	int  AUTO_INCREMENT PRIMARY KEY not null,					-- 캐스팅번호
     actor_idx		int not null,												-- 배우번호(FK)
     performance_idx	int not null,												-- 공연번호(FK)
-    casting_name	varchar(100) not null,										-- 배역
-    FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx) ON UPDATE CASCADE ON DELETE CASCADE,		-- 외래키 설정: performance 테이블의 performance_idx 참조
-    FOREIGN KEY (actor_idx) REFERENCES actor(actor_idx) ON UPDATE CASCADE ON DELETE CASCADE							-- 외래키 설정: actor 테이블의 actor_idx 참조
+    casting_name	varchar(100) null,											-- 배역
+    FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx),		-- 외래키 설정: performance 테이블의 performance_idx 참조
+    FOREIGN KEY (actor_idx) REFERENCES actor(actor_idx)							-- 외래키 설정: actor 테이블의 actor_idx 참조
 );
 create table cart(
 	cart_idx					int AUTO_INCREMENT PRIMARY KEY,	-- 장바구니번호
@@ -381,7 +381,8 @@ create table orders(
     reserved_performance_date varchar(100) not null,						  	-- 공연 관람 날짜
     order_date      		  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 	-- 주문 일시 -> 일정 시간 지난 후 결제 미완료 시 주문 취소
     order_amount			  int default 0,									-- 총 결제 금액
-    payment_state  	      char(1) default 'n',					-- 'y' or 'n' y=결제 후, n="결제 전"    	
+    payment_state  	      char(1) default 'n',					-- 'y' or 'n' y=결제 후, n="결제 전" 
+    used_point				  int default 0,					-- 사용 포인트    	
     FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (mem_idx) REFERENCES member(mem_idx) ON UPDATE CASCADE ON DELETE CASCADE
 );

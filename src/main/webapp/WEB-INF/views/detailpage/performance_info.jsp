@@ -166,7 +166,7 @@
                   ul #modal-actor-name {
                      background-color: #f4f4f4;
                      color: #222222;
-                     width: 340px;
+                     width: 360px;
                      margin-right: 0;
                      font-weight: bold;
                   }
@@ -503,9 +503,11 @@
                                                    </div>
                                                 </c:forEach>
                                              </div>
-                                             <button onclick="toggleText()" id="toggleButton">더보기
-                                                <i id="more" class="fi fi-rs-angle-small-down"></i>
-                                             </button>
+                                             <c:if test="${fn:length(list) > 6}">
+                                                <button onclick="toggleText()" id="toggleButton">더보기
+                                                   <i id="more" class="fi fi-rs-angle-small-down"></i>
+                                                </button>
+                                             </c:if>
                                           </div><br>
                                        </c:if>
 

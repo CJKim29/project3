@@ -146,6 +146,15 @@
        height: 230px;
        overflow: hidden;
       }
+
+      .btn-success:hover {
+       border: 0 !important;
+      }
+
+      .btn-success:focus {
+       border: 0 !important;
+       box-shadow: none !important;
+      }
      </style>
 
 
@@ -659,7 +668,8 @@
                 </c:choose>
                </c:forEach>
               </ul>
-              <a href="#" class="total-review" id="totalReviewLink">관람 후기(${fn:length(list_review)})</a>
+              <a href="#" class="total-review" id="totalReviewLink">관람
+               후기(${fn:length(list_review)})</a>
               <script type="text/javascript">
                // 첫 번째 링크 클릭 이벤트 리스너
                document.getElementById("totalReviewLink").addEventListener("click", function (event) {
@@ -752,74 +762,22 @@
               </script>
 
              </div>
-             <tr>
-              <td>
-               <div class="price discount"
-                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">장소</div>
-              </td>
-              <td>
-               <div class="price" style="display: inline-block;">
-                <a href="#" onclick="showLoc('${vo.performance_idx}')">${vo.hallVo.hall_name}<i
-                  class="fi fi-sr-caret-right"></i></a>
-               </div>
-              </td>
-             </tr>
-             <tr>
-              <td>
-               <div class="price discount"
-                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">공연기간</div>
-              </td>
-              <td>
-               <div class="price" style="display: inline-block;">
-                ${fn:substringBefore(vo.performance_startday,
-                ' ')}~${fn:substringBefore(vo.performance_endday, ' ')}
-               </div>
-              </td>
-             </tr>
-             <tr>
-              <td>
-               <div class="price discount"
-                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">공연시간</div>
-              </td>
-              <td>
-               <div class="price" style="display: inline-block; width: 220px;">
-                ${vo.performance_runtime}분
-               </div>
-              </td>
-             </tr>
-             <tr>
-              <td>
-               <div class="price discount"
-                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">
-                관람연령</div>
-              </td>
-              <td>
-               <div class="price" style="display: inline-block; width: 185px;">
-                ${vo.performance_age}세 이상 관람가능
-               </div>
-              </td>
-             </tr>
-             <tr>
-              <td>
-               <div class="price discount"
-                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important; vertical-align: top;">
-                가격
-               </div>
-              </td>
-              <td>
-               <div class="price" style="display: inline-block;">
-                <c:forEach var="seat" items="${vo.seatList}">
-                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <div style="width: 55px;">${seat.seat_grade}석</div>
-                  <div style="text-align: right;">
-                   <fmt:formatNumber type="number" value="${seat.seat_price}" />원
-                  </div>
-                 </div>
-                </c:forEach>
-               </div>
-              </td>
-             </tr>
-             </tr>
+             <p class="price"><span class="discount">장소</span> <a href="#"
+               onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i class="fi fi-sr-caret-right"></i></a>
+             </p>
+             <p class="price"><span class="discount">공연기간</span>${fn:substringBefore(vo.performance_startday,
+              ' ')}~${fn:substringBefore(vo.performance_endday, ' ')}
+             </p>
+             <p class="price"><span class="discount">공연시간</span>${vo.performance_runtime}분</p>
+             <p class="price"><span class="discount">관람연령</span>${vo.performance_age}세 이상
+              관람가능
+             </p>
+             <p class="price" style="display: grid; grid-template-columns: 18% 84%;">
+              <span class="discount">가격</span>
+              <c:forEach var="seat" items="${vo.seatList}">
+               ${seat.seat_grade}석 : ${seat.seat_price}원<br>
+              </c:forEach>
+             </p>
             </div>
             <!--/ End Description -->
             <!-- Color -->

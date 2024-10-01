@@ -47,11 +47,11 @@ public interface BookMapper {
 
  int selectOnePerformanceCateIdx(int performance_idx);
 
- int selectOneSeatIdxM(int performance_idx, int row);
+ int selectOneSeatIdxM(int performance_date_idx, int row);
 
- int selectOneSeatIdxS(int performance_idx, int row);
+ int selectOneSeatIdxS(int performance_date_idx, int row);
 
- int selectOneSeatIdxL(int performance_idx, int row);
+ int selectOneSeatIdxL(int performance_date_idx, int row);
 
  void ordersSeatInsert(OrdersSeatVo ordersSeatVo);
 

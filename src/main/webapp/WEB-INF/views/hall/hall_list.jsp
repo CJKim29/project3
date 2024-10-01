@@ -77,7 +77,7 @@
 
         <table class="table" >
             <tr style="background: #ff1d38">
-                <th>번호</th>
+                <!-- <th>번호</th> -->
                 <th>공연장</th>
                 <th>
                     <select id="area-select" onchange="filterByArea()">
@@ -103,7 +103,7 @@
             <!-- for(MemberVo vo : list) -->
             <c:forEach var="vo" items="${ list }">
                 <tr>
-                    <td>${ vo.hall_idx }</td>
+                    <!-- <td>${ vo.hall_idx }</td> -->
                     <td><a href="search.do?hall_idx=${vo.hall_idx}" style="color: blue;">${ vo.hall_name }</a></td>
                     <td>${ vo.hall_area }</td>
                     <td>${ vo.hall_addr }</td>

@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="cart_list" parameterType="int" resultMap="cartMap">
       SELECT 
           c.cart_idx,
+          c.performance_idx,
           p.performance_name,
           p.performance_image,
           c.reserved_performance_date,
@@ -43,22 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       WHERE c.mem_idx = #{mem_idx} 
       ORDER BY c.cart_idx
   </select>
-
-<select id="cart_pay" parameterType="int" resultMap="cartMap">
-    SELECT 
-        c.cart_idx,                         -- 장바구니 번호
-        c.mem_idx,                          -- 회원 번호
-        p.performance_name,                 -- 공연명
-        c.performance_idx,                  -- 공연 번호
-        c.reserved_performance_date,        -- 공연 예약 날짜
-        h.hall_name                         -- 공연장명
-    FROM cart c
-    INNER JOIN performance p ON c.performance_idx = p.performance_idx
-    JOIN cart_seat cs ON c.cart_idx = cs.cart_idx
-    INNER JOIN hall h ON p.hall_idx = h.hall_idx
-    WHERE c.cart_idx = #{cart_idx}
-</select>
-
 
 
   <select id="select_one_cart" parameterType="int" resultType="cart">

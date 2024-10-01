@@ -162,6 +162,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           o.reserved_performance_date,
           o.order_date,
           o.order_amount,
+          o.used_point,
           h.hall_name
       FROM orders o 
       INNER JOIN performance p ON o.performance_idx = p.performance_idx
@@ -186,11 +187,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <!-- 주문 정보 추가 -->
  <insert id="ordersInsert" parameterType="orders">
-    insert into orders (performance_idx, mem_idx, reserved_performance_date, order_date, order_amount, payment_state)
+    insert into orders (performance_idx, mem_idx, reserved_performance_date, order_date, order_amount, payment_state,used_point)
                 values (#{performance_idx},
                         #{mem_idx},
                         #{reserved_performance_date},
                         now(),
+                        default,
                         default,
                         default
                         );
@@ -212,13 +214,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <select id="selectOneSeatIdxM" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviewm where performance_idx = #{performance_idx} and m_hall_row_no = #{row};
+        SELECT seat_idx FROM cartlistviewm where performance_date_idx = #{performance_date_idx} and m_hall_row_no = #{row};
  </select>
  <select id="selectOneSeatIdxS" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviews where performance_idx = #{performance_idx} and s_hall_row_no = #{row};
+        SELECT seat_idx FROM cartlistviews where performance_date_idx = #{performance_date_idx} and s_hall_row_no = #{row};
  </select>
  <select id="selectOneSeatIdxL" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviewl where performance_idx = #{performance_idx} and l_hall_row_no = #{row};
+        SELECT seat_idx FROM cartlistviewl where performance_date_idx = #{performance_date_idx} and l_hall_row_no = #{row};
  </select>
 
  <select id="OrderRecentIdx" resultType="int">

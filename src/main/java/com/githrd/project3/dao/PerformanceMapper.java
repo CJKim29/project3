@@ -1,13 +1,12 @@
 package com.githrd.project3.dao;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.githrd.project3.vo.HallVo;
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.SeatVo;
@@ -103,5 +102,8 @@ public interface PerformanceMapper {
  void deletePerformanceDates(int performance_idx);
 
  void deleteSeatByPerformanceIdx(int performance_idx);
+
+  // 카테고리별 랜덤 공연 조회
+  List<PerformanceVo> getRandomPerformancesByCategory(int categoryIdx);
 
 }

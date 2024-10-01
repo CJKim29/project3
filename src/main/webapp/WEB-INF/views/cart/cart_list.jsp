@@ -18,8 +18,19 @@ function cart_delete(cart_idx, showConfirm) {
 }
 
 // 결제 전에 좌석 예약 여부를 체크하는 함수
-function check_seat(cart_idx) {
-  console.log(cart_idx);
+function check_seat(cart_idx,performance_idx,date) {
+  // 모든 좌석 정보를 가져옵니다.
+  let seatElements = document.querySelectorAll('.seat-info');
+  let seatInfo = [];
+
+  // 각 좌석 이름을 배열에 추가
+  seatElements.forEach(function(seat) {
+    seatInfo.push(seat.textContent.trim());
+  });
+
+  // 좌석 정보를 쉼표로 구분된 문자열로 변환
+  let seatInfoStr = seatInfo.join(',');
+
     $.ajax({
         url: '/cart/check_seat.do',  // 좌석 예약 여부를 체크하는 컨트롤러 경로
         type: 'GET',
@@ -31,7 +42,7 @@ function check_seat(cart_idx) {
             }
             
             else if (result === false) {
-              location.href = "/payment.do?cart_idx=" + cart_idx;  // 예매 페이지로 이동
+              location.href = "../book/reserve_seats.do?cart_idx=" + cart_idx + "&performance_idx=" + performance_idx + "&date=" + date + "&seatInfo=" + encodeURIComponent(seatInfoStr);;  // 예매 페이지로 이동
             }
         },
         error: function() {
@@ -43,7 +54,7 @@ function check_seat(cart_idx) {
   </head>
   <body class="js">
     <!-- Shopping Cart -->
-    <div class="shopping-cart section">
+    <div class="shopping-cart section" style="padding-bottom: 200px;">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -63,9 +74,9 @@ function check_seat(cart_idx) {
               </thead>
               <tbody>
                 <c:if test="${ empty list }">
+                <font color="red">담긴 티켓이 없습니다.</font>
                   <tr>
                     <td colspan="5" align="center">
-                      <font color="red">담긴 티켓이 없습니다</font>
                     </td>
                   </tr>
                 </c:if>
@@ -86,7 +97,7 @@ function check_seat(cart_idx) {
                     <!-- 예매 좌석정보 -->
                     <td class="total-amount" data-title="Total">
                       <c:forEach var="seat" items="${vo.seatList}">
-                           ${seat.cart_seat_name} <br />
+                        <span class="seat-info">${seat.cart_seat_name}</span><br />
                       </c:forEach>
                     </td>
                     <!-- 금액 -->
@@ -97,7 +108,8 @@ function check_seat(cart_idx) {
                     </td>
                     <!-- 결제/취소 -->
                     <td class="action" data-title="Remove">
-                      <input type="button" value="결제" onclick="check_seat('${ vo.cart_idx }');">
+                      <input type="hidden" name="performance_idx" value="${ vo.performance_idx }">
+                      <input type="button" value="결제" onclick="check_seat('${ vo.cart_idx }', '${ vo.performance_idx }', '${ vo.reserved_performance_date }');">
                       <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', true);">
                     </td>
                   </tr>

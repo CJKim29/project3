@@ -19,6 +19,7 @@ public class OrdersVo {
  String order_date; // 주문일시
  int order_amount; // 총 결제 금액
  String payment_state; // 결제 상태
+ int used_point; // 사용 포인트
 
  // 조인용 변수
  String performance_name;

@@ -88,97 +88,76 @@
 								 <!-- 뮤지컬 부분 -->
 								  <!-- 이미지 수정필요 -->
 								  <!-- 로맨틱코미디장르1 -->
-								<div class="tab-pane fade show active" id="performance1" role="tabpanel">
+								  <div class="tab-pane fade show active" id="performance1" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
-											<c:forEach items="${romanticComedy}" var="performance">
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
-															<img class="default-img" src="${performance.imageUrl}" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=${performance.performance_idx}">${performance.name}</a></h3>
-														<div class="product-price">
-															<span>${performance.date}</span>
+											<c:if test="${not empty randomRomanticPerformances}">
+												<c:forEach var="performance" items="${randomRomanticPerformances}">
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product">
+															<div class="product-img">
+																<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																	<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="${performance.performance_name}" style="width: 250px; height: 380px;">
+																</a>
+															</div>
+															<div class="product-content">
+																<div>
+																	<h3>
+																		<span style="font-size: small;">[${performance.performance_cate_name}]</span>
+																		<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																			${performance.performance_name}
+																		</a>
+																	</h3>
+																</div>
+																<div class="product-price">
+																	<span>${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}</span>
+																</div>
+															</div>
 														</div>
 													</div>
-												</div>	
-											</div>
-										</c:forEach>
-	
-	
+												</c:forEach>
+											</c:if>
+											<c:if test="${empty randomRomanticPerformances}">
+												<p>공연 정보가 없습니다.</p>
+											</c:if>
 										</div>
 									</div>
 								</div>
+								
+								
 								<!--/ End Single Tab -->
 
 								<!-- 드라마 장르2 부분 -->
 								<div class="tab-pane fade" id="performance2" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
+											<c:if test="${not empty randomDramaPerformances}">
+											<c:forEach var="performance" items="${randomDramaPerformances}">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=4">
-															<img class="default-img" src="/../resources/template/images/장르용 시카고.png" alt="#">
+														<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="${performance.performance_name}" style="width: 250px; height: 380px;">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=4">뮤지컬 시카고</a></h3>
+														<h3>
+															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																${performance.performance_name}
+															</a>
+														</h3>
 														<div class="product-price">
-															<span>2024.06.07 ~2024.09.29</span>
+															<span>${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}</span>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=5">
-															<img class="default-img" src="/../resources/template/images/장르용 부치하난.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=5">뮤지컬 부치하난</a></h3>
-														<div class="product-price">
-															<span>2024.09.17 ~2024.11.17</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=9">
-															<img class="default-img" src="/../resources/template/images/장르용 썸데이.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=9">뮤지컬 썸데이</a></h3>
-														<div class="product-price">
-															<span>2023.09.01 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=7">
-															<img class="default-img" src="/../resources/template/images/장르용 베르사유.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=7">뮤지컬 베르사유의 장미</a></h3>
-														<div class="product-price">
-															<span>2024.07.16 ~2024.10.13</span>
-														</div>
-													</div>
-												</div>
-											</div>
+											</c:forEach>
+											</c:if>
+											<c:if test="${empty randomDramaPerformances}">
+												<p>공연 정보가 없습니다.</p>
+											</c:if>
 										</div>
 									</div>
 								</div>
@@ -188,66 +167,33 @@
 								<div class="tab-pane fade" id="performance3" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
+											<c:if test="${not empty randomPerformancePerformances}">
+											<c:forEach var="performance" items="${randomPerformancePerformances}">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=18">
-															<img class="default-img" src="/../resources/template/images/장르용 스파이.png" alt="#">
+														<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="${performance.performance_name}" style="width: 250px; height: 380px;">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=18">뮤지컬 스파이</a></h3>
+														<h3>
+															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																${performance.performance_name}
+															</a>
+														</h3>
 														<div class="product-price">
-															<span>2024.08.06 ~ 2024.10.27</span>
+															<span>${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}</span>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=17">
-															<img class="default-img" src="/../resources/template/images/장르용 애니.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=17">뮤지컬 애니</a></h3>
-														<div class="product-price">
-															<span>2024.10.01 ~ 2024.10.27</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=19">
-															<img class="default-img" src="/../resources/template/images/장르용 난타.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=19">뮤지컬 난타</a></h3>
-														<div class="product-price">
-															<span>2022.07.08 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=21">
-															<img class="default-img" src="/../resources/template/images/장르용 페인터즈.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=21">뮤지컬 페인터즈</a></h3>
-														<div class="product-price">
-															<span>2024.03.25 ~ 2024.10.31</span>
-														</div>
-													</div>
-												</div>
-											</div>
+											</c:forEach>
+											</c:if>
+												<c:if test="${empty randomDramaPerformances}">
+													<p>공연 정보가 없습니다.</p>
+												</c:if>
 										</div>
 									</div>
 								</div>
@@ -257,66 +203,33 @@
 								<div class="tab-pane fade" id="performance4" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
+											<c:if test="${not empty randomHorrorPerformances}">
+											<c:forEach var="performance" items="${randomHorrorPerformances}">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=15">
-															<img class="default-img" src="/../resources/template/images/장르용 하데스.png" alt="#">
+														<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="${performance.performance_name}" style="width: 250px; height: 380px;">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=15">뮤지컬 하데스타운</a></h3>
+														<h3>
+															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																${performance.performance_name}
+															</a>
+														</h3>
 														<div class="product-price">
-															<span>	2024.07.12 ~ 2024.10.06</span>
+															<span>${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}</span>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=42">
-															<img class="default-img" src="/../resources/template/images/장르용 그곳에.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=42">연극 그곳에 있었다</a></h3>
-														<div class="product-price">
-															<span>2023.10.11 ~ 2024.09.30</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=45">
-															<img class="default-img" src="/../resources/template/images/장르용 크리미널.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=45">연극 크리미널 시즌4</a></h3>
-														<div class="product-price">
-															<span>2023.06.14 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=44">
-															<img class="default-img" src="/../resources/template/images/장르용 자취.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=44">연극 자취</a></h3>
-														<div class="product-price">
-															<span>2020.02.28 ~ OPEN RUN</span>
-														</div>
-													</div>
-												</div>
-											</div>
+											</c:forEach>
+											</c:if>
+												<c:if test="${empty randomDramaPerformances}">
+													<p>공연 정보가 없습니다.</p>
+												</c:if>
 										</div>
 									</div>
 								</div>
@@ -327,66 +240,33 @@
 								<div class="tab-pane fade" id="performance5" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
+											<c:if test="${not empty randomChildrenPerformances}">
+											<c:forEach var="performance" items="${randomChildrenPerformances}">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=22">
-															<img class="default-img" src="/../resources/template/images/장르용 베베핀.png" alt="#">
+														<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="${performance.performance_name}" style="width: 250px; height: 380px;">
 														</a>
 													</div>
 													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=22">뮤지컬 베베핀</a></h3>
+														<h3>
+															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																${performance.performance_name}
+															</a>
+														</h3>
 														<div class="product-price">
-															<span>2024.09.01 ~ 2024.09.22</span>
+															<span>${performance.hallVo.hall_area} &gt; ${performance.hallVo.hall_name}</span>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=48">
-															<img class="default-img" src="/../resources/template/images/장르용 아빠와난.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=48">연극 아빠와 난 초등 1학년</a></h3>
-														<div class="product-price">
-															<span>2024.10.11 ~ 2024.10.13</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=23">
-															<img class="default-img" src="/../resources/template/images/장르용 어린왕자.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=23">뮤지컬 어린왕자</a></h3>
-														<div class="product-price">
-															<span>2024.08.02 ~ 2024.09.29</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="../detail/detail.do?performance_idx=24">
-															<img class="default-img" src="/../resources/template/images/장르용 어린이캣.png" alt="#">
-														</a>
-													</div>
-													<div class="product-content">
-														<h3><a href="../detail/detail.do?performance_idx=24">뮤지컬 오리지널 어린이 캣</a></h3>
-														<div class="product-price">
-															<span>2024.10.30 ~ 2024.11.20</span>
-														</div>
-													</div>
-												</div>
-											</div>
+											</c:forEach>
+											</c:if>
+												<c:if test="${empty randomDramaPerformances}">
+													<p>공연 정보가 없습니다.</p>
+												</c:if>
 										</div>
 									</div>
 								</div>

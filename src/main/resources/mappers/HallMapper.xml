@@ -4,36 +4,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.HallMapper">
 
-    <select id="hall_list" resultType="hall">
+  <select id="hall_list" resultType="hall">
     select h.* 
     from hall h
     join area a on h.area_idx = a.area_idx
     <trim prefix="where" prefixOverrides="and">
-        <if test="area!= null and area != 'all'">
+      <if test="area!= null and area != 'all'">
             h.area_idx = #{area}
-        </if>
+      </if>
     </trim>
     order by h.hall_idx
-    </select>
+  </select>
 
-    <insert id="hall_insert" parameterType="hall">
-        insert into hall values(null,#{hall_name},#{hall_area},#{hall_addr},#{hall_tel},#{hall_site},#{hall_seat},#{hall_image})
-    </insert>
+  <insert id="hall_insert" parameterType="hall">
+        insert into hall values(null,#{area_idx},#{hall_name},#{hall_area},#{hall_addr},#{hall_tel},#{hall_site},#{hall_seat},#{hall_image})
+  </insert>
 
-    <select id="hall_one_from_idx" parameterType="int" resultType="hall">
+  <select id="hall_one_from_idx" parameterType="int" resultType="hall">
         select * from hall where hall_idx = ${hall_idx}
-    </select>
+  </select>
 
-    <delete id="hall_delete" parameterType="int">
+  <delete id="hall_delete" parameterType="int">
         delete from hall where hall_idx=#{hall_idx}
-    </delete>
+  </delete>
 
-    <update id="hall_modify" parameterType="hall"> 
-        update hall set hall_name=#{hall_name},hall_area=#{hall_area},hall_addr=#{hall_addr},hall_tel=#{hall_tel},hall_site=#{hall_site},hall_seat=#{hall_seat},hall_image=#{hall_image}
+  <update id="hall_modify" parameterType="hall"> 
+        update hall set hall_name=#{hall_name},area_idx=#{area_idx},hall_area=#{hall_area},hall_addr=#{hall_addr},hall_tel=#{hall_tel},hall_site=#{hall_site},hall_seat=#{hall_seat},hall_image=#{hall_image}
         where hall_idx = #{hall_idx}
-    </update>
+  </update>
 
-<select id="search_list" resultType="performance">
+  <select id="search_list" resultType="performance">
     SELECT 
         p.performance_idx, 
         p.performance_name, 
@@ -53,16 +53,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         p.hall_idx = #{hall_idx}
     ORDER BY 
         p.performance_startday DESC
-</select>
+  </select>
 
-<select id="get_hall_name" resultType="String">
+  <select id="get_hall_name" resultType="String">
     SELECT hall_name FROM hall WHERE hall_idx = #{hall_idx}
-</select>
+  </select>
 
- <select id="get_hall_by_area" resultType="hall">
+  <select id="get_hall_by_area" resultType="hall">
     SELECT hall_idx, hall_name 
     FROM hall 
     WHERE area_idx = #{area_idx}
-</select>
+  </select>
 
 </mapper>
