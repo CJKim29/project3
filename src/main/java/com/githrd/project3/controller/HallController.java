@@ -26,155 +26,211 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/hall/")
 public class HallController {
 
-	// 자동연결(요청시 마다 Injection)
-	@Autowired
-	HttpServletRequest request;
+  // 자동연결(요청시 마다 Injection)
+  @Autowired
+  HttpServletRequest request;
 
-	@Autowired
-	HttpSession session;
+  @Autowired
+  HttpSession session;
 
-	// 처음에 1회 연결
-	@Autowired
-	HallMapper hall_mapper;
+  // 처음에 1회 연결
+  @Autowired
+  HallMapper hall_mapper;
 
-	@Autowired
-	ServletContext application;
+  @Autowired
+  ServletContext application;
 
-	@RequestMapping("list.do")
-	public String list(
-	@RequestParam(defaultValue = "all") String area,	
-	Model model) {
+  @RequestMapping("list.do")
+  public String list(
+      @RequestParam(defaultValue = "all") String area,
+      Model model) {
 
-		Map<String,Object> map = new HashMap<>();
+    Map<String, Object> map = new HashMap<>();
 
-		if(!area.equals("all")) {
-			map.put("area", area);
-		}
+    if (!area.equals("all")) {
+      map.put("area", area);
+    }
 
-		// 회원목록 가져오기
-		List<HallVo> list = hall_mapper.hall_list(map);
+    // 회원목록 가져오기
+    List<HallVo> list = hall_mapper.hall_list(map);
 
-		// request binding
-		model.addAttribute("list", list);
+    // request binding
+    model.addAttribute("list", list);
 
-		return "hall/hall_list";
-	}
+    return "hall/hall_list";
+  }
 
-	@RequestMapping("insert_form.do")
-	public String insert_form() {
+  @RequestMapping("insert_form.do")
+  public String insert_form() {
 
-		return "hall/hall_insert_form";
-	}
+    return "hall/hall_insert_form";
+  }
 
-	@RequestMapping("insert.do")
-	public String insert(HallVo vo, @RequestParam MultipartFile photo,
-			RedirectAttributes ra) throws Exception {
+  @RequestMapping("insert.do")
+  public String insert(HallVo vo, @RequestParam MultipartFile photo,
+      RedirectAttributes ra) throws Exception {
 
-		MemberVo user = (MemberVo) session.getAttribute("user");
-		if (user == null) {
+    MemberVo user = (MemberVo) session.getAttribute("user");
+    if (user == null) {
 
-			// 사용자한테 로그아웃됐다고 알려주기 => member_login_form.jsp로 가서 안내멘트 작성
-			ra.addAttribute("reason", "session_timeout");
+      // 사용자한테 로그아웃됐다고 알려주기 => member_login_form.jsp로 가서 안내멘트 작성
+      ra.addAttribute("reason", "session_timeout");
 
-			return "redirect:../member/login_form.do";
-		}
+      return "redirect:../member/login_form.do";
+    }
 
-		// 파일 업로드 처리
-		String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
-		String hall_image = "no_file";
+    // 파일 업로드 처리
+    String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
+    String hall_image = "no_file";
 
-		if (!hall_image.isEmpty()) {
+    if (!hall_image.isEmpty()) {
 
-			// 업로드 된 파일 이름 얻어오기
-			hall_image = photo.getOriginalFilename();
+      // 업로드 된 파일 이름 얻어오기
+      hall_image = photo.getOriginalFilename();
 
-			File f = new File(absPath, hall_image);
+      File f = new File(absPath, hall_image);
 
-			if (f.exists()) { // 저장 경로에 동일한 파일이 존재하면 파일명 바꾸기
-				// 원래 파일명 = 시간_원래파일명
-				long tm = System.currentTimeMillis();
-				hall_image = String.format("%d_%s", tm, hall_image);
+      if (f.exists()) { // 저장 경로에 동일한 파일이 존재하면 파일명 바꾸기
+        // 원래 파일명 = 시간_원래파일명
+        long tm = System.currentTimeMillis();
+        hall_image = String.format("%d_%s", tm, hall_image);
 
-				f = new File(absPath, hall_image);
-			}
-			// 임시 파일
-			photo.transferTo(f); // 예외 처리 넘기기
-		}
-		vo.setHall_image(hall_image);
+        f = new File(absPath, hall_image);
+      }
+      // 임시 파일
+      photo.transferTo(f); // 예외 처리 넘기기
+    }
+    vo.setHall_image(hall_image);
 
-		int res = hall_mapper.hall_insert(vo);
+    int area_idx = 0;
 
-		return "redirect:list.do";
-	}
+    // hall_area 값에 따른 area_idx 매핑
+    switch (vo.getHall_area()) {
+      case "서울":
+        area_idx = 1;
+        break;
+      case "경기/인천":
+        area_idx = 2;
+        break;
+      case "충청/대전":
+        area_idx = 3;
+        break;
+      case "경상/대구/부산":
+        area_idx = 4;
+        break;
+      case "전라/광주":
+        area_idx = 5;
+        break;
+      case "강원":
+        area_idx = 6;
+        break;
+      case "제주":
+        area_idx = 7;
+        break;
+    }
+    vo.setArea_idx(area_idx);
 
-	@RequestMapping("delete.do")
-	public String delete(int hall_idx) {
+    int res = hall_mapper.hall_insert(vo);
 
-		int res = hall_mapper.hall_delete(hall_idx);
+    return "redirect:list.do";
+  }
 
-		return "redirect:list.do";
-	}
+  @RequestMapping("delete.do")
+  public String delete(int hall_idx) {
 
-	@RequestMapping("modify_form.do")
-	public String modify_form(int hall_idx, Model model) {
+    int res = hall_mapper.hall_delete(hall_idx);
 
-		HallVo vo = hall_mapper.hall_one_from_idx(hall_idx);
+    return "redirect:list.do";
+  }
 
-		model.addAttribute("vo", vo);
+  @RequestMapping("modify_form.do")
+  public String modify_form(int hall_idx, Model model) {
 
-		return "hall/hall_modify_form";
-	}
+    HallVo vo = hall_mapper.hall_one_from_idx(hall_idx);
 
-	@RequestMapping("modify.do")
-	public String modify(HallVo vo, @RequestParam MultipartFile photo, RedirectAttributes ra)
-			throws Exception {
+    model.addAttribute("vo", vo);
 
-		MemberVo user = (MemberVo) session.getAttribute("user");
+    return "hall/hall_modify_form";
+  }
 
-		if (user == null) {
+  @RequestMapping("modify.do")
+  public String modify(HallVo vo, @RequestParam MultipartFile photo, RedirectAttributes ra)
+      throws Exception {
 
-			ra.addAttribute("reason", "session_timeout");
+    MemberVo user = (MemberVo) session.getAttribute("user");
 
-			return "redirect:../member/login_form.do";
-		}
+    if (user == null) {
 
-		// 파일 업로드 처리
-		String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
-		String hall_image = "no_file";
+      ra.addAttribute("reason", "session_timeout");
 
-		if (!hall_image.isEmpty()) {
+      return "redirect:../member/login_form.do";
+    }
 
-			// 업로드 된 파일 이름 얻어오기
-			hall_image = photo.getOriginalFilename();
+    // 파일 업로드 처리
+    String absPath = application.getRealPath("/resources/images/"); // 파일 절대경로, 상대경로
+    String hall_image = "no_file";
 
-			File f = new File(absPath, hall_image);
+    if (!hall_image.isEmpty()) {
 
-			if (f.exists()) { // 저장 경로에 동일한 파일이 존재하면 파일명 바꾸기
-				// 원래 파일명 = 시간_원래파일명
-				long tm = System.currentTimeMillis();
-				hall_image = String.format("%d_%s", tm, hall_image);
+      // 업로드 된 파일 이름 얻어오기
+      hall_image = photo.getOriginalFilename();
 
-				f = new File(absPath, hall_image);
-			}
-			// 임시 파일
-			photo.transferTo(f); // 예외 처리 넘기기
-		}
-		vo.setHall_image(hall_image);
+      File f = new File(absPath, hall_image);
 
-		int res = hall_mapper.hall_modify(vo);
+      if (f.exists()) { // 저장 경로에 동일한 파일이 존재하면 파일명 바꾸기
+        // 원래 파일명 = 시간_원래파일명
+        long tm = System.currentTimeMillis();
+        hall_image = String.format("%d_%s", tm, hall_image);
 
-		return "redirect:list.do";
-	}
+        f = new File(absPath, hall_image);
+      }
+      // 임시 파일
+      photo.transferTo(f); // 예외 처리 넘기기
+    }
+    vo.setHall_image(hall_image);
 
-@RequestMapping("search.do")
-public String search(@RequestParam("hall_idx") int hall_idx, Model model) {
-  List<PerformanceVo> list = hall_mapper.search_list(hall_idx);
-	String hall_name = hall_mapper.get_hall_name(hall_idx);
-    
+    int area_idx = 0;
+
+    // hall_area 값에 따른 area_idx 매핑
+    switch (vo.getHall_area()) {
+      case "서울":
+        area_idx = 1;
+        break;
+      case "경기/인천":
+        area_idx = 2;
+        break;
+      case "충청/대전":
+        area_idx = 3;
+        break;
+      case "경상/대구/부산":
+        area_idx = 4;
+        break;
+      case "전라/광주":
+        area_idx = 5;
+        break;
+      case "강원":
+        area_idx = 6;
+        break;
+      case "제주":
+        area_idx = 7;
+        break;
+    }
+    vo.setArea_idx(area_idx);
+
+    int res = hall_mapper.hall_modify(vo);
+
+    return "redirect:list.do";
+  }
+
+  @RequestMapping("search.do")
+  public String search(@RequestParam("hall_idx") int hall_idx, Model model) {
+    List<PerformanceVo> list = hall_mapper.search_list(hall_idx);
+    String hall_name = hall_mapper.get_hall_name(hall_idx);
+
     // 조회된 공연 목록을 모델에 추가
     model.addAttribute("list", list);
-		model.addAttribute("hall_name", hall_name);
+    model.addAttribute("hall_name", hall_name);
 
     return "hall/hall_search";
-}
+  }
 }
