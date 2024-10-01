@@ -69,9 +69,9 @@
    $(document).ready(function () {
     $('#MyReview').on('click', function (event) {
      event.preventDefault();  // 기본 링크 동작을 막음
+     // 나의 후기 클릭 시
+     myReviewList(1);
     });
-    // '장바구니' 링크 클릭 시
-    myReviewList(1);
    });
 
    function myReviewList(page) {
