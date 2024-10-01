@@ -1,22 +1,13 @@
 package com.githrd.project3.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.githrd.project3.dao.MainMapper;
 import com.githrd.project3.dao.PerformanceMapper;
-import com.githrd.project3.util.MyCommon.Performance;
 import com.githrd.project3.vo.PerformanceVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,9 +27,6 @@ public class MainController {
     @Autowired
     PerformanceMapper performance_mapper;
 
-    @Autowired
-    MainMapper mainMapper;
-
     // 공연 정보 전체 조회 - 그리드 형식
     @RequestMapping("list.do")
     public String main(Model model) {
@@ -52,32 +40,29 @@ public class MainController {
         // 랭킹 공연 정보 가져오기
         List<PerformanceVo> rankingPerformances = performance_mapper.selectRankingPerformances();
         
+        // 카테고리별 랜덤 공연 가져오기
+        List<PerformanceVo> randomRomanticPerformances = performance_mapper.getRandomPerformancesByCategory(1);
+        List<PerformanceVo> randomDramaPerformances = performance_mapper.getRandomPerformancesByCategory(2);
+        List<PerformanceVo> randomPerformancePerformances = performance_mapper.getRandomPerformancesByCategory(5);
+        List<PerformanceVo> randomHorrorPerformances = performance_mapper.getRandomPerformancesByCategory(4);
+        List<PerformanceVo> randomChildrenPerformances = performance_mapper.getRandomPerformancesByCategory(6);
         
         // request binding
         model.addAttribute("list", list);
         model.addAttribute("newPerformances", newPerformances);
         model.addAttribute("rankingPerformances", rankingPerformances);
+        
+        model.addAttribute("randomRomanticPerformances", randomRomanticPerformances);
+        model.addAttribute("randomDramaPerformances", randomDramaPerformances);
+        model.addAttribute("randomPerformancePerformances", randomPerformancePerformances);
+        model.addAttribute("randomHorrorPerformances", randomHorrorPerformances);
+        model.addAttribute("randomChildrenPerformances", randomChildrenPerformances);
 
         return "main/main";
     }
+    
 
-     @GetMapping("/main")
-    public String getMainPage(Model model) {
-        List<Performance> romanticComedy = mainMapper.getRandomPerformancesByGenre("로맨틱코미디", 4);
-        List<Performance> drama = mainMapper.getRandomPerformancesByGenre("드라마", 4);
-        List<Performance> performance = mainMapper.getRandomPerformancesByGenre("퍼포먼스", 4);
-        List<Performance> horrorThriller = mainMapper.getRandomPerformancesByGenre("공포/스릴러", 4);
-        List<Performance> children = mainMapper.getRandomPerformancesByGenre("어린이", 4);
-
-        model.addAttribute("romanticComedy", romanticComedy);
-        model.addAttribute("drama", drama);
-        model.addAttribute("performance", performance);
-        model.addAttribute("horrorThriller", horrorThriller);
-        model.addAttribute("children", children);
-
-        return "main";
-    }
-
+    
 
 
 

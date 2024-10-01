@@ -304,6 +304,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 
+<!-- 카테고리별 랜덤 공연 정보 조회 -->
+<select id="getRandomPerformancesByCategory" parameterType="int" resultMap="performanceMap">
+    SELECT p.*, h.hall_name, h.hall_area, pc.performance_cate_name
+    FROM performance p
+    JOIN hall h ON p.hall_idx = h.hall_idx
+    JOIN performance_cate pc ON p.performance_cate_idx = pc.performance_cate_idx
+    WHERE p.performance_detail_cate_idx = #{categoryIdx}
+    ORDER BY RAND()
+    LIMIT 4
+</select>
 
 
  <!--parameterType = 전달인자타입

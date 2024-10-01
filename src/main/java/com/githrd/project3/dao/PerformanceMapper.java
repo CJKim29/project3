@@ -1,13 +1,12 @@
 package com.githrd.project3.dao;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.githrd.project3.vo.HallVo;
 import com.githrd.project3.vo.PerformanceDateVo;
 import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.SeatVo;
@@ -92,5 +91,8 @@ public interface PerformanceMapper {
 
   // 카테고리별 공연 목록 조회
 List<PerformanceVo> select_cate(int performance_cate_idx);
+
+  // 카테고리별 랜덤 공연 조회
+  List<PerformanceVo> getRandomPerformancesByCategory(int categoryIdx);
 
 }
