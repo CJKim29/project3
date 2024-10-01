@@ -163,7 +163,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         ><a href="#"><i class="fa fa-user"></i><b>${ vo.mem_nickname }</b>님의 글</a
                         ><a href="#"><i class="fa fa-calendar"></i>${ vo.board_regdate }</a
                         ><a href="#"
-                          ><i class="fa fa-comments"></i>조회수 ($ {vo.board_readhit })</a
+                          ><i class="fa fa-comments"></i>조회수 (${vo.board_readhit })</a
                         ></span
                       >
                     </div>
