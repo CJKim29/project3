@@ -214,13 +214,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <select id="selectOneSeatIdxM" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviewm where performance_idx = #{performance_idx} and m_hall_row_no = #{row};
+        SELECT seat_idx FROM cartlistviewm where performance_date_idx = #{performance_date_idx} and m_hall_row_no = #{row};
  </select>
  <select id="selectOneSeatIdxS" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviews where performance_idx = #{performance_idx} and s_hall_row_no = #{row};
+        SELECT seat_idx FROM cartlistviews where performance_date_idx = #{performance_date_idx} and s_hall_row_no = #{row};
  </select>
  <select id="selectOneSeatIdxL" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviewl where performance_idx = #{performance_idx} and l_hall_row_no = #{row};
+        SELECT seat_idx FROM cartlistviewl where performance_date_idx = #{performance_date_idx} and l_hall_row_no = #{row};
  </select>
 
  <select id="OrderRecentIdx" resultType="int">

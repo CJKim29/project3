@@ -16,9 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.githrd.project3.dao.BookMapper;
+import com.githrd.project3.dao.CartMapper;
+import com.githrd.project3.dao.Cart_seatMapper;
 import com.githrd.project3.dao.L_HallMapper;
 import com.githrd.project3.dao.M_HallMapper;
 import com.githrd.project3.dao.S_HallMapper;
+import com.githrd.project3.vo.Cart_seatVo;
 import com.githrd.project3.vo.L_HallVo;
 import com.githrd.project3.vo.M_HallVo;
 import com.githrd.project3.vo.MemberVo;
@@ -37,6 +40,11 @@ public class BookController {
  // 자동연결(요청시 마다 Injection)
  @Autowired
  HttpServletRequest request;
+
+ @Autowired
+ CartMapper cart_mapper;
+ @Autowired
+ Cart_seatMapper cart_seat_mapper;
 
  @Autowired
  HttpSession session;
@@ -177,24 +185,10 @@ public class BookController {
  @RequestMapping("/reserve_seats.do")
  public String reserveSeats(OrdersVo ordersVo, int performance_idx, String selectedSeats,
    @RequestParam("date") String performance_date,
-   @RequestParam("seatInfo") List<String> seatInfo, Model model) {
-
-  // System.out.println("---[ordersVo]----------------------------------------------------------------------------");
-  // System.out.println(ordersVo);
-
-  // System.out.println("---[selectedSeats]-----------------------------------------------------------------------");
-  // System.out.println(selectedSeats);
-
-  // System.out.println("---[seatInfo]-----------------------------------------------------------------------------");
-  // System.out.println(seatInfo);
-
-  // System.out.println("---[performance_date]---------------------------------------------------------------------");
-  // System.out.println(performance_date);
-
-  // System.out.println("---[performance_idx]----------------------------------------------------------------------");
-  // System.out.println(performance_idx);
+   @RequestParam("seatInfo") List<String> seatInfo,  @RequestParam(value = "cart_idx", required = false) Integer cart_idx, Model model) {
 
   MemberVo user = (MemberVo) session.getAttribute("user");
+  int mem_idx = user.getMem_idx();
 
   // 공연 정보 조회
   PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
@@ -207,44 +201,60 @@ public class BookController {
    // performance_date_idx가 null일 경우 처리
    return "errorPage";
   }
-  // 선택된 좌석 정보 파싱
-  ObjectMapper mapper = new ObjectMapper();
-  List<Map<String, Object>> selectedSeats1;
-  try {
-   selectedSeats1 = mapper.readValue(selectedSeats, new TypeReference<List<Map<String, Object>>>() {
-   });
-  } catch (IOException e) {
-   e.printStackTrace();
-   return "errorPage";
-  }
-
-  if (vo.getPerformance_cate_idx() == 1) {
-   // 선택된 좌석을 업데이트
-   for (Map<String, Object> seat : selectedSeats1) {
-    int row = ((Number) seat.get("row")).intValue();
-    String col = (String) seat.get("col");
-    m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-   }
-  }
-  if (vo.getPerformance_cate_idx() == 2) {
-   // 선택된 좌석을 업데이트
-   for (Map<String, Object> seat : selectedSeats1) {
-    int row = ((Number) seat.get("row")).intValue();
-    String col = (String) seat.get("col");
-    s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-   }
-  }
-  if (vo.getPerformance_cate_idx() == 3) {
-   // 선택된 좌석을 업데이트
-   for (Map<String, Object> seat : selectedSeats1) {
-    int row = ((Number) seat.get("row")).intValue();
-    String col = (String) seat.get("col");
-    l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-   }
-  }
+    // 장바구니를 통해 넘어온 경우 cart_idx가 존재함
+    if (cart_idx != null) {
+        // 장바구니에서 넘어온 요청일 경우 처리 (예: 장바구니에서 좌석 정보 가져오기)
+        List<Cart_seatVo> seatList = cart_seat_mapper.cart_seat_select_one(cart_idx);
+        for (Cart_seatVo cart_seatVo : seatList) {
+            seatInfo.add(cart_seatVo.getCart_seat_name());
+            int row = Integer.parseInt(cart_seatVo.getCart_seat_name().split("열|석")[0]); // "열" 앞의 숫자 (예: "3")
+            String col = cart_seatVo.getCart_seat_name().split("열|석")[1].toLowerCase(); // "석" 앞의 문자 (예: "B")
+            switch (vo.getPerformance_cate_idx()) {
+              case 1:
+                  m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+                  break;
+              case 2:
+                  s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+                  break;
+              case 3:
+                  l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+                  break;
+          }
+          // 장바구니에서 삭제
+          cart_mapper.cart_delete(cart_idx);
+        }
+    } else {
+        // 바로 예약한 경우 처리
+        ObjectMapper mapper = new ObjectMapper();
+        List<Map<String, Object>> selectedSeatsList;
+        try {
+            selectedSeatsList = mapper.readValue(selectedSeats, new TypeReference<List<Map<String, Object>>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "errorPage";
+        }
+        // 선택된 좌석 업데이트
+        for (Map<String, Object> seat : selectedSeatsList) {
+            int row = ((Number) seat.get("row")).intValue();
+            String col = (String) seat.get("col");
+            // 카테고리에 따른 처리
+            switch (vo.getPerformance_cate_idx()) {
+                case 1:
+                    m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+                    break;
+                case 2:
+                    s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+                    break;
+                case 3:
+                    l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+                    break;
+            }
+        }
+    }
 
   // "date" 값을 ordersVo에 설정
   ordersVo.setReserved_performance_date(performance_date);
+  ordersVo.setMem_idx(mem_idx); 
 
   // 주문 정보 DB insert
   int res = book_mapper.ordersInsert(ordersVo);
@@ -267,13 +277,13 @@ public class BookController {
    // 카테고리에 따라 다른 메서드 호출
    switch (performance_cate_idx) {
     case 1: // 중형(뮤지컬)
-     seat_idx = book_mapper.selectOneSeatIdxM(ordersVo.getPerformance_idx(), row);
+     seat_idx = book_mapper.selectOneSeatIdxM(performance_date_idx, row);
      break;
     case 2: // 소형(연극)
-     seat_idx = book_mapper.selectOneSeatIdxS(ordersVo.getPerformance_idx(), row);
+     seat_idx = book_mapper.selectOneSeatIdxS(performance_date_idx, row);
      break;
     case 3: // 대형(콘서트)
-     seat_idx = book_mapper.selectOneSeatIdxL(ordersVo.getPerformance_idx(), row);
+     seat_idx = book_mapper.selectOneSeatIdxL(performance_date_idx, row);
      break;
    }
 
