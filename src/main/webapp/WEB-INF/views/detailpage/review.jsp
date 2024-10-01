@@ -529,7 +529,7 @@
                   <!-- 관람 후기 -->
                   <c:forEach var="review" items="${review_row_list}">
                    <div class="single-rating">
-                    <div class="rating-author">
+                    <div class="rating-author" style="border-radius: 100% !important; height: 60px !important;">
                      <img src="../resources/images/${ review.mem_filename }">
                     </div>
                     <div class="rating-des">

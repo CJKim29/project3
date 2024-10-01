@@ -131,6 +131,11 @@
        margin: 0 auto;
        padding: 0;
       }
+
+      .rating-author {
+       border-radius: 0% !important;
+       height: 80px !important;
+      }
      </style>
 
      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -171,6 +176,14 @@
         <div class="short" style="display: inline-block; margin-top: 5px;">
         </div>
         <!--/ End Description -->
+        <!-- <script>
+         $(document).ready(function () {
+          $('.rating-author').css({
+           'border-radius': '0%',
+           'height': '80px'
+          });
+         });
+        </script> -->
         <script>
          $(document).ready(function () {
           // '관람 후기' 작성 버튼 클릭 시 처리하는 함수
@@ -450,7 +463,8 @@
                  </p>
                  <div class="single-rating">
                   <div class="rating-author">
-                   <img src="../resources/images/${ review.performance_image }">
+                   <a href="../detail/detail.do?performance_idx=${review.performance_idx}"><img
+                     src="../resources/images/${ review.performance_image }"></a>
                   </div>
                   <div class="rating-des">
                    <div class="ratings">

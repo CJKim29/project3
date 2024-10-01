@@ -73,7 +73,7 @@
     $("#btn_register").prop("disabled", true);
 
     let mem_nickname = $("#mem_nickname").val();
-    let mem_nickname_check = /^[가-힣ㄱ-ㅎA-Za-z]{3,12}$/;
+    let mem_nickname_check = /^[가-힣ㄱ-ㅎA-Za-z0-9]{3,12}$/;
 
     if (mem_nickname.length == 0) {
      $("#nickname_msg").html("");
@@ -81,7 +81,7 @@
     }
 
     if (mem_nickname_check.test(mem_nickname) == false) {
-     $("#nickname_msg").html("닉네임은 3~12자리 한글 또는 영문만 사용가능합니다.").css("color", "IndianRed");
+     $("#nickname_msg").html("닉네임은 3~12자리 한글, 영문 또는 숫자만 사용가능합니다.").css("color", "IndianRed");
      return;
     }
 

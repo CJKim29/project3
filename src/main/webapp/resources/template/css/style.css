@@ -2856,8 +2856,8 @@ Version:1.0
 
 .shop.single .rating-author img {
  width: 60px;
- border-radius: 100%;
- height: 60px;
+ /* border-radius: 100%;
+ height: 60px; */
 }
 
 .shop.single .rating-des {
