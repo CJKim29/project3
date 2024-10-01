@@ -196,6 +196,7 @@
         }
        });
        window.submitBookForm = function () {
+        if(confirm("다른 사람이 해당 좌석을 구매할시, 장바구니 내역이 삭제될 수 있습니다. 담으시겠습니까?")==false)return;
         var form = $("#bookForm");
         form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
         // 선택된 좌석이 있는지 확인

@@ -185,6 +185,7 @@
         }
        });
        window.submitBookForm = function () {
+         if(confirm("다른 사람이 해당 좌석을 구매할시, 장바구니 내역이 삭제될 수 있습니다. 담으시겠습니까?")==false)return;
         var form = $("#bookForm");
         form.find('input[name="seatInfo"]').remove(); // 기존 입력값 제거
         // 선택된 좌석이 있는지 확인
@@ -345,6 +346,17 @@
          <img src="/resources/images/무대.png" style="width: 469px" />
         </div>
         <div id="seat-box-body-left-button">
+          <strong style="margin-left: 5px; font-size: 10px;" >
+            A&nbsp;&nbsp;&nbsp;&nbsp; B&nbsp;&nbsp;&nbsp;&nbsp;
+            C&nbsp;&nbsp;&nbsp;&nbsp; D&nbsp;&nbsp;&nbsp;
+            E&nbsp;&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp;&nbsp;
+            G&nbsp;&nbsp;&nbsp; H&nbsp;&nbsp;&nbsp;&nbsp;
+            I&nbsp;&nbsp;&nbsp;&nbsp; J&nbsp;&nbsp;&nbsp;&nbsp;
+            K&nbsp;&nbsp;&nbsp;&nbsp; L&nbsp;&nbsp;&nbsp;&nbsp;
+            M&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp; 
+            O&nbsp;&nbsp;&nbsp;&nbsp; P&nbsp;&nbsp;&nbsp;
+          Q&nbsp;&nbsp;&nbsp;&nbsp; R&nbsp;&nbsp;&nbsp;
+        S&nbsp;&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp;&nbsp;</strong>
          <c:forEach var="seat" items="${seats}">
           <div>
            <c:choose>
@@ -643,12 +655,6 @@
          </div>
         </div>
        </div>
-       <c:forEach var="seat" items="${seatList}">
-        좌석번호: ${seat.seat_idx}<br>
-        좌석등급: ${seat.seat_grade}<br>
-        좌석가격: ${seat.seat_price}<br>
-        남은 좌석: ${seat.remaining_seats}<br><br>
-       </c:forEach>
       </div>
      </div>
     </body>
