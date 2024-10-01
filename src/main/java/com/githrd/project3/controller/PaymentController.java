@@ -59,6 +59,8 @@ public class PaymentController {
 
   Map<String, Object> resultMap = new HashMap<>();
 
+  MemberVo user = (MemberVo) session.getAttribute("user");
+
   try {
    // 2. 결제 정보를 Iamport 서버로부터 조회
    IamportResponse<Payment> paymentResponse = iamportService.getPaymentInfo(imp_uid);
@@ -68,42 +70,38 @@ public class PaymentController {
    if (payment.getAmount().compareTo(new BigDecimal(order_amount)) == 0) {
     // 결제 성공 처리
     book_mapper.updatePaymentState(order_idx);
-    // model.addAttribute("message", "결제가 성공적으로 완료되었습니다.");
+
+    // 포인트 차감
+    // 주문 정보에서 사용된 포인트 가져오기
+    OrdersVo orderVo = book_mapper.selectOneOrderIdx(order_idx); // 주문 정보를 가져오는 메서드
+    int used_point = orderVo.getUsed_point();
+
+    // 포인트 적립
+    int pointsToEarn = (int) (order_amount * 0.01); // 결제 금액의 1%
+
+    // Map을 통해 포인트 차감 및 추가
+    Map<String, Object> params = new HashMap<>();
+    params.put("mem_idx", user.getMem_idx());
+    params.put("mem_point", pointsToEarn);
+    params.put("used_point", used_point);
+    book_mapper.usedPoint(params); // 포인트 차감
+    book_mapper.addPoint(params); // 회원에게 포인트 추가
+
     resultMap.put("result", "success");
 
     return resultMap;
    } else {
     // 결제 금액 불일치 처리
-    // model.addAttribute("message", "결제 금액 불일치");
     resultMap.put("result", "fail_not_same_payment");
 
     return resultMap;
    }
   } catch (IamportResponseException | IOException e) {
    // 예외 처리
-   // model.addAttribute("message", "결제 처리 중 오류가 발생했습니다.");
    resultMap.put("result", "fail_exception");
 
    return resultMap;
   }
-
-  // // 3. 결제 금액 확인
-  // if (payment.getAmount().compareTo(new BigDecimal(order_amount)) == 0) {
-  // // 결제 성공 처리
-  // book_mapper.updatePaymentState(order_idx);
-  // model.addAttribute("message", "결제가 성공적으로 완료되었습니다.");
-
-  // return "redirect:/payment/success.do";
-  // } else {
-  // // 결제 금액 불일치 처리
-  // model.addAttribute("message", "결제 금액 불일치");
-  // return "redirect:/payment/failure";
-  // }
-  // } catch (IamportResponseException | IOException e) {
-  // // 예외 처리
-  // model.addAttribute("message", "결제 처리 중 오류가 발생했습니다.");
-  // return "redirect:/payment/failure";
-  // }
  }
 
  // 결제 완료 후 이동 할 화면
@@ -133,11 +131,9 @@ public class PaymentController {
  @RequestMapping("list.do")
  public String paymentList(Model model) {
 
-  // System.out.println("-------Payment List method called--------"); // 로그 추가
-
   MemberVo user = (MemberVo) session.getAttribute("user");
 
-  List<OrdersVo> list = book_mapper.ordersList(user.getMem_idx());
+  List<OrdersVo> list = book_mapper.myOrderList(user.getMem_idx());
   model.addAttribute("list", list);
 
   // 주문 조회 시 필요한 정보 map에 담음

@@ -1,8 +1,8 @@
 package com.githrd.project3.controller;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +16,12 @@ import com.githrd.project3.dao.ReviewMapper;
 import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging3;
-import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
+
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
+
+
 import com.githrd.project3.vo.ReviewVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,8 +46,10 @@ public class MypageController {
    @Autowired
    ReviewScoreMapper review_score_mapper;
 
+
    @RequestMapping("mypage.do")
    public String mypage_home() {
+
 
       return "mypage/mypage";
    }

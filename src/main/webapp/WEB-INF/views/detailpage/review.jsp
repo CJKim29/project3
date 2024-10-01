@@ -256,87 +256,7 @@
              });
             </script>
 
-            <!-- 수정 토글 -->
-            <script>
-             $(document).ready(function () {
-              // '관람 후기' 작성 버튼 클릭 시 처리하는 함수
-              $('.toggleReviewModify').on('click', function (e) {
-               e.preventDefault(); // 링크의 기본 동작 방지
 
-               // 로그인 여부 체크
-               if ("${empty user}" === "true") {
-                // 로그인이 안된 경우
-                if (confirm("관람 후기는 로그인 후 작성 가능합니다. \n 로그인 하시겠습니까?") === true) {
-                 // 로그인을 하겠다고 선택한 경우 로그인 페이지로 이동
-                 location.href = "../member/login_form.do";
-                } else {
-                 // 로그인을 하지 않겠다고 선택한 경우 아무 일도 일어나지 않음
-                 return;
-                }
-               } else {
-                // 로그인된 경우에만 후기 작성 여부 체크
-                var mem_idx = "${user.mem_idx}"; // 로그인한 사용자의 mem_idx
-                var performance_idx = "${param.performance_idx}"; // 공연 번호
-
-                if (!performance_idx) {
-                 console.error("Performance Index is missing.");
-                 return;
-                }
-
-                console.log("Requesting review check with mem_idx: " + mem_idx + " and performance_idx: " + performance_idx);
-
-                fetch(`/detail/review_check.do?mem_idx=${mem_idx}&performance_idx=${param.performance_idx}`)
-                 .then(response => {
-                  if (!response.ok) {
-                   throw new Error("Network response was not ok.");
-                  }
-                  return response.json();
-                 })
-                 .then(hasReviewed => {
-                  console.log("hasReviewed response: ", hasReviewed);
-                  if (hasReviewed) {
-                   alert("이미 후기를 작성한 사용자입니다.");
-                  } else {
-                   // 후기 작성이 가능한 경우에만 토글 처리
-                   toggleReviewForm();
-                  }
-                 })
-                 .catch(error => {
-                  console.error("후기 작성 여부 확인 중 오류 발생:", error);
-                 });
-               }
-              });
-
-              // '총 리뷰' 링크 클릭 시
-              $('#totalReviewLink').on('click', function (e) {
-               e.preventDefault(); // 링크의 기본 동작 방지
-
-               // 로그인된 경우에만 관람 후기 탭 활성화
-               if ("${empty user}" !== "true") {
-                activateReviewTab();
-               } else {
-                alert("로그인 후 리뷰를 작성하실 수 있습니다.");
-               }
-              });
-
-              // 후기 작성 폼 토글 함수
-              function toggleReviewForm() {
-               var reviewModifyForm = document.getElementById("reviewModifyForm");
-               if (reviewModifyForm.style.display === "none") {
-                reviewModifyForm.style.display = "block";
-               } else {
-                reviewModifyForm.style.display = "none";
-               }
-              }
-
-              // '관람 후기' 탭을 활성화하고 표시하는 함수
-              function activateReviewTab() {
-               // 탭 메뉴의 '관람 후기'를 활성화
-               $('#toggleReview').removeClass('active'); // '관람 후기 작성' 버튼 비활성화
-               $('a[href="#reviews"]').tab('show'); // '관람 후기' 탭 활성화
-              }
-             });
-            </script>
            </div>
           </div>
          </div>
@@ -551,23 +471,35 @@
                         &emsp;${fn:substring(review.mem_nickname, 0, fn:length(review.mem_nickname) - 2)}**</h6>
                        <div class="nav-main">
                         <ul class="nav nav-tabs" style="width: 100%;" id="myReviewInside" role="tablist">
-                         <li class="nav-item">
-                          <a class="nav-link toggleReviewModify" href="javascript:void(0);">수정</a>
-                         </li>
                          <c:if test="${ review.mem_idx == user.mem_idx || user.mem_grade eq '관리자' }">
-                          <button type="button"
-                           onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">수정</button>
+                          <li class="nav-item">
+                           <a class="nav-link toggleReviewModify" href="javascript:void(0);"
+                            onclick="window.location.href='review_modify_form.do?performance_idx=${ param.performance_idx }&review_idx=${ review.review_idx }&review_score_point=${ review.review_score_point }'">
+                            수정
+                           </a>
+                          </li>
                           <li class="nav-item">
                            <a class="nav-link" href="javascript:void(0);"
-                            onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">삭제</a>
+                            onclick="reviewDelete('${param.performance_idx}', '${review.review_idx}')">삭제</a>
                           </li>
+                          <!-- <li class="nav-item">
+                           <a class="nav-link"
+                            href="review_delete.do?performance_idx=${param.performance_idx}&review_idx=${review.review_idx}"
+                            onclick="return confirm('정말 삭제하시겠습니까?');">삭제2</a>
+                          </li> -->
 
                          </c:if>
                          <script>
                           function reviewDelete(performance_idx, review_idx) {
                            if (confirm("정말 삭제하시겠습니까?") == false) return;
 
-                           location.href = "review_delete.do?performance_idx=" + performance_idx + "&review_idx=" + review_idx;
+                           // 현재 페이지의 referer 값 (이전 페이지)
+                           var referer = document.referrer;
+
+                           // 리뷰 삭제 요청 시 referer 값도 전달
+                           location.href = "review_delete.do?performance_idx=" + performance_idx +
+                            "&review_idx=" + review_idx +
+                            "&referer=" + encodeURIComponent(referer);
                           }
                          </script>
 
@@ -705,9 +637,14 @@
                 </div>
                </div>
               </div>
-
+              <!-- Data가 없는 경우 -->
+              <c:if test="${ empty requestScope.review_row_list }">
+               <div id="empty_msg" style="text-align: center; margin-top: 50px; font-size: 20px;">등록된 후기가 없습니다</div>
+              </c:if>
               <!-- Pagination -->
-              <div id="pageMenuContainer">${ pageMenu }</div>
+              <c:if test="${rowTotal > 0}">
+               <div id="pageMenuContainer">${pageMenu}</div>
+              </c:if>
               <!--/ End Pagination -->
              </div>
              <!--/ End Reviews Tab -->

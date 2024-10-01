@@ -20,6 +20,7 @@ import com.githrd.project3.dao.CartMapper;
 import com.githrd.project3.dao.Cart_seatMapper;
 import com.githrd.project3.dao.L_HallMapper;
 import com.githrd.project3.dao.M_HallMapper;
+import com.githrd.project3.dao.MemberMapper;
 import com.githrd.project3.dao.S_HallMapper;
 import com.githrd.project3.vo.Cart_seatVo;
 import com.githrd.project3.vo.L_HallVo;
@@ -52,6 +53,9 @@ public class BookController {
  // 처음에 1회 연결
  @Autowired
  BookMapper book_mapper;
+
+ @Autowired
+ MemberMapper member_mapper;
 
  @Autowired
  S_HallMapper s_hall_mapper;
@@ -183,12 +187,22 @@ public class BookController {
  } // end - performance_seat
 
  @RequestMapping("/reserve_seats.do")
- public String reserveSeats(OrdersVo ordersVo, int performance_idx, String selectedSeats,
+ public String reserveSeats(OrdersVo ordersVo, int performance_idx,
+   String selectedSeats,
    @RequestParam("date") String performance_date,
-   @RequestParam("seatInfo") List<String> seatInfo,  @RequestParam(value = "cart_idx", required = false) Integer cart_idx, Model model) {
+   @RequestParam("seatInfo") List<String> seatInfo,
+   @RequestParam(value = "cart_idx", required = false) Integer cart_idx, Model model) {
 
+  // 세션에서 회원 정보 가져옴
   MemberVo user = (MemberVo) session.getAttribute("user");
   int mem_idx = user.getMem_idx();
+
+  // 회원 정보를 가져옴
+  MemberVo member = member_mapper.selectOneFromIdx(mem_idx);
+
+  // 회원 포인트 추출
+  int mem_point = member.getMem_point(); // MemberVo 객체에서 포인트를 추출
+  model.addAttribute("mem_point", mem_point);
 
   // 공연 정보 조회
   PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
@@ -201,60 +215,61 @@ public class BookController {
    // performance_date_idx가 null일 경우 처리
    return "errorPage";
   }
-    // 장바구니를 통해 넘어온 경우 cart_idx가 존재함
-    if (cart_idx != null) {
-        // 장바구니에서 넘어온 요청일 경우 처리 (예: 장바구니에서 좌석 정보 가져오기)
-        List<Cart_seatVo> seatList = cart_seat_mapper.cart_seat_select_one(cart_idx);
-        for (Cart_seatVo cart_seatVo : seatList) {
-            seatInfo.add(cart_seatVo.getCart_seat_name());
-            int row = Integer.parseInt(cart_seatVo.getCart_seat_name().split("열|석")[0]); // "열" 앞의 숫자 (예: "3")
-            String col = cart_seatVo.getCart_seat_name().split("열|석")[1].toLowerCase(); // "석" 앞의 문자 (예: "B")
-            switch (vo.getPerformance_cate_idx()) {
-              case 1:
-                  m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-                  break;
-              case 2:
-                  s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-                  break;
-              case 3:
-                  l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-                  break;
-          }
-          // 장바구니에서 삭제
-          cart_mapper.cart_delete(cart_idx);
-        }
-    } else {
-        // 바로 예약한 경우 처리
-        ObjectMapper mapper = new ObjectMapper();
-        List<Map<String, Object>> selectedSeatsList;
-        try {
-            selectedSeatsList = mapper.readValue(selectedSeats, new TypeReference<List<Map<String, Object>>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "errorPage";
-        }
-        // 선택된 좌석 업데이트
-        for (Map<String, Object> seat : selectedSeatsList) {
-            int row = ((Number) seat.get("row")).intValue();
-            String col = (String) seat.get("col");
-            // 카테고리에 따른 처리
-            switch (vo.getPerformance_cate_idx()) {
-                case 1:
-                    m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-                    break;
-                case 2:
-                    s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-                    break;
-                case 3:
-                    l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
-                    break;
-            }
-        }
+  // 장바구니를 통해 넘어온 경우 cart_idx가 존재함
+  if (cart_idx != null) {
+   // 장바구니에서 넘어온 요청일 경우 처리 (예: 장바구니에서 좌석 정보 가져오기)
+   List<Cart_seatVo> seatList = cart_seat_mapper.cart_seat_select_one(cart_idx);
+   for (Cart_seatVo cart_seatVo : seatList) {
+    seatInfo.add(cart_seatVo.getCart_seat_name());
+    int row = Integer.parseInt(cart_seatVo.getCart_seat_name().split("열|석")[0]); // "열" 앞의 숫자 (예: "3")
+    String col = cart_seatVo.getCart_seat_name().split("열|석")[1].toLowerCase(); // "석" 앞의 문자 (예: "B")
+    switch (vo.getPerformance_cate_idx()) {
+     case 1:
+      m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+      break;
+     case 2:
+      s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+      break;
+     case 3:
+      l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+      break;
     }
+    // 장바구니에서 삭제
+    cart_mapper.cart_delete(cart_idx);
+   }
+  } else {
+   // 바로 예약한 경우 처리
+   ObjectMapper mapper = new ObjectMapper();
+   List<Map<String, Object>> selectedSeatsList;
+   try {
+    selectedSeatsList = mapper.readValue(selectedSeats, new TypeReference<List<Map<String, Object>>>() {
+    });
+   } catch (IOException e) {
+    e.printStackTrace();
+    return "errorPage";
+   }
+   // 선택된 좌석 업데이트
+   for (Map<String, Object> seat : selectedSeatsList) {
+    int row = ((Number) seat.get("row")).intValue();
+    String col = (String) seat.get("col");
+    // 카테고리에 따른 처리
+    switch (vo.getPerformance_cate_idx()) {
+     case 1:
+      m_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+      break;
+     case 2:
+      s_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+      break;
+     case 3:
+      l_hall_mapper.updateSeatStatus(performance_date_idx, row, col);
+      break;
+    }
+   }
+  }
 
   // "date" 값을 ordersVo에 설정
   ordersVo.setReserved_performance_date(performance_date);
-  ordersVo.setMem_idx(mem_idx); 
+  ordersVo.setMem_idx(mem_idx);
 
   // 주문 정보 DB insert
   int res = book_mapper.ordersInsert(ordersVo);
@@ -339,10 +354,16 @@ public class BookController {
   // String -> int로 변환
   int int_total_payment = Integer.parseInt(total_payment_number);
 
+  // 파라미터로 받은 "used_point2"을 ordersVo의 used_point에 저장하기
+  String used_point2_number = used_point2.replace(",", "").replace("P", "");
+  int int_used_point2 = Integer.parseInt(used_point2_number);
+
   Map<String, Object> paramMap = new HashMap<>();
   paramMap.put("order_idx", order_idx);
   paramMap.put("order_amount", int_total_payment);
+  paramMap.put("used_point", int_used_point2);
   book_mapper.updateOrderAmount(paramMap);
+  book_mapper.updateUsedPoint(paramMap);
 
   Map<String, Object> map = new HashMap<>();
   map.put("mem_idx", user.getMem_idx());

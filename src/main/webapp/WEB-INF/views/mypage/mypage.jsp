@@ -135,6 +135,7 @@
 
          <!-- success.jsp 구매내역버튼 클릭 시 마이페이지 들어오자마자 구매내역 조회 -->
          <!-- <script>
+
    $(document).ready(function () {
     // URL에서 'show' 파라미터 값 가져오기
     const urlParams = new URLSearchParams(window.location.search);
@@ -152,7 +153,7 @@
 
      // AJAX 요청 보내기
      $.ajax({
-      url: '<c:url value="/payment/list.do" />',  // 절대 경로 사용   이전 : '/payment/list.do'
+      url: '/payment/list.do',
       type: 'GET',
       success: function (response) {
        // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
@@ -165,7 +166,7 @@
      });
     });
    });
-  </script> -->
+  </script>
 
       </head>
 
