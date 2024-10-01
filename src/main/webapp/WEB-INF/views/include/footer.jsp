@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
 					<div class="col-lg-2 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer links">
-							<h4><br>무엇을 적을까요?</h4>
+							<h4><br>Fill The Spot</h4>
 							<ul>
 								<li><a href="#">Payment Methods</a></li>
 								<li><a href="#">Money-back</a></li>

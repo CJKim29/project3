@@ -294,14 +294,14 @@
                             <div class="product-content">
 								<!-- 상대경로${pageContext.request.contextPath} performance idx  -->
 	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
-									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#" style="width: 200px; height: 250px;">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="performance_name">
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title">NEW</h6><br>
-								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 12px;">${performance.performance_name}</p>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 14px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -326,14 +326,14 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
-									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="performance_name">
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
-								<p style="font-size: 11px;">${performance.performance_name}</p>
+								<p style="font-size: 15px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -349,7 +349,6 @@
 	
 	<!-- Start Shop Blog  -->
 	<!-- 게시판부분 -->
-	 <!-- 경로 재지정 필요함 -->
 	<section class="shop-blog section">
 		<div class="container">
 			<div class="row">
