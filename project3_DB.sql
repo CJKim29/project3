@@ -381,7 +381,8 @@ create table orders(
     reserved_performance_date varchar(100) not null,						  	-- 공연 관람 날짜
     order_date      		  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 	-- 주문 일시 -> 일정 시간 지난 후 결제 미완료 시 주문 취소
     order_amount			  int default 0,									-- 총 결제 금액
-    payment_state  	      char(1) default 'n',					-- 'y' or 'n' y=결제 후, n="결제 전"    	
+    payment_state  	      char(1) default 'n',					-- 'y' or 'n' y=결제 후, n="결제 전"    
+    used_point			  int default 0,									-- 사용된 포인트	
     FOREIGN KEY (performance_idx) REFERENCES performance(performance_idx) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (mem_idx) REFERENCES member(mem_idx) ON UPDATE CASCADE ON DELETE CASCADE
 );

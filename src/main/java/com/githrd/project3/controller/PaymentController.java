@@ -133,11 +133,9 @@ public class PaymentController {
  @RequestMapping("list.do")
  public String paymentList(Model model) {
 
-  // System.out.println("-------Payment List method called--------"); // 로그 추가
-
   MemberVo user = (MemberVo) session.getAttribute("user");
 
-  List<OrdersVo> list = book_mapper.ordersList(user.getMem_idx());
+  List<OrdersVo> list = book_mapper.myOrderList(user.getMem_idx());
   model.addAttribute("list", list);
 
   // 주문 조회 시 필요한 정보 map에 담음

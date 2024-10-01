@@ -153,7 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <collection property="seatList" column="order_idx=order_idx" select="orderSeatList" />
  </resultMap>
 
- <!-- 회원별 주문 내역 조회(공연이미지, 공연명, 공연장명) -->
+ <!-- 주문하기 위한 list -->
  <select id="ordersList" parameterType="Map" resultMap="ordersMap">
       SELECT 
           o.order_idx,
@@ -168,6 +168,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       INNER JOIN performance p ON o.performance_idx = p.performance_idx
       INNER JOIN hall h ON p.hall_idx = h.hall_idx
       WHERE o.mem_idx = #{mem_idx} and o.order_idx=#{order_idx}
+      ORDER BY o.order_idx
+ </select>
+
+ <!-- 회원별 주문 내역 조회(공연이미지, 공연명, 공연장명) -->
+ <select id="myOrderList" parameterType="Map" resultMap="ordersMap">
+      SELECT 
+          o.order_idx,
+          p.performance_name,
+          p.performance_image,
+          o.reserved_performance_date,
+          o.order_date,
+          o.order_amount,
+          o.used_point,
+          h.hall_name
+      FROM orders o 
+      INNER JOIN performance p ON o.performance_idx = p.performance_idx
+      INNER JOIN hall h ON p.hall_idx = h.hall_idx
+      WHERE o.mem_idx = #{mem_idx}
       ORDER BY o.order_idx
  </select>
 

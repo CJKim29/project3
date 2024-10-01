@@ -59,8 +59,10 @@ public interface BookMapper {
 
  List<OrdersVo> ordersList(Map<String, Object> map);
 
- // 회원 별 주문 내역 조회
  List<OrdersVo> ordersList(int mem_idx);
+
+ // 회원 별 주문 내역 조회
+ List<OrdersVo> myOrderList(int mem_idx);
 
  void updatePaymentState(int order_idx);
 
