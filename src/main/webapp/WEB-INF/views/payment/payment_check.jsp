@@ -43,11 +43,6 @@
         return;
        }
 
-       // "&selectedSeats=" + "${param.selectedSeats}" => 이거 넣을 시 row 관련해서 오류남
-       //f.action = "payment.do?performance_idx=" + "${param.performance_idx}" + "&date=" + "${param.date}" + "&selectedSeats=" + "${param.selectedSeats}" + "&seatInfo=" + "${param.seatInfo}";
-       // f.action = "agree.do?performance_idx=" + "${param.performance_idx}" + "&reserved_performance_date=" + "${param.date}" + "&seatInfo=" + "${param.seatInfo}";
-       //f.action = "agree.do";
-
        f.submit();
       }// end : send();
       // });
@@ -102,7 +97,7 @@
        function updateUsedPoints(usedPoints) {
         document.getElementById('used_point2').textContent = usedPoints + "P";
         // hidden input의 값을 업데이트
-        document.getElementById('hidden_used_point2').value = usedPoints.replace(/[^0-9]/g, '') + "P"; // 숫자만 남김
+        document.getElementById('hidden_used_point2').value = usedPoints.replace(/[^0-9]/g, ''); // 숫자만 남김
        }
 
        function updateAvailablePoints(totalPoints) {
@@ -120,11 +115,11 @@
        document.getElementById('used_point').addEventListener('input', function () {
         // 보유 포인트를 서버에서 받아옴
         const totalPoints = parseInt("${mem_point}", 10);
-        let usedPoints = this.value.replace(/[^0-9]/g, ''); // 숫자 이외의 모든 문자를 제거
+        let usedPoints = this.value.replace(/[^0-9]/g, '') || '0'; // 숫자 이외의 모든 문자를 제거, 빈칸 0으로 설정
 
-        if (usedPoints === '') {
-         usedPoints = 0; // 입력 값이 없으면 0으로 설정
-        }
+        // if (usedPoints === '') {
+        //  usedPoints = 0; // 입력 값이 없으면 0으로 설정
+        // }
 
         //this.value = usedPoints.toLocaleString(); // 필드에 숫자만 입력되도록 반영
 
@@ -161,17 +156,6 @@
         // 티켓 금액 합산
         let ticketAmount = 0;
         const seatPricesElement = document.querySelector('#ticket_amount');
-
-        // seatPrices에서 각 가격을 추출
-        // seatPrices.forEach(function (seatPrice) {
-        //  const prices = seatPrice.textContent.match(/\d+/g); // 모든 숫자 추출
-        //  if (prices) {
-        //   prices.forEach(function (price) {
-        //    ticketAmount += parseInt(price.replace(/,/g, ''), 10); // 각 가격을 정수로 변환하여 합산
-        //   });
-        //  }
-        // });
-
 
         // 요소 존재하는지 확인
         if (!seatPricesElement) {
@@ -239,7 +223,8 @@
       <input type="hidden" name="date" value="${param.date}">
       <input type="hidden" name="mem_idx" value="${user.mem_idx}">
       <input type="hidden" name="order_idx" value="${order_idx}">
-      <input type="hidden" name="used_point2" id="hidden_used_point2" value="${param.used_point2}">
+      <input type="hidden" name="used_point2" id="hidden_used_point2"
+       value="${param.used_point2 != null ? param.used_point2 : '0'}">
       <input type="hidden" name="total_payment" id="hidden_total_payment" value="${param.total_payment}">
 
       <div id="seat-box">
@@ -334,14 +319,6 @@
               ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
              </c:forEach>
             </c:forEach>
-            <!-- <c:forEach var="ordersVo" items="${list}">
-             <c:forEach var="ordersSeatVo" items="${ordersVo.seatList}">
-              <div class="seat_info" data-grade="${ordersSeatVo.seat_grade}" data-price="${ordersSeatVo.seat_price}">
-               ${ ordersSeatVo.seat_grade }등급 &nbsp; ${ ordersSeatVo.order_seat_name} <br>
-              </div>
-             </c:forEach>
-            </c:forEach> -->
-
            </td>
           </tr>
 

@@ -28,70 +28,6 @@
      <!-- iamport.payment.js -->
      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
      <!-- 포트원 결제 -->
-
-
-     <script>
-
-      var IMP = window.IMP;
-      IMP.init("imp15578583");  // 가맹점 식별코드
-
-      function requestPay() {
-
-       console.log("order_idx" + "${order_idx}");
-
-       IMP.request_pay({
-        pg: "kakaopay", // PG사명 (카카오페이)
-        pay_method: "card", // 결제수단
-        merchant_uid: 'p' + new Date().getTime() + '_' + "${order_idx}", // 주문번호
-        name: "${vo.performance_name}", // 상품명
-        amount: "${order_amount}", // 결제 금액
-        buyer_email: "${mem_email}", // 구매자 이메일
-        buyer_name: "${mem_name}", // 구매자 이름
-        buyer_tel: "${mem_phone}", // 구매자 전화번호
-        buyer_addr: "${mem_addr}", // 구매자 주소
-        buyer_postcode: "${mem_zipcode}" // 구매자 우편번호
-       }, function (rsp) { // callback 함수
-        if (rsp.success) {
-         // 결제 성공 시 처리
-         $.ajax({
-          type: "POST",
-          url: "/payment/payment.do",  // 서버에서 결제를 처리하는 URL
-          data: {
-           imp_uid: rsp.imp_uid,  // 아임포트 결제 고유번호
-           merchant_uid: rsp.merchant_uid,  // 상점에서 생성한 주문번호
-           order_amount: rsp.paid_amount,  // 실제 결제 금액
-           order_idx: "${order_idx}"  // 주문 번호 (백엔드에서 활용할 수 있음)
-          },
-          dataType: "json",
-          success: function (result) {
-
-           if (result.result == "success") {
-
-            alert("결제가 완료되었습니다.");
-
-            location.href = `/payment/success.do?performance_idx=${param.performance_idx}&order_idx=${order_idx}&used_point2=${param.used_point2}`;  // 서버에서 전달받은 URL을 통해 리다이렉트
-
-           } else if (result.result == "fail_not_same_payment") {
-            alert("결제 금액이 불일지 합니다");
-           }
-          },
-
-          error: function (result) {
-           alert("실패!!!");
-           alert(result.responseText);
-           cancelPayments(rsp);  // 결제 취소 함수
-          }
-         });
-        } else {
-         // 결제 실패 시 로직
-         alert("결제 실패");
-         alert(rsp.error_msg);
-         console.log(rsp);
-        }
-       });
-      }
-     </script>
-
     </head>
 
     <body>
@@ -126,9 +62,8 @@
         <div>
          <div class="content_title">결제 수단 선택</div>
          <br>
-         <!-- <input type="radio" name="performance_detail_cate_idx" value="0" checked />신용카드 -->
-         <input type="radio" name="performance_detail_cate_idx" value="0" />카카오페이
-         <input type="radio" name="performance_detail_cate_idx" value="0" />무통장입금
+         <input type="radio" name="payment_method" checked />카카오페이
+         <input type="radio" name="payment_method" />무통장입금
         </div>
 
         <div id="agree">
@@ -225,7 +160,7 @@
          <div>
           <input type="button" class="btn" value="이전"
            onclick="location.href='performance_seat.do?performance_idx=${param.performance_idx}&date=${param.date}'">
-          <input type="button" id="next_btn" class="btn" value="결제하기" onclick="requestPay();">
+          <input type="button" id="next_btn" class="btn" value="결제하기">
           <!-- <button id="payment">구매하기</button> 결제하기 버튼 생성 -->
          </div>
         </div>
@@ -233,8 +168,8 @@
       </div>
      </form>
     </body>
-    <script type="text/javascript">
 
+    <script type="text/javascript">
      // 체크박스 동의 여부 확인
      document.getElementById('next_btn').addEventListener('click', function (event) {
       const checkboxes = document.querySelectorAll('input[name="agreement"]');
@@ -246,12 +181,78 @@
        }
       });
 
+      console.log("All checked:", allChecked); // 체크 여부 확인용 로그
+
       if (!allChecked) {
        alert('취소수수료/취소기한 및 제3자 정보 제공 내용에 동의하셔야 결제가 가능합니다\n 내용을 확인하시고 동의하기에 체크해주세요');
        event.preventDefault();  // 다음 페이지로 이동을 막음
+       return false;  // 함수 종료
+      } else {
+       requestPay();  // 결제 함수 호출
       }
      });
+    </script>
 
+    <!-- 결제 기능 -->
+    <script>
+     var IMP = window.IMP;
+     IMP.init("imp15578583");  // 가맹점 식별코드
+
+     function requestPay() {
+
+      console.log("order_idx" + "${order_idx}");
+
+      IMP.request_pay({
+       pg: "kakaopay", // PG사명 (카카오페이)
+       pay_method: "card", // 결제수단
+       merchant_uid: 'p' + new Date().getTime() + '_' + "${order_idx}", // 주문번호
+       name: "${vo.performance_name}", // 상품명
+       amount: "${order_amount}", // 결제 금액
+       buyer_email: "${mem_email}", // 구매자 이메일
+       buyer_name: "${mem_name}", // 구매자 이름
+       buyer_tel: "${mem_phone}", // 구매자 전화번호
+       buyer_addr: "${mem_addr}", // 구매자 주소
+       buyer_postcode: "${mem_zipcode}" // 구매자 우편번호
+      }, function (rsp) { // callback 함수
+       if (rsp.success) {
+        // 결제 성공 시 처리
+        $.ajax({
+         type: "POST",
+         url: "/payment/payment.do",  // 서버에서 결제를 처리하는 URL
+         data: {
+          imp_uid: rsp.imp_uid,  // 아임포트 결제 고유번호
+          merchant_uid: rsp.merchant_uid,  // 상점에서 생성한 주문번호
+          order_amount: rsp.paid_amount,  // 실제 결제 금액
+          order_idx: "${order_idx}"  // 주문 번호 (백엔드에서 활용할 수 있음)
+         },
+         dataType: "json",
+         success: function (result) {
+
+          if (result.result == "success") {
+
+           alert("결제가 완료되었습니다.");
+
+           location.href = `/payment/success.do?performance_idx=${param.performance_idx}&order_idx=${order_idx}&used_point2=${param.used_point2}`;  // 서버에서 전달받은 URL을 통해 리다이렉트
+
+          } else if (result.result == "fail_not_same_payment") {
+           alert("결제 금액이 불일지 합니다");
+          }
+         },
+
+         error: function (result) {
+          alert("실패!!!");
+          alert(result.responseText);
+          cancelPayments(rsp);  // 결제 취소 함수
+         }
+        });
+       } else {
+        // 결제 실패 시 로직
+        alert("결제 실패");
+        alert(rsp.error_msg);
+        console.log(rsp);
+       }
+      });
+     }
     </script>
 
     </html>
