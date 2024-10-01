@@ -35,6 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       </collection>
    </resultMap>
 
+   <resultMap id="performanceExLikeMap" type="performanceExLike">
+      <result property="performance_idx" column="performance_idx" />
+
+      <association property="performanceVo" column="performance_idx=performance_idx" select="performance_list" />
+   </resultMap>
+
    <select id="performance_cate_list" resultType="performance_cate">
 	   select * from performance_cate where performance_cate_idx=#{ performance_cate_idx }
    </select>
@@ -66,6 +72,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!-- 좋아요 유무 -->
    <select id="findLike" resultType="Boolean">
 		select count(*) from performance_ex_like where performance_idx=#{performance_idx} and mem_idx=#{mem_idx}
+   </select>
+
+   <!-- 좋아요 목록 -->
+   <select id="LikeList" resultMap="performanceExLikeMap">
+      select * from performance_ex_like where mem_idx=#{mem_idx} and like_number=1
    </select>
 
    <!-- 좋아요 추가 -->
