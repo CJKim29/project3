@@ -282,7 +282,7 @@
                     <h1>최신</h1>
                 </div>
             </div>
-            <div class="d-flex">
+            <div class="d-flex overflow-auto">
 				<c:forEach var="performance" items="${newPerformances}" varStatus="status">
 				<c:if test="${status.index < 3}"> <!--공연정보 3개만 출력 -->
                 <!-- Start Single List -->
@@ -332,7 +332,7 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}</h6><br>
+								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
 								<p style="font-size: 11px;">${performance.performance_name}</p>
 							</div>
 						</div>

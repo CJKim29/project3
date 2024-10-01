@@ -105,6 +105,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <i class="ti-user"></i>
                       <a href="../mypage/mypage.do">마이페이지</a>
                     </li>
+                    <c:if test="${ user.mem_grade eq '관리자' }">
+                    <li>
+                      <a href="../member/list.do">회원관리</a>
+                    </li>
+                  </c:if>
                     <li>
                       <b>${ user.mem_nickname }님</b>
                       <a href="../member/logout.do">로그아웃</a>

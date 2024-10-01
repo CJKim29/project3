@@ -24,13 +24,11 @@ pageEncoding="UTF-8"%>
 					<div class="col-lg-2 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer links">
-							<h4>고객센터</h4>
+							<h4><br>고객센터</h4>
 							<ul>
-								<li><a href="#">Q & A</a></li>
-								<li><a href="../faq/faq_list.do">FAQ</a></li>
+								<li><a href="#">Q & A</a></li><br>
+								<li><a href="../faq/faq_list.do">FAQ</a></li><br>
 								<li><a href="#">게시판</a></li>
-								<li><a href="#">ddddddd</a></li>
-								<li><a href="#">도움</a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->
@@ -38,7 +36,7 @@ pageEncoding="UTF-8"%>
 					<div class="col-lg-2 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer links">
-							<h4>무엇을 적을까요?</h4>
+							<h4><br>무엇을 적을까요?</h4>
 							<ul>
 								<li><a href="#">Payment Methods</a></li>
 								<li><a href="#">Money-back</a></li>
@@ -52,7 +50,7 @@ pageEncoding="UTF-8"%>
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer social">
-							<h4>더 많은 공연을 위한 외부주소</h4>
+							<h4><br>더 많은 공연을 위한 외부주소</h4>
 							<!-- Single Widget -->
 							<div class="contact">
 								<ul>
