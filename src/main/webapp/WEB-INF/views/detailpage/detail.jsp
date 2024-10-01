@@ -768,7 +768,7 @@
                 style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">장소</div>
               </td>
               <td>
-               <div class="price" style="display: inline-block;">
+               <div class="price" style="display: inline-block; width: 200px;">
                 <a href="#" onclick="showLoc('${vo.performance_idx}')">${vo.hallVo.hall_name}<i
                   class="fi fi-sr-caret-right"></i></a>
                </div>
