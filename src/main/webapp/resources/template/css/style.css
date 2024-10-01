@@ -402,6 +402,7 @@ Version:1.0
 
 .header.shop .right-content {
  float: right;
+ margin-left: auto;
 }
 
 .header.shop .list-main li {
@@ -683,7 +684,7 @@ Version:1.0
 /* Header Middle */
 .header.shop .search-bar-top {
  text-align: center;
- margin-top: 10px;
+ margin-top: 18px;
 }
 
 .header.shop .search-bar {
@@ -702,54 +703,55 @@ Version:1.0
  background: #fff;
  position: relative;
  margin: 0;
- line-height: 45px;
+ line-height: 50px;
  border-radius: 5px;
  border: 1px solid #ececec;
 }
 
-.header.shop .nice-select {
+.header.shop .search-label {
  clear: initial;
  margin: 0;
- height: 48px;
+ height: 50px;
  width: 150px;
  border: none;
  text-align: center;
  background: transparent;
  text-transform: capitalize;
- padding: 0 0 0 20px;
+ padding: 0 20px;
  border-right: 1px solid #eee;
  line-height: 50px;
- font-size: 14px;
+ font-size: 16px;
  font-weight: 400;
+ float: left;
 }
 
-.header.shop .nice-select::after {
+.header.shop .search-label::after {
  border-color: #666;
  right: 20px;
 }
 
-.header.shop .nice-select .list {
+.header.shop .search-label .list {
  border-radius: 0px;
 }
 
-.header.shop .nice-select .list li.focus {
+.header.shop .search-label .list li.focus {
  font-weight: 400;
 }
 
-.header.shop .nice-select .list li {
+.header.shop .search-label .list li {
  color: #666;
  border-radius: 0px;
  font-size: 14px;
  font-weight: 400;
 }
 
-.header.shop .nice-select .list li:hover {
+.header.shop .search-label .list li:hover {
  background: #F7941D;
  color: #fff;
 }
 
 .header.shop .search-bar form {
- display: inline-block;
+ /* display: inline-block; */
  float: left;
  width: 260px;
 }
@@ -1142,8 +1144,8 @@ Version:1.0
 .header.shop .right-bar {
  display: inline-block;
  padding: 0;
- margin: 0;
- top: 20px;
+ margin: -15px;
+ top: 45px;
  float: right;
  position: relative;
 }
@@ -2317,7 +2319,7 @@ Version:1.0
 
 .shop .single-shorter option {}
 
-.shop .nice-select {
+.shop .search-label {
  clear: initial;
  display: inline-block;
  margin: 0;
@@ -3058,11 +3060,15 @@ Version:1.0
 }
 
 .shop-home-list .single-list {
+ width: 360px; /* 원하는 너비 설정 */
+ height: 250px; /* 원하는 높이 설정 */
+ display: flex;
+ flex-direction: column; /* 내용이 수직으로 쌓이도록 설정 */
  overflow: hidden;
  position: relative;
  margin: 15px;
  margin-top: 22px;
- border: 1px solid #eee;
+ border: 2px solid #eee;
  padding: 10px;
 }
 
@@ -3123,22 +3129,23 @@ Version:1.0
 }
 
 .shop-home-list .single-list img {
- width: 100%;
- height: auto;
+ width: 100%; /* 이미지를 리스트 너비에 맞춤 */
+ height: 230px; /* 고정 높이 설정 */
 }
 
 .shop-home-list .single-list .content {
  padding-top: 54px;
  padding-right: 15px;
+ text-align: center; /* 텍스트 가운데 정렬 */
 }
 
 .shop-home-list .single-list .content .title {
- line-height: 18px;
+ line-height: 25px;
  color: #ff4f19;
 }
 
 .shop-home-list .single-list .content .title a {
- font-size: 13px;
+ font-size: 18px;
  font-weight: 600;
 }
 
@@ -5323,6 +5330,7 @@ Version:1.0
 /*=============================
 	20. Start Footer CSS
 ===============================*/
+
 
 .footer {
  background: #222;
