@@ -54,7 +54,7 @@ function check_seat(cart_idx,performance_idx,date) {
   </head>
   <body class="js">
     <!-- Shopping Cart -->
-    <div class="shopping-cart section">
+    <div class="shopping-cart section" style="padding-bottom: 200px;">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -74,9 +74,9 @@ function check_seat(cart_idx,performance_idx,date) {
               </thead>
               <tbody>
                 <c:if test="${ empty list }">
+                <font color="red">담긴 티켓이 없습니다.</font>
                   <tr>
                     <td colspan="5" align="center">
-                      <font color="red">담긴 티켓이 없습니다</font>
                     </td>
                   </tr>
                 </c:if>

@@ -10,15 +10,6 @@
   <link rel="stylesheet" href="../resources/css/mypage.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <script type="text/javascript">
-   function member_delete() {
-    if (confirm("정말 탈퇴하시겠습니까?") == false) return;
-
-    alert("회원 탈퇴가 완료되었습니다.");
-    location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
-   }
-
-  </script>
   <script>
    $(document).ready(function () {
     // '장바구니' 링크 클릭 시
@@ -69,9 +60,9 @@
    $(document).ready(function () {
     $('#MyReview').on('click', function (event) {
      event.preventDefault();  // 기본 링크 동작을 막음
+     // 나의 후기 클릭 시
+     myReviewList(1);
     });
-    // '장바구니' 링크 클릭 시
-    myReviewList(1);
    });
 
    function myReviewList(page) {
@@ -153,7 +144,6 @@
    <div class="sidebar">
     <ul>
      <li><a href="#" data-content="member-info" id="memberModify">회원정보 수정</a></li>
-     <li><a href="#" data-content="delete-account" onclick="member_delete();">회원 탈퇴</a></li>
     </ul>
     <hr />
     <ul>

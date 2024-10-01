@@ -31,6 +31,16 @@
      <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
      <script type="text/javascript">
+      function member_delete() {
+       if (confirm("정말 탈퇴하시겠습니까?") == false) return;
+
+       alert("회원 탈퇴가 완료되었습니다.");
+       location.href = "../member/delete.do?mem_idx=" + `${user.mem_idx}`;
+      }
+
+     </script>
+
+     <script type="text/javascript">
 
       // 주소 찾기 -> API
       function find_addr() {
@@ -120,6 +130,9 @@
         f.mem_addr.focus();
         return;
        }
+
+       if (confirm("정말 수정하시겠습니까?") == false) return;
+
        alert("회원 정보 수정이 완료되었습니다.");
        f.action = "../member/modify.do";
        f.submit();		// 전송
@@ -135,7 +148,7 @@
        $("#btn_register").prop("disabled", true);
 
        let mem_nickname = $("#mem_nickname").val();
-       let mem_nickname_check = /^[가-힣ㄱ-ㅎA-Za-z]{3,12}$/;
+       let mem_nickname_check = /^[가-힣ㄱ-ㅎA-Za-z0-9]{3,12}$/;
 
        if (mem_nickname.length == 0) {
         $("#nickname_msg").html("");
@@ -143,7 +156,7 @@
        }
 
        if (mem_nickname_check.test(mem_nickname) == false) {
-        $("#nickname_msg").html("닉네임은 3~12자리 한글 또는 영문만 사용가능합니다.").css("color", "IndianRed");
+        $("#nickname_msg").html("닉네임은 3~12자리 한글, 영문 또는 숫자만 사용가능합니다.").css("color", "IndianRed");
         return;
        }
 
@@ -412,8 +425,12 @@
          </div>
         </div>
         <div class="membership-btn">
-         <input style="color: white !important; background-color: rgb(23, 105, 255) !important; width: 200px;"
+         <input
+          style="color: white !important; background-color: rgb(23, 105, 255) !important; width: 200px; margin-top: 0px !important;"
           type="button" class="btn btn-block btn-lg" value="수정하기" onclick="send(this.form);">
+         <input
+          style="color: white !important; background-color: rgb(255, 38, 23) !important; width: 200px; margin-top: 0px !important;"
+          type="button" class="btn btn-block btn-lg" value="회원탈퇴" onclick="member_delete();">
         </div>
 
         <div class="home" style="text-align: center;"><a href="../main/list.do">메인화면으로

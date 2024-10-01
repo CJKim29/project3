@@ -119,10 +119,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				
 			});
 		} // end - comment_list()
-			
 		// 초기화 이벤트 : 시작시
 		$(document).ready(function(){
-			
 			// 현재 게시물에 달린 댓글 목록 출력
 			comment_list(1);
 		});
@@ -131,10 +129,25 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	</script>
   </head>
   <body class="js">
+    <script>
+      // 특정 URL 정의
+      const targetUrl = 'http://localhost:8080/board/view.do?board_idx='+ '${parma.board_view}'; // 여기에 원하는 URL을 입력하세요.
+
+      // 페이지 로드 시 새로고침 처리
+      function reloadPage() {
+          if (window.location.href === targetUrl) {
+              if (!sessionStorage.getItem('reloaded')) {
+                  sessionStorage.setItem('reloaded', 'true');
+                  window.location.reload();
+              }
+          }
+      }
+
+      // 페이지 로드 이벤트
+      window.onload = reloadPage;
+  </script>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
-   
-
-
+      
     <!-- Start Blog Single -->
     <section class="blog-single section" style="padding-top: 0">
       <div class="container">
@@ -150,7 +163,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         ><a href="#"><i class="fa fa-user"></i><b>${ vo.mem_nickname }</b>님의 글</a
                         ><a href="#"><i class="fa fa-calendar"></i>${ vo.board_regdate }</a
                         ><a href="#"
-                          ><i class="fa fa-comments"></i>조회수 (${ vo.board_readhit+1 })</a
+                          ><i class="fa fa-comments"></i>조회수 (${vo.board_readhit })</a
                         ></span
                       >
                     </div>
