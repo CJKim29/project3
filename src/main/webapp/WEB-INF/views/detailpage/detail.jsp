@@ -341,253 +341,235 @@
 
      <!-- Header -->
 
-    <!-- 상단 위의 로그인, 마이페이지 버튼 부분  -->
-    <header class="header shop">
+     <!-- 상단 위의 로그인, 마이페이지 버튼 부분  -->
+     <header class="header shop">
       <!-- Topbar -->
       <div class="topbar">
-        <div class="container">
-          <div class="inner-content">
-            <div class="row">
-              <div class="col-lg-8 col-md-12 col-12">
-                <!-- Top Left -->
-                <div class="top-left">
-                  <ul class="list-main"></ul>
-                </div>
-                <!--/ End Top Left -->
-              </div>
-              <!-- Top Right -->
-              <div class="right-content">
-                <ul class="list-main">
-                  <!-- 로그인이 안된 경우 -->
-                  <c:if test="${ empty user }">
-                    <li>
-                      <i class="ti-power-off"></i>
-                      <a href="../member/insert_form.do">회원가입</a>
-                    </li>
-                    <li>
-                      <i class="ti-power-off"></i><a href="#" onclick="login();">로그인</a>
-                     </li>
-                  </c:if>
-                  <!-- 로그인이 된 경우 -->
-                  <c:if test="${ not empty sessionScope.user }">
-                    <li>
-                      <b>${ user.mem_nickname }님</b>
-                      <a href="../member/logout.do">로그아웃</a>
-                    </li>
-                    <li>
-                      <i class="ti-user"></i>
-                      <a href="../mypage/mypage.do">마이페이지</a>
-                    </li>
-                  </c:if>
-                </ul>
-              </div>
-              <!-- End Top Right -->
-            </div>
+       <div class="container">
+        <div class="inner-content">
+         <div class="row">
+          <div class="col-lg-8 col-md-12 col-12">
+           <!-- Top Left -->
+           <div class="top-left">
+            <ul class="list-main"></ul>
+           </div>
+           <!--/ End Top Left -->
           </div>
+          <!-- Top Right -->
+          <div class="right-content">
+           <ul class="list-main">
+            <!-- 로그인이 안된 경우 -->
+            <c:if test="${ empty user }">
+             <li>
+              <i class="ti-power-off"></i>
+              <a href="../member/insert_form.do">회원가입</a>
+             </li>
+             <li>
+              <i class="ti-power-off"></i><a href="#" onclick="login();">로그인</a>
+             </li>
+            </c:if>
+            <!-- 로그인이 된 경우 -->
+            <c:if test="${ not empty sessionScope.user }">
+             <li>
+              <b>${ user.mem_nickname }님</b>
+              <a href="../member/logout.do">로그아웃</a>
+             </li>
+             <li>
+              <i class="ti-user"></i>
+              <a href="../mypage/mypage.do">마이페이지</a>
+             </li>
+            </c:if>
+           </ul>
+          </div>
+          <!-- End Top Right -->
+         </div>
         </div>
+       </div>
       </div>
       <!-- End Topbar -->
       <div class="middle-inner">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-2 col-md-2 col-12">
-              <!-- Logo  -->
-              <div class="logo">
-                <a href="../main/list.do"
-                  ><img
-                    src="../resources/template/images/logo_TIMOA1.png"
-                    alt="logo"
-                /></a>
-              </div>
-              <!--/ End Logo -->
-              <div class="search-top">
-                <div class="top-search">
-                  <a href=""><i class="ti-search"></i></a>
-                </div>
-                <!-- Search Form -->
-                <!-- 헤더메인검색창부분 -->
-                <div class="search-top">
-                  <form class="search-form" action="" method="get">
-                    <input
-                      type="text"
-                      placeholder="여기가 검색부분..."
-                      name="search"
-                    />
-                    <button value="search" type="submit">
-                      <i class="ti-search"></i>
-                    </button>
-                  </form>
-                </div>
-                <!--/ End Search Form -->
-              </div>
-              <!--  검색창 카테고리  -->
-              <div class="mobile-nav"></div>
-            </div>
-            <div class="col-lg-8 col-md-7 col-12">
-              <div class="search-bar-top">
-                <div class="search-bar">
-                  <select>
-                    <option>통합검색</option>
-                  </select>
-                  <!-- search 검색 -->
-                  <form
-                    id="searchForm"
-                    action="../performance/performance_search.do"
-                    method="GET"
-                    onsubmit="return validateSearch();"
-                  >
-                    <input
-                      id="searchInput"
-                      name="search"
-                      placeholder="찾으실 공연 또는 공연장을 입력해주세요"
-                      type="search"
-                    />
-                    <button class="btnn" type="submit">
-                      <i class="ti-search"></i>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-12">
-              <div class="right-bar">
-                <!-- Search Form -->
-                <!-- 장바구니 버튼 부분 -->
-                <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
-                <div class="sinlge-bar shopping">
-                  <a class="single-icon" onclick="checkLogin();">
-                    <i class="ti-bag"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+       <div class="container">
+        <div class="row">
+         <div class="col-lg-2 col-md-2 col-12">
+          <!-- Logo  -->
+          <div class="logo">
+           <a href="../main/list.do"><img src="../resources/template/images/logo_TIMOA1.png" alt="logo" /></a>
           </div>
+          <!--/ End Logo -->
+          <div class="search-top">
+           <div class="top-search">
+            <a href=""><i class="ti-search"></i></a>
+           </div>
+           <!-- Search Form -->
+           <!-- 헤더메인검색창부분 -->
+           <div class="search-top">
+            <form class="search-form" action="" method="get">
+             <input type="text" placeholder="여기가 검색부분..." name="search" />
+             <button value="search" type="submit">
+              <i class="ti-search"></i>
+             </button>
+            </form>
+           </div>
+           <!--/ End Search Form -->
+          </div>
+          <!--  검색창 카테고리  -->
+          <div class="mobile-nav"></div>
+         </div>
+         <div class="col-lg-8 col-md-7 col-12">
+          <div class="search-bar-top">
+           <div class="search-bar">
+            <select>
+             <option>통합검색</option>
+            </select>
+            <!-- search 검색 -->
+            <form id="searchForm" action="../performance/performance_search.do" method="GET"
+             onsubmit="return validateSearch();">
+             <input id="searchInput" name="search" placeholder="찾으실 공연 또는 공연장을 입력해주세요" type="search" />
+             <button class="btnn" type="submit">
+              <i class="ti-search"></i>
+             </button>
+            </form>
+           </div>
+          </div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-12">
+          <div class="right-bar">
+           <!-- Search Form -->
+           <!-- 장바구니 버튼 부분 -->
+           <!-- 마이페이지생성시 마이페이지로 띄도록 이동 -->
+           <div class="sinlge-bar shopping">
+            <a class="single-icon" onclick="checkLogin();">
+             <i class="ti-bag"></i>
+            </a>
+           </div>
+          </div>
+         </div>
         </div>
+       </div>
       </div>
       <!-- Header2 부분 검색창 바로 밑 -->
       <!-- 메인 카테고리 부분 -->
       <div class="header-inner">
-        <div class="container">
-          <div class="cat-nav-head">
-            <div class="row">
-              <div class="col-12">
-                <div class="menu-area">
-                  <!-- Main Menu -->
-                  <nav class="navbar navbar-expand-lg">
-                    <div class="navbar-collapse">
-                      <div class="nav-inner">
-                        <ul class="nav main-menu menu navbar-nav">
+       <div class="container">
+        <div class="cat-nav-head">
+         <div class="row">
+          <div class="col-12">
+           <div class="menu-area">
+            <!-- Main Menu -->
+            <nav class="navbar navbar-expand-lg">
+             <div class="navbar-collapse">
+              <div class="nav-inner">
+               <ul class="nav main-menu menu navbar-nav">
 
-                          <li class="active">
-                            <a href="../main/list.do">Home</a>
-                          </li>
-                          <li>
-                            <a href="../performance/list.do">전체 공연</a>
-                          </li>
-                          <li>
-                            <a href="../performance/list.do?performance_cate_idx=1">뮤지컬</a>
-                          </li>
-                          <li>
-                            <a href="../performance/list.do?performance_cate_idx=2">콘서트</a>
-                          </li>
-                          <li>
-                            <a href="../performance/list.do?performance_cate_idx=3">연극</a>
-                          </li>
-                          <li>
-                            <a href="../faq/list.do"
-                              >고객센터<i class="ti-angle-down"></i></a>
-                            <ul class="dropdown">
-                              <li><a href="../qna/list.do">Q&A</a></li>
-                              <li><a href="../faq/list.do">FAQ</a></li>
-                              <li>
-                                <a href="../board/list.do">게시판 리스트</a>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </nav>
-                  <!--/ End Main Menu -->
-                </div>
+                <li class="active">
+                 <a href="../main/list.do">Home</a>
+                </li>
+                <li>
+                 <a href="../performance/list.do">전체 공연</a>
+                </li>
+                <li>
+                 <a href="../performance/list.do?performance_cate_idx=1">뮤지컬</a>
+                </li>
+                <li>
+                 <a href="../performance/list.do?performance_cate_idx=2">콘서트</a>
+                </li>
+                <li>
+                 <a href="../performance/list.do?performance_cate_idx=3">연극</a>
+                </li>
+                <li>
+                 <a href="../faq/list.do">고객센터<i class="ti-angle-down"></i></a>
+                 <ul class="dropdown">
+                  <li><a href="../qna/list.do">Q&A</a></li>
+                  <li><a href="../faq/list.do">FAQ</a></li>
+                  <li>
+                   <a href="../board/list.do">게시판 리스트</a>
+                  </li>
+                 </ul>
+                </li>
+               </ul>
               </div>
-            </div>
+             </div>
+            </nav>
+            <!--/ End Main Menu -->
+           </div>
           </div>
+         </div>
         </div>
+       </div>
       </div>
       <!--/ End Header Inner -->
-    </header>
-    <!--/ End Header -->
+     </header>
+     <!--/ End Header -->
 
-    <script>
+     <script>
       $(document).ready(function () {
-        function setActiveMenu() {
-          let currentUrl = window.location.pathname; // 현재 페이지의 경로
-          // 모든 'active' 클래스 제거
-          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
-          // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
-          $(".nav.main-menu.menu.navbar-nav a").each(function () {
-            let linkUrl = $(this).attr("href");
-            // 상대 경로= 절대 경로 변환
-            let absoluteLinkUrl = new URL(linkUrl, window.location.origin)
-              .pathname;
-            // 현재 페이지 URL과 메뉴 링크가 일치?
-            if (currentUrl === absoluteLinkUrl) {
-              $(this).parent().addClass("active");
-            }
-          });
-        }
-        // 로드
-        setActiveMenu();
-        // 메뉴 항목 클릭 시
-        $(".nav.main-menu.menu.navbar-nav a").click(function (event) {
-          event.preventDefault();
-          //'active' 클래스 제거
-          $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
-          // 클릭한 'active' 클래스 추가
+       function setActiveMenu() {
+        let currentUrl = window.location.pathname; // 현재 페이지의 경로
+        // 모든 'active' 클래스 제거
+        $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
+        // 현재 URL과 매칭, 메뉴 항목에 'active' 클래스 추가
+        $(".nav.main-menu.menu.navbar-nav a").each(function () {
+         let linkUrl = $(this).attr("href");
+         // 상대 경로= 절대 경로 변환
+         let absoluteLinkUrl = new URL(linkUrl, window.location.origin)
+          .pathname;
+         // 현재 페이지 URL과 메뉴 링크가 일치?
+         if (currentUrl === absoluteLinkUrl) {
           $(this).parent().addClass("active");
-          // 링크 이동 (정해진 링크이동)
-          // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
-          window.location.href = $(this).attr("href");
+         }
         });
+       }
+       // 로드
+       setActiveMenu();
+       // 메뉴 항목 클릭 시
+       $(".nav.main-menu.menu.navbar-nav a").click(function (event) {
+        event.preventDefault();
+        //'active' 클래스 제거
+        $(".nav.main-menu.menu.navbar-nav li").removeClass("active");
+        // 클릭한 'active' 클래스 추가
+        $(this).parent().addClass("active");
+        // 링크 이동 (정해진 링크이동)
+        // 링크가 같으면 경로가 같은 모든 요소가 활성화 되버림
+        window.location.href = $(this).attr("href");
+       });
       });
-    </script>
-    <!-- 메인 검색창 경고창 -->
-    <script>
+     </script>
+     <!-- 메인 검색창 경고창 -->
+     <script>
       function validateSearch() {
-        var searchInput = document.getElementById("searchInput");
-        // 검색어가 입력되지 않았을 경우
-        if (searchInput.value.trim() === "") {
-          alert("공연 제목 또는 공연장을 입력해주세요");
-          searchInput.value = ""; // 입력된 글자를 지움
-          searchInput.focus(); // 포커스를 입력 필드로 다시 설정
-          return false; // 폼 제출을 막음
-        }
-        return true; // 검색어가 있을 경우 폼을 제출
+       var searchInput = document.getElementById("searchInput");
+       // 검색어가 입력되지 않았을 경우
+       if (searchInput.value.trim() === "") {
+        alert("공연 제목 또는 공연장을 입력해주세요");
+        searchInput.value = ""; // 입력된 글자를 지움
+        searchInput.focus(); // 포커스를 입력 필드로 다시 설정
+        return false; // 폼 제출을 막음
+       }
+       return true; // 검색어가 있을 경우 폼을 제출
       }
-    </script>
-    <script type="text/javascript">
+     </script>
+     <script type="text/javascript">
       function checkLogin() {
-        // 로그인 여부 체크
-        if ("${ empty user }" == "true") {
-          if (
-            confirm(
-              "장바구니 조회는 로그인 후 가능합니다 \n 로그인 하시겠습니까?"
-            ) == false
-          )
-            return;
-          location.href = "../member/login_form.do";
-          return;
-        }
-        location.href = "../cart/list.do";
+       // 로그인 여부 체크
+       if ("${ empty user }" == "true") {
+        if (
+         confirm(
+          "장바구니 조회는 로그인 후 가능합니다 \n 로그인 하시겠습니까?"
+         ) == false
+        )
+         return;
+        location.href = "../member/login_form.do";
+        return;
+       }
+       location.href = "../cart/list.do";
       }
-    </script>
+     </script>
 
-    <script>
+     <script>
       function login() {
-      location.href = "../member/login_form.do?url=" + encodeURIComponent(location.href);
+       location.href = "../member/login_form.do?url=" + encodeURIComponent(location.href);
       }
-    </script>
+     </script>
 
 
      <script>
@@ -770,22 +752,74 @@
               </script>
 
              </div>
-             <p class="price"><span class="discount">장소</span> <a href="#"
-               onclick="showLoc(`${vo.performance_idx}`)">${vo.hallVo.hall_name}<i class="fi fi-sr-caret-right"></i></a>
-             </p>
-             <p class="price"><span class="discount">공연기간</span>${fn:substringBefore(vo.performance_startday,
-              ' ')}~${fn:substringBefore(vo.performance_endday, ' ')}
-             </p>
-             <p class="price"><span class="discount">공연시간</span>${vo.performance_runtime}분</p>
-             <p class="price"><span class="discount">관람연령</span>${vo.performance_age}세 이상
-              관람가능
-             </p>
-             <p class="price" style="display: grid; grid-template-columns: 18% 84%;">
-              <span class="discount">가격</span>
-              <c:forEach var="seat" items="${vo.seatList}">
-               ${seat.seat_grade}석 : ${seat.seat_price}원<br>
-              </c:forEach>
-             </p>
+             <tr>
+              <td>
+               <div class="price discount"
+                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">장소</div>
+              </td>
+              <td>
+               <div class="price" style="display: inline-block;">
+                <a href="#" onclick="showLoc('${vo.performance_idx}')">${vo.hallVo.hall_name}<i
+                  class="fi fi-sr-caret-right"></i></a>
+               </div>
+              </td>
+             </tr>
+             <tr>
+              <td>
+               <div class="price discount"
+                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">공연기간</div>
+              </td>
+              <td>
+               <div class="price" style="display: inline-block;">
+                ${fn:substringBefore(vo.performance_startday,
+                ' ')}~${fn:substringBefore(vo.performance_endday, ' ')}
+               </div>
+              </td>
+             </tr>
+             <tr>
+              <td>
+               <div class="price discount"
+                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">공연시간</div>
+              </td>
+              <td>
+               <div class="price" style="display: inline-block; width: 220px;">
+                ${vo.performance_runtime}분
+               </div>
+              </td>
+             </tr>
+             <tr>
+              <td>
+               <div class="price discount"
+                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important;">
+                관람연령</div>
+              </td>
+              <td>
+               <div class="price" style="display: inline-block; width: 185px;">
+                ${vo.performance_age}세 이상 관람가능
+               </div>
+              </td>
+             </tr>
+             <tr>
+              <td>
+               <div class="price discount"
+                style="width: 90px; display: inline-block; color: rgb(255,29,56) !important; vertical-align: top;">
+                가격
+               </div>
+              </td>
+              <td>
+               <div class="price" style="display: inline-block;">
+                <c:forEach var="seat" items="${vo.seatList}">
+                 <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="width: 55px;">${seat.seat_grade}석</div>
+                  <div style="text-align: right;">
+                   <fmt:formatNumber type="number" value="${seat.seat_price}" />원
+                  </div>
+                 </div>
+                </c:forEach>
+               </div>
+              </td>
+             </tr>
+             </tr>
             </div>
             <!--/ End Description -->
             <!-- Color -->
