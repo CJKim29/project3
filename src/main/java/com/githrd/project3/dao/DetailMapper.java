@@ -22,6 +22,9 @@ public interface DetailMapper {
    // 좋아요 유무
    boolean findLike(int performance_idx, int mem_idx);
 
+   // 좋아요 목록
+   List<PerformanceExLikeVo> LikeList(int mem_idx);
+
    // 좋아요 추가
    void likeUp(PerformanceExLikeVo performanceExLike);
 
