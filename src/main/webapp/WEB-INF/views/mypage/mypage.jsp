@@ -109,7 +109,6 @@
    <div class="sidebar">
     <ul>
      <li><a href="#" data-content="member-info" id="memberModify">회원정보 수정</a></li>
-     <li><a href="#" data-content="delete-account" onclick="member_delete();">회원 탈퇴</a></li>
     </ul>
     <hr />
     <ul>
