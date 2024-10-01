@@ -163,14 +163,4 @@ public class CartController {
 
   }
 
-  @RequestMapping("payment.do")
-  public String cart_payment(int cart_idx, Model model) {
-
-    List<CartVo> cart_list = cart_mapper.cart_pay(cart_idx);
-
-    model.addAttribute("cart_list", cart_list);
-
-    return "cart/cart_payment_check";
-  }
-
 }
