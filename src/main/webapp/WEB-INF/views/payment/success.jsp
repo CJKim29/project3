@@ -107,10 +107,18 @@
      }
     </script>
 
+    <!-- 구매내역보기 버튼 클릭 시 마이페이지로 이동 -->
     <script>
      function goToMyPaymentList() {
-      // 마이페이지로 이동하면서 구매내역을 바로 보여주는 URL로 이동
-      window.location.href = '/mypage.do?show=paymentList';
+
+      // 부모 창으로 리다이렉션할 URL
+      const url = '/mypage/mypage.do?show=paymentList';
+
+      // 부모 창으로 리다이렉션
+      window.opener.location.href = url;
+
+      // 새 창 닫기
+      window.close();
      }
     </script>
 

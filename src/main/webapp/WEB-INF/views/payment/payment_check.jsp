@@ -73,7 +73,7 @@
        window.usePointAll = function () {
 
         // 보유 포인트를 JSP에서 가져와 숫자로 변환
-        const availablePoints = parseInt("${user.mem_point}", 10);
+        const availablePoints = parseInt("${mem_point}", 10);
 
         // 포인트 값을 모두 사용하여 input 필드에 포맷팅된 값 적용
         const formattedPoints = availablePoints.toLocaleString();
@@ -92,7 +92,7 @@
         document.getElementById('used_point').value = '0';
 
         // '0'으로 설정된 값을 반영하여 보유 포인트 업데이트
-        const totalPoints = parseInt("${user.mem_point}", 10);
+        const totalPoints = parseInt("${mem_point}", 10);
 
         updateUsedPoints('0');
         updateAvailablePoints(totalPoints);
@@ -119,7 +119,7 @@
        // 'used_point' input 필드에 'input' 이벤트 추가
        document.getElementById('used_point').addEventListener('input', function () {
         // 보유 포인트를 서버에서 받아옴
-        const totalPoints = parseInt("${user.mem_point}", 10);
+        const totalPoints = parseInt("${mem_point}", 10);
         let usedPoints = this.value.replace(/[^0-9]/g, ''); // 숫자 이외의 모든 문자를 제거
 
         if (usedPoints === '') {
@@ -154,7 +154,7 @@
         }
         // 사용 포인트 업데이트
         updateUsedPoints(this.value);
-        updateAvailablePoints(parseInt("${user.mem_point}", 10));
+        updateAvailablePoints(parseInt("${mem_point}", 10));
        });
 
        function TotalPayment() {
@@ -296,14 +296,16 @@
            <input type="button" class="btn btn-warning" value="모두 사용" onclick="usePointAll()">
 
            <div class="point_state">
-            <span>*사용 가능
-             <fmt:formatNumber type="number" value="${user.mem_point}" />P/
+
+            <span>*사용 가능</span>
+            <span id="available_points">
+             <fmt:formatNumber type="number" value="${mem_point}" />
             </span>
 
-            <span>보유</span>
-            <span id="available_points">
-             <fmt:formatNumber type="number" value="${user.mem_point}" />P
+            <span>/보유
+             <fmt:formatNumber type="number" value="${mem_point}" />P
             </span>
+
            </div>
 
           </td>

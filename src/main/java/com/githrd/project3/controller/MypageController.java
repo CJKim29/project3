@@ -1,8 +1,8 @@
 package com.githrd.project3.controller;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,7 @@ import com.githrd.project3.dao.ReviewMapper;
 import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.util.MyCommon;
 import com.githrd.project3.util.Paging3;
-import com.githrd.project3.vo.CastingVo;
 import com.githrd.project3.vo.MemberVo;
-import com.githrd.project3.vo.PerformanceVo;
 import com.githrd.project3.vo.ReviewVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +41,10 @@ public class MypageController {
  ReviewScoreMapper review_score_mapper;
 
  @RequestMapping("mypage.do")
- public String mypage_home() {
+ public String mypage_home(@RequestParam(value = "show", required = false) String show, Model model) {
+
+  // 'show' 파라미터 값을 JSP에 전달하여 특정 탭을 미리 열 수 있도록 처리
+  model.addAttribute("show", show);
 
   return "mypage/mypage";
  }
