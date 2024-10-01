@@ -1,5 +1,6 @@
 package com.githrd.project3.vo;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
@@ -16,7 +17,7 @@ public class OrdersVo {
  int performance_idx; // 공연번호
  int mem_idx; // 회원번호
  String reserved_performance_date; // 공연관람날짜
- String order_date; // 주문일시
+ Timestamp order_date; // 주문일시
  int order_amount; // 총 결제 금액
  String payment_state; // 결제 상태
  int used_point; // 사용 포인트

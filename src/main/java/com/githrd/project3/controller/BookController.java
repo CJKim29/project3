@@ -1,6 +1,10 @@
 package com.githrd.project3.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -416,6 +420,150 @@ public class BookController {
   // 좌석 정보 처리
   model.addAttribute("seatInfo", seatInfo);
   return "/mypage/my_reservation"; // book_result.jsp로 이동
+ }
+
+ // 일정 시간 지날 시 주문 정보 삭제
+ // @RequestMapping("/checkOrderTimeout")
+ // public String checkOrderTimeout(int performance_idx,
+ // @RequestParam("date") String performance_date,
+ // @RequestParam("seatInfo") List<String> seatInfo,
+ // String selectedSeats) {
+
+ // System.out.println("selectedSeats : " + selectedSeats);
+
+ // // 세션에서 주문 정보 가져오기
+ // OrdersVo order = (OrdersVo) session.getAttribute("order");
+
+ // // 공연 정보 조회
+ // PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+
+ // // performance_date_idx를 구합니다.
+ // Integer performance_date_idx =
+ // book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
+
+ // ObjectMapper mapper = new ObjectMapper();
+ // List<Map<String, Object>> selectedSeatsList;
+ // try {
+ // selectedSeatsList = mapper.readValue(selectedSeats, new
+ // TypeReference<List<Map<String, Object>>>() {
+ // });
+ // } catch (IOException e) {
+ // e.printStackTrace();
+ // return "errorPage";
+ // }
+
+ // if (order != null) {
+ // // 주문 생성 시간 가져오기
+ // String orderDateString = order.getOrder_date(); // String 타입
+ // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //
+ // 포맷에 맞춰 설정
+ // Date orderDate = null;
+
+ // try {
+ // // String을 Date로 변환
+ // orderDate = dateFormat.parse(orderDateString);
+ // } catch (ParseException e) {
+ // e.printStackTrace(); // 예외 처리
+ // }
+
+ // if (orderDate != null) {
+ // long orderTime = orderDate.getTime();
+
+ // // 현재 시간과 주문 생성 시간을 비교합니다.
+ // long currentTime = System.currentTimeMillis();
+ // long timeElapsed = currentTime - orderTime;
+
+ // // 30초(30000ms) 이상 경과한 경우
+ // if (timeElapsed > 30000) {
+ // // DB에서 주문 삭제
+ // book_mapper.orderDelete(order.getOrder_idx());
+ // // 세션에서 주문 정보 삭제
+ // session.removeAttribute("order");
+ // // 좌석 정보 업데이트
+ // for (Map<String, Object> seat : selectedSeatsList) {
+ // int row = ((Number) seat.get("row")).intValue();
+ // String col = (String) seat.get("col");
+ // // 카테고리에 따른 처리
+ // switch (vo.getPerformance_cate_idx()) {
+ // case 1:
+ // m_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+ // break;
+ // case 2:
+ // s_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+ // break;
+ // case 3:
+ // l_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+ // break;
+ // }
+ // }
+ // }
+ // }
+ // }
+ // return "redirect:/main/list.do"; // 리다이렉트할 페이지
+ // }
+
+ @RequestMapping("/checkOrderTimeout")
+ public String checkOrderTimeout(int performance_idx,
+   @RequestParam("date") String performance_date,
+   @RequestParam("seatInfo") List<String> seatInfo,
+   String selectedSeats) {
+
+  System.out.println("--------------------?????????????????????????????????-----------------------");
+
+  // 세션에서 주문 정보 가져오기
+  OrdersVo order = (OrdersVo) session.getAttribute("order");
+
+  // 공연 정보 조회
+  PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+
+  // performance_date_idx를 구합니다.
+  Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
+
+  ObjectMapper mapper = new ObjectMapper();
+  List<Map<String, Object>> selectedSeatsList;
+  try {
+   selectedSeatsList = mapper.readValue(selectedSeats, new TypeReference<List<Map<String, Object>>>() {
+   });
+  } catch (IOException e) {
+   e.printStackTrace();
+   return "errorPage";
+  }
+
+  if (order != null) {
+   // 주문 생성 시간 가져오기
+   Timestamp orderDate = order.getOrder_date(); // Timestamp 타입으로 변경
+   long orderTime = orderDate.getTime(); // 밀리초 단위로 변환
+
+   // 현재 시간과 주문 생성 시간을 비교합니다.
+   long currentTime = System.currentTimeMillis();
+   long timeElapsed = currentTime - orderTime;
+
+   // 30초(30000ms) 이상 경과한 경우
+   if (timeElapsed > 30000) {
+    // DB에서 주문 삭제
+    book_mapper.orderDelete(order.getOrder_idx());
+    // 세션에서 주문 정보 삭제
+    session.removeAttribute("order");
+    // 좌석 정보 업데이트
+    for (Map<String, Object> seat : selectedSeatsList) {
+     int row = ((Number) seat.get("row")).intValue();
+     String col = (String) seat.get("col");
+     // 카테고리에 따른 처리
+     switch (vo.getPerformance_cate_idx()) {
+      case 1:
+       m_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+       break;
+      case 2:
+       s_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+       break;
+      case 3:
+       l_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+       break;
+     }
+    }
+   }
+  }
+  return "redirect:/main/list.do"; // 리다이렉트할 페이지
  }
 
 }

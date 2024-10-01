@@ -286,11 +286,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE mem_idx = #{mem_idx}
  </update>
 
-
-
- <!-- 이전으로 갈 시 삭제 되게(미구현..ㅠㅠㅠㅠ) -->
+ <!-- 일정 시간 지난 후(30초) 결제 미완료시 orders delete -->
  <delete id="orderDelete" parameterType="int">
-        DELETE FROM orders WHERE order_idx = #{order_idx}
+ SET SQL_SAFE_UPDATES = 0
+    DELETE FROM orders
+    WHERE payment_state = 'n' AND NOT order_date >= NOW() - INTERVAL 30 SECOND;
  </delete>
 
  <!-- 좌석 0으로 되돌리기 -->

@@ -187,9 +187,6 @@
         // hidden input의 값을 업데이트
         document.getElementById('hidden_total_payment').value = totalPayment.toLocaleString() + "원";
 
-        console.log("티켓 금액:", ticketAmount);
-        console.log("사용 포인트:", usedPoints);
-        console.log("총 결제 금액:", totalPayment);
        }
 
        // 페이지 로드 시 초기 계산
@@ -212,6 +209,21 @@
        const observer = new MutationObserver(callback);
        observer.observe(targetNode, config);
       });
+     </script>
+
+
+     <!-- 일정 시간(30초)지날 시 주문 정보 삭제 -->
+     <script>
+      setInterval(function () {
+       fetch('/book/checkOrderTimeout')
+        .then(response => {
+         if (!response.ok) {
+          console.error('Error checking order timeout');
+         }
+        })
+        .catch(error => console.error('Error:', error));
+      }, 10000); // 10초마다 호출
+      console.log("-------------체크---------------");
      </script>
 
     </head>
