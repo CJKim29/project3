@@ -107,14 +107,26 @@
      });
     }
    </script>
-
-
+   <!-- 구매 내역 -->
    <script>
-    // 구매 내역 조회
     $(document).ready(function () {
+     // URL에서 'active' 파라미터 확인
+     const urlParams = new URLSearchParams(window.location.search);
+     const isActive = urlParams.get('active');
+
+     if (isActive === 'true') {
+      // 'paymentList' 링크를 클릭한 것처럼 상태를 활성화
+      $('#paymentList').addClass('active'); // CSS 스타일 적용 (예: active 클래스를 추가)
+
+      // 'paymentList'의 click 이벤트를 수동으로 트리거 (구매내역 로드)
+      setTimeout(() => {
+       $('#paymentList').trigger('click');
+      }, 100);  // 페이지가 완전히 로드된 후 클릭 이벤트를 트리거
+     }
+
      // '구매내역' 링크 클릭 시
      $('#paymentList').on('click', function (event) {
-      event.preventDefault();  // 기본 링크 동작을 막음
+      event.preventDefault(); // 기본 링크 동작을 막음
 
       // AJAX 요청 보내기
       $.ajax({
@@ -131,43 +143,8 @@
       });
      });
     });
+
    </script>
-
-   <!-- success.jsp 구매내역버튼 클릭 시 마이페이지 들어오자마자 구매내역 조회 -->
-   <!-- <script>
-
-   $(document).ready(function () {
-    // URL에서 'show' 파라미터 값 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const show = urlParams.get('show');
-
-    // 'show=paymentList'일 경우 구매내역 자동 조회
-    if (show === 'paymentList') {
-     // $('#paymentList').click();
-     $('#paymentList').trigger('click');
-    }
-
-    // '구매내역' 링크 클릭 시
-    $('#paymentList').on('click', function (event) {
-     event.preventDefault();  // 기본 링크 동작을 막음
-
-     // AJAX 요청 보내기
-     $.ajax({
-      url: '/payment/list.do',
-      type: 'GET',
-      success: function (response) {
-       // 응답이 성공적으로 돌아왔을 때, 내용을 .content에 삽입
-       $('.content').html(response);
-      },
-      error: function (xhr, status, error) {
-       console.error('AJAX 요청 실패:', status, error);
-       $('.content').html('<p>구매 내역을 불러오는 데 실패했습니다.</p>');
-      }
-     });
-    });
-   });
-  </script> -->
-
   </head>
 
   <body>
