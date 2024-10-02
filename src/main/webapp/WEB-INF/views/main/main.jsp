@@ -5,21 +5,9 @@
 <html lang="zxx">
 <head>
 
-<style>
 
-.admin-btns {
-    display: flex; /* 버튼들을 가로로 배치 */
-    gap: 0px; /* 버튼 사이의 간격 */
-}
 
-.admin-btns .btn {
-    font-size: 12px; /* 버튼 글자 크기 조정 */
-    padding: 5px 10px; /* 버튼 안쪽 여백 조정 */
-    height: 25px; /* 버튼 높이 조정 */
-    line-height: 1; /* 줄 높이 조정 */
-}
 
-</style>
 
 	
 </head>
@@ -306,22 +294,22 @@
                             <div class="product-content">
 								<!-- 상대경로${pageContext.request.contextPath} performance idx  -->
 	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
-									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#" style="width: 150px; height: 210px;">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="performance_name">
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title">NEW</h6><br>
-								<p style="font-size: 9px;">${performance.performance_name}</p>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 14px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
 				</div>
-			</c:if>
-		</c:forEach>
+				</c:if>
+				</c:forEach>
                 <!-- End Single List -->
-	 </div>
+	 		</div>
             <!-- 랭킹 섹션 -->
             <div class="col-lg-12 mt-4">
                 <div class="shop-section-title">
@@ -338,29 +326,29 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="product-content">
 	                            <a href="${pageContext.request.contextPath}/detail/detail.do?performance_idx=${performance.performance_idx}">
-									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="#">
+									<img class="default-img" src="${pageContext.request.contextPath}/resources/images/${performance.performance_image}" alt="performance_name">
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}nd</h6><br>
-								<p style="font-size: 11px;">${performance.performance_name}</p>
+								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
+								<p style="font-size: 15px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
 				</div>
 				</c:if>
 				</c:forEach>
-       	 </div>
+       	 	 </div>
    		 </div>
+		</div>
 	</section>
 <!-- End Shop Home List -->
 
 	
 	<!-- Start Shop Blog  -->
 	<!-- 게시판부분 -->
-	 <!-- 경로 재지정 필요함 -->
 	<section class="shop-blog section">
 		<div class="container">
 			<div class="row">
@@ -408,6 +396,26 @@
 	
 
 	<!-- 밑의 푸터 부분 검은 공간 -->
+
+	
+<script>
+    function formatTitle(title) {
+        const splitIndex = Math.floor(title.length / 2); // 중간 인덱스
+        const firstPart = title.substring(0, splitIndex).trim();
+        const secondPart = title.substring(splitIndex).trim();
+
+        // 길이가 너무 길어지지 않도록 조정 (예: 20자 기준)
+        if (firstPart.length > 10) {
+            return firstPart.substring(0, 10) + "..<br>" + secondPart;
+        }
+        return firstPart + "<br>" + secondPart;
+    }
+
+    document.querySelectorAll('[id^="performanceTitle_"]').forEach((element) => {
+        const title = element.innerText; // 현재 제목
+        element.innerHTML = formatTitle(title); // 줄 바꿈 적용
+    });
+</script>
 
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>

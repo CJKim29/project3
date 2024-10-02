@@ -480,15 +480,26 @@
                           </li>
                           <li class="nav-item">
                            <a class="nav-link" href="javascript:void(0);"
-                            onclick="reviewDelete('${ param.performance_idx }', '${ review.review_idx }')">삭제</a>
+                            onclick="reviewDelete('${param.performance_idx}', '${review.review_idx}')">삭제</a>
                           </li>
+                          <!-- <li class="nav-item">
+                           <a class="nav-link"
+                            href="review_delete.do?performance_idx=${param.performance_idx}&review_idx=${review.review_idx}"
+                            onclick="return confirm('정말 삭제하시겠습니까?');">삭제2</a>
+                          </li> -->
 
                          </c:if>
                          <script>
                           function reviewDelete(performance_idx, review_idx) {
                            if (confirm("정말 삭제하시겠습니까?") == false) return;
 
-                           location.href = "review_delete.do?performance_idx=" + performance_idx + "&review_idx=" + review_idx;
+                           // 현재 페이지의 referer 값 (이전 페이지)
+                           var referer = document.referrer;
+
+                           // 리뷰 삭제 요청 시 referer 값도 전달
+                           location.href = "review_delete.do?performance_idx=" + performance_idx +
+                            "&review_idx=" + review_idx +
+                            "&referer=" + encodeURIComponent(referer);
                           }
                          </script>
 

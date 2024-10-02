@@ -331,6 +331,8 @@
           <input type="hidden" name="review_idx" value="${ reviewVo.review_idx }">
           <input type="hidden" name="review_score_point" id="review_score_point"
            value="${ reviewVo.review_score_point }">
+          <!-- Referer 값을 저장하는 hidden 필드 -->
+          <input type="hidden" name="referer" value="${header.referer}">
           <div class="ratings">
            <label>
             <input type="radio" name="review_score_point" value="5" class="rating-radio" required>

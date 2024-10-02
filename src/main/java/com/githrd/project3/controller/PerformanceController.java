@@ -275,7 +275,8 @@ public class PerformanceController {
    }
   }
 
-  return "redirect:list.do";
+  int performance_cate_idx = vo.getPerformance_cate_idx();
+  return "redirect:list_cate.do?performance_cate_idx=" + performance_cate_idx;
  }
 
  // 공연 좌석 등록 폼
@@ -639,7 +640,8 @@ public class PerformanceController {
    }
   }
 
-  return "redirect:list.do";
+  int performance_cate_idx = performance_mapper.getPerformanceCateIdx(performance_idx);
+  return "redirect:list_cate.do?performance_cate_idx=" + performance_cate_idx;
  }
 
  // 공연 수정 폼
@@ -661,7 +663,7 @@ public class PerformanceController {
  // 공연 수정
  @RequestMapping("modify.do")
  // 파라미터 Vo로 포장해달라고 요청
- public String modify(PerformanceVo vo, RedirectAttributes ra)
+ public String modify(PerformanceVo vo, int performance_idx, RedirectAttributes ra)
    throws IllegalStateException, IOException {
 
   // session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
@@ -682,7 +684,8 @@ public class PerformanceController {
   // DB insert
   int res = performance_mapper.update(vo);
 
-  return "redirect:list.do";
+  int performance_cate_idx = performance_mapper.getPerformanceCateIdx(performance_idx);
+  return "redirect:list_cate.do?performance_cate_idx=" + performance_cate_idx;
  }
 
  // 공연 수정 - 이미지 파일 업로드
@@ -749,9 +752,9 @@ public class PerformanceController {
  @RequestMapping("modify_seat.do")
  // 파라미터 Vo로 포장해달라고 요청
  public String modify_seat(int performance_idx,
- @RequestParam("seat_grade") String[] seat_grade_array,
- @RequestParam("seat_price") Integer[] seat_price_array,
- RedirectAttributes ra) {
+   @RequestParam("seat_grade") String[] seat_grade_array,
+   @RequestParam("seat_price") Integer[] seat_price_array,
+   RedirectAttributes ra) {
 
   // session 만료 시 처리 할 작업 : 로그아웃 시키기 -> 로그인 폼으로 이동
   // 세션 정보 구하기 - 로그인 한 유저 정보
@@ -773,7 +776,7 @@ public class PerformanceController {
   }
 
   // performance_date에서 performance_idx로 해당 데이터 삭제 (필요하다면)
-  //performance_mapper.deletePerformanceDates(performance_idx);
+  // performance_mapper.deletePerformanceDates(performance_idx);
 
   performance_mapper.deleteSeatByPerformanceIdx(performance_idx);
 
@@ -1099,17 +1102,20 @@ public class PerformanceController {
     }
    }
   }
-  return "redirect:list.do";
+  int performance_cate_idx = performance_mapper.getPerformanceCateIdx(performance_idx);
+  return "redirect:list_cate.do?performance_cate_idx=" + performance_cate_idx;
  }
 
  // 공연 삭제
  @RequestMapping("delete.do")
  public String delete(int performance_idx) {
 
+  int performance_cate_idx = performance_mapper.getPerformanceCateIdx(performance_idx);
+
   // int res = qna_mapper.qna_delete(qna_idx);
   int res = performance_mapper.delete(performance_idx);
 
-  return "redirect:list.do";
+  return "redirect:list_cate.do?performance_cate_idx=" + performance_cate_idx;
  }
 
  // 상세페이지 띄우기

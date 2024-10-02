@@ -153,6 +153,24 @@
                margin-top: 10px;
                outline: none;
             }
+
+            #back {
+               padding: 10px 10px;
+               background-color: #333;
+               color: #fff;
+               font-weight: bold;
+               border-radius: 3%;
+               outline: none;
+               position: relative;
+               left: 610px;
+               border: 0;
+            }
+
+            #back:hover {
+               background-color: #FF1D38;
+               color: #fff;
+               border: 0;
+            }
          </style>
 
          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -267,6 +285,7 @@
          <div id="moreText" class="collapsed">
             <div>
                <h2>캐스팅 수정</h2>
+               <button id="back" onclick="location.href='detail.do?performance_idx=${vo.performance_idx}'">돌아가기</button>
             </div>
             <c:forEach var="castingVo" items="${ list }">
                <div class="casting">
