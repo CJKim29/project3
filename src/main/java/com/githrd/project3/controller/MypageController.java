@@ -106,6 +106,7 @@ public class MypageController {
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
 
   return "mypage/my_review";
  }

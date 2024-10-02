@@ -7,7 +7,7 @@
 
     <head>
      <meta charset="UTF-8">
-     <title>TIMOA 회원정보 수정</title>
+     <title>TIMOA - 회원정보 수정</title>
      <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
      <!-- 회원 정보 수정 페이지 -->

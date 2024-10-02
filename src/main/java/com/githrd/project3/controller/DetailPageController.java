@@ -216,6 +216,7 @@ public class DetailPageController {
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
 
   return "detailpage/review";
  }
@@ -282,6 +283,7 @@ public class DetailPageController {
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
 
   return "detailpage/review";
  }
@@ -348,6 +350,7 @@ public class DetailPageController {
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
 
   return "detailpage/review";
  }
@@ -414,6 +417,7 @@ public class DetailPageController {
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
 
   return "detailpage/review";
  }
@@ -480,6 +484,7 @@ public class DetailPageController {
 
   model.addAttribute("totalPages", totalPages);
   model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
 
   return "detailpage/review";
  }
