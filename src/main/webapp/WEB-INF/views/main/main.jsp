@@ -333,7 +333,7 @@
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
-								<p style="font-size: 15px; color: black;">${performance.performance_name}</p>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 14px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -405,8 +405,8 @@
         const secondPart = title.substring(splitIndex).trim();
 
         // 길이가 너무 길어지지 않도록 조정 (예: 20자 기준)
-        if (firstPart.length > 10) {
-            return firstPart.substring(0, 10) + "..<br>" + secondPart;
+        if (firstPart.length > 13) {
+            return firstPart.substring(0, 13) + "..<br>" + secondPart;
         }
         return firstPart + "<br>" + secondPart;
     }

@@ -99,13 +99,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <i class="ti-power-off"></i
                       ><a href="#" onclick="login();">로그인</a>
                     </li>
+                    <li>
+                      <i class="ti-user"></i>
+                      <a href="#" onclick="checkMyPageLogin()">마이페이지</a>
+                    </li>
                   </c:if>
                   <!-- 로그인이 된 경우 -->
                   <c:if test="${ not empty sessionScope.user }">
-                    <li>
-                      <i class="ti-user"></i>
-                      <a href="../mypage/mypage.do">마이페이지</a>
-                    </li>
                     <c:if test="${ user.mem_grade eq '관리자' }">
                       <li>
                         <a href="../member/list.do">회원관리</a>
@@ -114,6 +114,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <li>
                       <b>${ user.mem_nickname }님</b>
                       <a href="../member/logout.do">로그아웃</a>
+                    </li>
+                    <li>
+                      <i class="ti-user"></i>
+                      <a href="../mypage/mypage.do">마이페이지</a>
                     </li>
                   </c:if>
                 </ul>
@@ -293,6 +297,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         location.href = "../cart/list.do";
       }
     </script>
+
+  <script type="text/javascript">
+    function checkMyPageLogin() {
+      // 로그인 여부 체크
+      if ("${ empty user }" == "true") {
+        if (
+          confirm(
+            "마이페이지는 로그인 후 가능합니다 \n 로그인 하시겠습니까?"
+          ) == false
+        )
+          return;
+        location.href = "../member/login_form.do";
+        return;
+      }
+      location.href = "../mymage/mymage.do";
+    }
+  </script>
 
     <script>
       function login() {
