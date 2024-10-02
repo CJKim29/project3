@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-
+  <title>TIMOA</title>
+  <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
 
 
