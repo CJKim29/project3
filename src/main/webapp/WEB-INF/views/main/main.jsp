@@ -301,8 +301,8 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">NEW</h6><br>
-								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 14px; color: black;">${performance.performance_name}</p>
+								<h6 class="title" style="font-size: 21px;">NEW</h6><br>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -333,8 +333,8 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
-								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 14px; color: black;">${performance.performance_name}</p>
+								<h6 class="title" style="font-size: 21px;">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>

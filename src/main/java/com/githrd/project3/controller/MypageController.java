@@ -105,8 +105,11 @@ public class MypageController {
       // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
       int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.MyReview.BLOCK_LIST); // 전체 페이지 수
 
-      model.addAttribute("totalPages", totalPages);
-      model.addAttribute("currentPage", nowPage);
+
+  model.addAttribute("totalPages", totalPages);
+  model.addAttribute("currentPage", nowPage);
+  model.addAttribute("rowTotal", rowTotal);
+
 
       return "mypage/my_review";
    }
