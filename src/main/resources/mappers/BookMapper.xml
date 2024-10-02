@@ -204,12 +204,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <!-- 주문 정보 추가 -->
- <insert id="ordersInsert" parameterType="orders">
+ <!-- order_idx가 데이터베이스의 자동 증가(AUTO_INCREMENT) 필드, MyBatis에서 삽입 후 자동으로 생성된 키를 가져올 수 있도록 useGeneratedKeys 속성 설정함
+      keyProperty는 자동으로 생성된 키를 설정할 OrdersVo 객체의 필드명을 지정-->
+ <insert id="ordersInsert" parameterType="orders" useGeneratedKeys="true" keyProperty="order_idx">
     insert into orders (performance_idx, mem_idx, reserved_performance_date, order_date, order_amount, payment_state,used_point)
                 values (#{performance_idx},
                         #{mem_idx},
                         #{reserved_performance_date},
-                        now(),
+                        CURRENT_TIMESTAMP,
                         default,
                         default,
                         default
@@ -222,7 +224,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
 
  <select id="selectOneFromOrderIdx" parameterType="int" resultType="orders">
-  select * from orders where order_idx = #{order_idx};
+  select 
+     * 
+  from orders where order_idx = #{order_idx};
  </select>
 
  <select id="selectOnePerformanceCateIdx" parameterType="int" resultType="int">
@@ -250,7 +254,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <select id="selectOneOrderIdx" parameterType="int" resultType="orders">
-  select * from orders where order_idx = #{order_idx};
+  select 
+    * , TIMESTAMPDIFF(SECOND, order_date,now()) as order_diff
+  from orders where order_idx = #{order_idx};
  </select>
 
  <update id="updatePaymentState">
@@ -288,7 +294,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <!-- 일정 시간 지난 후(30초) 결제 미완료시 orders delete -->
  <delete id="orderDelete" parameterType="int">
- SET SQL_SAFE_UPDATES = 0
     DELETE FROM orders
     WHERE payment_state = 'n' AND NOT order_date >= NOW() - INTERVAL 30 SECOND;
  </delete>

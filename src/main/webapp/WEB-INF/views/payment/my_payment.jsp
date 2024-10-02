@@ -51,12 +51,12 @@
          <table class="table table-bordered table-hover shopping-summery">
           <thead class="thead-light">
            <tr>
-            <th class="text-center">주문번호</th>
-            <th class="text-center">공연</th>
-            <th class="text-center">공연장</th>
-            <th class="text-center">공연날짜</th>
-            <th class="text-center">좌석정보</th>
-            <th class="text-center" style="width: 15%;">가격</th>
+            <th class="text-center" style="width: 10%;">주문 번호</th>
+            <th class="text-center" style="width: 15%;">공연</th>
+            <th class="text-center" style="width: 20%;">공연장</th>
+            <th class="text-center" style="width: 15%;">공연 날짜</th>
+            <th class="text-center" style="width: 15%;">좌석 정보</th>
+            <th class="text-center" style="width: 15%;">결제 금액</th>
 
            </tr>
           </thead>
@@ -96,7 +96,7 @@
               </td>
               <!-- 금액 -->
               <td class="text-center">
-               <div>결제 금액: <strong>
+               <div><strong>
                  <fmt:formatNumber type="number" value="${ordersVo.order_amount}" />원
                 </strong>
                </div>

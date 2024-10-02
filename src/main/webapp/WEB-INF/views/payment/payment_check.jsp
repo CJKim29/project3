@@ -211,21 +211,48 @@
       });
      </script>
 
-
-     <!-- 일정 시간(30초)지날 시 주문 정보 삭제 -->
      <script>
-      setInterval(function () {
-       fetch('/book/checkOrderTimeout')
-        .then(response => {
-         if (!response.ok) {
-          console.error('Error checking order timeout');
-         }
-        })
-        .catch(error => console.error('Error:', error));
-      }, 10000); // 10초마다 호출
-      console.log("-------------체크---------------");
-     </script>
+      window.addEventListener('DOMContentLoaded', function () {
+       // form 필드에 입력된 값을 JavaScript로 가져옴
+       const performance_idx = document.querySelector('input[name="performance_idx"]');
+       const performance_date = document.querySelector('input[name="date"]');
+       const mem_idx = document.querySelector('input[name="mem_idx"]');
+       const order_idx = document.querySelector('input[name="order_idx"]');
+       const seatInfo = document.querySelector('input[name="seatInfo"]');
+       const selectedSeats = document.querySelector('input[name="selectedSeats"]');
 
+       // 값이 정상적으로 존재하는지 확인
+       if (performance_idx && performance_date && mem_idx && order_idx && seatInfo && selectedSeats) {
+        // 10초마다 서버에 체크 요청
+        setInterval(function () {
+         fetch('/book/checkOrderTimeout.do', {
+          method: 'POST',
+          headers: {
+           'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+           performance_idx: performance_idx.value,        // 공연 인덱스
+           performance_date: performance_date.value,      // 공연 날짜
+           mem_idx: mem_idx.value,                        // 사용자 인덱스
+           order_idx: order_idx.value,                    // 주문 인덱스
+           seatInfo: JSON.parse(seatInfo.value || '[]'), // 좌석 정보 (JSON 문자열로 변환)
+           selectedSeats: JSON.parse(selectedSeats.value || '[]') // 선택된 좌석 정보 (JSON 문자열로 변환)
+          })
+         })
+          .then(response => {
+           if (!response.ok) {
+            console.error('Error checking order timeout');
+           } else {
+            console.log('Order timeout checked successfully');
+           }
+          })
+          .catch(error => console.error('Error:', error));
+        }, 10000);  // 10초마다 호출
+       } else {
+        console.error('필수 input 요소가 없습니다.');
+       }
+      });
+     </script>
     </head>
 
     <body>
@@ -238,6 +265,9 @@
       <input type="hidden" name="used_point2" id="hidden_used_point2"
        value="${param.used_point2 != null ? param.used_point2 : '0'}">
       <input type="hidden" name="total_payment" id="hidden_total_payment" value="${param.total_payment}">
+
+      <input type="hidden" id="seatInfo" name="seatInfo" />
+      <input type="hidden" id="selectedSeats" name="selectedSeats" />
 
       <div id="seat-box">
 
@@ -358,13 +388,12 @@
 
          <br>
 
-         <div>
-          <input type="button" class="btn" value="이전"
-           onclick="location.href='performance_seat.do?performance_idx=${param.performance_idx}&date=${param.date}'">
 
-          <input type="button" class="btn" value="다음" onclick="send(this.form);">
+         <input style="margin-left: 10px;" type="button" class="btn btns" value="이전"
+          onclick="location.href='performance_seat.do?performance_idx=${param.performance_idx}&date=${param.date}'">
 
-         </div>
+         <input style="margin-left: 30px;" type="button" class="btn btns" value="다음" onclick="send(this.form);">
+
         </div>
        </div>
       </div>

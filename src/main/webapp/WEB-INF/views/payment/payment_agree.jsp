@@ -34,7 +34,7 @@
       console.log("-------------호출?---------------");
 
       setInterval(function () {
-       fetch('/book/checkOrderTimeout')
+       fetch('/book/checkOrderTimeout.do')
         .then(response => {
          if (!response.ok) {
           console.error('Error checking order timeout');
