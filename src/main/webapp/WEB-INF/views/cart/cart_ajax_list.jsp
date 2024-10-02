@@ -7,11 +7,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <head>
     <script>
 // 장바구니 삭제 함수 (confirm 여부를 제어할 수 있음)
-function cart_delete(cart_idx, showConfirm) {
+function cart_delete(cart_idx,currentUrl, showConfirm) {
     if (showConfirm && confirm("정말 삭제하시겠습니까?") == false) return;
 
     // 바로 삭제 요청
-    location.href = "delete.do?cart_idx=" + cart_idx;
+    location.href = "../cart/delete.do?cart_idx=" + cart_idx + "&returnUrl=" + encodeURIComponent(currentUrl);
 }
 
 // 결제 전에 좌석 예약 여부를 체크하는 함수
@@ -107,7 +107,7 @@ function check_seat(cart_idx,performance_idx,date) {
                     <td class="action" data-title="Remove">
                       <input type="hidden" name="performance_idx" value="${ vo.performance_idx }">
                       <input type="button" value="결제" onclick="check_seat('${ vo.cart_idx }', '${ vo.performance_idx }', '${ vo.reserved_performance_date }');">
-                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', true);">
+                      <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', window.location.href, true);">
                     </td>
                   </tr>
                 </c:forEach> 
