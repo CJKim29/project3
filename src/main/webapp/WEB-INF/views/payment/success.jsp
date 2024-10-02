@@ -110,16 +110,18 @@
     <!-- 구매내역보기 버튼 클릭 시 마이페이지로 이동 -->
     <script>
      function goToMyPaymentList() {
-
-      // 부모 창으로 리다이렉션할 URL
-      const url = '/mypage/mypage.do?show=paymentList';
+      // 부모 창으로 리다이렉션할 URL, 상태를 쿼리 파라미터로 전달
+      const url = '/mypage/mypage.do?show=paymentList&active=true';
 
       // 부모 창으로 리다이렉션
       window.opener.location.href = url;
 
-      // 새 창 닫기
-      window.close();
+      // 새 창 닫기 (부모 창이 열릴 때까지 약간의 지연을 줌)
+      setTimeout(() => {
+       window.close();
+      }, 100);  // 100ms 정도의 지연을 줌
      }
+
     </script>
 
    </head>
