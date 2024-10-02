@@ -400,7 +400,7 @@
 	
 <script>
     function formatTitle(title) {
-        const splitIndex = Math.floor(title.length / 2); // 중간 인덱스
+        const splitIndex = Math.floor(title.length / 8); // 중간 인덱스
         const firstPart = title.substring(0, splitIndex).trim();
         const secondPart = title.substring(splitIndex).trim();
 
