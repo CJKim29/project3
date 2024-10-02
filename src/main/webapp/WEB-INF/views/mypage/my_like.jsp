@@ -53,7 +53,7 @@
                                     </td>
 
                                     <td class="price" data-title="Price">
-                                       ${ vo.performanceVo.performance_name }
+                                       <b>${ vo.performanceVo.performance_name }</b>
                                        <!-- <span></span> -->
                                     </td>
                                     <!-- 공연날짜 -->
