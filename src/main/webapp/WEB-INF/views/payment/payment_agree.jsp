@@ -28,6 +28,23 @@
      <!-- iamport.payment.js -->
      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
      <!-- 포트원 결제 -->
+
+     <!-- 일정 시간(30초)지날 시 주문 정보 삭제 -->
+     <script>
+      console.log("-------------호출?---------------");
+
+      setInterval(function () {
+       fetch('/book/checkOrderTimeout.do')
+        .then(response => {
+         if (!response.ok) {
+          console.error('Error checking order timeout');
+         }
+        })
+        .catch(error => console.error('Error:', error));
+      }, 10000); // 10초마다 호출
+
+     </script>
+
     </head>
 
     <body>

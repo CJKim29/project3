@@ -78,6 +78,9 @@ public interface BookMapper {
 
  void usedPoint(Map<String, Object> params); // Map을 사용하는 포인트 차감 메서드
 
+ // 주문 정보 삭제
+ void orderDelete(int order_idx);
+
  // 안쓰는 코드들
  // Integer selectRemainSeat(@Param("performance_date") String performance_date,
  // @Param("seat_idx") int seat_idx);

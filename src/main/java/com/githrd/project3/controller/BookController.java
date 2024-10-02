@@ -1,6 +1,10 @@
 package com.githrd.project3.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -186,12 +191,15 @@ public class BookController {
 
   } // end - performance_seat
 
-  @RequestMapping("/reserve_seats.do")
-  public String reserveSeats(OrdersVo ordersVo, int performance_idx,
-      String selectedSeats,
-      @RequestParam("date") String performance_date,
-      @RequestParam("seatInfo") List<String> seatInfo,
-      @RequestParam(value = "cart_idx", required = false) Integer cart_idx, Model model) {
+
+ @RequestMapping("/reserve_seats.do")
+ public String reserveSeats(
+   OrdersVo ordersVo,
+   String selectedSeats,
+   @RequestParam("performance_idx") int performance_idx,
+   @RequestParam("date") String performance_date,
+   @RequestParam("seatInfo") List<String> seatInfo,
+   @RequestParam(value = "cart_idx", required = false) Integer cart_idx, Model model) {
 
     // 세션에서 회원 정보 가져옴
     MemberVo user = (MemberVo) session.getAttribute("user");
@@ -270,8 +278,16 @@ public class BookController {
     ordersVo.setReserved_performance_date(performance_date);
     ordersVo.setMem_idx(mem_idx);
 
-    // 주문 정보 DB insert
-    int res = book_mapper.ordersInsert(ordersVo);
+  // 주문 정보 DB insert
+  int res = book_mapper.ordersInsert(ordersVo);
+  // System.out.println("주문 삽입 결과: " + res);
+  // System.out.println("주문 인덱스: " + ordersVo.getOrder_idx());
+  // session에 주문 정보 저장
+  // 데이터베이스에서 생성된 주문 정보를 다시 가져오기
+  OrdersVo createdOrder = book_mapper.selectOneOrderIdx(ordersVo.getOrder_idx());
+  // 세션에 주문 정보를 저장
+  session.setAttribute("order", createdOrder);
+  System.out.println("주문 정보가 세션에 저장되었습니다 : " + createdOrder);
 
     // 최근 주문 번호 얻어오기
     int order_idx = book_mapper.OrderRecentIdx();
@@ -316,14 +332,15 @@ public class BookController {
     map.put("performance_idx", performance_idx);
     map.put("order_idx", order_idx);
 
-    List<OrdersVo> list = book_mapper.ordersList(map);
+  List<OrdersVo> list = book_mapper.ordersList(map);
 
-    model.addAttribute("list", list);
-    model.addAttribute("ordersVo", ordersVo);
-    model.addAttribute("order_idx", order_idx);
+  model.addAttribute("list", list);
+  model.addAttribute("ordersVo", ordersVo);
+  model.addAttribute("order_idx", order_idx);
+  model.addAttribute("performance_idx", performance_idx);
 
-    return "/payment/payment_check";
-  }
+  return "/payment/payment_check";
+ }
 
   @RequestMapping("agree.do")
   public String agree(OrdersVo ordersVo,
@@ -416,5 +433,70 @@ public class BookController {
     model.addAttribute("seatInfo", seatInfo);
     return "/mypage/my_reservation"; // book_result.jsp로 이동
   }
+
+ @RequestMapping("checkOrderTimeout.do")
+ public String checkOrderTimeout(@RequestBody Map<String, Object> requestData, Model model) {
+  System.out.println("--------------------주문 취소 확인용-----------------------");
+
+  // JSON에서 데이터 추출
+  int performance_idx = Integer.parseInt((String) requestData.get("performance_idx"));
+  String performance_date = (String) requestData.get("date");
+
+  // seatInfo를 List<Map>으로 변환
+  List<Map<String, Object>> seatInfo = (List<Map<String, Object>>) requestData.get("seatInfo");
+
+  // selectedSeats를 List<Map>으로 변환
+  List<Map<String, Object>> selectedSeatsList = (List<Map<String, Object>>) requestData.get("selectedSeats");
+
+  // 세션에서 주문 정보 가져오기
+  OrdersVo order = (OrdersVo) session.getAttribute("order");
+  if (order == null) {
+   System.out.println("주문 정보가 세션에 존재하지 않습니다.");
+   return "redirect:/main/list.do"; // 주문이 없으면 메인 페이지로 리다이렉트
+  }
+
+  // 공연 정보 조회
+  PerformanceVo vo = book_mapper.selectOneFromIdx(performance_idx);
+  Integer performance_date_idx = book_mapper.getPerformanceDateIdx(performance_idx, performance_date);
+
+  // 주문 생성 시간 가져오기
+  // Timestamp orderDate = order.getOrder_date();
+  // long orderTime = orderDate.getTime();
+  // long currentTime = System.currentTimeMillis();
+  // long timeElapsed = currentTime - orderTime;
+
+  // System.out.println("orderDate : " + orderDate);
+  OrdersVo order2 = book_mapper.selectOneOrderIdx(order.getOrder_idx());
+
+  System.out.println("order_diff : " + order2.getOrder_diff());
+  // System.out.println("orderDate : " + orderTime);
+
+  // 30초(30000ms) 이상 경과한 경우
+  if (order2.getOrder_diff() > 30) {
+   // DB에서 주문 삭제 및 세션에서 주문 정보 삭제
+   book_mapper.orderDelete(order.getOrder_idx());
+   session.removeAttribute("order");
+
+   // 좌석 정보 업데이트
+   for (Map<String, Object> seat : selectedSeatsList) {
+    int row = ((Number) seat.get("row")).intValue();
+    String col = (String) seat.get("col");
+    // 카테고리에 따른 처리
+    switch (vo.getPerformance_cate_idx()) {
+     case 1:
+      m_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+      break;
+     case 2:
+      s_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+      break;
+     case 3:
+      l_hall_mapper.updateSeatStatusByOrder(performance_date_idx, row, col);
+      break;
+    }
+   }
+  }
+
+  return "redirect:/main/list.do"; // 리다이렉트할 페이지
+ }
 
 }
