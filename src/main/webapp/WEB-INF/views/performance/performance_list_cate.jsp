@@ -6,6 +6,16 @@
 
         <!DOCTYPE html>
         <html lang="zxx">
+          <c:if test="${param.performance_cate_idx == 1}">
+          <title>TIMOA - 뮤지컬</title>
+        </c:if>
+          <c:if test="${param.performance_cate_idx == 2}">
+          <title>TIMOA - 연극</title>
+        </c:if>
+          <c:if test="${param.performance_cate_idx == 3}">
+          <title>TIMOA - 콘서트</title>
+        </c:if>
+          <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
         <head>
           <style>
