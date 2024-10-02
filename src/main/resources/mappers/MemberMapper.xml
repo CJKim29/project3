@@ -82,4 +82,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <update id="updateFilename" parameterType="member">
         update member set mem_filename = #{mem_filename} where mem_idx = #{mem_idx}
  </update>
+
+ <!-- mem_point 조회 -->
+ <select id="getMem_point" parameterType="member">
+  select mem_point from member where mem_idx = #{ mem_point }
+ </select>
 </mapper>

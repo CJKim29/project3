@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.githrd.project3.dao.DetailMapper;
+import com.githrd.project3.dao.MemberMapper;
 import com.githrd.project3.dao.ReviewMapper;
 import com.githrd.project3.dao.ReviewScoreMapper;
 import com.githrd.project3.util.MyCommon;
@@ -20,7 +21,6 @@ import com.githrd.project3.vo.MemberVo;
 
 import com.githrd.project3.vo.PerformanceExLikeVo;
 import com.githrd.project3.vo.PerformanceVo;
-
 
 import com.githrd.project3.vo.ReviewVo;
 
@@ -31,88 +31,96 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/mypage/")
 public class MypageController {
 
-   @Autowired
-   HttpServletRequest request;
+ @Autowired
+ HttpServletRequest request;
 
-   @Autowired
-   HttpSession session;
+ @Autowired
+ HttpSession session;
 
-   @Autowired
-   DetailMapper detail_mapper;
+ @Autowired
+ MemberMapper member_mapper;
 
-   @Autowired
-   ReviewMapper review_mapper;
+ @Autowired
+ DetailMapper detail_mapper;
 
-   @Autowired
-   ReviewScoreMapper review_score_mapper;
+ @Autowired
+ ReviewMapper review_mapper;
 
+ @Autowired
+ ReviewScoreMapper review_score_mapper;
 
-   @RequestMapping("mypage.do")
-   public String mypage_home() {
+ @RequestMapping("mypage.do")
+ public String mypage_home(Model model) {
 
+  MemberVo user = (MemberVo) session.getAttribute("user");
 
-      return "mypage/mypage";
-   }
+  int mem_idx = user.getMem_idx();
 
-   @RequestMapping("ajax_review.do")
-   public String review_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
-         Model model) {
+  int mem_point = member_mapper.getMem_point(mem_idx);
+  model.addAttribute("mem_point", mem_point);
 
-      MemberVo user = (MemberVo) session.getAttribute("user");
+  return "mypage/mypage";
+ }
 
-      int mem_idx = user.getMem_idx();
+ @RequestMapping("ajax_review.do")
+ public String review_list(@RequestParam(name = "page", defaultValue = "1") int nowPage,
+   Model model) {
 
-      // List<ReviewVo> list = review_mapper.selectMyReviewList(mem_idx);
-      // model.addAttribute("list", list);
+  MemberVo user = (MemberVo) session.getAttribute("user");
 
-      Map<String, Object> map = new HashMap<String, Object>();
+  int mem_idx = user.getMem_idx();
 
-      int start = (nowPage - 1) * MyCommon.MyReview.BLOCK_LIST + 1;
-      int end = start + MyCommon.MyReview.BLOCK_LIST - 1;
+  // List<ReviewVo> list = review_mapper.selectMyReviewList(mem_idx);
+  // model.addAttribute("list", list);
 
-      map.put("start", start);
-      map.put("end", end);
-      map.put("mem_idx", mem_idx);
+  Map<String, Object> map = new HashMap<String, Object>();
 
-      // 전체 게시물 수
-      int rowTotal = review_mapper.my_review_row_total(mem_idx);
+  int start = (nowPage - 1) * MyCommon.MyReview.BLOCK_LIST + 1;
+  int end = start + MyCommon.MyReview.BLOCK_LIST - 1;
 
-      // pageMenu생성하기
-      String pageMenu = Paging3.getMyReviewPaging(
-            nowPage,
-            rowTotal,
-            MyCommon.MyReview.BLOCK_LIST,
-            MyCommon.MyReview.BLOCK_PAGE);
+  map.put("start", start);
+  map.put("end", end);
+  map.put("mem_idx", mem_idx);
 
-      // 게시판 목록가져오기
-      List<ReviewVo> my_review_list = review_mapper.my_review_list(map);
+  // 전체 게시물 수
+  int rowTotal = review_mapper.my_review_row_total(mem_idx);
 
-      // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
-      // DS는 model에 저장된 데이터를 request binding시킨다
+  // pageMenu생성하기
+  String pageMenu = Paging3.getMyReviewPaging(
+    nowPage,
+    rowTotal,
+    MyCommon.MyReview.BLOCK_LIST,
+    MyCommon.MyReview.BLOCK_PAGE);
 
-      model.addAttribute("my_review_list", my_review_list);
-      model.addAttribute("pageMenu", pageMenu);
+  // 게시판 목록가져오기
+  List<ReviewVo> my_review_list = review_mapper.my_review_list(map);
 
-      // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
-      int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.MyReview.BLOCK_LIST); // 전체 페이지 수
+  // DS로부터 전달받은 Model을 통해서 데이터를 넣는다.
+  // DS는 model에 저장된 데이터를 request binding시킨다
 
-      model.addAttribute("totalPages", totalPages);
-      model.addAttribute("currentPage", nowPage);
+  model.addAttribute("my_review_list", my_review_list);
+  model.addAttribute("pageMenu", pageMenu);
 
-      return "mypage/my_review";
-   }
+  // detail.jsp 내에서 ajax호출 시 review.jsp가 새 페이지로 호출 되는 것을 막기 위한 3줄
+  int totalPages = (int) Math.ceil((double) rowTotal / MyCommon.MyReview.BLOCK_LIST); // 전체 페이지 수
 
-   @RequestMapping("ajax_like.do")
-   public String like_list(PerformanceExLikeVo vo, Model model) {
+  model.addAttribute("totalPages", totalPages);
+  model.addAttribute("currentPage", nowPage);
 
-      MemberVo user = (MemberVo) session.getAttribute("user");
+  return "mypage/my_review";
+ }
 
-      int mem_idx = user.getMem_idx();
+ @RequestMapping("ajax_like.do")
+ public String like_list(PerformanceExLikeVo vo, Model model) {
 
-      List<PerformanceExLikeVo> list = detail_mapper.LikeList(mem_idx);
+  MemberVo user = (MemberVo) session.getAttribute("user");
 
-      model.addAttribute("list", list);
+  int mem_idx = user.getMem_idx();
 
-      return "mypage/my_like";
-   }
+  List<PerformanceExLikeVo> list = detail_mapper.LikeList(mem_idx);
+
+  model.addAttribute("list", list);
+
+  return "mypage/my_like";
+ }
 }
