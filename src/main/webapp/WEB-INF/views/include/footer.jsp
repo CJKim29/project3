@@ -26,9 +26,9 @@ pageEncoding="UTF-8"%>
 						<div class="single-footer links">
 							<h4><br>고객센터</h4>
 							<ul>
-								<li><a href="#">Q & A</a></li><br>
-								<li><a href="../faq/faq_list.do">FAQ</a></li><br>
-								<li><a href="#">게시판</a></li>
+								<li><a href="../qna/list.do">Q & A</a></li><br>
+								<li><a href="../faq/list.do">FAQ</a></li><br>
+								<li><a href="../board/list.do">게시판</a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->

@@ -4,7 +4,7 @@
 
  <head>
   <meta charset="UTF-8">
-  <title>티모아 로그인</title>
+  <title>TIMOA - 로그인</title>
   <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
 
