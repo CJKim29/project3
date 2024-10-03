@@ -156,12 +156,12 @@
       <img src="../resources/template/images/logo_TIMOA1.png" alt="logo" class="logo-img" />
      </div>
      <div class="welcome-section">
-      <span style="font-weight: bold">티모아 마이페이지</span>
+      <span>마이페이지</span>
      </div>
      <div class="points-section">
       <span style="font-size: 17px">
        <b>${user.mem_nickname}</b>님의 보유 포인트:
-       <b style="color: gold">${mem_point}P</b>
+       <b style="color: #ff1d38">${mem_point}P</b>
       </span>
      </div>
     </div>
@@ -170,25 +170,33 @@
    <main>
     <div class="sidebar">
      <ul>
-      <li><a href="#" data-content="member-info" id="memberModify">회원정보 수정</a></li>
+      <li><a href="#" data-content="member-info" id="memberModify"> <img src="../resources/images/user.png" alt="logo"
+         class="side_img" />회원정보 수정</a></li>
      </ul>
      <hr />
      <ul>
-      <li><a href="#" data-content="cart" id="cartLink">장바구니</a></li>
-      <li><a href="#" data-content="payment" id="paymentList">구매 내역</a></li>
+      <li><a href="#" data-content="cart" id="cartLink"><img src="../resources/images/shopping.png" alt="logo"
+         class="side_img" />장바구니</a></li>
+      <li><a href="#" data-content="payment" id="paymentList"><img src="../resources/images/receipt.png" alt="logo"
+         class="side_img" />구매 내역</a></li>
      </ul>
      <hr />
      <ul>
-      <li><a href="#" data-content="my-reviews" id="MyReview">나의 후기 목록</a></li>
+      <li><a href="#" data-content="my-reviews" id="MyReview"><img src="../resources/images/star.png" alt="logo"
+         class="side_img" />나의 후기 목록</a></li>
       <li>
-       <a href="#" data-content="liked-performances" id="MyLike">좋아요한 공연 목록</a>
+       <a href="#" data-content="liked-performances" id="MyLike"><img src="../resources/images/heart.png" alt="logo"
+         class="side_img" />좋아요한 공연 목록</a>
       </li>
      </ul>
      <hr />
      <ul>
-      <li><a href="/qna/list.do" data-content="qna">Q&A</a></li>
-      <li><a href="/board/list.do" data-content="bulletin-board">게시판</a></li>
-      <li><a href="/faq/list.do" data-content="faq">FAQ</a></li>
+      <li><a href="/qna/list.do" data-content="qna"><img src="../resources/images/qna.png" alt="logo"
+         class="side_img" />Q&A</a></li>
+      <li><a href="/board/list.do" data-content="bulletin-board"><img src="../resources/images/billboard.png" alt="logo"
+         class="side_img" />게시판</a></li>
+      <li><a href="/faq/list.do" data-content="faq"><img src="../resources/images/megaphone.png" alt="logo"
+         class="side_img" />FAQ</a></li>
      </ul>
      <c:if test="${ user.mem_grade eq '관리자' }">
       <hr />

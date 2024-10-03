@@ -332,7 +332,7 @@
       <input type="hidden" name="mem_idx" value="${ vo.mem_idx }">
 
       <div id="box">
-       <div class="sujeong">개인 정보 수정</div>
+       <div class="sujeong">회원 정보 수정</div>
        <!-- input 사이즈 한 번에 조정 -->
        <div class="form-group form-group-lg">
 
@@ -395,10 +395,8 @@
           <div class="text1">우편번호</div>
           <input type="text" class="form-control addr_text" name="mem_zipcode" id="mem_zipcode"
            value="${ vo.mem_zipcode }">
-          <input style="background-color: #2B2E36 !important; color: white !important;
-           font-size: 10px !important; width: 130px !important; height: 32px !important;
-           text-align: center; vertical-align: middle !important;" class="a_search btn btn-lg" type="button"
-           value="우편번호 검색" onclick="find_addr();">
+          <input class="a_search btn btn-lg" type="button" value="우편번호 검색" onclick="find_addr();">
+
 
          </div>
          <div class="form-group addr">
@@ -429,11 +427,11 @@
           style="color: white !important; background-color: rgb(23, 105, 255) !important; width: 200px; margin-top: 0px !important;"
           type="button" class="btn btn-block btn-lg" value="수정하기" onclick="send(this.form);">
          <input
-          style="color: white !important; background-color: rgb(255, 38, 23) !important; width: 200px; margin-top: 0px !important;"
+          style="color: white !important; background-color: #ff1d38 !important; width: 200px; margin-top: 0px !important;"
           type="button" class="btn btn-block btn-lg" value="회원탈퇴" onclick="member_delete();">
         </div>
 
-        <div class="home" style="text-align: center;"><a href="../main/list.do">메인화면으로
+        <div class="home" style="text-align: center;"><a href="../main/list.do">&lt; &nbsp; 메인화면으로
           돌아가기</a></div>
 
 
