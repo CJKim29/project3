@@ -14,7 +14,8 @@
    #box {
     width: 600px;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 100px;
+    margin-bottom: 100px;
    }
 
    textarea {

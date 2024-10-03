@@ -5,6 +5,27 @@
    <html>
 
    <head>
+
+    <style>
+     .performance_img img {
+      width: 125px !important;
+      height: 171px !important;
+      margin-left: 5px;
+     }
+
+     .performance_name {
+      /* max-width: 90px; */
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 15px
+     }
+
+     .shopping-cart .table td {
+      padding: 20px !important;
+     }
+    </style>
+
     <script>
      // 장바구니 삭제 함수 (confirm 여부를 제어할 수 있음)
      function cart_delete(cart_idx, currentUrl, showConfirm) {
@@ -61,13 +82,12 @@
         <table class="table shopping-summery">
          <thead>
           <tr class="main-hading">
-           <th class="text-center">공연</th>
-           <!-- <th class="text-center">공연명</th> -->
-           <th class="text-center">공연장</th>
-           <th class="text-center">공연날짜</th>
-           <th class="text-center">좌석정보</th>
-           <th class="text-center">가격</th>
-           <th class="text-center">결제/삭제</th>
+           <th class="text-center" style="width: 20%;">공연</th>
+           <th class="text-center" style="width: 20%;">공연장</th>
+           <th class="text-center" style="width: 17%;">공연날짜</th>
+           <th class="text-center" style="width: 15%;">좌석정보</th>
+           <th class="text-center" style="width: 20%;">가격</th>
+           <th class="text-center" style="width: 8%;">결제/삭제</th>
           </tr>
          </thead>
          <tbody>
@@ -80,8 +100,9 @@
           </c:if>
           <c:forEach var="vo" items="${ list }">
            <tr>
-            <td class="image" data-title="No"><img src="../resources/images/${ vo.performance_image }" alt="#"><br>
-             <div style="max-width: 90px; font-weight: bold;">${ vo.performance_name }</div>
+            <td class="performance_img" data-title="No"><img src="../resources/images/${ vo.performance_image }"
+              alt="#"><br>
+             <div class="performance_name">${ vo.performance_name }</div>
             </td>
 
             <td class="price" data-title="Price">
@@ -110,9 +131,10 @@
             <!-- 결제/취소 -->
             <td class="action" data-title="Remove">
              <input type="hidden" name="performance_idx" value="${ vo.performance_idx }">
-             <input type="button" value="결제"
+             <input class="btn" type="button" value="결제"
               onclick="check_seat('${ vo.cart_idx }', '${ vo.performance_idx }', '${ vo.reserved_performance_date }');">
-             <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', window.location.href, true);">
+             <input class="btn" type="button" value="삭제"
+              onclick="cart_delete('${ vo.cart_idx }', window.location.href, true);">
             </td>
            </tr>
           </c:forEach>

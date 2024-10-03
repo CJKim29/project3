@@ -8,6 +8,26 @@
     <title>TIMOA - 장바구니</title>
     <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
+
+    <style>
+     .performance_img img {
+      width: 125px !important;
+      height: 171px !important;
+      margin-left: 25px;
+     }
+
+     .performance_name {
+      /* max-width: 90px; */
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 15px
+     }
+
+     td span {
+      font-weight: 500;
+     }
+    </style>
     <script>
      // 장바구니 삭제 함수 (confirm 여부를 제어할 수 있음)
      function cart_delete(cart_idx, showConfirm) {
@@ -83,8 +103,9 @@
           </c:if>
           <c:forEach var="vo" items="${ list }">
            <tr>
-            <td class="image" data-title="No"><img src="../resources/images/${ vo.performance_image }" alt="#"><br>
-             <div style="max-width: 90px; font-weight: bold;">${ vo.performance_name }</div>
+            <td class="performance_img" data-title="No"><img src="../resources/images/${ vo.performance_image }"
+              alt="#"><br>
+             <div class="performance_name">${ vo.performance_name }</div>
             </td>
 
             <td class="price" data-title="Price">
@@ -113,9 +134,9 @@
             <!-- 결제/취소 -->
             <td class="action" data-title="Remove">
              <input type="hidden" name="performance_idx" value="${ vo.performance_idx }">
-             <input type="button" value="결제"
+             <input class="btn" type="button" value="결제"
               onclick="check_seat('${ vo.cart_idx }', '${ vo.performance_idx }', '${ vo.reserved_performance_date }');">
-             <input type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', true);">
+             <input class="btn" type="button" value="삭제" onclick="cart_delete('${ vo.cart_idx }', true);">
             </td>
            </tr>
           </c:forEach>
