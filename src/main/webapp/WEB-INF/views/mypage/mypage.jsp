@@ -186,7 +186,7 @@
          class="side_img" />나의 후기 목록</a></li>
       <li>
        <a href="#" data-content="liked-performances" id="MyLike"><img src="../resources/images/heart.png" alt="logo"
-         class="side_img" />좋아요한 공연 목록</a>
+         class="side_img" />좋아요</a>
       </li>
      </ul>
      <hr />

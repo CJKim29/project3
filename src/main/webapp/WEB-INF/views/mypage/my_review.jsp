@@ -136,6 +136,13 @@
        border-radius: 0% !important;
        height: 80px !important;
       }
+
+      .performance_name,
+      .performance_name a {
+       font-size: 18px;
+       font-weight: bold;
+       color: #333333;
+      }
      </style>
 
      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -247,7 +254,7 @@
                 <!--/ End Form -->
                 <!-- 관람 후기 -->
                 <c:forEach var="review" items="${my_review_list}">
-                 <p>해당 공연명 : <a
+                 <p class="performance_name">공연명 : <a
                    href="../detail/detail.do?performance_idx=${review.performance_idx}">${review.performance_name}</a>
                  </p>
                  <div class="single-rating">
