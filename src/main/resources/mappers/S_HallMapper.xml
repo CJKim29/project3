@@ -26,6 +26,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
 
 
+ <!-- 주문 취소 시 좌석 선택 활성화 -->
+ <update id="updateSeatStatusByOrder" parameterType="map">
+        UPDATE s_hall
+        SET ${col} = 0
+        WHERE performance_date_idx = #{performance_date_idx}
+        AND s_hall_row_no = #{row}
+ </update>
+
+
  <!-- 안쓰는 코드들 -->
 
  <!-- <update id="updateSeatStatus" parameterType="map">

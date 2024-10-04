@@ -21,9 +21,11 @@ body {
 }
 
 * {
- color: #999999;
- font-family: 'Pretendard-Regular';
+ /* color: #999999; */
+ /* font-family: 'Pretendard-Regular'; */
  /* font-weight: 500; */
+
+ /* font-family: Arial, sans-serif; */
 
 }
 
@@ -37,11 +39,11 @@ body {
 }
 
 .sujeong {
- font-size: 40px;
+ font-size: 26px;
  text-align: center;
  font-weight: bold;
  color: black;
- margin: 30px;
+ margin: 30px 0px 60px 0px;
 }
 
 .profile_wrap {
@@ -106,8 +108,9 @@ body {
 
 .text1 {
  margin-bottom: 10px;
- font-size: 20px;
+ font-size: 18px;
  color: black;
+ font-weight: 600;
 }
 
 .id_msg {
@@ -128,12 +131,22 @@ body {
 }
 
 .a_search {
- background-color: #2B2E36;
+ background-color: #2B2E36 !important;
  width: 25% !important;
  height: 47px;
- font-size: 17px !important;
+ font-size: 13px !important;
  font-weight: bold;
- margin-left: 20px;
+ margin-left: 20px !important;
+ padding-bottom: 5px !important;
+
+ color: white !important;
+ width: 130px !important;
+ height: 32px !important;
+ text-align: center;
+ display: inline-flex !important;
+ justify-content: center !important;
+ align-items: center !important;
+ padding: 0 !important;
 }
 
 
@@ -196,8 +209,13 @@ input:hover {
 .home a {
  text-decoration: none !important;
  color: #999999 !important;
- font-size: 15px;
- font-weight: 300 !important;
+ font-size: 17px;
+ font-weight: 600 !important;
  text-align: center !important;
  /* 안 먹어서 태그에 직접 적용 */
+}
+
+.home a:hover {
+ color: #ff1d38 !important;
+
 }

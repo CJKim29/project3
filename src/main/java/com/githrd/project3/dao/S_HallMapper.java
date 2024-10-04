@@ -18,6 +18,11 @@ public interface S_HallMapper {
    @Param("row") int row,
    @Param("col") String col);
 
+ // 주문 취소 시 좌석 정보 업데이트
+ void updateSeatStatusByOrder(@Param("performance_date_idx") int performance_date_idx,
+   @Param("row") int row,
+   @Param("col") String col);
+
  // 빈좌석 등록
  void insertIntoSHall(Map<String, Object> params);
 

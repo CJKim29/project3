@@ -11,12 +11,17 @@ import com.githrd.project3.vo.M_HallVo;
 @Mapper
 public interface M_HallMapper {
 
-    List<M_HallVo> selectSeatsByPerformanceAndDate(@Param("performance_idx") int performance_idx,
-            @Param("performance_date") String performance_date);
+ List<M_HallVo> selectSeatsByPerformanceAndDate(@Param("performance_idx") int performance_idx,
+   @Param("performance_date") String performance_date);
 
-    void updateSeatStatus(@Param("performance_date_idx") int performance_date_idx, @Param("row") int row,
-            @Param("col") String col);
+ void updateSeatStatus(@Param("performance_date_idx") int performance_date_idx, @Param("row") int row,
+   @Param("col") String col);
 
-    // 빈좌석 등록
-    void insertIntoMHall(Map<String, Object> params);
+ // 주문 취소 시 좌석 정보 업데이트
+ void updateSeatStatusByOrder(@Param("performance_date_idx") int performance_date_idx,
+   @Param("row") int row,
+   @Param("col") String col);
+
+ // 빈좌석 등록
+ void insertIntoMHall(Map<String, Object> params);
 }

@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-
+  <title>TIMOA</title>
+  <link rel="icon" href="../resources/images/TIMOA_icon.png" type="image/png">
 
 
 
@@ -92,7 +93,7 @@
 																<div>
 																	<h3>
 																		<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-																		<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																		<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																			${performance.performance_name}
 																		</a>
 																	</h3>
@@ -131,7 +132,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -167,7 +168,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -203,7 +204,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -240,7 +241,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -300,8 +301,8 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">NEW</h6><br>
-								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 14px; color: black;">${performance.performance_name}</p>
+								<h6 class="title" style="font-size: 21px;">NEW</h6><br>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black; font-weight: bold;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -332,8 +333,8 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
-								<h6 class="title">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
-								<p style="font-size: 15px; color: black;">${performance.performance_name}</p>
+								<h6 class="title" style="font-size: 21px;">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black; font-weight: bold;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -400,13 +401,13 @@
 	
 <script>
     function formatTitle(title) {
-        const splitIndex = Math.floor(title.length / 2); // 중간 인덱스
+        const splitIndex = Math.floor(title.length / 8); // 중간 인덱스
         const firstPart = title.substring(0, splitIndex).trim();
         const secondPart = title.substring(splitIndex).trim();
 
         // 길이가 너무 길어지지 않도록 조정 (예: 20자 기준)
-        if (firstPart.length > 10) {
-            return firstPart.substring(0, 10) + "..<br>" + secondPart;
+        if (firstPart.length > 13) {
+            return firstPart.substring(0, 13) + "..<br>" + secondPart;
         }
         return firstPart + "<br>" + secondPart;
     }
