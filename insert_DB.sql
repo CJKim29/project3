@@ -1,6 +1,32 @@
 -- member
-insert into member values(null, '김관리', 'admin', 'admin', '관리자', '1998-03-31', '01012345678', 'admin@naver.com', '11111', '서울시 관악구', '0.0.0.1' , default, default, 1000000, '관리자');
-insert into member values(null, '일길동', 'one', '1234', 'one', '2000-09-20', '01011115678', 'one@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '김관리', 'admin', 'admin', '관리자', '1998-03-31', '01012345678', 'admin@naver.com', '11111', '서울시 관악구', '0.0.0.0' , default, default, 1000000, '관리자');
+insert into member values(null, '이지아', 'one', '1234', '사랑스러운지아', '2000-09-21', '01011111111', 'one@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '김민수', 'two', '1234', '민수의친구', '2000-09-22', '01022222222', 'two@naver.com', '22222', '서울시 동작구', '0.0.0.2', default, default, 5000, '일반');
+insert into member values(null, '박현우', 'three', '1234', '모험가현우', '2000-09-23', '01033333333', 'three@naver.com', '33333', '서울시 동작구', '0.0.0.3', default, default, 5000, '일반');
+insert into member values(null, '최서연', 'four', '1234', '서연의행복이', '2000-09-24', '01044444444', 'four@naver.com', '44444', '서울시 동작구', '0.0.0.4', default, default, 5000, '일반');
+insert into member values(null, '정준호', 'five', '1234', '준호의친구들', '2000-09-25', '01055555555', 'five@naver.com', '55555', '서울시 동작구', '0.0.0.5', default, default, 5000, '일반');
+insert into member values(null, '이하린', 'six', '1234', '하린의상상력', '2000-09-26', '01066666666', 'six@naver.com', '66666', '서울시 동작구', '0.0.0.6', default, default, 5000, '일반');
+insert into member values(null, '김지민', 'seven', '1234', '미니의마법사', '2000-09-27', '01077777777', 'seven@naver.com', '77777', '서울시 동작구', '0.0.0.7', default, default, 5000, '일반');
+insert into member values(null, '이수빈', 'eight', '1234', '수빈의행복이', '2000-09-28', '01088888888', 'eight@naver.com', '88888', '서울시 동작구', '0.0.0.8', default, default, 5000, '일반');
+insert into member values(null, '최유진', 'nine', '1234', '유진의빛나는별', '2000-09-29', '01099999999', 'nine@naver.com', '99999', '서울시 동작구', '0.0.0.9', default, default, 5000, '일반');
+insert into member values(null, '박동현', 'ten', '1234', '동현의댄스왕', '2000-09-30', '01010101010', 'ten@naver.com', '10101', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '김지혜', 'hong1', '1234', '지혜로운언니', '2000-09-21', '01011001100', 'one1@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '정상민', 'hong2', '1234', '상민이의모험', '2000-09-22', '01012121212', 'one2@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '이연우', 'hong3', '1234', '연우의환상여행', '2000-09-23', '01013131313', 'one3@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '김지수', 'hong4', '1234', '수수한여자아이', '2000-09-24', '01014141414', 'one4@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '박태양', 'hong5', '1234', '태양빛나는남자', '2000-09-25', '01015151515', 'one5@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '최예린', 'hong6', '1234', '예린의행복한날', '2000-09-26', '01016161616', 'one6@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '정재민', 'hong7', '1234', '재민의웃음소리', '2000-09-27', '01017171717', 'one7@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '이채원', 'hong8', '1234', '채원의행복이야기', '2000-09-28', '01018181818', 'one8@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '김수현', 'hong9', '1234', '수현의꿈꾸는아이', '2000-09-29', '01019191919', 'one9@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '박영수', 'hong10', '1234', '영수의신나는모험', '2000-09-30', '01020202020', 'one0@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '남궁성', 'java', '1234', '자바의정석', '2000-09-30', '01021212121', 'java@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '김예송', 'hong6', '1234', '예송대답ys', '1998-03-31', '01000000022', 'ys@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '박정환', 'hong7', '1234', '보리오빠정환', '1999-09-02', '01000000023', 'jh@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '조다희', 'hong8', '1234', '토르언니다희', '2002-10-26', '01000000024', 'dh8@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+insert into member values(null, '최범준', 'hong9', '1234', '멋쟁이범준', '2000-09-29', '01000000025', 'bj@naver.com', '11111', '서울시 동작구', '0.0.0.1', default, default, 5000, '일반');
+
+
 
 -- hall 
 -- 뮤지컬(1-중)
@@ -610,10 +636,10 @@ insert into seat (performance_idx, seat_grade, seat_price) values (85, 'S', 9900
 
 
 -- performance_date                  날짜   공연  
-insert into performance_date values (null, 27, '2024-09-30 19:30:00'); -- 연극 (s_hall)
-insert into performance_date values (null, 1, '2024-09-30 19:30:00'); -- 뮤지컬 (m_hall)
-insert into performance_date values (null, 52, '2024-09-30 19:30:00'); -- 콘서트 (l_hall)
-insert into performance_date values (null, 4, '2024-09-30 19:30:00'); -- 뮤지컬 (m_hall)
+insert into performance_date values (null, 27, '2024-10-04 19:30:00'); -- 연극 (s_hall)
+insert into performance_date values (null, 1, '2024-10-04 19:30:00'); -- 뮤지컬 (m_hall)
+insert into performance_date values (null, 52, '2024-10-04 19:30:00'); -- 콘서트 (l_hall)
+insert into performance_date values (null, 4, '2024-10-04 19:30:00'); -- 뮤지컬 (m_hall)
 -- s_hall
 																	 -- 날짜 좌석 행
 insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(1, 68, 1);
@@ -1313,3 +1339,108 @@ insert into casting values(null, 114, 18, '스파이');
 
 insert into casting values(null, 123, 19, '조아');
 
+-- qna
+-- 회원번호 제목 내용 닉네임 등록날짜 답변유무 
+insert into qna values(null, 1, "안녕하세요 티모아입니다.", "궁금한 것이 있으시다면 자유롭게 문의주시기 바랍니다. 감사합니다.", "관리자", '2024-09-25 11:52:05', default);
+insert into qna values(null, 2, "티켓 예매 방법", "티켓 예매는 사이트에서만 가능한가요?", "사랑스러운지아", '2024-09-27 21:50:00', 'y');
+insert into qna values(null, 3, "포인트 관련하여 질문드립니다.", "포인트 적립 기준이 무엇인지, 몇 %씩 적립되는지 궁금합니다!", "민수의친구", '2024-10-01 08:22:11', 'y');
+insert into qna values(null, 4, "비회원 예매 문의", "비회원도 예매가 가능한가요?", "모험가현우", '2024-10-01 16:52:50', 'y');
+insert into qna values(null, 5, "한 번에 예매할 수 있는 티켓 매수", "한 번에 몇 개까지 예매가 가능한가요?", "서연의행복이", '2024-10-03 10:33:33', 'y');
+-- qna 답변
+-- 회원 qna번호 답변내용 작성일자 닉네임
+-- insert into qna values(null, 1, 1, "답변내용", '2024-10-01 11:52:05', '관리자');
+insert into qna_comment values(null, 1, 2, "티켓 예매는 전화(0123-4567) 혹은 현장에서도 구매가 가능합니다. 더 궁금한 것이 있다면 언제든지 문의 주세요!", '2024-09-28 17:50:00', '관리자');
+insert into qna_comment values(null, 1, 3, "포인튼는 최종 결제 금액의 1%가 적립됩니다. 포인트 사용 시 포인트 사용액을 제외한 순수 결제 금액을 기준으로 포인트 적립금이 산정됩니다. 감사합니다.", '2024-10-01 18:02:46', '관리자');
+insert into qna_comment values(null, 1, 4, "비회원은 사이트에서 예매가 불가합니다. 비회원 고객님께서는 전화 혹은 현장 예매를 이용해주세요 감사합니다.", '2024-10-02 09:52:55', '관리자');
+insert into qna_comment values(null, 1, 5, "한 번에 4개까지 예매 가능합니다. 감사합니다.", '2024-10-04 11:30:08', '관리자');
+-- 게시판 board
+-- 게시판카테고리 회원번호 제목 내용 아이피 작성일자 조회수 게시글삭제유무 닉네임
+insert into board values(null, 1, 1, '게시판 이용 공지', '홈페이지 회원은 모든 게시판에 글을 쓰실 수 있습니다.
+주의사항
+1. 게시판의 목적에 맞지 않을 경우 등록된 게시물은 게시자에게 통보없이 삭제 될 수 있습니다.
+2. 게시글을 통해 주민등록번호 등 개인정보를 유포하는 경우 고의성이 없거나 그 내용이 사실일지라도 유포의 구체적인 내용에 따라 사생활 침해 및 명예훼손으로 간주돼 법적 처벌을 받거나 손해배상 책임이 생길 수 있습니다.', '0.0.0.1', '2024-09-25 10:10:05', 78, 'y', '관리자');
+insert into board values(null, 2, 1, '게시판 이용 공지', '홈페이지 회원은 모든 게시판에 글을 쓰실 수 있습니다.
+주의사항
+1. 게시판의 목적에 맞지 않을 경우 등록된 게시물은 게시자에게 통보없이 삭제 될 수 있습니다.
+2. 게시글을 통해 주민등록번호 등 개인정보를 유포하는 경우 고의성이 없거나 그 내용이 사실일지라도 유포의 구체적인 내용에 따라 사생활 침해 및 명예훼손으로 간주돼 법적 처벌을 받거나 손해배상 책임이 생길 수 있습니다.', '0.0.0.1', '2024-09-25 10:12:05', 56, 'y', 'one');
+insert into board values(null, 3, 1, '게시판 이용 공지', '홈페이지 회원은 모든 게시판에 글을 쓰실 수 있습니다.
+주의사항
+1. 게시판의 목적에 맞지 않을 경우 등록된 게시물은 게시자에게 통보없이 삭제 될 수 있습니다.
+2. 게시글을 통해 주민등록번호 등 개인정보를 유포하는 경우 고의성이 없거나 그 내용이 사실일지라도 유포의 구체적인 내용에 따라 사생활 침해 및 명예훼손으로 간주돼 법적 처벌을 받거나 손해배상 책임이 생길 수 있습니다.', '0.0.0.1', '2024-09-25 10:15:05', 44, 'y', '관리자');
+insert into board values(null, 1, 10, '뮤지컬 추천', '이제 막 뮤지컬에 입문했는데 재미있는 뮤지컬 추천해주세요!!!', '0.0.0.1', '2024-09-28 12:10:45', 46, 'y', '유진의빛나는별');
+insert into board values(null, 1, 9, '알라딘 재상영', '알라딘 또 언제 상영하나요? 너무 보고 싶어요ㅠㅠㅠ', '0.0.0.1', '2024-09-30 15:27:58', 12, 'y', '수빈의행복이');
+insert into board values(null, 2, 4, '<킬롤로지>', '와 몰입이 엄청나게 되는 극이어서 후반엔 조금 머리가 아플 정도였어요 배우분들 진짜 대단합니다.. 음향이 너무 크다는 후기가 있었는데 저는 생각보다 괜찮았어요. 추천추천', '0.0.0.1', '2024-09-30 14:20:58', 9, 'y', '모험가현우');
+insert into board values(null, 1, 6, '지저스 크라이스트 수퍼스타 어떻게 보셨나요?!', '"지저스 크라이스트 수퍼스타"는 정말 갓극이에요ㅠㅜ 이 작품은 예수의 마지막 일주일을 신나고 강렬한 록 음악으로 풀어내는데, 보는 내내 완전 빠져들게 돼요. 노래 하나하나가 귀에 쏙쏙 들어오고, 가사가 머릿속을 맴돌아요', '0.0.0.1', '2024-10-01 10:15:28', 16, 'y', '준호의친구들');
+insert into board values(null, 2, 7, '연극이 조아', '여러분은 연극을 얼마나 자주 보시나요? 저는 한 달에 두 번 정도 보러다니는데 이 정도면 많이 보러다니는건지 궁금해용', '0.0.0.1', '2024-10-01 12:00:36', 5, 'y', '하린의상상력');
+insert into board values(null, 3, 3, '임영웅 콘서트', '임영웅 콘서트 성공한 사람들 진짜.. 대단하세여.. 효도하기 힘드네여ㅠㅠ', '0.0.0.1', '2024-10-02 15:54:42', 12, 'y', '민수의친구');
+insert into board values(null, 3, 2, '콘서트 티켓값', '인간적으로 너무 비쌈', '0.0.0.1', '2024-10-03 19:05:02', 21, 'y', '사랑스러운지아');
+
+
+-- riview
+insert into review values(null, 1, 5, '부치하난 추천합니다.', '최고의 무대, 최고의 연기 그리고 최고의 관객', '관리자', now(), 140);
+insert into review values(null, 2, 5, '부치하난 보고왔습니다.', '제 생에 최고의 뮤지컬이라고 생각합니다.', '사랑스러운지아', now(), 1514);
+insert into review values(null, 3, 5, '부치하난 최악입니다.', '제 기대를 완전히 망가뜨렸어요.', '민수의친구', now(), 514);
+insert into review values(null, 4, 5, '실망입니다.', '시간낭비 하지마세요.', '모험가현우', now(), 114);
+insert into review values(null, 5, 5, '나름 괜찮게 봤어요.', '다시 볼지는 모르겠네요.', '서연의행복이', now(), 154);
+insert into review values(null, 6, 5, '왜 부치하난 부치하난 하는줄 알겠네요.', '이 뮤지컬은 미쳤어요.', '준호의친구들', now(), 151);
+insert into review values(null, 7, 5, '제 평점은 4점입니다.', '저에겐 5점은 없어요.', '하린의상상력', now(), 157);
+insert into review values(null, 8, 5, '말을 잃었습니다.', '내일부터 말 배우러 갑니다. 너무 감동.', '미니의마법사', now(), 854);
+insert into review values(null, 9, 5, '뭔가 부족하다.', '부족해....', '수빈의행복이', now(), 945);
+insert into review values(null, 10, 5, '뮤지컬 처음 봤어요.', '또 보고싶당.', '유진의빛나는별', now(), 174);
+insert into review values(null, 11, 5, '뭔가 부족하다.', '부족해....', '동현의댄스왕', now(), 14);
+insert into review values(null, 12, 5, '뭐랄까', '표현을 못하겠어요. 드릴건 별점뿐', '지혜로운언니', now(), 189);
+insert into review values(null, 13, 5, '말이 필요없다.', '그냥 보세요.', '상민이의모험', now(), 217);
+insert into review values(null, 14, 5, '상상이상.', '환상적이에요.', '연우의환상여행', now(), 548);
+insert into review values(null, 15, 5, '제 눈이 너무 높은가요?', '흠... 4점 드립니다', '수수한여자아이', now(), 17);
+insert into review values(null, 16, 5, '부치하난!!!', '한국에서 하기만을 기다렸어요!', '태양빛나는남자', now(), 11);
+insert into review values(null, 17, 5, '솔직히 외국만 못하네요', '뭐야 이게ㅠ', '예린의행복한날', now(), 89);
+insert into review values(null, 18, 5, '룰루랄라', '신난다!!', '재민의웃음소리', now(), 64);
+insert into review values(null, 19, 5, '이게 뭔가 싶어요.', '이 작품을 이렇게밖에?', '채원의행복이야기', now(), 347);
+insert into review values(null, 20, 5, '우와...', '제가 찾던 바로 그 뮤지컬.', '수현의꿈꾸는아이', now(), 87);
+insert into review values(null, 21, 5, '진심 최악', '최악이라는 표현도 아깝다', '영수의신나는모험', now(), 99);
+
+insert into review values(null, 22, 5, '이 시간에 컴퓨터나 할걸', '여러분 JAVA합시다.', '자바의정석', now(), 258);
+insert into review values(null, 23, 5, '부치하난 N차 보러가실분?', '매일 부치하난 쇼츠 찾아보느라 시간 가는줄 몰라요', '예송대답ys', now(), 5423);
+insert into review values(null, 24, 5, '저에게 뮤지컬은 아직 시기상조', '모르겠다 모르겠어..', '보리오빠정환', now(), 4657);
+insert into review values(null, 25, 5, '토르랑 같이 보고싶당', '고양이 언어로 된 뮤지컬은 없을까용?', '토르언니다희', now(), 3794);
+insert into review values(null, 26, 5, '부치하난 재밌네요.', '평균 이상의 뮤지컬', '멋쟁이범준', now(), 2894);
+
+
+
+
+
+
+-- review_score
+
+insert into review_score values(null, 1, 5, 1, 5);
+insert into review_score values(null, 2, 5, 2, 5);
+insert into review_score values(null, 3, 5, 3, 1);
+insert into review_score values(null, 4, 5, 4, 2);
+insert into review_score values(null, 5, 5, 5, 4);
+insert into review_score values(null, 6, 5, 6, 5);
+insert into review_score values(null, 7, 5, 7, 4);
+insert into review_score values(null, 8, 5, 8, 5);
+insert into review_score values(null, 9, 5, 9, 4);
+insert into review_score values(null, 10, 5, 10, 5);
+insert into review_score values(null, 11, 5, 11, 3);
+insert into review_score values(null, 12, 5, 12, 5);
+insert into review_score values(null, 13, 5, 13, 5);
+insert into review_score values(null, 14, 5, 14, 5);
+insert into review_score values(null, 15, 5, 15, 4);
+insert into review_score values(null, 16, 5, 16, 5);
+insert into review_score values(null, 17, 5, 17, 3);
+insert into review_score values(null, 18, 5, 18, 5);
+insert into review_score values(null, 19, 5, 19, 2);
+insert into review_score values(null, 20, 5, 20, 5);
+insert into review_score values(null, 21, 5, 21, 1);
+insert into review_score values(null, 22, 5, 22, 2);
+insert into review_score values(null, 23, 5, 23, 5);
+insert into review_score values(null, 24, 5, 24, 4);
+insert into review_score values(null, 25, 5, 25, 5);
+insert into review_score values(null, 26, 5, 26, 4);
+
+
+-- 좋아요
+insert into performance_ex_like values(null, 1, 23, 354);
+insert into performance_ex_like values(null, 2, 24, 121);
+insert into performance_ex_like values(null, 3, 25, 53);
