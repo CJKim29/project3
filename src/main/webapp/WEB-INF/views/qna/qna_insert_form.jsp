@@ -25,10 +25,6 @@
     font-weight: bold;
    }
 
-   /* .btn {
-    color: white !important;
-   } */
-
    .btn {
     width: 80px;
     font-weight: bold;
@@ -54,6 +50,7 @@
   </style>
 
   <script type="text/javascript">
+
    function send(f) {
     let qna_title = f.qna_title.value.trim();
     let qna_content = f.qna_content.value.trim();
