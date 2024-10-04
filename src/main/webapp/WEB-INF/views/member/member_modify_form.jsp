@@ -331,114 +331,116 @@
       <!-- 회원번호 안 보이게 전송 --> <!-- 따옴표 하는건 맞음.. -->
       <input type="hidden" name="mem_idx" value="${ vo.mem_idx }">
 
-      <div id="box">
-       <div class="sujeong">개인 정보 수정</div>
-       <!-- input 사이즈 한 번에 조정 -->
-       <div class="form-group form-group-lg">
+      <div class="shopping-cart section">
+       <div id="box">
+        <div class="sujeong">회원 정보 수정</div>
+        <!-- input 사이즈 한 번에 조정 -->
+        <div class="form-group form-group-lg">
 
-        <!-- 프로필 사진 영역 -->
-        <div class="profile_wrap">
-         <div class="profile">
-          <img style="width: 200px; height: 200px;" class="profile_img" src="../resources/images/${ vo.mem_filename }"
-           id="my_img">
-         </div>
-         <div class="profile_btn">
-          <input class="btn btn-lg" type="button" value="프로필 이미지편집" onclick="ajaxFileUpload();">
-         </div>
+         <!-- 프로필 사진 영역 -->
+         <div class="profile_wrap">
+          <div class="profile">
+           <img style="width: 200px; height: 200px;" class="profile_img" src="../resources/images/${ vo.mem_filename }"
+            id="my_img">
+          </div>
+          <div class="profile_btn">
+           <input class="btn btn-lg" type="button" value="프로필 이미지편집" onclick="ajaxFileUpload();">
+          </div>
 
-         <!-- <div class="profile">						  accept="image/* : 이미지파일 확장자만 선택 허용
+          <!-- <div class="profile">						  accept="image/* : 이미지파일 확장자만 선택 허용
 			<input type="file" name="uploadImg" id="input_img" accept="image/*">
 			<input type="button" value="변경하기" onclick="send_file(this.form);">
 		</div> -->
-        </div>
+         </div>
 
-        <div class="modify-content">
-         <div class="form-group">
-          <div class="text1">이름</div> <!-- 수정 전 원본 이름 -->
-          <input type="text" class="form-control" name="mem_name" value="${ vo.mem_name }" placeholder="이름 입력">
-         </div>
-         <div class="form-group">
-          <div class="text1">아이디 <span class="id_msg">*아이디는 수정이 불가합니다</span></div>
-          <!-- id는 수정 불가하므로 읽기 전용 -->
-          <input type="text" class="form-control" name="mem_id" value="${ vo.mem_id }" readonly="readonly">
-         </div>
-         <div class="form-group">
-          <div class="text1">비밀번호</div>
-          <input type="password" class="form-control" name="mem_pwd" value="${ vo.mem_pwd }" placeholder="비밀번호 입력">
-         </div>
-         <div class="form-group">
-          <div class="text1" style="display: inline-block;">닉네임&emsp;</div><span id="nickname_msg"></span>
-          <input type="text" class="form-control" name="mem_nickname" id="mem_nickname" placeholder="닉네임 입력"
-           value="${ vo.mem_nickname }" onkeyup="check_nickname();">
-         </div>
-         <div class="form-group">
-          <div class="text1">생년월일<span class="id_msg">*생년월일은 수정이 불가합니다</span></div>
-          <!-- id는 수정 불가하므로 읽기 전용 -->
-          <input type="text" class="form-control" name="mem_birth" value="${ vo.mem_birth }" readonly="readonly">
-         </div>
-         <div class="form-group">
-          <div class="text1" style="display: inline-block;">핸드폰번호</div><span id="phone_msg"></span><br>
-          <input type="text" class="form-control" placeholder="010" readonly
-           style="width: 55px !important; display: inline-block;">
-          <input type="text" class="form-control" name="mem_phone" id="mem_phone" placeholder="숫자 8자리만 입력"
-           value="${ fn:substring(vo.mem_phone, fn:length(vo.mem_phone) - 8, fn:length(vo.mem_phone)) }"
-           onkeyup="check_phone();" style="display: inline-block; width: 192px !important;">
-          <span id="phone_msg"></span>
-         </div>
-         <div class="form-group">
-          <div class="text1" style="display: inline-block;">이메일&emsp;</div><span id="email_msg"></span>
-          <input type="text" class="form-control" name="mem_email" id="mem_email" placeholder="이메일 입력"
-           value="${ vo.mem_email }" onkeyup="check_email();">
-          <span id="email_msg"></span>
-         </div>
-         <div class="form-group">
-          <div class="text1">우편번호</div>
-          <input type="text" class="form-control addr_text" name="mem_zipcode" id="mem_zipcode"
-           value="${ vo.mem_zipcode }">
-          <input style="background-color: #2B2E36 !important; color: white !important;
-           font-size: 10px !important; width: 130px !important; height: 32px !important;
-           text-align: center; vertical-align: middle !important;" class="a_search btn btn-lg" type="button"
-           value="우편번호 검색" onclick="find_addr();">
+         <div class="modify-content">
+          <div class="form-group">
+           <div class="text1">이름</div> <!-- 수정 전 원본 이름 -->
+           <input type="text" class="form-control" name="mem_name" value="${ vo.mem_name }" placeholder="이름 입력">
+          </div>
+          <div class="form-group">
+           <div class="text1">아이디 <span class="id_msg">*아이디는 수정이 불가합니다</span></div>
+           <!-- id는 수정 불가하므로 읽기 전용 -->
+           <input type="text" class="form-control" name="mem_id" value="${ vo.mem_id }" readonly="readonly">
+          </div>
+          <div class="form-group">
+           <div class="text1">비밀번호</div>
+           <input type="password" class="form-control" name="mem_pwd" value="${ vo.mem_pwd }" placeholder="비밀번호 입력">
+          </div>
+          <div class="form-group">
+           <div class="text1" style="display: inline-block;">닉네임&emsp;</div><span id="nickname_msg"></span>
+           <input type="text" class="form-control" name="mem_nickname" id="mem_nickname" placeholder="닉네임 입력"
+            value="${ vo.mem_nickname }" onkeyup="check_nickname();">
+          </div>
+          <div class="form-group">
+           <div class="text1">생년월일<span class="id_msg">*생년월일은 수정이 불가합니다</span></div>
+           <!-- id는 수정 불가하므로 읽기 전용 -->
+           <input type="text" class="form-control" name="mem_birth" value="${ vo.mem_birth }" readonly="readonly">
+          </div>
+          <div class="form-group">
+           <div class="text1" style="display: inline-block;">핸드폰번호</div><span id="phone_msg"></span><br>
+           <input type="text" class="form-control" placeholder="010" readonly
+            style="width: 55px !important; display: inline-block;">
+           <input type="text" class="form-control" name="mem_phone" id="mem_phone" placeholder="숫자 8자리만 입력"
+            value="${ fn:substring(vo.mem_phone, fn:length(vo.mem_phone) - 8, fn:length(vo.mem_phone)) }"
+            onkeyup="check_phone();" style="display: inline-block; width: 192px !important;">
+           <span id="phone_msg"></span>
+          </div>
+          <div class="form-group">
+           <div class="text1" style="display: inline-block;">이메일&emsp;</div><span id="email_msg"></span>
+           <input type="text" class="form-control" name="mem_email" id="mem_email" placeholder="이메일 입력"
+            value="${ vo.mem_email }" onkeyup="check_email();">
+           <span id="email_msg"></span>
+          </div>
+          <div class="form-group">
+           <div class="text1">우편번호</div>
+           <input type="text" class="form-control addr_text" name="mem_zipcode" id="mem_zipcode"
+            value="${ vo.mem_zipcode }">
+           <input class="a_search btn btn-lg" type="button" value="우편번호 검색" onclick="find_addr();">
 
-         </div>
-         <div class="form-group addr">
-          <div class="text1">주소</div>
-          <input style="width:395px" type="text" class="form-control" name="mem_addr" id="mem_addr"
-           value="${ vo.mem_addr }" placeholder="상세주소 입력">
-         </div>
-         <div class="form-group">
-          <div>
-           <!-- 회원등급이 관리자일 경우 나오는 화면 -->
-           <c:if test="${ user.mem_grade eq '관리자' }">
-            <div class="text1">회원등급</div>
-            <select style="width:50%;" name="mem_grade" class="form-control">
-             <option value="일반">일반</option>
-             <option value="관리자">관리자</option>
-            </select>
-           </c:if>
-           <!-- 회원등급이 일반일 경우 화면 안 나오게 -->
-           <c:if test="${ user.mem_grade eq '일반' }">
-            <input type="hidden" style="width:50%" class="form-control" name="mem_grade" value="${ vo.mem_grade }"
-             readonly="readonly">
-           </c:if>
+
+          </div>
+          <div class="form-group addr">
+           <div class="text1">주소</div>
+           <input style="width:395px" type="text" class="form-control" name="mem_addr" id="mem_addr"
+            value="${ vo.mem_addr }" placeholder="상세주소 입력">
+          </div>
+          <div class="form-group">
+           <div>
+            <!-- 회원등급이 관리자일 경우 나오는 화면 -->
+            <c:if test="${ user.mem_grade eq '관리자' }">
+             <div class="text1">회원등급</div>
+             <select style="width:50%;" name="mem_grade" class="form-control">
+              <option value="일반">일반</option>
+              <option value="관리자">관리자</option>
+             </select>
+            </c:if>
+            <!-- 회원등급이 일반일 경우 화면 안 나오게 -->
+            <c:if test="${ user.mem_grade eq '일반' }">
+             <input type="hidden" style="width:50%" class="form-control" name="mem_grade" value="${ vo.mem_grade }"
+              readonly="readonly">
+            </c:if>
+           </div>
           </div>
          </div>
+         <div class="membership-btn">
+          <input
+           style="color: white !important; background-color: rgb(23, 105, 255) !important; width: 200px; margin-top: 0px !important;"
+           type="button" class="btn btn-block btn-lg" value="수정하기" onclick="send(this.form);">
+          <input
+           style="color: white !important; background-color: #ff1d38 !important; width: 200px; margin-top: 0px !important;"
+           type="button" class="btn btn-block btn-lg" value="회원탈퇴" onclick="member_delete();">
+         </div>
+
+         <div class="home" style="text-align: center;"><a href="../main/list.do">&lt; &nbsp; 메인화면으로
+           돌아가기</a></div>
+
+
         </div>
-        <div class="membership-btn">
-         <input
-          style="color: white !important; background-color: rgb(23, 105, 255) !important; width: 200px; margin-top: 0px !important;"
-          type="button" class="btn btn-block btn-lg" value="수정하기" onclick="send(this.form);">
-         <input
-          style="color: white !important; background-color: rgb(255, 38, 23) !important; width: 200px; margin-top: 0px !important;"
-          type="button" class="btn btn-block btn-lg" value="회원탈퇴" onclick="member_delete();">
-        </div>
-
-        <div class="home" style="text-align: center;"><a href="../main/list.do">메인화면으로
-          돌아가기</a></div>
-
-
        </div>
+
       </div>
+
      </form>
     </body>
 

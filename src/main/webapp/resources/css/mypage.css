@@ -1,114 +1,128 @@
+@font-face {
+ font-family: 'Paperlogy-8ExtraBold';
+ src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+ font-weight: 800;
+ font-style: normal;
+}
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+ font-family: Arial, sans-serif;
+ background-color: #f0f4f8; /* 부드러운 배경색 */
 }
 
+/* Header 스타일 */
 .custom-header {
-  background-color: #ff1d38;
-  padding: 15px 20px;
-  border-radius: 8px;
-  margin: 0 auto 20px auto; /* 중앙 정렬 */
-  max-width: 1200px; /* 헤더의 최대 너비 */
-  width: 100%;
+ /* background-color: #333333; */
+ padding: 15px 20px;
+ border-radius: 8px;
+ margin: 0 auto 20px auto; /* 중앙 정렬 */
+ max-width: 1200px; /* 헤더의 최대 너비 */
+ width: 100%;
+
+ background-color: #ffffff;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ width: 100%;
 }
 
 .logo-section {
-  display: flex;
-  align-items: center;
+ display: flex;
+ align-items: center;
 }
 
 .logo-img {
-  height: 50px;
-  margin-right: 10px;
-}
-
-.site-name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
+ height: 50px;
+ margin-right: 10px;
+ margin-top : 20px;
 }
 
 .welcome-section {
-  font-size: 18px;
+ font-family: 'Paperlogy-8ExtraBold';
+ font-size: 28px;
+ font-weight: bold; 
+ margin-left:150px;
+ color : #333;
 }
 
 .points-section {
-  display: flex;
-  gap: 40px;
+ font-size: 17px;
+ /* color: #ffffff; */
 }
 
-.points-section div {
-  text-align: center;
-}
-
-.point-value,
-.ticket-value {
-  font-size: 24px;
-  color: #ff4b4b;
-  font-weight: bold;
-}
-
-.points-section div span {
-  display: block;
-  font-size: 16px;
-}
-
+/* Main과 Sidebar 스타일 */
 main {
-  display: flex !important;
-  max-width: 1200px; /* 헤더와 동일한 너비 */
-  margin: 0 auto; /* 가운데 정렬 */
-  margin-bottom: 5px;
+ display: flex !important;
+ max-width: 1200px; /* 헤더와 동일한 너비 */
+ margin: 0 auto;
+ margin-bottom: 20px;
 }
 
 .sidebar {
-  width: 250px;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-right: 1px solid #ddd;
-  border-radius: 3px;
+ width: 250px;
+ padding: 20px;
+ background-color: #ffffff;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+ margin-right: 20px; /* custom-header와 더 가까이 배치 */
 }
 
 .sidebar ul {
-  list-style: none;
-  padding: 0;
+ list-style: none;
+ padding: 0;
 }
 
 .sidebar ul li {
-  margin-bottom: 10px;
+ margin-bottom: 10px;
 }
 
 .sidebar ul li a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-  display: block;
+ text-decoration: none;
+ color: #333;
+ font-size: 16px;
+ font-weight: bold;
+ display: block;
+ padding: 10px;
+ border-radius: 4px;
 }
 
 .sidebar ul li a:hover {
-  color: #ff1d38;
+ background-color: #ff1d38;
+ color: #ffffff;
 }
 
 .sidebar hr {
-  border: none;
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
+ border: none;
+ border-top: 1px solid #ddd;
+ margin: 20px 0;
 }
 
+.side_img{
+ width: 20px;
+  height: 20px;
+  overflow: hidden; /* 이미지가 넘치지 않도록 */
+  border-radius: 8px; /* 둥근 모서리 적용 (선택 사항) */
+  margin-right: 8px;
+}
+
+/* Content 영역 스타일 */
 .content {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: #fff;
+ flex-grow: 1;
+ padding: 20px;
+ background-color: #ffffff;
+ border-radius: 8px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 }

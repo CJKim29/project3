@@ -10,47 +10,21 @@
      <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
 
      <style>
-      .shopping-cart {
-       margin-top: 50px;
-      }
 
-      .table thead th {
-       vertical-align: middle;
-       background-color: #f8f9fa;
-       font-weight: bold;
-      }
-
-      .table tbody td {
-       vertical-align: middle;
-      }
-
-      .table img {
-       max-width: 100px;
-      }
-
-      .btn-custom {
-       width: 100px;
-      }
-
-      .empty-message {
-       text-align: center;
-       color: red;
-       font-weight: bold;
-      }
      </style>
     </head>
 
     <body>
      <!-- Shopping Cart -->
-     <div class="shopping-cart section">
+     <div class="shopping-cart section" style="padding-bottom: 100px;">
       <div class="container">
        <div class="row">
         <div class="col-12">
          <!-- Shopping Summery -->
          <h4 class="text-center mb-4">구매 내역</h4>
-         <table class="table table-bordered table-hover shopping-summery">
-          <thead class="thead-light">
-           <tr>
+         <table class="table shopping-summery">
+          <thead>
+           <tr class="main-hading">
             <th class="text-center" style="width: 10%;">주문 번호</th>
             <th class="text-center" style="width: 15%;">공연</th>
             <th class="text-center" style="width: 20%;">공연장</th>
@@ -111,11 +85,6 @@
        </div>
       </div>
      </div>
-
-     <!-- 부트스트랩 4 JS, jQuery 링크 -->
-     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     </body>
 
     </html>
