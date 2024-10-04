@@ -93,7 +93,7 @@
 																<div>
 																	<h3>
 																		<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-																		<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+																		<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																			${performance.performance_name}
 																		</a>
 																	</h3>
@@ -132,7 +132,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -168,7 +168,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -204,7 +204,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -241,7 +241,7 @@
 													<div class="product-content">
 														<h3>
 															<span style="font-size: small;">[${performance.performance_cate_name}]</span>
-															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}">
+															<a href="../detail/detail.do?performance_idx=${performance.performance_idx}" style="font-weight: bold;">
 																${performance.performance_name}
 															</a>
 														</h3>
@@ -302,7 +302,7 @@
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title" style="font-size: 21px;">NEW</h6><br>
-								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black;">${performance.performance_name}</p>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black; font-weight: bold;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
@@ -334,7 +334,7 @@
 						<div class="col-lg-6 col-md-6 col-12 no-padding">
 							<div class="content">
 								<h6 class="title" style="font-size: 21px;">${performanceExLike.like_number} ${status.index + 1}등</h6><br>
-								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black;">${performance.performance_name}</p>
+								<p id="performanceTitle_${performance.performance_idx}" style="font-size: 15px; color: black; font-weight: bold;">${performance.performance_name}</p>
 							</div>
 						</div>
 					</div>
