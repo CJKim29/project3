@@ -610,10 +610,10 @@ insert into seat (performance_idx, seat_grade, seat_price) values (85, 'S', 9900
 
 
 -- performance_date                  날짜   공연  
-insert into performance_date values (null, 27, '2024-09-30 19:30:00'); -- 연극 (s_hall)
-insert into performance_date values (null, 1, '2024-09-30 19:30:00'); -- 뮤지컬 (m_hall)
-insert into performance_date values (null, 52, '2024-09-30 19:30:00'); -- 콘서트 (l_hall)
-insert into performance_date values (null, 4, '2024-09-30 19:30:00'); -- 뮤지컬 (m_hall)
+insert into performance_date values (null, 27, '2024-10-04 19:30:00'); -- 연극 (s_hall)
+insert into performance_date values (null, 1, '2024-10-04 19:30:00'); -- 뮤지컬 (m_hall)
+insert into performance_date values (null, 52, '2024-10-04 19:30:00'); -- 콘서트 (l_hall)
+insert into performance_date values (null, 4, '2024-10-04 19:30:00'); -- 뮤지컬 (m_hall)
 -- s_hall
 																	 -- 날짜 좌석 행
 insert into s_hall (performance_date_idx, seat_idx, s_hall_row_no) values(1, 68, 1);
