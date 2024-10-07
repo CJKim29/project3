@@ -4,20 +4,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.githrd.project3.dao.CartMapper">
 
-<!-- cartMap: cart와 cart_seat를 묶어 조회 -->
-<resultMap id="cartMap" type="cart">
-    <result property="cart_idx" column="cart_idx" />
-    <result property="mem_idx" column="mem_idx" />
-    <result property="performance_name" column="performance_name" />
-    <result property="performance_idx" column="performance_idx" />
-    <result property="reserved_performance_date" column="reserved_performance_date" />
-    <result property="hall_name" column="hall_name" />
-    <!-- 좌석 정보를 담기 위한 list -->
-    <collection property="seatList" column="cart_idx" select="cart_seat_list" />
-</resultMap>
+ <!-- cartMap: cart와 cart_seat를 묶어 조회 -->
+ <resultMap id="cartMap" type="cart">
+  <result property="cart_idx" column="cart_idx" />
+  <result property="mem_idx" column="mem_idx" />
+  <result property="performance_name" column="performance_name" />
+  <result property="performance_idx" column="performance_idx" />
+  <result property="reserved_performance_date" column="reserved_performance_date" />
+  <result property="hall_name" column="hall_name" />
+  <!-- 좌석 정보를 담기 위한 list -->
+  <collection property="seatList" column="cart_idx" select="cart_seat_list" />
+ </resultMap>
 
-  <!-- 장바구니 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
-  <select id="cart_seat_list" resultType="cart_seat">
+ <!-- 장바구니 좌석 정보와 좌석등급,가격 정보를 가져오기 위한 조인 -->
+ <select id="cart_seat_list" resultType="cart_seat">
     SELECT 
         cs.cart_seat_idx,
         cs.seat_idx,
@@ -27,10 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM cart_seat cs 
     INNER JOIN seat s ON cs.seat_idx = s.seat_idx
     WHERE cs.cart_idx = #{cart_idx}
-  </select>
+ </select>
 
-  <!-- 회원별 장바구니목록 조회(공연이미지, 공연명, 공연장명) -->
-  <select id="cart_list" parameterType="int" resultMap="cartMap">
+ <!-- 회원별 장바구니목록 조회(공연이미지, 공연명, 공연장명) -->
+ <select id="cart_list" parameterType="int" resultMap="cartMap">
       SELECT 
           c.cart_idx,
           c.performance_idx,
@@ -43,44 +43,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       INNER JOIN hall h ON p.hall_idx = h.hall_idx
       WHERE c.mem_idx = #{mem_idx} 
       ORDER BY c.cart_idx
-  </select>
+ </select>
 
 
-  <select id="select_one_cart" parameterType="int" resultType="cart">
+ <select id="select_one_cart" parameterType="int" resultType="cart">
         select * from cart where cart_idx = #{cart_idx}
-  </select>
+ </select>
 
-  <select id="select_performance_cate_idx" parameterType="int" resultType="int">
+ <select id="select_performance_cate_idx" parameterType="int" resultType="int">
     SELECT performance_cate_idx 
     FROM performance 
     WHERE performance_idx = #{performance_idx};
-  </select>
+ </select>
 
-  <select id="selectOne_seat_idx_m" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviewm where performance_date_idx = #{performance_date_idx} and m_hall_row_no = #{row};
-  </select>
-  <select id="selectOne_seat_idx_s" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviews where performance_date_idx = #{performance_date_idx} and s_hall_row_no = #{row};
-  </select>
-  <select id="selectOne_seat_idx_l" parameterType="map" resultType="int">
-        SELECT seat_idx FROM cartlistviewl where performance_date_idx = #{performance_date_idx} and l_hall_row_no = #{row};
-  </select>
+ <select id="selectOne_seat_idx_m" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartListViewM where performance_date_idx = #{performance_date_idx} and m_hall_row_no = #{row};
+ </select>
+ <select id="selectOne_seat_idx_s" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartListViewS where performance_date_idx = #{performance_date_idx} and s_hall_row_no = #{row};
+ </select>
+ <select id="selectOne_seat_idx_l" parameterType="map" resultType="int">
+        SELECT seat_idx FROM cartListViewL where performance_date_idx = #{performance_date_idx} and l_hall_row_no = #{row};
+ </select>
 
-  <insert id="cart_insert" parameterType="cart">
+ <insert id="cart_insert" parameterType="cart">
       INSERT INTO cart ( mem_idx,performance_idx, reserved_performance_date) values (
             #{mem_idx}, 
             #{performance_idx}, 
             #{ reserved_performance_date } )
-  </insert>
+ </insert>
 
-  <select id="cart_recent_idx" resultType="int">
+ <select id="cart_recent_idx" resultType="int">
         select max(cart_idx) from cart
-  </select>
+ </select>
 
-  <!-- 장바구니 삭제 -->
-  <delete id="cart_delete" parameterType="int">
+ <!-- 장바구니 삭제 -->
+ <delete id="cart_delete" parameterType="int">
         DELETE FROM cart WHERE cart_idx = #{cart_idx}
-  </delete>
+ </delete>
 
 
 </mapper>
